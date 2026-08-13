@@ -88,6 +88,14 @@ a { color: inherit; }
 @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .grow { transform-origin: left; animation: grow .8s cubic-bezier(.2,.7,.3,1) both; }
 
+/* 페이지를 옮길 때 — 화면이 갈렸다는 것만 알리고 곧 비켜난다.
+   움직임은 stagger가 맡으므로 여기서는 흐림만 준다. */
+@keyframes pagein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.pagefade { animation: pagein .26s ease both; }
+
 /* 페이지가 열릴 때 위에서부터 차례로 — 읽는 차례를 만든다 */
 .stagger > * { animation: rise .42s cubic-bezier(.2,.7,.3,1) both; }
 .stagger > *:nth-child(1) { animation-delay: 0ms; }
@@ -102,7 +110,7 @@ a { color: inherit; }
 .pick:hover { transform: translateY(-1px); }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise, .grow, .stagger > * { animation: none; }
+  .rise, .grow, .stagger > *, .pagefade { animation: none; }
   .pick:hover { transform: none; }
   * { transition: none !important; }
 }

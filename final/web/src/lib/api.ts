@@ -30,7 +30,13 @@ export type NeedRow = {
 };
 
 export type Review = {
-  card: Business & { owner: string | null; budget: string | null; missing: string[] };
+  card: Business & {
+    owner: string | null; budget: string | null;
+    /** 원문에 값이 아예 없던 항목 */
+    missing: string[];
+    /** 값은 있으나 뒷받침할 원문 문장을 못 찾은 항목 */
+    noQuote: string[];
+  };
   budget: {
     status: string | null; won: number | null; official_dept: string | null;
     /** 예산서에 적힌 사업 항목명 */

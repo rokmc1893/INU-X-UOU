@@ -137,9 +137,15 @@ def review(pid: str):
     mycov = [c for c in cov if ind and ind in c["industry"]
              and c["verdict"] in ("covered", "uncovered")]
     return {
+        # missing_fields에는 `source_span[...]`이 섞여 있다. 그건 「값이 없다」가 아니라
+        # 「그 값을 뒷받침할 원문 문장을 못 찾았다」는 뜻이라 세는 자리가 다르다.
+        # 둘을 합쳐 세면 화면에 "6개 항목이 비었다"가 나가는데 실제로 빈 것은 1개다.
         "card": {**_brief(card), "owner": card.get("owner_dept"),
                  "budget": card.get("budget"),
-                 "missing": card.get("missing_fields") or []},
+                 "missing": [f for f in (card.get("missing_fields") or [])
+                             if not f.startswith("source_span[")],
+                 "noQuote": [f[12:-1] for f in (card.get("missing_fields") or [])
+                             if f.startswith("source_span[")]},
         "budget": {"status": (budget or {}).get("status"),
                    "won": (budget or {}).get("budget_won"),
                    "official_dept": (budget or {}).get("dept"),

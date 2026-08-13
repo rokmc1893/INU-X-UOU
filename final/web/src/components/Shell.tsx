@@ -94,7 +94,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
       </header>
-      <main className="mx-auto max-w-[1180px] px-6 py-7">{children}</main>
+      {/* key를 길로 두면 페이지를 옮길 때마다 새로 그려져 애니메이션이 다시 돈다 */}
+      <main key={path} className="pagefade mx-auto max-w-[1180px] px-6 py-7">
+        {children}
+      </main>
     </div>
   );
 }
