@@ -23,27 +23,33 @@ export default function LinksPage() {
       />
 
       <div className="stagger">
+        {/* 이름은 문제를 가리키는 단어로. 관계도 범례와 글자까지 같아야
+            「그림의 노란 점선」과 「아래 목록」이 같은 것임을 알 수 있다. */}
         <Counts items={[
-          { label: "정리가 필요한 겹침", n: o.harmful.length, tone: "gap" },
-          { label: "일부러 나란히 둔 것", n: o.intentional.length },
-          { label: "서로 채워 주는 것", n: o.complement.length },
-          { label: "넘기는 절차가 없음", n: r.handoffs.items.length },
+          { label: "중복", n: o.harmful.length, tone: "gap",
+            hint: "받는 사람·주는 것·직무가 같음" },
+          { label: "연계 끊김", n: r.handoffs.items.length, tone: "hold",
+            hint: "앞 사업을 마쳐도 뒤 사업으로 이어지지 않음" },
+          { label: "중복 아님 · 나란히", n: o.intentional.length,
+            hint: "일부러 같이 두고 대상이 다름" },
+          { label: "중복 아님 · 채워 줌", n: o.complement.length,
+            hint: "서로 모자란 곳을 메움" },
         ]} />
   
         <Relations r={r} />
   
         <PairList
-          title="정리가 필요해 보이는 겹침" tone="gap" rows={o.harmful}
+          title="중복" tone="gap" rows={o.harmful}
           note="받는 사람·주는 것·직무가 모두 같습니다. 두 사업의 소관 부서에 조정 협의를 요청하세요."
         />
         <PairList
-          title="겹쳐 보이지만 겹치지 않는 것" tone="flat"
-          rows={[...o.intentional, ...o.complement]}
-          note="주는 것이 같아도 받는 사람이나 수단이 다릅니다. 검토서에 이 이유를 적어 두면 중복이라는 이유로 잘못 반려당하는 것을 막아 줍니다."
+          title="연계 끊김" tone="hold" rows={r.handoffs.items}
+          note="앞 사업을 마친 사람이 뒤 사업으로 이어지지 않습니다. 넘기는 절차가 두 사업 문서 어디에도 없어, 수료해도 다음 단계로 가는 길이 끊깁니다."
         />
         <PairList
-          title="다음 사업으로 넘기는 절차가 없는 곳" tone="flat" rows={r.handoffs.items}
-          note="앞 단계를 마친 사람을 뒤 단계로 넘기는 절차가 두 사업 문서 어디에도 없습니다."
+          title="중복 아님" tone="flat"
+          rows={[...o.intentional, ...o.complement]}
+          note="주는 것이 같아도 받는 사람이나 수단이 다릅니다. 검토서에 이 이유를 적어 두면 중복이라는 이유로 잘못 반려당하는 것을 막아 줍니다."
         />
   
         {(o.empty || r.handoffs.empty) && (

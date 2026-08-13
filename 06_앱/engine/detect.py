@@ -183,7 +183,11 @@ def run_rules(cards, demands, edges, linkages=None, posture_of=None):
                 "items": [first["policy_id"], second["policy_id"]],
                 "same_industry": _same_industry(a, b),
                 "evidence": "조사 확인(B3)" if confirmed else "원문 미언급",
-                "reason": f"{first.get('stage')} 다음 {second.get('stage')}(으)로 넘기는 절차가 문서에 없습니다"
+                # 「A 다음 B(으)로」는 무엇이 문제인지 짚지 못했다. 어느 단계에서 어느
+                # 단계로 못 넘어가는지 그대로 적는다. 「단계에서/단계로」로 받는 이유는
+                # 단계 이름마다 조사가 달라지기 때문이다 — 「구직지원으로」·「창업으로」.
+                "reason": f"{first.get('stage')} 단계에서 {second.get('stage')} 단계로 "
+                          f"넘어가는 절차가 두 사업 문서에 없습니다"
                           + (" (조사자가 직접 찾아봤지만 없었음)" if confirmed else "")})
     covered_specific = {e["dst"] for e in edges if e["type"] == "COVERS"
                         and e["props"].get("specificity") == "specific"}

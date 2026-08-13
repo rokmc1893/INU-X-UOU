@@ -471,7 +471,7 @@ elif screen.startswith("2"):
     c1.metric("정리가 필요한 겹침", f"{len(oh)}건", help="받는 사람·주는 것·직무가 모두 같습니다")
     c2.metric("일부러 나란히 두는 것", f"{len(oi)}건", help="주는 것은 같지만 받는 사람이 다릅니다")
     c3.metric("서로 채워 주는 것", f"{len(cp)}건", help="주는 것이 달라 중복이 아닙니다")
-    c4.metric("넘기는 절차 없음", f"{len(hb)}쌍")
+    c4.metric("연계 끊김", f"{len(hb)}쌍")
 
     _same_ind = [c for c in works if in_scope(c)]
     if not oh:
@@ -498,7 +498,7 @@ elif screen.startswith("2"):
                         f'  <span class="small">{esc(f["reason"])}</span>',
                         unsafe_allow_html=True)
 
-    st.subheader("다음 사업으로 넘기는 절차가 없는 곳")
+    st.subheader("연계 끊김 — 앞 사업을 마쳐도 뒤 사업으로 이어지지 않는 곳")
     if hb:
         groups = {}
         for f in hb:

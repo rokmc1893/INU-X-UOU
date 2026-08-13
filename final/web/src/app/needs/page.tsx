@@ -11,6 +11,12 @@ import { Slots, Src, Tag } from "@/components/bits";
 import { Card, Counts } from "@/components/parts";
 import { API, getSources, post, postFile, type Review, type SourceItem } from "@/lib/api";
 
+/* 원장의 추세 표기. 영어를 그대로 내보내면 담당자가 읽을 수 없다. */
+const TREND: Record<string, string> = {
+  SUSTAINED: "계속 나오는 이야기",
+  SPIKE: "최근 부쩍 늘어난 이야기",
+};
+
 export default function NeedsPage() {
   const { r, err } = useReview();
   if (!r) return <Loading err={err} />;
@@ -75,20 +81,28 @@ export default function NeedsPage() {
           </ul>
         </Card>
   
-        <Card title="하나씩 보기" sub="자료마다 근거 등급과 원문이 붙어 있습니다.">
+        {/* 배지를 글자 흐름에 두면 폭이 달라 제목이 배지마다 다른 자리에서 시작한다
+            — 「없음」과 「이 사업」의 폭 차이만큼 밀린다. 고정 칸으로 세운다. */}
+        <Card title="하나씩 보기"
+              sub="왼쪽 표는 그 필요를 해주는 사업이 몇 건인가입니다. 자료마다 근거 등급과 원문이 붙어 있습니다.">
           <ul className="space-y-2.5">
             {[...r.needs].sort((a, b) =>
               (a.verdict === "uncovered" ? 0 : 1) - (b.verdict === "uncovered" ? 0 : 1)
             ).map((n) => (
-              <li key={n.signal_id} className="flex flex-wrap items-start gap-2 border-b border-rule pb-2.5">
+              <li key={n.signal_id}
+                  className="grid grid-cols-[4.5rem_1fr] items-start gap-x-3 border-b border-rule pb-2.5">
                 <Tag tone={n.verdict === "uncovered" ? "gap" : n.mine ? "pen" : "flat"}>
-                  {n.verdict === "uncovered" ? "없음" : n.mine ? "이 사업이 맡음" : `${n.covers.length}건`}
+                  {n.verdict === "uncovered" ? "없음" : n.mine ? "이 사업" : `${n.covers.length}건`}
                 </Tag>
-                <span className="min-w-0 flex-1">
+                <span className="min-w-0">
                   <b className="text-[14px]">{n.plain}</b>
-                  <span className="text-[14px]"> · {n.problem_type}</span>
+                  {/* 원장의 problem_type 이 지원 유형과 같은 말일 때가 있다 —
+                      「기업 자금 · 금융」처럼 같은 것을 두 번 읽게 된다. */}
+                  {n.problem_type !== n.need && (
+                    <span className="text-[14px]"> · {n.problem_type}</span>
+                  )}
                   <span className="mt-0.5 block text-[12px] text-muted">
-                    {n.value.slice(0, 70)} · {n.signal_id} {n.grade}등급 {n.trend}
+                    {n.value.slice(0, 70)} · {n.signal_id} {n.grade}등급 · {TREND[n.trend] ?? n.trend}{" "}
                     <Src url={n.source_url} label="자료" />
                   </span>
                   {n.limit && (
@@ -96,9 +110,14 @@ export default function NeedsPage() {
                       이 자료의 한계 — {n.limit.slice(0, 90)}
                     </span>
                   )}
-                  {n.coverNames.filter(Boolean).length > 0 && (
+                  {n.verdict === "uncovered" ? (
+                    <span className="mt-0.5 block text-[12px] text-gap">
+                      이 필요를 해주는 사업이 하나도 없습니다.
+                    </span>
+                  ) : n.coverNames.filter(Boolean).length > 0 && (
                     <span className="mt-0.5 block text-[12px] text-pen">
-                      → {n.coverNames.filter(Boolean).slice(0, 3).join(", ")}
+                      {n.mine ? "이 사업이 맡고 있습니다 → " : "→ "}
+                      {n.coverNames.filter(Boolean).slice(0, 3).join(", ")}
                     </span>
                   )}
                 </span>

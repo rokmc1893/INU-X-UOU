@@ -21,19 +21,21 @@ const KIND: Record<Kind, {
   stroke: string; soft: string; width: number; dash?: string;
   label: string; hint: string;
 }> = {
+  // 이름은 **문제를 가리키는 단어**로 둔다. 「정리가 필요합니다」·「넘기는 절차가
+  // 없습니다」는 조치를 말할 뿐 무엇이 잘못됐는지 짚지 못했다. 무엇인지가 먼저다.
   harmful: {
     stroke: "#c0392b", soft: "#fdf0ee", width: 2.6,
-    label: "정리가 필요합니다",
+    label: "중복",
     hint: "받는 사람·주는 것·직무가 모두 같습니다. 협의 단계에서 중복으로 반려될 수 있어 미리 조정해야 합니다.",
   },
   handoff: {
     stroke: "#b08a2a", soft: "#fbf6e9", width: 1.6, dash: "5 4",
-    label: "다음 사업으로 넘기는 절차가 없습니다",
-    hint: "앞 단계를 마친 사람을 뒤 단계 사업으로 넘기는 절차가 두 사업 문서 어디에도 적혀 있지 않습니다. 이어 주려면 절차를 새로 만들어야 합니다.",
+    label: "연계 끊김",
+    hint: "앞 사업을 마친 사람이 뒤 사업으로 이어지지 않습니다. 넘기는 절차가 두 사업 문서 어디에도 없어, 수료해도 다음 단계로 가는 길이 끊깁니다.",
   },
   same: {
     stroke: "#1f5fd0", soft: "#eef3fd", width: 1.6,
-    label: "겹치지 않습니다",
+    label: "중복 아님",
     hint: "주는 것이 같아도 받는 사람이나 수단이 다릅니다. 검토서에 이 이유를 적어 두면 중복이라는 이유로 잘못 반려당하지 않습니다.",
   },
 };
