@@ -389,6 +389,102 @@ def name_of(pid):
     return by_id[pid].get("name") or pid
 
 
+def _esc(t):
+    return (str(t or "").replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;").replace('"', "&quot;"))
+
+
+def chain_svg(focus_pid=None, per_stage=7):
+    """정책 간 관계선을 그린다. 노드=정책, 선=인계 / 절취선=인계 공백.
+
+    선을 전부 그리면 실타래가 된다. 그래서 두 가지만 그린다 —
+    (1) 확인된 인계(HANDOFF)는 전부, (2) 인계 공백은 **초점 사업에 걸린 것만**.
+    나머지 공백은 개수로만 알린다.
+    """
+    focus = focus_pid or ANCHOR
+    # 사슬 밖(시설·R&D·계획)도 열로 그린다 — 조사자 B가 확인한 인계가 이쪽에 몰려 있어서
+    # 빼면 '확인된 인계'가 화면에서 사라진다.
+    cols = STAGES + ["사슬 밖"]
+    staged = {s: [c for c in cards if c.get("stage") == s] for s in STAGES}
+    staged["사슬 밖"] = [c for c in cards if not c.get("stage")]
+    CW, NW, NH, GAP, TOP = 160, 144, 40, 12, 46
+    rows = min(max((len(v) for v in staged.values()), default=0), per_stage)
+    H = TOP + rows * (NH + GAP) + 30
+    W = CW * len(cols)
+
+    pos, parts, cut_off = {}, [], 0
+    for i, s in enumerate(cols):
+        x = i * CW + (CW - NW) / 2
+        parts.append(f'<text x="{i*CW + CW/2:.0f}" y="24" text-anchor="middle" '
+                     f'font-size="13" font-weight="{400 if s == "사슬 밖" else 700}" '
+                     f'fill="{"#6B7280" if s == "사슬 밖" else "#1A2B3C"}" '
+                     f'font-family="Batang,serif">{s}</text>')
+        shown = staged[s][:per_stage]
+        if not shown:
+            parts.append(f'<rect x="{x:.0f}" y="{TOP}" width="{NW}" height="{NH}" fill="none" '
+                         f'stroke="#D6D2C8" stroke-dasharray="4 3"/>'
+                         f'<text x="{x + NW/2:.0f}" y="{TOP + NH/2 + 4:.0f}" text-anchor="middle" '
+                         f'font-size="11" fill="#6B7280">정책 없음</text>')
+        for j, c in enumerate(shown):
+            y = TOP + j * (NH + GAP)
+            pos[c["policy_id"]] = (x, y)
+            is_focus = c["policy_id"] == focus
+            nm = (c.get("name") or c["policy_id"])
+            label = nm if len(nm) <= 11 else nm[:10] + "…"
+            dept = (c.get("owner_dept") or "소관 미확인").replace("인천광역시 ", "")
+            parts.append(
+                f'<g><title>{_esc(nm)} · {_esc(dept)} · 수단 {_esc(c.get("intervention_type") or "미상")}</title>'
+                f'<rect x="{x:.0f}" y="{y}" width="{NW}" height="{NH}" fill="#fff" '
+                f'stroke="{"#B4402E" if is_focus else "#1A2B3C"}" '
+                f'stroke-width="{2 if is_focus else 1}"/>'
+                f'<rect x="{x:.0f}" y="{y}" width="{NW}" height="3" '
+                f'fill="{"#B4402E" if is_focus else "#0E5A8A"}"/>'
+                f'<text x="{x+8:.0f}" y="{y+18}" font-size="11.5" font-weight="600" '
+                f'fill="#1A2B3C">{_esc(label)}</text>'
+                f'<text x="{x+8:.0f}" y="{y+32}" font-size="9.5" fill="#6B7280">'
+                f'{_esc(dept[:14])}</text></g>')
+        if len(staged[s]) > per_stage:
+            parts.append(f'<text x="{x:.0f}" y="{TOP + rows*(NH+GAP) + 12:.0f}" font-size="10" '
+                         f'fill="#6B7280">외 {len(staged[s]) - per_stage}건</text>')
+
+    def anchor_pts(a, b):
+        (x1, y1), (x2, y2) = pos[a], pos[b]
+        return (x1 + NW, y1 + NH / 2, x2, y2 + NH / 2) if x1 <= x2 else \
+               (x1, y1 + NH / 2, x2 + NW, y2 + NH / 2)
+
+    lines = []
+    for e in edges:  # 확인된 인계 — 전부 그린다
+        if e["type"] != "HANDOFF" or e["src"] not in pos or e["dst"] not in pos:
+            continue
+        x1, y1, x2, y2 = anchor_pts(e["src"], e["dst"])
+        mx = (x1 + x2) / 2
+        confirmed = e.get("props", {}).get("source") == "조사 확인(B3)"
+        lines.append(
+            f'<path d="M{x1:.0f},{y1:.0f} C{mx:.0f},{y1:.0f} {mx:.0f},{y2:.0f} {x2:.0f},{y2:.0f}" '
+            f'fill="none" stroke="#0E5A8A" stroke-width="{2.2 if confirmed else 1.4}" '
+            f'marker-end="url(#ar)"><title>인계 있음'
+            f'{" (조사 확인 B3)" if confirmed else ""}</title></path>')
+    for f in findings["handoff_breaks"]:  # 인계 공백 — 초점 사업 것만
+        a, b = f["items"]
+        if focus not in (a, b) or a not in pos or b not in pos:
+            cut_off += 1
+            continue
+        x1, y1, x2, y2 = anchor_pts(a, b)
+        mx = (x1 + x2) / 2
+        lines.append(
+            f'<path d="M{x1:.0f},{y1:.0f} C{mx:.0f},{y1:.0f} {mx:.0f},{y2:.0f} {x2:.0f},{y2:.0f}" '
+            f'fill="none" stroke="#B4402E" stroke-width="1.3" stroke-dasharray="5 4">'
+            f'<title>{_esc(f["reason"])}</title></path>'
+            f'<text x="{mx:.0f}" y="{(y1+y2)/2 - 4:.0f}" text-anchor="middle" font-size="11" '
+            f'fill="#B4402E" font-weight="700">✂</text>')
+
+    return (f'<svg viewBox="0 0 {W} {H}" width="100%" style="max-width:{W}px;'
+            f'background:#fff;border:1px solid #D6D2C8">'
+            f'<defs><marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3" '
+            f'orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0E5A8A"/></marker></defs>'
+            + "".join(lines) + "".join(parts) + "</svg>"), cut_off
+
+
 def chain_html():
     """시그니처: 결재란 사슬 — 인계가 없는 구간은 절단선으로 표시."""
     stage_ids = {s: {c["policy_id"] for c in cards if c.get("stage") == s} for s in STAGES}
@@ -586,24 +682,28 @@ if screen.startswith("1"):
 elif screen.startswith("2"):
     st.title("정책 연계 지도")
     st.markdown('<p class="small">교육훈련부터 정착까지 6단계. 칸 사이 절취선이 인계가 끊긴 지점이다.</p>', unsafe_allow_html=True)
+    _focus = target_pid or ANCHOR
+    _svg, _hidden = chain_svg(_focus)
+    st.markdown(_svg, unsafe_allow_html=True)
+    _fname = (by_id.get(_focus) or {}).get("name") or _focus
+    st.markdown(
+        f'<p class="small">'
+        f'<span style="color:#0E5A8A">━</span> 확인된 인계 (굵은 선은 조사자 B가 문서로 확인한 것) &nbsp;·&nbsp; '
+        f'<span style="color:#B4402E">┅ ✂</span> 인계 공백 &nbsp;·&nbsp; '
+        f'<span style="color:#B4402E">▌</span> 초점 사업 <b>{_esc(_fname)}</b><br>'
+        f'선을 전부 그리면 읽을 수 없으므로 <b>인계 공백은 초점 사업에 걸린 것만</b> 그린다. '
+        f'나머지 {_hidden}쌍은 아래 목록에 있다. 상자에 마우스를 올리면 소관·수단이 나온다.</p>',
+        unsafe_allow_html=True)
     st.markdown(chain_html(), unsafe_allow_html=True)
-    st.caption("결재란 사슬: 인접 단계 사이에 명시된 인계(HANDOFF)가 있으면 실선, 없으면 절단선(✂). "
-               "기준사업이 있는 칸은 주황 상단선.")
-    cols = st.columns(len(STAGES))
-    for col, stg in zip(cols, STAGES):
-        col.markdown(f"**{stg}**")
-        for c in cards:
-            if c.get("stage") == stg:
-                star = "⭐ " if c["policy_id"] == ANCHOR else "· "
-                col.markdown(f"{star}[{c.get('name') or c['policy_id']}]({c.get('source_url')}) {chip(c)}",
-                             unsafe_allow_html=True)
-                dept = (c.get("owner_dept") or "").replace("인천광역시 ", "")
-                if dept:
-                    col.caption(f"　{dept}")
+    st.markdown('<p class="small">단계 요약 — 인접 단계 사이에 인계가 하나라도 있으면 실선, '
+                '없으면 절취선. 정착 칸이 비어 있으면 취업 이후를 다루는 정책이 없다는 뜻이다.</p>',
+                unsafe_allow_html=True)
     unstaged = [c for c in cards if not c.get("stage")]
     if unstaged:
-        st.caption("사슬 밖(시설·기업지원·계획 등): " +
-                   ", ".join(c.get("name") or c["policy_id"] for c in unstaged))
+        st.markdown('<p class="small">사슬 밖(시설·기업지원·계획 등) — 사람의 취업 단계를 직접 '
+                    '다루지 않아 사슬에 넣지 않았다: '
+                    + ", ".join(_esc(c.get("name") or c["policy_id"]) for c in unstaged)
+                    + '</p>', unsafe_allow_html=True)
     st.divider()
     st.subheader("인계 공백 후보 — 구간별 (사업 간 연계 끊김)")
     groups = {}
