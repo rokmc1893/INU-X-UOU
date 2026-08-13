@@ -63,7 +63,9 @@ by_id = {c["policy_id"]: c for c in cards}
 st.sidebar.title("정책핏 인천")
 screen = st.sidebar.radio("화면", ["1 검토 개요", "2 정책 연계 지도", "3 유사·중복 검토표", "4 조치 제안서"])
 st.sidebar.caption(f"그래프 스토어: **{store.name}**")
-st.sidebar.caption(f"정책 {len(cards)}건 · 수요신호 {len(demands)}건 (수요는 가상 표본)")
+n_real_d = sum(1 for d in demands if d.get("data_type") == "real")
+st.sidebar.caption(f"정책 {len(cards)}건 · 수요신호 {len(demands)}건 "
+                   f"(실신호 {n_real_d}건 · 가상 표본 {len(demands) - n_real_d}건)")
 st.sidebar.caption("기준일 2026-08-13 · 모든 판정은 '후보'이며 확정은 부서 협의로")
 
 
@@ -213,8 +215,12 @@ elif screen.startswith("3"):
                                                 for c in pols})),
                      "정책": ", ".join(c.get("name") or c["policy_id"] for c in pols)})
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.caption("수요신호는 가상 표본(🟡)이다 — 공백 판정은 실데이터 교체 후 확정. "
+    st.caption("바이오생산 수요는 B2 실신호 기반(B/D급 — 전국 단위 보고서·사업주체 서술이라 한계 있음), "
+               "나머지 3건은 가상 표본(🟡) — 공백 판정은 고용24 실데이터 교체 후 확정. "
                f"공백 시 → {NEXT_ACTION['gap']}")
+    st.caption("광역 컨텍스트: 인천 산업기술인력 부족 1,138명(A급, 시도 단위 — 산업별 분해 불가, B2 D-001)")
+    with st.expander("수요신호 상세 — 출처·증거등급·한계"):
+        st.dataframe(pd.DataFrame(demands), use_container_width=True)
     if findings["overlaps_harmful"]:
         with st.expander(f"🔴 조정 필요 중복 후보 {len(findings['overlaps_harmful'])}건 — 상세"):
             for f in findings["overlaps_harmful"]:

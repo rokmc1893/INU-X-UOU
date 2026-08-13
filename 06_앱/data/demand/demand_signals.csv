@@ -1,5 +1,5 @@
-signal_id,occupation,geography,period,value,source_url,data_type
-D001,바이오생산,인천 송도,2026,구인수요 표본(가상),,virtual
-D002,바이오품질,인천 송도,2026,구인수요 표본(가상),,virtual
-D003,SW·AI,인천,2026,구인수요 표본(가상),,virtual
-D004,일반사무,인천,2026,구인수요 표본(가상),,virtual
+signal_id,occupation,geography,period,value,source_url,data_type,evidence_grade,b2_ref,proxy_limit
+D001,바이오생산,인천 송도,2026,"바이오공정 기업 60여개사 집적·석박사급 전문인력 부족(정성 서술)",http://knibrt.com/education/edu0402.php,real,B/D,"D-101, D-106","D-101은 전국 단위 보고서(지역 보정 근거 없음), D-106은 사업주체 자기서술 — 기업당 수요 인원 미제시"
+D002,바이오품질,인천 송도,2026,"구인수요 표본(가상 — B2에 품질 직무 특정 신호 없음)",,virtual,,,"실측 신호 부재. 고용24 구인공고 확보 후 교체 필요"
+D003,SW·AI,인천,2026,구인수요 표본(가상),,virtual,,,"실측 신호 부재. 고용24 구인공고 확보 후 교체 필요"
+D004,일반사무,인천,2026,구인수요 표본(가상),,virtual,,,"실측 신호 부재. 고용24 구인공고 확보 후 교체 필요"
