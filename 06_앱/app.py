@@ -131,7 +131,16 @@ if extra:
     by_id = {c["policy_id"]: c for c in cards}
     edges = detect.build_edges(cards, demands)
     findings = detect.run_rules(cards, demands, edges)
-    st.sidebar.caption(f"➕ URL로 추가된 정책 {len(extra)}건 (세션 한정)")
+    # 그래프에도 반영한다 — 카드 구성이 바뀐 경우에만 재적재(매 rerun마다 쓰지 않는다)
+    sig = (scope, tuple(c["policy_id"] for c in cards))
+    if st.session_state.get("graph_sig") != sig:
+        try:
+            store.load(cards, demands)
+            store.add_edges(edges)
+            st.session_state["graph_sig"] = sig
+        except Exception as e:
+            st.sidebar.warning(f"그래프 재적재 실패 — 판정은 파이썬 규칙으로 계속됩니다. ({type(e).__name__})")
+    st.sidebar.caption(f"➕ URL로 추가된 정책 {len(extra)}건 — {store.name}에 적재됨 (세션 한정, 파일 미저장)")
 
 
 def chip(c) -> str:
