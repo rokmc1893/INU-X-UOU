@@ -116,8 +116,28 @@ by_id = {c["policy_id"]: c for c in cards}
 screen = st.sidebar.radio("화면", ["1 검토 개요", "2 정책 연계 지도", "3 유사·중복 검토표", "4 조치 제안서"])
 n_real_d = sum(1 for d in demands if d.get("data_type") == "real")
 st.sidebar.caption(f"그래프 스토어: **{store.name}**")
-st.sidebar.caption(f"정책 {len(cards)}건 · 수요신호 {len(demands)}건 "
-                   f"(실신호 {n_real_d}건 · 가상 표본 {len(demands) - n_real_d}건)")
+with st.sidebar.expander(f"데이터 {len(cards)}건 — 어디서 왔나", expanded=False):
+    _raw_n = len(list((BASE / "policies" / "raw").glob("P*.txt")))
+    _pool_n = len(cards) - _raw_n if "바이오" in scope else 0
+    st.markdown(f"""
+**정책 {len(cards)}건**
+- 인천청년포털 **원문 직접 수집 {_raw_n}건** — 각 카드에 원문 URL·수집일
+{f"- 조사자 B의 B1 정책원장에서 **{_pool_n}건** — 다수가 언론보도 2차 출처(카드에 등급 표기)" if _pool_n else ""}
+
+**수요신호 {len(demands)}건**
+- 조사자 B의 B2 원장 **29건을 읽어** 직무를 특정할 수 있는 **{n_real_d}건만** 신호로 씀
+- 나머지 26건은 산업 전체·예산·면적이라 직무에 못 붙임 → 아래 **광역 컨텍스트**로 표시
+- 신호가 없는 직무 {len(demands) - n_real_d}종은 **가상 표본**으로 채우고 그렇게 표기함
+
+**부서·달력·연계** — 조사자 A의 A1·A2, 조사자 B의 B3 원장을 그대로 읽는다 (`engine/refdata.py`)
+""")
+_ctx = refdata.demand_pool()[1]
+_ctx_a = [c for c in _ctx if c.get("evidence_grade") == "A" and c.get("value", "").strip()]
+if _ctx_a:
+    with st.sidebar.expander("광역 컨텍스트 (A급) — 직무에 못 붙인 수치", expanded=False):
+        for c in _ctx_a:
+            st.markdown(f"- **{c['value']}** · {c['geography']} ({c['b2_ref']})")
+        st.caption("시도 단위라 산업·직무별로 분해할 수 없다 — 그래서 판정에 쓰지 않고 배경으로만 둔다.")
 st.sidebar.caption("기준일 2026-08-13 · 모든 판정은 '후보'이며 확정은 부서 협의로")
 
 def _add_card(text: str, prefix: str, label: str):
