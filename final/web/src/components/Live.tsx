@@ -9,12 +9,20 @@
 import { useEffect, useRef, useState } from "react";
 import { getOverview, type Overview } from "@/lib/api";
 
-/** 0에서 값까지 숫자가 올라간다. 값은 실제 판정 결과다. */
+/** 0에서 값까지 숫자가 올라간다. 값은 실제 판정 결과다.
+ *
+ * **끝값에 도달하는 것이 애니메이션보다 중요하다.** requestAnimationFrame 은 탭이
+ * 뒤에 있으면 멈춘다. 그러면 화면에 「사업 0건」이 그대로 남는다 — 시연 영상에
+ * 틀린 숫자가 찍히는 것이다. 그래서 안전장치를 둘 건다: 숨은 탭이면 처음부터 끝값,
+ * 그리고 시간이 지나도 안 끝났으면 끝값으로 끊는다.
+ */
 function useCountUp(to: number, ms = 900) {
   const [n, setN] = useState(0);
   const raf = useRef(0);
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setN(to); return; }
+    const 바로 = () => setN(to);
+    if (document.hidden
+        || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { 바로(); return; }
     const t0 = performance.now();
     const step = (t: number) => {
       const p = Math.min((t - t0) / ms, 1);
@@ -22,7 +30,13 @@ function useCountUp(to: number, ms = 900) {
       if (p < 1) raf.current = requestAnimationFrame(step);
     };
     raf.current = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf.current);
+    const 보험 = setTimeout(바로, ms + 400);       // rAF 가 안 돌아도 끝값은 뜬다
+    document.addEventListener("visibilitychange", 바로, { once: true });
+    return () => {
+      cancelAnimationFrame(raf.current);
+      clearTimeout(보험);
+      document.removeEventListener("visibilitychange", 바로);
+    };
   }, [to, ms]);
   return n;
 }

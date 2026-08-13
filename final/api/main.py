@@ -29,9 +29,10 @@ app = FastAPI(title="정책핏 인천 판정 API")
 # 화면과 판정이 다른 포트에 있어 CORS 가 필요하다. 다만 `*` 로 열어 두지 않는다 —
 # 아무 사이트나 이 판정 서버를 부를 수 있게 되고, 심사자가 코드를 열면 그것부터 보인다.
 # 시연에 쓰는 로컬 주소만 허용한다.
-ALLOWED_ORIGINS = [f"http://{h}:{p}" for h in ("localhost", "127.0.0.1")
-                   for p in (3000, 3200, 3300)]
-app.add_middleware(CORSMiddleware, allow_origins=ALLOWED_ORIGINS,
+# 포트를 못박으면 시연 서버를 다른 포트로 띄우는 순간 화면이 통째로 빈다.
+# 로컬이면 포트는 묻지 않되, 바깥 주소는 그대로 막는다.
+LOCAL_ONLY = r"^http://(localhost|127\.0\.0\.1)(:\d+)?$"
+app.add_middleware(CORSMiddleware, allow_origin_regex=LOCAL_ONLY,
                    allow_methods=["GET", "POST"], allow_headers=["*"])
 
 # 담당자가 올린 자료 — 세션이 아니라 프로세스 수명 동안만 산다. 원장 파일은 건드리지 않는다.
