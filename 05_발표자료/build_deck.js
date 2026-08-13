@@ -173,9 +173,9 @@ s.addChart(pres.ChartType.bar, [{
   showLegend: false, catAxisLabelColor: INK, valAxisLabelColor: GRAY,
   valGridLine: { color: "E5E7EB", size: 0.5 }, catGridLine: { style: "none" },
   valAxisMaxVal: 100, fontFace: F });
-const met = [["인용 실재율", "81%", "필드가 늘며 91%에서 내려갔습니다 — 실측 그대로", CUT],
+const met = [["인용 실재율", "81%", "인용 84개 중 68개. 실패는 전부 분류 라벨 — 지어낸 인용 0건", CUT],
              ["기권 정확도", "100%", "양성 통제군을 넣어 판별력을 확보한 뒤의 값", GREEN],
-             ["중첩 판정", "100%", "수단 축을 넣기 전에는 0%였습니다", GREEN]];
+             ["중첩 판정", "100%", "수단 축을 넣기 전에는 검출 건수가 0건이었습니다 (n=3)", GREEN]];
 met.forEach((m, i) => {
   const y = 1.45 + i * 0.85;
   s.addShape("roundRect", { x: 5.0, y, w: 4.5, h: 0.75, rectRadius: 0.05,
@@ -189,7 +189,7 @@ s.addText([
   { text: "검증하지 않은 것: ", options: { bold: true, color: RED } },
   { text: "실제 취업·근속 증가 · 기업 매출 · 청년 순유출 감소 · 기관 도입 의향 — 3일 해커톤에서 증명할 수 없는 것은 주장하지 않는다", options: { color: INK } },
 ], { x: 0.5, y: 4.35, w: 9.0, h: 0.6, fontSize: 12, fontFace: F, margin: 0 });
-s.addText("전 과정 결정로그 D-001~D-023 · 프롬프트 v2→v9 반복은 전부 정답셋과 워크스루가 유도했다", {
+s.addText("전 과정 결정로그 D-001~D-023 · 프롬프트 v2→v7 반복은 전부 정답셋과 워크스루가 유도했다", {
   x: 0.5, y: 4.95, w: 9.0, h: 0.3, fontSize: 10.5, color: GRAY, fontFace: F, margin: 0 });
 
 // ── 8. 한계와 다음 단계 (다크 클로징) ──

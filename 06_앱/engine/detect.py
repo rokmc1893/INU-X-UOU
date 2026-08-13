@@ -166,4 +166,7 @@ CYPHER = {
     "overlaps_intentional": (
         "MATCH (a:Policy)-[e:OVERLAP_INTENTIONAL]->(b:Policy)\n"
         "RETURN a.policy_id, b.policy_id, e.reason"),
+    "complements": (
+        "MATCH (a:Policy)-[e:OVERLAP_COMPLEMENTARY]->(b:Policy)\n"
+        "RETURN a.policy_id, b.policy_id, e.reason  // 수단이 달라 중복이 아닌 보완 관계"),
 }

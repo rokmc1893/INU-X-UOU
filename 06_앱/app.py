@@ -79,6 +79,8 @@ NEXT_ACTION = {
     "overlap_harmful": "유사·중복 사업 자체 검토서에 통합·조정안 기재, 소관 부서 협의 요청. "
                        "차년도 통폐합 반영: 예산담당관 심사 8~9월.",
     "overlap_intent": "조치 불요 — 검토서에 '의도적 병행' 사유만 기재 (신규 유사사업 발의 방지 근거).",
+    "complement": "조치 불요 — 검토서에 '수단이 달라 중복이 아님'을 기재한다. "
+                  "A3 3단계 반려사유는 '대상·수단·직무 동일'이므로, 이 기재가 부당 반려를 예방한다.",
 }
 
 SCOPES = ["청년일자리 (기본)", "청년일자리 + 바이오"]
@@ -296,6 +298,9 @@ def _findings_for(pids):
     for f in findings["overlaps_intentional"]:
         if set(f["items"]) & pids:
             out.append(("의도적 병행", f["items"], f["reason"]))
+    for f in findings.get("complements", []):
+        if set(f["items"]) & pids:
+            out.append(("보완 관계 · 중복 아님", f["items"], f["reason"]))
     for f in findings["handoff_breaks"]:
         if set(f["items"]) & pids:
             out.append(("인계 공백 후보", f["items"], f["reason"]))
@@ -350,9 +355,9 @@ def draft_report():
 if screen.startswith("1"):
     st.title("이 돈은 성과로 이어지고 있는가?")
     st.markdown("**유사·중복 검토를 전화 협의 없이 한 화면에서 — 최종 판단은 담당자가 합니다**")
-    st.success("**이 도구가 대신하는 업무** — 신규사업 검토 8단계 중 "
-               "**3단계 '타 부서 협의·유사·중복 검토'** (예산 지침 필수 항목). "
-               "유사·중복 사업 자체 검토서 작성에 필요한 후보를 자동 선별합니다.")
+    st.success("**이 도구가 자동화하는 것** — 신규사업 검토 8단계 중 "
+               "**3단계 '타 부서 협의·유사·중복 검토'**(예산 지침 필수 항목)에서 "
+               "주무관이 손으로 하던 **기존 사업 대조**. 검토서는 **초안**이며 확정은 부서 협의로 한다.")
     c1, c2, c3, c4, c5 = st.columns(5)
     c1.metric("지원 공백 후보", f"{len(findings['gaps'])}건", help="신규사업 발의 검토 대상")
     c2.metric("인계 공백 후보", f"{len(findings['handoff_breaks'])}쌍", help="부서 간 협조공문 검토 대상")
@@ -367,7 +372,7 @@ if screen.startswith("1"):
 **기준사업: 인천 청년도약기지(취업아카데미)** — 교육훈련 3개월 + 인턴십 3개월, 130명.
 
 질문은 하나다. **교육을 마친 청년이 채용까지 도달하는 사슬이 끊기지 않고 이어지는가?**
-정책 {len(cards)}건을 정책 그래프로 적재하고, 규칙이 **공백 · 인계 공백 · 조정 필요 중복 · 의도적 병행**을
+정책 {len(cards)}건을 정책 그래프로 적재하고, 규칙이 **공백 · 인계 공백 · 조정 필요 중복 · 의도적 병행 · 보완 관계** 다섯 가지를
 후보로 선별한다. 최종 판단은 사람이 한다.
 """)
     a = by_id.get(ANCHOR, {})
@@ -461,9 +466,14 @@ elif screen.startswith("3"):
                                                 for c in pols})),
                      "정책": ", ".join(c.get("name") or c["policy_id"] for c in pols)})
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.caption("바이오생산 수요는 B2 실신호 기반(B/D급 — 전국 단위 보고서·사업주체 서술이라 한계 있음), "
-               "나머지 3건은 가상 표본 — 공백 판정은 고용24 실데이터 교체 후 확정. "
-               f"공백 시 → {NEXT_ACTION['gap']}")
+    _real = [d for d in demands if d.get("data_type") == "real"]
+    _virt = [d for d in demands if d.get("data_type") != "real"]
+    st.caption(f"수요신호 {len(demands)}건 = 조사자 B의 B2 실신호 {len(_real)}건"
+               + (f"({', '.join(sorted({d['occupation'] for d in _real}))}, 등급 B~D — "
+                  "전국 단위 보고서·사업주체 서술이라 한계 있음)" if _real else "")
+               + (f" + 가상 표본 {len(_virt)}건({', '.join(sorted({d['occupation'] for d in _virt}))})"
+                  if _virt else "")
+               + f" — 공백 판정은 고용24 실데이터 교체 후 확정. 공백 시 → {NEXT_ACTION['gap']}")
     st.caption("광역 컨텍스트: 인천 산업기술인력 부족 1,138명(A급, 시도 단위 — 산업별 분해 불가, B2 D-001)")
     with st.expander("수요신호 상세 — 출처·증거등급·한계"):
         st.dataframe(pd.DataFrame(demands), use_container_width=True)
@@ -482,8 +492,7 @@ elif screen.startswith("3"):
         with st.expander(f"🔵 보완 관계 {len(findings['complements'])}건 — 중복이 아님"):
             for f in findings["complements"]:
                 st.markdown(f"- {' / '.join(name_of(p) for p in f['items'])} — {f['reason']}")
-            st.info("→ 다음 행동: 조치 불요. **A3 3단계 반려사유는 '대상·수단·직무 동일'이므로 "
-                    "수단이 다르면 중복이 아니다** — 검토서에 보완 관계로 기재해 신규 발의 반려를 예방한다.")
+            st.info(f"→ 다음 행동: {NEXT_ACTION['complement']}")
     with st.expander("[심사위원용] 그래프 질의 원문 (Cypher) — 기술 검증"):
         for qname, q in detect.CYPHER.items():
             st.markdown(f"**{qname}**")

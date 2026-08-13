@@ -69,12 +69,28 @@ def test_handoff_break_wildcard_occupation():
     res = run_rules(cards, [], edges)
     assert any(set(f["items"]) == {"P1", "P2"} for f in res["handoff_breaks"])
 
-def test_means_differ_is_not_overlap():
-    """수단이 다르면 중복 후보가 아니다 — 정장 대여 vs 응시료 지원."""
+def test_means_differ_is_complement_not_overlap():
+    """수단이 다르면 중복이 아니라 **보완 관계**로 잡힌다 — 정장 대여 vs 응시료 지원."""
     cards = [card("P1", "구직지원", ["전직무"], itype="현물·물품대여"),
              card("P2", "구직지원", ["전직무"], itype="현금지원")]
     res = run_rules(cards, [], build_edges(cards, []))
     assert not res["overlaps_harmful"] and not res["overlaps_intentional"]
+    assert any(set(f["items"]) == {"P1", "P2"} for f in res["complements"])
+
+def test_b3_confirmed_handoff_becomes_edge():
+    """조사자 B가 확인한 인계(B3 handoff=YES)는 HANDOFF 엣지가 된다."""
+    cards = [card("P1", "교육훈련", ["전직무"]), card("P2", "매칭", ["전직무"])]
+    links = [{"a": "P1", "b": "P2", "handoff": "YES", "evidence_id": "L-01"}]
+    edges = build_edges(cards, [], links)
+    assert any(e["type"] == "HANDOFF" and e["props"]["source"] == "조사 확인(B3)" for e in edges)
+    assert not run_rules(cards, [], edges, links)["handoff_breaks"]
+
+def test_b3_not_found_marks_confirmed_absence():
+    """B3 handoff=NOT_FOUND는 '조사자가 확인한 부재'로 근거 등급이 올라간다."""
+    cards = [card("P1", "교육훈련", ["전직무"]), card("P2", "매칭", ["전직무"])]
+    links = [{"a": "P1", "b": "P2", "handoff": "NOT_FOUND", "evidence_id": "L-02"}]
+    res = run_rules(cards, [], build_edges(cards, [], links), links)
+    assert res["handoff_breaks"][0]["evidence"] == "조사 확인(B3)"
 
 def test_same_means_same_target_is_harmful():
     """수단·대상·직무가 같으면 조정 필요 중복 후보다."""
@@ -96,5 +112,7 @@ def test_no_openai_import():
     src = inspect.getsource(d)
     assert "import openai" not in src and "from openai" not in src
 
-def test_cypher_has_all_rules():
-    assert set(CYPHER) >= {"handoff_breaks", "gaps", "overlaps_harmful", "overlaps_intentional"}
+def test_cypher_covers_every_judgment():
+    """화면에 노출하는 Cypher가 판정 5종을 빠짐없이 덮는다 — 심사위원이 열어 볼 수 있다."""
+    assert set(CYPHER) == {"handoff_breaks", "gaps", "overlaps_harmful",
+                           "overlaps_intentional", "complements"}
