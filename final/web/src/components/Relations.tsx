@@ -18,12 +18,24 @@ import { Src } from "./bits";
 type Kind = "harmful" | "same" | "handoff";
 
 const KIND: Record<Kind, {
-  stroke: string; soft: string; width: number; dash?: string; label: string;
+  stroke: string; soft: string; width: number; dash?: string;
+  label: string; hint: string;
 }> = {
-  harmful: { stroke: "#c0392b", soft: "#fdf0ee", width: 2.6, label: "정리가 필요합니다" },
-  same: { stroke: "#1f5fd0", soft: "#eef3fd", width: 1.6, label: "겹치지 않습니다" },
-  handoff: { stroke: "#b08a2a", soft: "#fbf6e9", width: 1.6, dash: "5 4",
-             label: "넘기는 절차가 없습니다" },
+  harmful: {
+    stroke: "#c0392b", soft: "#fdf0ee", width: 2.6,
+    label: "정리가 필요합니다",
+    hint: "받는 사람·주는 것·직무가 모두 같습니다. 협의 단계에서 중복으로 반려될 수 있어 미리 조정해야 합니다.",
+  },
+  handoff: {
+    stroke: "#b08a2a", soft: "#fbf6e9", width: 1.6, dash: "5 4",
+    label: "다음 사업으로 넘기는 절차가 없습니다",
+    hint: "앞 단계를 마친 사람을 뒤 단계 사업으로 넘기는 절차가 두 사업 문서 어디에도 적혀 있지 않습니다. 이어 주려면 절차를 새로 만들어야 합니다.",
+  },
+  same: {
+    stroke: "#1f5fd0", soft: "#eef3fd", width: 1.6,
+    label: "겹치지 않습니다",
+    hint: "주는 것이 같아도 받는 사람이나 수단이 다릅니다. 검토서에 이 이유를 적어 두면 중복이라는 이유로 잘못 반려당하지 않습니다.",
+  },
 };
 const ORDER: Kind[] = ["harmful", "handoff", "same"];
 
@@ -141,22 +153,27 @@ export default function Relations({ r }: { r: Review }) {
         </svg>
       </div>
 
-      <p className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px]">
+      <ul className="mt-2 space-y-2 border-t border-rule pt-3">
         {ORDER.map((k) => {
           const v = KIND[k];
           const n = rows.filter((x) => x.kind === k).length;
           if (!n) return null;
           return (
-            <span key={k} className="flex items-center gap-1.5" style={{ color: v.stroke }}>
-              <svg width={26} height={8} aria-hidden>
-                <line x1={0} y1={4} x2={26} y2={4} stroke={v.stroke}
+            <li key={k} className="grid grid-cols-[2.2rem_1fr] gap-2.5">
+              <svg width={30} height={16} aria-hidden className="mt-1">
+                <line x1={0} y1={8} x2={30} y2={8} stroke={v.stroke}
                       strokeWidth={v.width} strokeDasharray={v.dash} />
               </svg>
-              <b>{n}건</b> {v.label}
-            </span>
+              <div>
+                <p className="text-[13px] font-semibold" style={{ color: v.stroke }}>
+                  {v.label} <span className="font-normal">— {n}건</span>
+                </p>
+                <p className="mt-0.5 text-[12px] leading-relaxed text-muted">{v.hint}</p>
+              </div>
+            </li>
           );
         })}
-      </p>
+      </ul>
 
       {sel ? (
         <div className="rise mt-3 rounded-md border p-3.5 text-[13px]"
