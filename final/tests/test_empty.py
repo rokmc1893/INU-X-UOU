@@ -87,3 +87,32 @@ def test_주소_형식을_확인한다():
         assert "http" in str(e)
     else:
         raise AssertionError("형식 확인이 안 됐다")
+
+
+def test_출처_안내판이_막힌_곳을_지우지_않는다():
+    """막힌 곳을 빼면 '여기만 보면 다 된다'로 읽힌다."""
+    from scenario import sources
+    st = sources.summary()
+    assert st.get("blocked", 0) >= 1, "막힌 출처가 사라졌다"
+    assert st.get("ok", 0) >= 3
+
+
+def test_비어있는_칸마다_채울_출처가_있다():
+    from fit import needs as N
+    from scenario import sources
+    for need in ("사람", "돈", "기술", "받쳐 줄 기업", "공간·장비", "행정"):
+        got = sources.for_industry("미래차", need=need)
+        assert got, f"「{need}」을 채울 출처가 하나도 없다"
+
+
+def test_검색어가_붙은_주소는_실제로_만들어진다():
+    from scenario import sources
+    biz = [s for s in sources.for_industry("바이오") if s["key"] == "bizinfo"][0]
+    assert biz["direct"] and "searchWrd=" in biz["link"]
+    assert "%" in biz["link"], "검색어가 주소에 인코딩되지 않았다"
+
+
+def test_청구문안에_산업이_들어간다():
+    from scenario import sources
+    assert "미래차" in sources.claim_text("돈", "미래차")
+    assert sources.claim_text("공간·장비", "로봇") is None

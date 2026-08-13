@@ -14,7 +14,7 @@ import streamlit as st
 
 import fit  # noqa: F401  — 06_앱의 engine을 sys.path에 올린다
 from fit import axes, empty, load, needs
-from scenario import actors, calendar, intake, report, workflow
+from scenario import actors, calendar, intake, report, sources, workflow
 from engine import industry, refdata
 
 BASE = Path(__file__).resolve().parent
@@ -256,6 +256,32 @@ if screen.startswith("0"):
             f'예산 {esc(TARGET.get("budget") or "확인 못 함")}<br>'
             f'협의처 {esc(", ".join(a["team"] for a in _c) or "산업 미상이라 안내 못 함")}'
             '</span></div>', unsafe_allow_html=True)
+
+    with st.expander("이 산업 자료는 어디서 찾습니까 — 출처 안내판"):
+        _sm = sources.summary()
+        st.markdown(
+            f'<p class="small">{sources.CHECKED_ON} 기준으로 직접 접속해 확인했습니다. '
+            f'지금 열리는 곳 {_sm.get("ok", 0)}곳 · 인증키가 필요한 곳 {_sm.get("key_needed", 0)}곳 · '
+            f'<b>막힌 곳 {_sm.get("blocked", 0)}곳</b> · 청구해야 하는 곳 {_sm.get("manual", 0)}곳.<br>'
+            '막힌 곳을 지우지 않았습니다 — 지우면 "여기만 보면 다 된다"로 읽힙니다.</p>',
+            unsafe_allow_html=True)
+        for _s in sources.for_industry(pick if pick != "전체" else None):
+            _cls = {"ok": "ok", "key_needed": "warn",
+                    "blocked": "act", "manual": "na"}[_s["status"]]
+            st.markdown(
+                f'<div style="padding:.4rem 0;border-bottom:1px solid var(--rule)">'
+                f'{badge(_cls, _s["status_label"])} '
+                f'<a href="{_s["link"]}" target="_blank"><b>{esc(_s["name"])}</b></a> '
+                f'<span class="small">{esc(" · ".join(_s["gives"]))}</span>'
+                + (f' <span class="small">검색어 {esc(_s["terms"][0])}</span>'
+                   if _s["terms"] and not _s["direct"] else "")
+                + f'<br><span class="small">{esc(_s["what"])} — {esc(_s["note"])}</span>'
+                '</div>', unsafe_allow_html=True)
+        if pick == "전체":
+            st.caption("왼쪽에서 산업을 하나 고르면 검색어가 붙은 주소로 바로 열립니다. "
+                       "찾은 자료는 위 「③ 현장 자료가 올라왔다」에 넣으면 바로 대조됩니다.")
+        else:
+            st.caption("찾은 자료는 위 「③ 현장 자료가 올라왔다」에 넣으면 바로 대조됩니다.")
 
     st.subheader("세 단어를 구분해서 씁니다")
     st.markdown(
@@ -514,6 +540,39 @@ elif screen.startswith("3"):
                 f'<div class="bar">{bar}</div>'
                 f'<div class="ct">{d["covered"]}÷{d["n"]}</div></div>')
         st.markdown("".join(rows), unsafe_allow_html=True)
+        # 비어 있는 칸에서 바로 「어디를 봐야 하나」로 잇는다 — 이 도구의 쓸모가 여기 있다
+        _gaps = [n for n in needs.NEEDS
+                 if by_need.get(n) and by_need[n]["covered"] == 0]
+        if _gaps:
+            _ind = pick if pick != "전체" else None
+            st.markdown(
+                '<p class="small">「'
+                + esc("·".join(needs.plain(g) for g in _gaps))
+                + '」을 챙겨 주는 사업이 하나도 없습니다. '
+                '아래에서 그 자료를 어디서 찾는지 보실 수 있습니다.</p>',
+                unsafe_allow_html=True)
+            for g in _gaps:
+                with st.expander(f"「{needs.plain(g)}」 자료는 어디서 찾나"):
+                    _src = sources.for_industry(_ind, need=needs.plain(g))
+                    if not _src:
+                        st.caption("이 항목을 채워 줄 출처를 아직 정리하지 못했습니다.")
+                    for _s in _src:
+                        _cls = {"ok": "ok", "key_needed": "warn",
+                                "blocked": "act", "manual": "na"}[_s["status"]]
+                        st.markdown(
+                            f'<div style="padding:.4rem 0;border-bottom:1px solid var(--rule)">'
+                            f'{badge(_cls, _s["status_label"])} '
+                            f'<a href="{_s["link"]}" target="_blank"><b>{esc(_s["name"])}</b></a>'
+                            + (f' <span class="small">검색어 {esc(_s["terms"][0])}</span>'
+                               if _s["terms"] and not _s["direct"] else "")
+                            + f'<br><span class="small">{esc(_s["what"])} — {esc(_s["note"])}</span>'
+                            '</div>', unsafe_allow_html=True)
+                    _ct = sources.claim_text(needs.plain(g), _ind)
+                    if _ct:
+                        st.markdown(f'<p class="small">정보공개청구에 쓸 문안 — '
+                                    f'<code>{esc(_ct)}</code></p>', unsafe_allow_html=True)
+                    st.caption(f"접속 여부는 {sources.CHECKED_ON} 기준입니다.")
+
         st.markdown('<p class="small">칸 하나가 그 일을 해주는 사업 하나입니다. '
                     '오른쪽 숫자는 「필요하다고 말한 것 몇 건 중 몇 건이 채워졌나」입니다.</p>',
                     unsafe_allow_html=True)
