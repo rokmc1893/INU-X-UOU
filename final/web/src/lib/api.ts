@@ -33,7 +33,12 @@ export type Review = {
   card: Business & { owner: string | null; budget: string | null; missing: string[] };
   budget: {
     status: string | null; won: number | null; official_dept: string | null;
+    /** 예산서에 적힌 사업 항목명 */
     line: string | null;
+    /** 어떻게 확인했는지 */
+    note: string | null;
+    /** 어느 원장에서 왔는지 */
+    ledger: string | null;
     mismatch: { pid: string; card: string; official: string } | null;
     empty: Empty;
   };

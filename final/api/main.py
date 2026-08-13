@@ -143,7 +143,10 @@ def review(pid: str):
         "budget": {"status": (budget or {}).get("status"),
                    "won": (budget or {}).get("budget_won"),
                    "official_dept": (budget or {}).get("dept"),
-                   "line": (budget or {}).get("source"),
+                   # line = 예산서에 적힌 항목명 / note = 어떻게 확인했는지
+                   "line": (budget or {}).get("line"),
+                   "note": (budget or {}).get("detail"),
+                   "ledger": (budget or {}).get("source"),
                    "mismatch": dept,
                    "empty": empty.budget(card, budget)},
         "overlaps": {

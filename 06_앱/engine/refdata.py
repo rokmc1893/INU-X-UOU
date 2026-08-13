@@ -205,13 +205,17 @@ def budget_status_for(card):
     pid = card.get("stable_policy_id") or card.get("policy_id")
     off = budget_official().get(pid)
     if off:
+        # line = 예산서에 적힌 사업 항목명 / detail = 어떻게 확인했는지 메모.
+        # 둘을 한 칸에 합치면 화면에 「어떻게 확인했나」가 항목명 자리에 나온다.
         return {"source": "C9", "status": off["status"], "budget_won": off["budget_won"],
-                "dept": off["dept"], "detail": off["note"] or off["source_line"],
+                "dept": off["dept"], "line": off["source_line"],
+                "detail": off["note"] or off["source_line"],
                 "b_said": off["b_said"]}
     hit = budget_join().get(_norm_name(card.get("name")))
     if hit:
         return {"source": "C0", "status": hit["status"], "budget_won": None,
-                "dept": hit["dept"], "detail": hit["budget_item"], "b_said": None}
+                "dept": hit["dept"], "line": hit["budget_item"],
+                "detail": hit["budget_item"], "b_said": None}
     return None
 
 

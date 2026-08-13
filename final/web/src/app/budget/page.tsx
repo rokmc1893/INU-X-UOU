@@ -44,9 +44,16 @@ export default function BudgetPage() {
                   <td className="py-2 text-muted">장부의 사업 항목명</td>
                   <td className="py-2">{b.line ?? "미확인"}</td>
                 </tr>
+                {b.note && (
+                  <tr>
+                    <td className="py-2 align-top text-muted">어떻게 확인했나</td>
+                    <td className="py-2 text-[12px] text-muted">{b.note}</td>
+                  </tr>
+                )}
               </tbody>
             </table>
-            <p className="mt-3 rounded-md bg-shell p-2.5 text-[12px] text-muted">{r.caveat}</p>
+            <p className="mt-3 rounded-md bg-shell p-2.5 text-[12px] text-muted"
+               dangerouslySetInnerHTML={{ __html: r.caveat }} />
           </Card>
         )}
   
