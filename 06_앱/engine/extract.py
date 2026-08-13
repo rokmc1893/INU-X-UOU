@@ -28,8 +28,9 @@ PROMPT = """당신은 정책 원문에서 정책카드를 추출한다. 반드�
    - occupation은 지원 자격이 아니라 **사업이 겨냥하는 직무**다. 지원대상이 "시민 누구나"여도 사업 내용이 특정 직무를 다루면 그 직무로 분류한다.
    - 교육·훈련 사업은 훈련 과정이 가르치는 내용으로 분류한다(예: 회계·인사·마케팅 실무 → 일반사무, AI·SW 개발 → SW·AI, 바이오 생산공정 → 바이오생산). 여러 직무를 가르치면 배열에 모두 넣는다.
    - 직무와 무관한 일반 지원(정장 대여, 활동비·응시료 지원, 상담, 매칭 일반)은 반드시 ["전직무"]로 기입한다. null 기권 금지 — 이것은 추측이 아니라 코딩 규칙이다.
-5. linked_upstream/linked_downstream: 원문에 명시적으로 언급된 선행/후속 사업명 배열(없으면 []).
-6. target은 {{"age_min": 숫자|null, "age_max": 숫자|null, "residency": 문자열|null, "employment_status": 문자열|null, "student_status": 문자열|null, "income_criteria": 문자열|null}}.
+5. output_kpi는 **산출 목표치**다 — 원문의 "지원규모", "모집인원", "○○명", "○○개사" 같은 수혜 규모 표현이 있으면 반드시 추출한다(기권 금지). outcome_kpi는 취업률·근속률 등 **결과 지표**이며, 원문에 없으면 기권한다.
+6. linked_upstream/linked_downstream: 원문에 명시적으로 언급된 선행/후속 사업명 배열(없으면 []).
+7. target은 {{"age_min": 숫자|null, "age_max": 숫자|null, "residency": 문자열|null, "employment_status": 문자열|null, "student_status": 문자열|null, "income_criteria": 문자열|null}}.
    - employment_status는 "미취업"/"재직"/null로 정규화, residency는 시·군·구 수준("인천" 등)으로 정규화한다.
    - student_status: 원문이 재학생 포함/제외를 명시하면 "재학생 포함" 또는 "재학생 제외", 언급 없으면 null.
    - income_criteria: 원문에 소득·재산 기준이 명시되면 원문 표현 그대로, 없으면 null. 이 두 필드는 대상 세분(의도적 중첩 판정)에 쓰인다.

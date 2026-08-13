@@ -21,7 +21,7 @@
   "region": null,
   "application_period": "2026. 7. ~ 12.",
   "budget": null,
-  "output_kpi": null,
+  "output_kpi": "20명",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
@@ -30,7 +30,8 @@
     "executor": "인천환경공단",
     "target": "취업준비생",
     "stage": "관내 미취업 청년 채용 및 환경기초시설 직무 시행",
-    "application_period": "2026. 7. ~ 12."
+    "application_period": "2026. 7. ~ 12.",
+    "output_kpi": "20명"
   },
   "missing_fields": [
     "status",
@@ -39,7 +40,6 @@
     "intervention",
     "region",
     "budget",
-    "output_kpi",
     "outcome_kpi"
   ],
   "source_url": "https://youth.incheon.go.kr/education/intern.jsp",

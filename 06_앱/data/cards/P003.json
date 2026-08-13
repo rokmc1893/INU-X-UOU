@@ -18,10 +18,10 @@
     "전직무"
   ],
   "intervention": "심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화 등 맞춤형 프로그램 지원",
-  "region": "인천",
+  "region": null,
   "application_period": "2026. 1. 29.(목). ~ 9.30.(수)",
   "budget": null,
-  "output_kpi": null,
+  "output_kpi": "264명 모집",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
@@ -35,14 +35,14 @@
       "전직무"
     ],
     "intervention": "심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화 등 맞춤형 프로그램 지원",
-    "region": "인천",
-    "application_period": "2026. 1. 29.(목). ~ 9.30.(수)"
+    "application_period": "2026. 1. 29.(목). ~ 9.30.(수)",
+    "output_kpi": "264명 모집"
   },
   "missing_fields": [
     "status",
     "problem",
+    "region",
     "budget",
-    "output_kpi",
     "outcome_kpi"
   ],
   "source_url": "https://youth.incheon.go.kr/job/challenge.jsp",

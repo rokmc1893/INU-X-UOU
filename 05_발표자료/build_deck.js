@@ -66,7 +66,7 @@ s.addShape("roundRect", { x: 5.2, y: 1.4, w: 4.3, h: 2.5, rectRadius: 0.06,
 s.addText("확인된 사실", { x: 5.5, y: 1.6, w: 3.7, h: 0.4, fontSize: 15, bold: true, color: CUT, fontFace: F, margin: 0 });
 s.addText([
   { text: "2025 인천 순유입률 1.1% — 전국 1위", options: { fontSize: 15, bold: true, breakLine: true } },
-  { text: "모든 연령대 순유입은 인천이 유일 (주소 기준)", options: { fontSize: 12, color: GRAY, breakLine: true } },
+  { text: "인천은 모든 연령대에서 순유입 (주민등록 주소 기준)", options: { fontSize: 12, color: GRAY, breakLine: true } },
   { text: "청년 32.8%는 직장이 관외에", options: { fontSize: 15, bold: true, breakLine: true } },
   { text: "역외취업 사유 1위: \"원하는 직무의 일자리 부재\" 33.6%", options: { fontSize: 12, color: GRAY } },
 ], { x: 5.5, y: 2.05, w: 3.7, h: 1.75, color: INK, fontFace: F, margin: 0 });
@@ -92,7 +92,7 @@ steps.forEach((st, i) => {
   if (i < 3) s.addText("→", { x: x + 2.13, y: 1.95, w: 0.25, h: 0.4, fontSize: 16, color: GRAY, fontFace: F, margin: 0, align: "center" });
 });
 s.addText([
-  { text: "실제 인천의 결정은 대부분 기존사업 조정이다  ", options: { fontSize: 14, bold: true } },
+  { text: "인천 청년정책의 결정은 대부분 기존사업 조정이다  ", options: { fontSize: 14, bold: true } },
   { text: "— 제2차 청년정책 기본계획 69개 사업 중 계속·확대 85.5%, 교육·훈련 분야는 92.3% (인천 청년정책 포트폴리오 한정, E008·E010)", options: { fontSize: 12, color: GRAY } },
 ], { x: 0.5, y: 3.35, w: 9.0, h: 0.65, color: INK, fontFace: F, margin: 0 });
 s.addShape("roundRect", { x: 0.5, y: 4.15, w: 9.0, h: 1.0, rectRadius: 0.06, fill: { color: INK } });
@@ -195,15 +195,15 @@ s.addText("전 과정 결정로그 D-001~D-016 · 프롬프트 v2→v6 반복은
 s = pres.addSlide(); s.background = { color: INK };
 s.addText("한계를 먼저 말하고, 확장은 실물로 보였습니다", {
   x: 0.7, y: 0.45, w: 8.6, h: 0.6, fontSize: 24, bold: true, color: PAPER, fontFace: F, margin: 0 });
-const lim = [["한계", "공개데이터만으로 정책 인과효과는 증명 불가 → 기관 협약 후 익명 코호트로.\n개인정보 사용 0 (설계상 금지). 수요신호 일부는 가상 표본 — 화면에 그대로 표기.", GRAY],
-             ["오늘 보인 확장", "산업 선택 → 정책 풀에서 관련 정책 자동 결합 (바이오 16건 실작동).\n풀 갱신 = 스크립트 재실행 → 스케줄러에 걸면 백그라운드 업데이트.", "CADCFC"],
-             ["운영 로드맵", "6대 산업 전체 · 고용24 실수요 연동 · 자동 서칭 · Neo4j 수천 건 그래프.\n이 사슬의 끝은 하나 — 정책이 이어져야 청년이 인천에 정착한다.", "CADCFC"]];
+const lim = [["한계", "공개데이터만으로 정책 인과효과는 증명 불가. 수요신호 일부는 가상 표본 — 화면에 그대로 표기.\n개인정보 사용 0 (설계상 금지). 실제 공무원 검증은 아직 받지 않았습니다.", GRAY],
+             ["측정 설계", "효과를 측정했다가 아니라, 어떻게 잴지와 무엇이 나오면 실패인지를 미리 정했습니다.\n주지표 K1: 검토서 초안까지의 작업 단계 수 — 줄지 않으면 실패로 기록 (08_효과측정_설계).", "CADCFC"],
+             ["운영 로드맵", "6대 산업 전체 · 고용24 실수요 연동 · 자동 서칭 · Neo4j 수천 건 그래프.\n정책이 이어지는 것은 청년 정착의 충분조건이 아니라 전제조건입니다.", "CADCFC"]];
 lim.forEach((l, i) => {
   const y = 1.35 + i * 1.25;
   s.addText(l[0], { x: 0.7, y, w: 2.0, h: 0.4, fontSize: 15, bold: true, color: "CADCFC", fontFace: F, margin: 0 });
   s.addText(l[1], { x: 2.9, y, w: 6.4, h: 1.1, fontSize: 12.5, color: l[2] === GRAY ? "AEB6BF" : PAPER, fontFace: F, margin: 0 });
 });
-s.addText("정책핏 인천 — 판단은 사람이, 근거는 그래프가", {
+s.addText("정책핏 인천 — 판단은 사람이, 근거는 그래프가  ·  근거: A3 워크플로우 맵(E020) · 통계청·인천연구원(E005·E006)", {
   x: 0.7, y: 5.0, w: 8.6, h: 0.4, fontSize: 14, bold: true, color: "CADCFC", fontFace: F, margin: 0 });
 
 pres.writeFile({ fileName: "정책핏_인천_발표_v1.pptx" }).then(() => console.log("OK"));

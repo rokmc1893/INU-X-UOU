@@ -21,24 +21,26 @@
   "region": "인천",
   "application_period": "2026. 3. ~ 12.",
   "budget": null,
-  "output_kpi": null,
+  "output_kpi": "100명",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
   "source_span": {
     "name": "SW.AI기술 활용인력 양성교육",
-    "owner_dept": "주관기관: 인천광역시 AI혁신과",
-    "executor": "운영기관: 인천테크노파크 AI혁신센터",
+    "owner_dept": "인천광역시 AI혁신과",
+    "executor": "인천테크노파크 AI혁신센터",
     "target": "지원대상: 인천 관내 시민",
     "stage": "지원내용\n산업분야 재직자 과정(50명)",
-    "occupation": "AI 전문과정(50명)"
+    "occupation": "AI 전문과정(50명)",
+    "application_period": "사업기간: 2026. 3. ~ 12.",
+    "output_kpi": "지원규모: 100명"
   },
   "missing_fields": [
     "status",
     "problem",
     "intervention",
+    "region",
     "budget",
-    "output_kpi",
     "outcome_kpi"
   ],
   "source_url": "https://youth.incheon.go.kr/education/ai.jsp",

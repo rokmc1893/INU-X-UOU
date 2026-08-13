@@ -20,8 +20,8 @@
   "intervention": null,
   "region": "인천",
   "application_period": "2026년 01월 26일 ~ 2026년 12월 11일",
-  "budget": "6,000회 예산 범위 내",
-  "output_kpi": null,
+  "budget": null,
+  "output_kpi": "6,000회 예산 범위 내",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
@@ -29,20 +29,20 @@
     "name": "드림나래(면접정장대여)",
     "owner_dept": "인천광역시 청년정책담당관",
     "executor": "인천테크노파크 고용안정센터",
-    "target": "지원대상: 인천 구직 청년 - 인천: 신청일 기준 주민등록 주소지가 인천이거나, 관내 대학 재(휴)학생 - 구직: 면접 예정이거나 구직 활동 중인 자 - 청년: 18세 이상 39세 이하(2026년 기준, 출생연도 1986~2007년) - 고교졸업예정자 포함 - \"의무복무 제대군인\"은 복무기간에 따라 지원 가능 연령을 최대 3세 연장",
+    "target": "인천 구직 청년",
     "stage": "구직지원",
     "occupation": [
       "전직무"
     ],
-    "region": "인천",
-    "application_period": "2026년 01월 26일 ~ 2026년 12월 11일",
-    "budget": "6,000회 예산 범위 내"
+    "output_kpi": "6,000회 예산 범위 내",
+    "application_period": "2026년 01월 26일 ~ 2026년 12월 11일"
   },
   "missing_fields": [
     "status",
     "problem",
     "intervention",
-    "output_kpi",
+    "region",
+    "budget",
     "outcome_kpi"
   ],
   "source_url": "https://youth.incheon.go.kr/job/suit.jsp",
