@@ -9,6 +9,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getBusinesses, getReview, type Business, type Review } from "@/lib/api";
+import { Logo } from "./Logo";
 
 export const NAV = [
   { href: "/todo", label: "지금 할 일", no: "" },
@@ -54,7 +55,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <header className="border-b border-rule bg-paper">
         <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 px-6 py-3">
           <Link href={{ pathname: "/todo", query: { 사업: pid } }} className="shrink-0">
-            <span className="text-[19px] font-bold tracking-tight">정책핏 인천</span>
+            <Logo />
           </Link>
           <label className="flex min-w-0 flex-1 items-center justify-end gap-2 text-[13px]">
             <span className="shrink-0 text-muted">맡은 사업</span>
