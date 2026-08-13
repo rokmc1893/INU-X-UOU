@@ -20,37 +20,95 @@ TODAY = date(2026, 8, 13)
 STAGES = ["교육훈련", "일경험", "구직지원", "매칭", "채용지원", "정착"]
 
 # ── 디자인 토큰: 백서지 + 잉크 네이비 + 인천 항만청색, 판정 신호색 4종 ──
+# ── 디자인: 한국 공문서의 시각 언어 (결재란·괘선·명조 제목) ──
+# 산세리프 굵은 제목 + 질문형 헤드라인은 걷어낸다. 공문서는 명사형 제목에 얇은 괘선을 쓴다.
 st.markdown("""
 <style>
-:root{ --ink:#1A2B3C; --paper:#FBFBF9; --harbor:#0E5A8A;
-       --gap:#8A8F98; --cut:#C75000; --conflict:#B42318; --parallel:#1E7F4F; }
-h1, h2, h3 { color: var(--ink); letter-spacing: -0.01em; }
-code, .stg-id { font-family: Consolas, monospace; }
+:root{
+  --ink:#1A2B3C;      /* 문서 잉크 */
+  --paper:#FCFBF8;    /* 백서지 */
+  --harbor:#0E5A8A;   /* 인천 항만 청색 — 유일한 강조색, 절제해서 */
+  --seal:#B4402E;     /* 관인 주색 — 조치가 필요한 판정에만 */
+  --rule:#D6D2C8;     /* 괘선 */
+  --muted:#6B7280;
+  --serif:Batang,"Nanum Myeongjo","Times New Roman",serif;
+}
+html,body,[data-testid="stAppViewContainer"]{ background:var(--paper); }
+[data-testid="stAppViewContainer"] .main .block-container{ padding-top:1.2rem; max-width:1180px; }
+
+/* 제목 — 공문서 명조. AI 기본값인 굵은 산세리프를 쓰지 않는다 */
+h1{ font-family:var(--serif); font-weight:600; font-size:1.85rem; color:var(--ink);
+    letter-spacing:-.02em; margin:0 0 .1rem; }
+h2{ font-family:var(--serif); font-weight:600; font-size:1.2rem; color:var(--ink);
+    border-bottom:1px solid var(--ink); padding-bottom:.25rem; margin:1.8rem 0 .7rem; }
+h3{ font-size:1.0rem; font-weight:700; color:var(--ink); margin:1.2rem 0 .4rem; }
+
+/* 문서 머리 — 갑지 상단부 */
+.doc-head{ border-top:2.5px solid var(--ink); border-bottom:1px solid var(--rule);
+           padding:.55rem 0 .45rem; margin-bottom:1.1rem;
+           display:flex; justify-content:space-between; align-items:baseline; gap:1rem; }
+.doc-head .t{ font-family:var(--serif); font-size:1.05rem; font-weight:600; color:var(--ink); }
+.doc-head .m{ font-size:.76rem; color:var(--muted); font-family:Consolas,monospace; }
+
+/* 진행 — 결재란처럼 칸으로 */
+.steps{ display:flex; gap:0; margin:0 0 1.4rem; border:1px solid var(--rule); }
+.step{ flex:1; padding:.42rem .5rem; text-align:center; font-size:.8rem; color:var(--muted);
+       border-right:1px solid var(--rule); background:#fff; }
+.step:last-child{ border-right:0; }
+.step .n{ font-family:Consolas,monospace; font-size:.72rem; display:block; opacity:.7; }
+.step.on{ background:var(--ink); color:#fff; font-weight:700; }
+.step.on .n{ opacity:.85; }
+.step.done{ color:var(--ink); }
+
+/* 판정 배지 — 색이 의미를 잃지 않도록 4종만 */
+.v{ display:inline-block; padding:.05rem .5rem; font-size:.74rem; font-weight:700;
+    border:1px solid; border-radius:1px; white-space:nowrap; }
+.v.act{ color:var(--seal); border-color:var(--seal); background:#B4402E0C; }   /* 조치 필요 */
+.v.ok{ color:var(--harbor); border-color:var(--harbor); background:#0E5A8A0C; } /* 조치 불요 */
+.v.na{ color:var(--muted); border-color:var(--rule); background:#fff; }         /* 근거 부족 */
+
 /* 근거등급 칩 */
-.chip{ display:inline-block; padding:1px 8px; border-radius:2px; font-size:0.72rem;
-       font-weight:600; vertical-align:middle; margin-left:4px; white-space:nowrap;
-       border:1px solid transparent; }
-.chip.real{ color:var(--harbor); border-color:var(--harbor); background:#0E5A8A0D; }
-.chip.verified{ color:var(--parallel); border-color:var(--parallel); background:#1E7F4F0D; }
-.chip.virtual{ color:#8a6d00; border-color:#c9a800; background:#fff8dc; }
-.chip.press{ color:var(--gap); border-color:var(--gap); background:#8A8F980D; }
-.chip.conflict{ color:var(--conflict); border-color:var(--conflict); background:#B423180D; }
-.chip.draft{ color:#fff; border-color:var(--cut); background:var(--cut); }
+.chip{ display:inline-block; padding:0 .42rem; border-radius:1px; font-size:.7rem;
+       font-weight:600; vertical-align:middle; margin-left:.28rem; white-space:nowrap;
+       border:1px solid; }
+.chip.real{ color:var(--harbor); border-color:#9EC3D9; background:#fff; }
+.chip.verified{ color:#1E7F4F; border-color:#A9CFBB; background:#fff; }
+.chip.virtual{ color:#8a6d00; border-color:#DCC98A; background:#FFFDF3; }
+.chip.press{ color:var(--muted); border-color:var(--rule); background:#fff; }
+.chip.conflict{ color:var(--seal); border-color:#E0A79B; background:#fff; }
+.chip.draft{ color:#fff; border-color:var(--seal); background:var(--seal); }
+
 /* 시그니처: 결재란 사슬 */
-.chain{ display:flex; align-items:stretch; gap:0; margin:0.6rem 0 1rem 0; }
-.stg{ flex:1; border:1.5px solid var(--ink); border-top:5px solid var(--harbor);
-      background:#fff; padding:8px 10px; text-align:center; min-width:0; }
-.stg.empty{ border-style:dashed; border-top-color:var(--gap); background:transparent; }
-.stg.anchor{ border-top-color:var(--cut); }
-.stg-name{ font-weight:700; font-size:0.95rem; color:var(--ink); }
-.stg-n{ font-size:0.78rem; color:var(--gap); margin-top:2px; }
+.chain{ display:flex; align-items:stretch; margin:.5rem 0 .3rem; }
+.stg{ flex:1; border:1px solid var(--ink); border-top:4px solid var(--harbor);
+      background:#fff; padding:.55rem .4rem; text-align:center; min-width:0; }
+.stg.empty{ border-style:dashed; border-top-color:var(--rule); background:transparent; }
+.stg.anchor{ border-top-color:var(--seal); }
+.stg-name{ font-family:var(--serif); font-weight:600; font-size:.95rem; color:var(--ink); }
+.stg.empty .stg-name{ color:var(--muted); }
+.stg-n{ font-size:.72rem; color:var(--muted); margin-top:.15rem; font-family:Consolas,monospace; }
 .lnk{ display:flex; flex-direction:column; justify-content:center; align-items:center;
-      width:64px; flex:none; font-size:0.72rem; }
-.lnk.cut{ color:var(--cut); }
-.lnk.cut .bar{ width:100%; border-top:2px dashed var(--cut); }
-.lnk.ok{ color:var(--parallel); }
-.lnk.ok .bar{ width:100%; border-top:2px solid var(--parallel); }
-.lnk .mark{ margin-top:2px; font-weight:700; }
+      width:58px; flex:none; font-size:.68rem; }
+.lnk.cut{ color:var(--seal); }
+.lnk.cut .bar{ width:100%; border-top:1.5px dashed var(--seal); }
+.lnk.ok{ color:var(--harbor); }
+.lnk.ok .bar{ width:100%; border-top:1.5px solid var(--harbor); }
+.lnk .mark{ margin-top:.15rem; font-weight:700; }
+
+/* 지표 — 칸으로, 색은 숫자에만 */
+[data-testid="stMetric"]{ background:#fff; border:1px solid var(--rule); padding:.5rem .7rem; }
+[data-testid="stMetricValue"]{ font-family:var(--serif); font-size:1.5rem; color:var(--ink); }
+[data-testid="stMetricLabel"] p{ font-size:.78rem !important; color:var(--muted); }
+
+/* 안내 박스 — 공문 '붙임' 톤. Streamlit 기본 파스텔을 죽인다 */
+[data-testid="stAlert"]{ background:#fff; border:1px solid var(--rule);
+                         border-left:3px solid var(--harbor); border-radius:0; }
+[data-testid="stAlert"] p{ color:var(--ink); font-size:.86rem; }
+
+/* 표 */
+[data-testid="stTable"] table, .stDataFrame{ font-size:.85rem; }
+hr{ border-color:var(--rule); }
+.small{ font-size:.78rem; color:var(--muted); }
 </style>
 """, unsafe_allow_html=True)
 
@@ -101,12 +159,14 @@ PURPOSES = {
         "track": "다음 연도 본예산 신규사업",
         "input": "사업기획서(안)을 넣고 기존 사업과 대조한다",
         "question": "내가 만들려는 사업이 기존 사업과 중복인가?",
+        "doc": "유사·중복 사업 사전 검토",
     },
     "기존사업 개편": {
         "stage": "A3 7→8단계 — 성과평가·환류 → 차년도 개편",
         "track": "기존사업 개편/확대",
         "input": "개편을 검토할 기존 사업을 고른다",
         "question": "이 사업을 유지할까, 보완할까, 연결할까, 통합할까?",
+        "doc": "기존사업 개편 검토",
     },
 }
 
@@ -245,7 +305,7 @@ if extra:
     label = f"검토 중인 사업안 {n_draft}건" if n_draft else ""
     label += (" · " if label and len(extra) - n_draft else "") + \
              (f"URL 수집 {len(extra) - n_draft}건" if len(extra) - n_draft else "")
-    st.sidebar.caption(f"➕ {label} — {store.name}에 적재됨 (세션 한정, 파일 미저장)")
+    st.sidebar.caption(f"추가됨: {label} — {store.name}에 적재됨 (세션 한정, 파일 미저장)")
 
 
 def chip(c) -> str:
@@ -448,12 +508,25 @@ def draft_report():
     return "\n".join(lines)
 
 
+SCREEN_TITLES = ["검토 개요", "정책 연계 지도", "유사·중복 검토표", "조치 제안"]
+_idx = int(screen[0]) - 1
+st.markdown(
+    f'<div class="doc-head"><div class="t">{PURPOSES[purpose]["doc"]}</div>'
+    f'<div class="m">정책핏 인천 · {PURPOSES[purpose]["stage"]} · 기준일 2026-08-13</div></div>'
+    + '<div class="steps">'
+    + "".join(
+        f'<div class="step {"on" if i == _idx else ("done" if i < _idx else "")}">'
+        f'<span class="n">{i+1}</span>{t}</div>'
+        for i, t in enumerate(SCREEN_TITLES))
+    + '</div>', unsafe_allow_html=True)
+
 if screen.startswith("1"):
     _p = PURPOSES[purpose]
-    st.title(_p["question"])
-    st.markdown(f"**{purpose}** · {_p['stage']} · 예산 트랙 「{_p['track']}」")
-    st.success(f"**이 도구가 자동화하는 것** — {_p['stage']}에서 "
-               "주무관이 손으로 하던 **기존 사업 대조**. 검토서는 **초안**이며 확정은 부서 협의로 한다.")
+    st.title("검토 개요")
+    st.markdown(f'<p class="small">{_p["question"]} · 예산 트랙 「{_p["track"]}」 · '
+                f'이 단계에서 주무관이 손으로 하던 <b>기존 사업 대조</b>를 자동화한다. '
+                f'산출물은 <b>검토서 초안</b>이며 확정은 부서 협의로 한다.</p>',
+                unsafe_allow_html=True)
     if purpose == "기존사업 개편" and target_pid:
         st.divider()
         _t = by_id[target_pid]
@@ -491,30 +564,28 @@ if screen.startswith("1"):
     c5.metric("보완 관계", f"{len(findings.get('complements', []))}건",
               help="같은 단계·대상이나 수단이 다름 — 중복이 아님")
     st.divider()
-    st.markdown(f"""
-**기준사업: 인천 청년도약기지(취업아카데미)** — 교육훈련 3개월 + 인턴십 3개월, 130명.
-
-질문은 하나다. **교육을 마친 청년이 채용까지 도달하는 사슬이 끊기지 않고 이어지는가?**
-정책 {len(cards)}건을 정책 그래프로 적재하고, 규칙이 **공백 · 인계 공백 · 조정 필요 중복 · 의도적 병행 · 보완 관계** 다섯 가지를
-후보로 선별한다. 최종 판단은 사람이 한다.
-""")
     a = by_id.get(ANCHOR, {})
-    st.info(f"[기준사업 원문]({a.get('source_url')}) · 수집 {a.get('retrieved_at')} · "
-            f"분석 범위: **{scope}** — 풀에서 산업별 정책을 끌어와 결합 (운영 단계는 6대 산업 전체)")
+    st.markdown(
+        f'<p class="small">기준사업 <b>인천 청년도약기지(취업아카데미)</b> '
+        f'교육훈련 3개월 + 인턴십 3개월, 130명 · '
+        f'<a href="{a.get("source_url")}">원문</a> · 수집 {a.get("retrieved_at")}<br>'
+        f'정책 {len(cards)}건을 그래프로 적재하고 규칙이 위 다섯 가지를 <b>후보</b>로 선별한다. '
+        f'판정에 AI는 개입하지 않는다.</p>', unsafe_allow_html=True)
     st.divider()
-    st.subheader("지금 판정하면 언제 반영되나 (2026-08-13 기준)")
+    st.subheader("예산 반영 시점")
     _my_track = PURPOSES[purpose]["track"]
     for w in refdata.calendar():
         need = w["inputs"]
-        mark = " ✅ 이 도구의 산출물" if "유사중복" in need or "유사·중복" in need else ""
-        mine = "👉 **지금 검토 중인 트랙** — " if _my_track in w["type"] else ""
+        mark = "  ← **이 도구의 산출물**" if "유사중복" in need or "유사·중복" in need else ""
+        mine = "▸ **검토 중인 트랙** · " if _my_track in w["type"] else ""
         st.markdown(f"- {mine}**{w['type']}** · 착수 {w['start']} · 마감 {w['deadline']}")
         st.caption(f"　필요문서: {need}{mark} · 심사: {w['review']} · 다음 창구: {w['next']} "
                    f"({w['status']})")
     st.caption("출처: 조사자 A의 A2 의사결정 달력 (증거 E021). 연도별 실제 공고일과 대조 필요.")
 
 elif screen.startswith("2"):
-    st.title("정책 연계 지도 — 어디서 끊기나")
+    st.title("정책 연계 지도")
+    st.markdown('<p class="small">교육훈련부터 정착까지 6단계. 칸 사이 절취선이 인계가 끊긴 지점이다.</p>', unsafe_allow_html=True)
     st.markdown(chain_html(), unsafe_allow_html=True)
     st.caption("결재란 사슬: 인접 단계 사이에 명시된 인계(HANDOFF)가 있으면 실선, 없으면 절단선(✂). "
                "기준사업이 있는 칸은 주황 상단선.")
@@ -543,7 +614,7 @@ elif screen.startswith("2"):
     if not groups:
         st.success("규칙상 인계 공백 후보 없음")
     for reason, pairs in anchor_first:
-        with st.expander(f"🔶 {reason} · {len(pairs)}쌍" + (" ⭐" if any(ANCHOR in p for p in pairs) else "")):
+        with st.expander(f"{reason} · {len(pairs)}쌍" + (" ⭐" if any(ANCHOR in p for p in pairs) else "")):
             for pair in pairs:
                 names = " ↔ ".join(name_of(p) for p in pair)
                 st.markdown(f"- {'**' + names + '**' if ANCHOR in pair else names}")
@@ -551,7 +622,7 @@ elif screen.startswith("2"):
             st.info(f"→ 다음 행동: {NEXT_ACTION['handoff_break']}")
     st.caption("연락처는 2026-08-13 기준 공개 대표번호이며 발송 전 재확인 필요")
     st.divider()
-    if st.button("🔴 라이브: 기준사업 원문 재추출 (gpt-4o)"):
+    if st.button("기준사업 원문 다시 추출 (gpt-4o 실시간 호출)"):
         raw = next((BASE / "policies" / "raw").glob(f"{ANCHOR}_*.txt"))
         try:
             from engine.extract import extract_card
@@ -567,30 +638,43 @@ elif screen.startswith("2"):
             st.error(f"실시간 호출 실패 — 시연은 녹화로 대체합니다. ({type(e).__name__})")
 
 elif screen.startswith("3"):
-    st.title("직무별 지원 현황표 (유사·중복 검토표)")
-    rows = []
+    st.title("유사·중복 검토표")
+    st.markdown('<p class="small">직무별로 어떤 정책이 있고, 겹치는 것이 낭비인지 아닌지를 가른다.</p>', unsafe_allow_html=True)
     gap_occs = {g["occupation"]: g["reason"] for g in findings["gaps"]}
     hb_ids = {p for f in findings["handoff_breaks"] for p in f["items"]}
     oh_ids = {p for f in findings["overlaps_harmful"] for p in f["items"]}
     oi_ids = {p for f in findings["overlaps_intentional"] for p in f["items"]}
+    cm_ids = {p for f in findings.get("complements", []) for p in f["items"]}
+    badge = lambda cls, txt: f'<span class="v {cls}">{txt}</span>'
+    tr = ['<table style="width:100%;border-collapse:collapse;font-size:.86rem">'
+          '<tr style="border-bottom:1.5px solid var(--ink)">'
+          '<th style="text-align:left;padding:.4rem .5rem">직무</th>'
+          '<th style="text-align:right;padding:.4rem .5rem;width:4.5rem">정책</th>'
+          '<th style="text-align:left;padding:.4rem .5rem;width:20rem">판정 (후보)</th>'
+          '<th style="text-align:left;padding:.4rem .5rem">소관 부서</th></tr>']
     for occ in OCCUPATIONS:
         pols = [c for c in cards if occ in (c.get("occupation") or [])]
-        marks = []
+        b = []
         if occ in gap_occs:
-            marks.append("⬜ 지원 공백")
-        if any(c["policy_id"] in hb_ids for c in pols):
-            marks.append("🔶 인계 공백")
+            b.append(badge("act", "지원 공백"))
         if any(c["policy_id"] in oh_ids for c in pols):
-            marks.append("🔴 조정 필요 중복")
+            b.append(badge("act", "조정 필요 중복"))
+        if any(c["policy_id"] in hb_ids for c in pols):
+            b.append(badge("act", "인계 공백"))
         if any(c["policy_id"] in oi_ids for c in pols):
-            marks.append("🟢 의도적 병행")
-        rows.append({"직무": occ, "정책 수": len(pols),
-                     "판정(후보)": " · ".join(marks) or "—",
-                     "비고": gap_occs.get(occ, ""),
-                     "소관 부서": ", ".join(sorted({(c.get("owner_dept") or "?").replace("인천광역시 ", "")
-                                                for c in pols})),
-                     "정책": ", ".join(c.get("name") or c["policy_id"] for c in pols)})
-    st.dataframe(pd.DataFrame(rows), use_container_width=True)
+            b.append(badge("ok", "의도적 병행"))
+        if any(c["policy_id"] in cm_ids for c in pols):
+            b.append(badge("ok", "보완 관계"))
+        depts = sorted({(c.get("owner_dept") or "소관 미확인").replace("인천광역시 ", "") for c in pols})
+        tr.append(
+            '<tr style="border-bottom:1px solid var(--rule)">'
+            f'<td style="padding:.45rem .5rem;font-weight:700">{occ}</td>'
+            f'<td style="padding:.45rem .5rem;text-align:right;font-family:Consolas,monospace">{len(pols)}</td>'
+            f'<td style="padding:.45rem .5rem">{" ".join(b) or badge("na", "해당 없음")}</td>'
+            f'<td style="padding:.45rem .5rem;color:var(--muted);font-size:.8rem">{", ".join(depts) or "—"}</td></tr>')
+    st.markdown("".join(tr) + "</table>", unsafe_allow_html=True)
+    for occ, why in gap_occs.items():
+        st.markdown(f'<p class="small">· <b>{occ}</b> 지원 공백 — {why}</p>', unsafe_allow_html=True)
     _real = [d for d in demands if d.get("data_type") == "real"]
     _virt = [d for d in demands if d.get("data_type") != "real"]
     st.caption(f"수요신호 {len(demands)}건 = 조사자 B의 B2 실신호 {len(_real)}건"
@@ -603,18 +687,18 @@ elif screen.startswith("3"):
     with st.expander("수요신호 상세 — 출처·증거등급·한계"):
         st.dataframe(pd.DataFrame(demands), use_container_width=True)
     if findings["overlaps_harmful"]:
-        with st.expander(f"🔴 조정 필요 중복 후보 {len(findings['overlaps_harmful'])}건 — 상세"):
+        with st.expander(f"조정 필요 중복 후보 {len(findings['overlaps_harmful'])}건 — 상세"):
             for f in findings["overlaps_harmful"]:
                 st.markdown(f"- {' / '.join(name_of(p) for p in f['items'])} — {f['reason']}")
                 st.markdown(consult_block(f['items']))
             st.info(f"→ 다음 행동: {NEXT_ACTION['overlap_harmful']}")
     if findings["overlaps_intentional"]:
-        with st.expander(f"🟢 의도적 병행 {len(findings['overlaps_intentional'])}건 — 상세"):
+        with st.expander(f"의도적 병행 {len(findings['overlaps_intentional'])}건 — 상세"):
             for f in findings["overlaps_intentional"]:
                 st.markdown(f"- {' / '.join(name_of(p) for p in f['items'])} — {f['reason']}")
             st.info(f"→ 다음 행동: {NEXT_ACTION['overlap_intent']}")
     if findings.get("complements"):
-        with st.expander(f"🔵 보완 관계 {len(findings['complements'])}건 — 중복이 아님"):
+        with st.expander(f"보완 관계 {len(findings['complements'])}건 — 중복이 아님"):
             for f in findings["complements"]:
                 st.markdown(f"- {' / '.join(name_of(p) for p in f['items'])} — {f['reason']}")
             st.info(f"→ 다음 행동: {NEXT_ACTION['complement']}")
@@ -629,8 +713,9 @@ elif screen.startswith("3"):
             "질의를 그대로 실행하면 행 수가 더 많이 나온다(예: 인계 공백 질의 53행 vs 화면 29쌍).")
 
 elif screen.startswith("4"):
-    st.title("조치 제안서 — 최종 판단은 담당자가")
-    st.caption(f"{purpose} · {PURPOSES[purpose]['stage']} · 분석 범위 **{scope}**")
+    st.title("조치 제안")
+    st.markdown(f'<p class="small">판정을 행동으로 옮긴다. 최종 판단은 담당자가 한다. · 분석 범위 {scope}</p>',
+                unsafe_allow_html=True)
     if purpose == "기존사업 개편" and target_pid:
         st.subheader(f"「{by_id[target_pid].get('name') or target_pid}」 개편 선택지")
         for name, why, how, grounded in renewal_options(target_pid):
@@ -646,7 +731,7 @@ elif screen.startswith("4"):
 | **새로 만들 필요 낮은 것** | 구직지원 신규 사업 — 의도적 병행으로 이미 커버 |
 | **추가 검토** | 수요신호 실데이터(고용24) 확보 후 공백 재판정 |
 """)
-    st.download_button("📄 유사·중복 검토서 초안 다운로드 (.md)", draft_report(),
+    st.download_button("유사·중복 검토서 초안 내려받기 (.md)", draft_report(),
                        file_name="유사중복_자체검토서_초안_20260813.md")
     st.divider()
     st.subheader("이 판정의 근거 수준 — 추출 정확도 실측")
