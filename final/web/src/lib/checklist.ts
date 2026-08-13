@@ -18,7 +18,10 @@ export type Item = {
   action: boolean;
   /** 근거를 어디서 보나 */
   section: "budget" | "overlap" | "gap" | "draft";
+  /** 몇 건인지. **무엇의 건수인지 단위를 함께 적는다** —
+      항목마다 세는 대상이 달라서(사업이냐 자료냐) 숫자만 두면 뜻이 흐려진다. */
   count?: number;
+  unit?: string;
 };
 
 export function buildChecklist(r: Review): Item[] {
@@ -51,7 +54,8 @@ export function buildChecklist(r: Review): Item[] {
 
   if (r.overlaps.harmful.length) {
     out.push({
-      key: "dup", section: "overlap", action: true, count: r.overlaps.harmful.length,
+      key: "dup", section: "overlap", action: true,
+      count: r.overlaps.harmful.length, unit: "사업",
       title: "겹치는 사업과 조정을 협의한다",
       now: `${r.overlaps.harmful[0].name} 등 ${r.overlaps.harmful.length}건과 받는 사람·주는 것·직무가 같습니다.`,
       then: `협의 단계에서 「${r.duplicateRule}」로 반려되는 것을 미리 막습니다.`,
@@ -72,7 +76,7 @@ export function buildChecklist(r: Review): Item[] {
   const notDup = r.overlaps.intentional.length + r.overlaps.complement.length;
   if (notDup) {
     out.push({
-      key: "notdup", section: "overlap", action: true, count: notDup,
+      key: "notdup", section: "overlap", action: true, count: notDup, unit: "사업",
       title: "겹쳐 보이지만 아닌 것을 검토서에 적는다",
       now: `${notDup}건은 주는 것이 같아도 받는 사람이나 수단이 다릅니다.`,
       then: "중복이라는 이유로 잘못 반려당하는 것을 막아 줍니다.",
@@ -81,7 +85,7 @@ export function buildChecklist(r: Review): Item[] {
 
   if (gaps.length) {
     out.push({
-      key: "gap", section: "gap", action: true, count: gaps.length,
+      key: "gap", section: "gap", action: true, count: gaps.length, unit: "자료",
       title: `비어 있는 「${gapKinds.join("·")}」을 채울지 판단한다`,
       now: `이 산업 기업이 ${gapKinds.join("·")}을 말한 자료가 ${gaps.length}건인데 해주는 사업이 없습니다.`,
       then: "이 사업을 넓힐지 새로 만들지, 근거를 갖고 정할 수 있습니다.",
@@ -90,7 +94,7 @@ export function buildChecklist(r: Review): Item[] {
 
   if (thin.length) {
     out.push({
-      key: "thin", section: "gap", action: true, count: thin.length,
+      key: "thin", section: "gap", action: true, count: thin.length, unit: "자료",
       title: "사업 하나에만 걸린 것을 표시한다",
       now: `${[...new Set(thin.map((t) => t.plain))].join("·")} — 해주는 사업이 하나뿐입니다.`,
       then: "그 사업이 멈추면 바로 빈칸이 된다는 것을 예산 심의에서 근거로 씁니다.",
@@ -99,7 +103,7 @@ export function buildChecklist(r: Review): Item[] {
 
   if (mine.length) {
     out.push({
-      key: "mine", section: "gap", action: false, count: mine.length,
+      key: "mine", section: "gap", action: false, count: mine.length, unit: "자료",
       title: "이 사업이 맡고 있는 자리를 확인합니다",
       now: `${[...new Set(mine.map((m) => m.plain))].join("·")} 쪽을 이 사업이 채우고 있습니다.`,
       then: "개편안에서 무엇을 유지해야 하는지 분명해집니다.",

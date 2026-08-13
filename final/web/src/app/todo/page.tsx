@@ -38,6 +38,20 @@ export default function Home() {
         <GapBars r={r} />
       </section>
 
+      <p className="mb-2.5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px] text-muted">
+        <span className="flex items-center gap-1.5">
+          <span className="grid h-5 w-5 place-items-center rounded-[3px] border border-gap text-[11px] font-bold text-gap">1</span>
+          붉은 번호는 손보셔야 할 것
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="grid h-5 w-5 place-items-center rounded-[3px] border border-pen bg-pen-soft text-[11px] font-bold text-pen">✓</span>
+          파란 표는 확인만 하면 되는 것
+        </span>
+        <span className="text-faint">
+          옆의 「사업 N건 · 자료 N건」은 그 항목에 걸린 개수입니다
+        </span>
+      </p>
+
       <ol className="space-y-2">
         {items.map((it) => {
           const n = it.action ? todo.indexOf(it) + 1 : 0;
@@ -54,7 +68,11 @@ export default function Home() {
                 <div className="min-w-0 flex-1">
                   <p className="flex flex-wrap items-center gap-2">
                     <b className="text-[15px]">{it.title}</b>
-                    {it.count ? <Tag tone={it.action ? "gap" : "flat"}>{it.count}건</Tag> : null}
+                    {it.count ? (
+                      <Tag tone={it.action ? "gap" : "flat"}>
+                        {it.unit} {it.count}건
+                      </Tag>
+                    ) : null}
                   </p>
                   <p className="mt-1 text-[13px] text-muted">{it.now}</p>
                   <p className="mt-1.5 text-[13px] text-pen">→ {it.then}</p>
