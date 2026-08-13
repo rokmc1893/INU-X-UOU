@@ -225,3 +225,69 @@ def clear_uploads():
     n = len(UPLOADED)
     UPLOADED.clear()
     return {"removed": n}
+
+@app.get("/api/matrix")
+def matrix():
+    """6대 산업 × 필요한 것 — 빈칸이 어디에 몰려 있는지 한눈에 보는 격자.
+
+    빈칸마다 **그 유형을 주는 사업이 다른 산업에 몇 건 있는지**를 함께 보낸다.
+    「돈을 주는 사업이 없다」와 「돈을 주는 사업은 있는데 이 산업엔 없다」는 전혀 다른
+    이야기이고, 실제로 후자다 — 돈을 주는 사업 4건은 로봇·반도체에 있고 돈이 필요한
+    곳은 바이오다.
+    """
+    cards, edges, findings, postures, b2, cov = _state()
+    works = _works(cards)
+    grid, supply = {}, {}
+    for c in works:
+        ind = (c.get("strategic_industry") or "").split("+")[0]
+        for n in needs.needs_covered_by(c):
+            supply.setdefault(n, []).append(
+                {"id": c["policy_id"], "name": c.get("name"), "industry": ind or "산업 미상"})
+    for x in cov:
+        if x["verdict"] not in ("covered", "uncovered"):
+            continue
+        for ind in (x["industry"] or "").split("+"):
+            if not ind:
+                continue
+            cell = grid.setdefault(ind, {}).setdefault(
+                x["need"], {"covered": 0, "total": 0, "signals": []})
+            cell["total"] += 1
+            cell["covered"] += x["verdict"] == "covered"
+            cell["signals"].append(
+                {"id": x["signal_id"], "type": x["problem_type"], "grade": x["grade"],
+                 "url": x["source_url"], "covered": x["verdict"] == "covered"})
+    order = [i for i in industry.INDUSTRIES if i in grid] +             [i for i in grid if i not in industry.INDUSTRIES]
+    return {
+        "needs": [{"need": n, "plain": needs.plain(n), "label": needs.NEED_LABEL[n]}
+                  for n in needs.NEEDS if any(n in g for g in grid.values())],
+        "industries": order,
+        "grid": grid,
+        "postures": {k: {"posture": v["posture"], "why": v["why"]}
+                     for k, v in postures.items()},
+        "supply": {n: {"total": len(v),
+                       "byIndustry": sorted({x["industry"] for x in v}),
+                       "items": v[:6]}
+                   for n, v in supply.items()},
+    }
+
+
+@app.get("/api/calendar")
+def year_calendar():
+    """A2 6트랙을 한 해 띠 위에 올린다 — 지금 어디쯤인지 보이게."""
+    import re as _re
+    out = []
+    for t in calendar.tracks():
+        w = t["practical_start_window"]
+        months = [int(m) for m in _re.findall(r"(\d{1,2})월", w)]
+        dl = _re.findall(r"(\d{1,2})월", t["formal_deadline"] or "")
+        out.append({
+            "name": t["decision_type"],
+            "always": ("수시" in w or "연중" in w),
+            "startMonth": months[0] if months else None,
+            "endMonth": months[1] if len(months) > 1 else (months[0] if months else None),
+            "deadlineMonth": int(dl[0]) if dl else None,
+            "window": w, "deadline": t["formal_deadline"],
+            "docs": t["required_input"], "next": t["next_available_window"],
+            "ours": calendar.OUR_DOC.get(t["decision_type"]),
+        })
+    return {"today": {"month": TODAY_MD[0], "day": TODAY_MD[1]}, "tracks": out}

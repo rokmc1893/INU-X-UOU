@@ -7,6 +7,8 @@ import {
 } from "@/lib/api";
 import { buildChecklist, type Item } from "@/lib/checklist";
 import { Slots, Src, Tag, Void } from "@/components/bits";
+import Matrix from "@/components/Matrix";
+import YearWindows from "@/components/YearWindows";
 
 const DEMO = "IC-BIO-002";
 
@@ -89,7 +91,8 @@ export default function Page() {
             </ol>
           </section>
 
-          <Windows r={r} />
+          <YearWindows />
+          <Matrix />
         </>
       )}
     </main>
@@ -356,44 +359,5 @@ function Gaps({ r }: { r: Review }) {
         </div>
       )}
     </div>
-  );
-}
-
-/* ── 창구와 마감 ─────────────────────────────────────────── */
-function Windows({ r }: { r: Review }) {
-  return (
-    <section className="mt-8 rounded-lg border border-rule bg-paper p-5">
-      <h2 className="text-[17px]">언제까지 내야 하나</h2>
-      <div className="mt-3 grid gap-4 md:grid-cols-2">
-        <div>
-          <p className="mb-1.5 text-[12px] text-muted">지금 열려 있는 창구</p>
-          <ul className="space-y-1 text-[13px]">
-            {r.windows.open.map((o) => (
-              <li key={o.track.decision_type}>
-                <b>{o.track.decision_type}</b>{o.always && " (수시)"}
-                <span className="block text-[12px] text-muted">
-                  마감 {o.track.formal_deadline}
-                </span>
-              </li>
-            ))}
-            {!r.windows.open.length && <li className="text-muted">오늘 기준 열린 창구가 없습니다</li>}
-          </ul>
-        </div>
-        <div>
-          <p className="mb-1.5 text-[12px] text-muted">곧 열리는 창구</p>
-          <ul className="space-y-1 text-[13px]">
-            {r.windows.soon.map((u) => (
-              <li key={u.track.decision_type}>
-                <b>{u.track.decision_type}</b>
-                <span className="block text-[12px] text-muted">
-                  {u.opens} 착수 · 마감 {u.track.formal_deadline}
-                </span>
-              </li>
-            ))}
-            {!r.windows.soon.length && <li className="text-muted">3개월 안에 열리는 창구가 없습니다</li>}
-          </ul>
-        </div>
-      </div>
-    </section>
   );
 }
