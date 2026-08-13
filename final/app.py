@@ -8,6 +8,7 @@
 보류이고 1·2순위는 예산 비효율과 산업 생태계다 — 확정본은 그 순서로 다시 짰다.
 """
 import html
+import re
 from pathlib import Path
 
 import streamlit as st
@@ -67,6 +68,34 @@ def eul(word):
         return "을" if (last - 0xAC00) % 28 else "를"
     return "를"
 
+
+
+def src(url, label="원문"):
+    """출처 링크. 주소가 없으면 왜 없는지 보이게 점선으로 남긴다 — 조용히 빼지 않는다."""
+    if url and str(url).startswith("http"):
+        return (f'<a class="src" href="{esc(url)}" target="_blank" '
+                f'rel="noopener">{esc(label)}</a>')
+    return '<span class="src none" title="원문 주소가 원장에 없습니다">주소 없음</span>'
+
+
+def src_of(pid):
+    """사업 하나의 원문 링크."""
+    return src((by_id.get(pid) or {}).get("source_url"))
+
+
+SIG_URL = {r["signal_id"]: (r.get("source_url") or "") for r in B2}
+
+
+def linkify_signals(text):
+    """「D-101, D-102」처럼 적힌 자료번호를 눌러 원문으로 갈 수 있게 만든다."""
+    import re as _re
+
+    def rep(m):
+        sid = m.group(0)
+        u = SIG_URL.get(sid)
+        return (f'<a class="src" href="{esc(u)}" target="_blank" rel="noopener">{sid}</a>'
+                if u and u.startswith("http") else sid)
+    return _re.sub(r"D-\d{3}", rep, text)
 
 
 KIND_ICON = {"없어서 없다": "짝이 없음", "맞아서 없다": "확인함",
@@ -383,15 +412,20 @@ elif screen.startswith("1"):
              '<th style="text-align:left;padding:.4rem .5rem;width:14rem">공식 예산 원장의 소관</th></tr>']
         for x in dm:
             r.append('<tr style="border-bottom:1px solid var(--rule)">'
-                     f'<td style="padding:.45rem .5rem">{esc(name_of(x["pid"])[:40])}</td>'
+                     f'<td style="padding:.45rem .5rem">{esc(name_of(x["pid"])[:40])}'
+                     f'{src_of(x["pid"])}</td>'
                      f'<td style="padding:.45rem .5rem;color:var(--muted)">{esc(x["card"])}</td>'
-                     f'<td style="padding:.45rem .5rem;font-weight:700">{esc(x["official"])}</td></tr>')
+                     f'<td style="padding:.45rem .5rem;font-weight:700">{esc(x["official"])}'
+                     f'<br><span class="small">예산서 항목 '
+                     f'{esc((refdata.budget_status_for(by_id[x["pid"]]) or {}).get("source") or "미확인")}'
+                     '</span></td></tr>')
         st.markdown("".join(r) + "</table>", unsafe_allow_html=True)
 
     if bx:
         st.subheader("금액이 어긋납니다")
         for x in bx:
-            st.markdown(f'- **{name_of(x["pid"])}** — {esc(x.get("note") or "원장과 대조 필요")}')
+            st.markdown(f'- **{name_of(x["pid"])}**{src_of(x["pid"])} — '
+                        f'{esc(x.get("note") or "원장과 대조 필요")}', unsafe_allow_html=True)
 
     if TARGET:
         void(empty.budget(TARGET, refdata.budget_status_for(TARGET)))
@@ -445,7 +479,8 @@ elif screen.startswith("2"):
     if oh:
         st.subheader("정리가 필요해 보이는 겹침")
         for f in oh:
-            st.markdown(f'- **{name_of(f["items"][0])}** ↔ **{name_of(f["items"][1])}**  \n'
+            st.markdown(f'- **{name_of(f["items"][0])}**{src_of(f["items"][0])} ↔ '
+                        f'**{name_of(f["items"][1])}**{src_of(f["items"][1])}<br>'
                         f'  <span class="small">{esc(f["reason"])}</span>',
                         unsafe_allow_html=True)
         st.info("→ 두 사업의 소관 부서에 조정 협의를 요청하세요. "
@@ -457,7 +492,8 @@ elif screen.startswith("2"):
                     '나중에 중복이라는 이유로 잘못 반려당하는 것을 막아 줍니다.</p>',
                     unsafe_allow_html=True)
         for f in cp[:8]:
-            st.markdown(f'- {name_of(f["items"][0])} ↔ {name_of(f["items"][1])}  \n'
+            st.markdown(f'- {name_of(f["items"][0])}{src_of(f["items"][0])} ↔ '
+                        f'{name_of(f["items"][1])}{src_of(f["items"][1])}<br>'
                         f'  <span class="small">{esc(f["reason"])}</span>',
                         unsafe_allow_html=True)
 
@@ -469,7 +505,8 @@ elif screen.startswith("2"):
         for reason, pairs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
             with st.expander(f"{reason} · {len(pairs)}쌍"):
                 for p in pairs[:8]:
-                    st.markdown(f"- {name_of(p[0])} → {name_of(p[1])}")
+                    st.markdown(f'- {name_of(p[0])}{src_of(p[0])} → '
+                                f'{name_of(p[1])}{src_of(p[1])}', unsafe_allow_html=True)
                 if len(pairs) > 8:
                     st.caption(f"…외 {len(pairs) - 8}쌍")
     else:
@@ -514,7 +551,7 @@ elif screen.startswith("3"):
                  f'{badge("ok" if p["posture"] == industry.RESPONSIVE else "act", "이미 필요하다고 나옴" if p["posture"] == industry.RESPONSIVE else "아직 자료 없음")}</td>'
                  f'<td style="padding:.45rem .5rem">{esc(p["question"])}</td>'
                  f'<td style="padding:.45rem .5rem;font-size:.77rem;color:var(--muted)">'
-                 f'{esc(p["why"])}</td></tr>')
+                 f'{linkify_signals(esc(p["why"]))}</td></tr>')
     st.markdown("".join(r) + "</table>", unsafe_allow_html=True)
     st.markdown('<p class="small">이 구분은 저희가 정한 것이 아니라 <b>조사 자료가 정한 것</b>입니다. '
                 '새 자료가 들어오면 구분도 질문도 저절로 바뀝니다.</p>', unsafe_allow_html=True)
@@ -613,7 +650,8 @@ elif screen.startswith("3"):
                          f'<td style="padding:.45rem .5rem">{esc(c["industry"])}</td>'
                          f'<td style="padding:.45rem .5rem">{esc(c["problem_type"])}'
                          f'<br><span class="small">{esc(c["value"][:52])} · '
-                         f'{esc(c["signal_id"])} {esc(c["grade"])}등급</span></td>'
+                         f'{esc(c["signal_id"])} {esc(c["grade"])}등급</span>'
+                         f'{src(c.get("source_url"), "자료")}</td>'
                          f'<td style="padding:.45rem .5rem">{mark}</td></tr>')
             st.markdown("".join(r) + "</table>", unsafe_allow_html=True)
 
@@ -690,7 +728,8 @@ else:
                           help="A2 결정 달력의 트랙입니다. 트랙마다 내야 할 문서가 다릅니다.")
         _cov = [c for c in COV if _pick.get("strategic_industry", "") and
                 any(i in c["industry"] for i in _pick["strategic_industry"].split("+"))]
-        _md = report.draft(_pick, findings, _cov, _track, TODAY_MD, name_of=name_of)
+        _md = report.draft(_pick, findings, _cov, _track, TODAY_MD, name_of=name_of,
+                           url_of=lambda q: (by_id.get(q) or {}).get("source_url"))
         st.download_button(f"「{calendar.OUR_DOC.get(_track, '검토서')}」 초안 (.md)", _md,
                            file_name=f"검토서초안_{_pick['policy_id']}.md")
         with st.expander("초안 미리 보기"):
@@ -698,8 +737,9 @@ else:
         _consult = actors.consult_for(_pick)
         if _consult:
             st.markdown('<p class="small"><b>협의 요청 부서</b> — '
-                        + ", ".join(f'{a["team"]}({a["bureau"]})' for a in _consult)
-                        + f'<br>{esc(actors.CAVEAT)}</p>', unsafe_allow_html=True)
+                        + ", ".join(f'{a["team"]}({a["bureau"]}){src(a.get("source_url"), "부서 근거")}'
+                                    for a in _consult)
+                        + f'<br>{actors.CAVEAT}</p>', unsafe_allow_html=True)
 
     st.subheader("지금 열려 있는 창구")
     _open = calendar.open_windows(TODAY_MD)
@@ -707,8 +747,11 @@ else:
     if _open:
         for o in _open:
             t = o["track"]
+            _m = re.search(r"https?://[^\s)]+", t.get("source") or "")
             st.markdown(f'- **{t["decision_type"]}**{" (수시)" if o["always"] else ""} · '
-                        f'마감 {t["formal_deadline"]}')
+                        f'마감 {t["formal_deadline"]}'
+                        + (src(_m.group(0), "근거") if _m else ""),
+                        unsafe_allow_html=True)
     else:
         st.warning("오늘 기준 착수 창구가 열린 트랙이 없습니다")
     if _soon:

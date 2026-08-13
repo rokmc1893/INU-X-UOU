@@ -115,4 +115,11 @@ hr{ border-color:var(--rule); }
 /* 직접 올린 자료 배지 */
 .up{ display:inline-block; padding:0 .42rem; font-size:.7rem; font-weight:600;
      color:#7A6410; border:1px dashed #7A6410; border-radius:1px; margin-left:.3rem; }
+
+/* 원문 링크 — 화면의 모든 수치는 한 번 눌러 출처로 갈 수 있어야 한다 */
+.src{ display:inline-block; margin-left:.3rem; padding:0 .34rem; font-size:.7rem;
+      font-weight:600; text-decoration:none; white-space:nowrap;
+      color:var(--harbor); border:1px solid #9EC3D9; border-radius:1px; }
+.src:hover{ background:#0E5A8A0C; }
+.src.none{ color:var(--muted); border-color:var(--rule); border-style:dashed; }
 </style>

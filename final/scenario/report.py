@@ -20,7 +20,12 @@ def _bullet(items):
     return "\n".join(f"- {i}" for i in items) if items else "- (해당 없음)"
 
 
-def draft(card, findings, coverage, track_name, today, name_of=lambda p: p):
+def _link(name, url):
+    """검토서에도 원문 링크를 넣는다 — 결재선에서 눌러 확인할 수 있어야 한다."""
+    return f"[{name}]({url})" if url and str(url).startswith("http") else f"{name} (원문 주소 없음)"
+
+
+def draft(card, findings, coverage, track_name, today, name_of=lambda p: p, url_of=lambda p: None):
     """검토서 초안을 마크다운으로 돌려준다.
 
     card       : 검토 대상 사업 카드
@@ -46,14 +51,15 @@ def draft(card, findings, coverage, track_name, today, name_of=lambda p: p):
     def pair(f):
         a, b = f["items"]
         other = b if a == pid else a
-        return f"{name_of(other)} — {f['reason']}"
+        return f"{_link(name_of(other), url_of(other))} — {f['reason']}"
 
     lines = [
         f"# {tr.get('decision_type', track_name)} — 검토서 초안",
         "",
         f"> {DISCLAIMER}",
         "",
-        f"- 검토 대상 사업: **{card.get('name') or pid}** (`{pid}`)",
+        f"- 검토 대상 사업: **{card.get('name') or pid}** (`{pid}`) "
+        f"· {_link('원문', card.get('source_url'))}",
         f"- 전략산업: {ind} · 소관(사업 문서 기준): {card.get('owner_dept') or '미확인'}",
         f"- 행정 절차상 위치: A3 {st['no']}단계 「{st['name']}」",
         f"- 작성 기준일: 2026-{today[0]:02d}-{today[1]:02d}",
@@ -81,11 +87,13 @@ def draft(card, findings, coverage, track_name, today, name_of=lambda p: p):
         "## 3. 이 산업에 필요한 것을 사업이 해주고 있는가",
         "",
         f"- 해주는 사업이 없는 것: **{len(uncovered)}건**",
-        _bullet([f"{c['problem_type']} ({c['need']}) — {c['value'][:60]} · {c['signal_id']} "
-                 f"{c['grade']}등급" for c in uncovered]),
+        _bullet([f"{c['problem_type']} ({c['need']}) — {c['value'][:60]} · "
+                 f"{_link(c['signal_id'] + ' ' + c['grade'] + '등급', c.get('source_url'))}"
+                 for c in uncovered]),
         "",
         f"- 해주는 사업이 딱 하나뿐인 것: **{len(thin)}건** (그 사업이 멈추면 바로 공백이 됩니다)",
-        _bullet([f"{c['problem_type']} ({c['need']}) ← {name_of(c['covers'][0])}" for c in thin]),
+        _bullet([f"{c['problem_type']} ({c['need']}) ← "
+                 f"{_link(name_of(c['covers'][0]), url_of(c['covers'][0]))}" for c in thin]),
         "",
         "## 4. 미확인 항목과 그 이유",
         "",
@@ -102,7 +110,8 @@ def draft(card, findings, coverage, track_name, today, name_of=lambda p: p):
         "",
         f"> {actors.CAVEAT}",
         "",
-        _bullet([f"**{a['team']}** ({a['bureau']}) — {a['decision_right']} · 연락처 {a['contact']}"
+        _bullet([f"**{a['team']}** ({a['bureau']}) — {a['decision_right']} · 연락처 {a['contact']} "
+                 f"· {_link('부서 근거', a.get('source_url'))}"
                  for a in actors.consult_for(card)] or ["산업이 확인되지 않아 협의처를 안내하지 못합니다"]),
         "",
         "A3 3단계 검토자:",
