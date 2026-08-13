@@ -1,0 +1,61 @@
+{
+  "policy_id": "IC-BIO-017",
+  "name": "바이오 첨단클러스터 조성(영종구)",
+  "status": "계획",
+  "owner_dept": "인천시/영종구",
+  "executor": null,
+  "problem": "영종 지역 미래·첨단산업 확장 필요",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "클러스터 조성",
+  "region": "영종구",
+  "application_period": null,
+  "budget": null,
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "인천형 행정체제 개편 구정방향"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "바이오 첨단클러스터 조성(영종구)",
+    "status": "계획",
+    "owner_dept": "인천시/영종구",
+    "problem": "영종 지역 미래·첨단산업 확장 필요",
+    "intervention": "클러스터 조성",
+    "region": "영종구(2026-07 신설)",
+    "linked_upstream": "인천형 행정체제 개편 구정방향"
+  },
+  "missing_fields": [
+    "executor",
+    "target.age_min",
+    "target.age_max",
+    "target.residency",
+    "target.employment_status",
+    "target.student_status",
+    "target.income_criteria",
+    "stage",
+    "occupation",
+    "application_period",
+    "budget",
+    "output_kpi",
+    "outcome_kpi",
+    "linked_downstream"
+  ],
+  "source_url": "https://www.incheon.go.kr/IC01070101",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-BIO-017",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오"
+}

@@ -1,0 +1,59 @@
+{
+  "policy_id": "IC-BIO-012",
+  "name": "인천대학교 바이오융합 기업협업센터(ICC)",
+  "status": "운영",
+  "owner_dept": "교육부(LINC3.0→RISE 승계)",
+  "executor": "인천대학교",
+  "problem": "지역 전략산업-대학 교육 연계 부족",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "매칭",
+  "occupation": [
+    "바이오생산",
+    "전직무"
+  ],
+  "intervention": "기업협업센터 운영, 산학 융합교육",
+  "region": "연수구 인천대",
+  "application_period": "LINC3.0(~2024) → RISE(2025~2029)",
+  "budget": "국비+시비",
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "LINC 3.0"
+  ],
+  "linked_downstream": [
+    "IC-COM-002"
+  ],
+  "source_span": {
+    "name": "인천대학교 바이오융합 기업협업센터(ICC)",
+    "status": "운영",
+    "owner_dept": "교육부(LINC3.0→RISE 승계)",
+    "executor": "인천대학교",
+    "problem": "지역 전략산업-대학 교육 연계 부족",
+    "target": "인천 바이오기업 + 인천대 학생",
+    "intervention": "기업협업센터 운영, 산학 융합교육",
+    "region": "연수구 인천대",
+    "application_period": "LINC3.0(~2024) → RISE(2025~2029)",
+    "budget": "국비+시비",
+    "linked_upstream": "LINC 3.0",
+    "linked_downstream": "IC-COM-002"
+  },
+  "missing_fields": [
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://news.unn.net/news/articleView.html?idxno=580072",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-BIO-012",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오"
+}

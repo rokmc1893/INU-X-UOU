@@ -1,0 +1,54 @@
+{
+  "policy_id": "IC-BIO-005",
+  "name": "2026년 바이오 커넥트 - 글로벌 오픈이노베이션 액셀러레이터 모집",
+  "status": "모집",
+  "owner_dept": "인천광역시",
+  "executor": "비즈OK 접수(운영기관 미확인)",
+  "problem": "선도기업 기술수요-스타트업 중개역량 부재",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "AC 선정 후 스타트업 발굴·기술협력 위탁, 바이오차이나 참가",
+  "region": "인천 소재 AC",
+  "application_period": "2026-01 공고(마감 원문확인 필요)",
+  "budget": null,
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "IC-BIO-004"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "2026년 바이오 커넥트 - 글로벌 오픈이노베이션 액셀러레이터 모집",
+    "status": "모집",
+    "owner_dept": "인천광역시",
+    "executor": "비즈OK 접수(운영기관 미확인)",
+    "problem": "선도기업 기술수요-스타트업 중개역량 부재",
+    "intervention": "AC 선정 후 스타트업 발굴·기술협력 위탁, 바이오차이나 참가",
+    "region": "인천 소재 AC",
+    "application_period": "2026-01 공고(마감 원문확인 필요)",
+    "linked_upstream": "IC-BIO-004"
+  },
+  "missing_fields": [
+    "stage",
+    "occupation",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://bizok.incheon.go.kr/open_content/support.do?act=detail&policyno=6740",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-BIO-005",
+  "evidence_status": "PRIMARY_VERIFIED",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오"
+}

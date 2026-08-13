@@ -1,0 +1,59 @@
+{
+  "policy_id": "IC-BIO-018",
+  "name": "송도 세브란스병원 개원",
+  "status": "계획",
+  "owner_dept": "연세대의료원(민간)",
+  "executor": "연세대의료원",
+  "problem": "산·학·연·병 클러스터의 병(病) 축 부재",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "채용지원",
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": "병원 개원",
+  "region": "연수구 송도",
+  "application_period": null,
+  "budget": "민간",
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "송도 세브란스병원 개원",
+    "status": "계획",
+    "owner_dept": "연세대의료원(민간)",
+    "executor": "연세대의료원",
+    "problem": "산·학·연·병 클러스터의 병(病) 축 부재",
+    "target": "해당없음",
+    "stage": "채용지원",
+    "occupation": "의료인력",
+    "intervention": "병원 개원",
+    "region": "연수구 송도",
+    "application_period": "해당없음",
+    "budget": "민간",
+    "output_kpi": "해당없음",
+    "outcome_kpi": "해당없음"
+  },
+  "missing_fields": [
+    "application_period",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "http://knibrt.com/education/edu0402.php",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음"
+  ],
+  "stable_policy_id": "IC-BIO-018",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오"
+}

@@ -1,0 +1,58 @@
+{
+  "policy_id": "IC-BIO-002",
+  "name": "K-NIBRT 바이오공정 교육과정 운영",
+  "status": "운영",
+  "owner_dept": "보건복지부/산업통상부",
+  "executor": "연세대 K-NIBRT사업단(교육), 인천시·경제청·인천TP(시설운영)",
+  "problem": "현장 실습형 바이오공정 인력 공급 부족",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "교육훈련",
+  "occupation": [
+    "바이오생산",
+    "바이오품질"
+  ],
+  "intervention": "15개 이상 맞춤형 과정, 석사급 학위과정 포함",
+  "region": "연수구 송도",
+  "application_period": "수시",
+  "budget": "국비+시비(001과 분리 여부 불명)",
+  "output_kpi": "연 2,000명 이상",
+  "outcome_kpi": "누적 881명(2023 시점) — 최신치 미확인",
+  "linked_upstream": [
+    "IC-BIO-001"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "K-NIBRT 바이오공정 교육과정 운영",
+    "status": "운영",
+    "owner_dept": "보건복지부/산업통상부",
+    "executor": "연세대 K-NIBRT사업단(교육), 인천시·경제청·인천TP(시설운영)",
+    "problem": "현장 실습형 바이오공정 인력 공급 부족",
+    "target": "예비취업자, 경력단절자, 재직자, 여성과학자, 고교생",
+    "intervention": "15개 이상 맞춤형 과정, 석사급 학위과정 포함",
+    "region": "연수구 송도",
+    "application_period": "수시",
+    "budget": "국비+시비(001과 분리 여부 불명)",
+    "output_kpi": "연 2,000명 이상",
+    "outcome_kpi": "누적 881명(2023 시점) — 최신치 미확인",
+    "linked_upstream": "IC-BIO-001",
+    "linked_downstream": ""
+  },
+  "missing_fields": [
+    "linked_downstream"
+  ],
+  "source_url": "http://knibrt.com/education/edu0402.php",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-BIO-002",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오"
+}

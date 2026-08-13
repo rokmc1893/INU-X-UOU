@@ -1,0 +1,54 @@
+{
+  "policy_id": "IC-BIO-016",
+  "name": "2026 바이오 차이나(BIO CHINA) 등 글로벌 박람회 참가 지원",
+  "status": "계획",
+  "owner_dept": "인천광역시",
+  "executor": null,
+  "problem": "해외 네트워크 부족",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "박람회 참가 + 스타트업 유치",
+  "region": "중국(개최지)",
+  "application_period": "2026-03",
+  "budget": null,
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "IC-BIO-004"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "2026 바이오 차이나(BIO CHINA) 등 글로벌 박람회 참가 지원",
+    "status": "계획",
+    "owner_dept": "인천광역시",
+    "problem": "해외 네트워크 부족",
+    "intervention": "박람회 참가 + 스타트업 유치",
+    "region": "중국(개최지)",
+    "application_period": "2026-03",
+    "linked_upstream": "선행 사업: IC-BIO-004"
+  },
+  "missing_fields": [
+    "executor",
+    "stage",
+    "occupation",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.tookyung.com/news/articleView.html?idxno=702069",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-BIO-016",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오"
+}

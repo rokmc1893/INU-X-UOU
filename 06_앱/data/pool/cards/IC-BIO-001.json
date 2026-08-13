@@ -1,0 +1,78 @@
+{
+  "policy_id": "IC-BIO-001",
+  "name": "한국형 바이오공정·개발 전문인력양성센터 구축(K-NIBRT) - 시설구축",
+  "status": "종료",
+  "owner_dept": "산업통상부/보건복지부",
+  "executor": "인천경제자유구역청, 연세대 K-NIBRT사업단, 인천테크노파크",
+  "problem": "바이오의약품 생산 전문인력 부족(2020 사업지 선정 사유)",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "채용지원",
+  "occupation": [
+    "바이오생산",
+    "바이오품질"
+  ],
+  "intervention": null,
+  "region": "연수구 송도 연세대 국제캠퍼스",
+  "application_period": null,
+  "budget": null,
+  "output_kpi": "연 2,000명 배출(구축사업 KPI인지 불명)",
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "바이오헬스 인력양성 국가정책(2020)"
+  ],
+  "linked_downstream": [
+    "IC-BIO-002"
+  ],
+  "source_span": {
+    "name": "한국형 바이오공정·개발 전문인력양성센터 구축(K-NIBRT) - 시설구축",
+    "status": "종료",
+    "owner_dept": "산업통상부/보건복지부",
+    "executor": "인천경제자유구역청, 연세대 K-NIBRT사업단, 인천테크노파크",
+    "problem": "바이오의약품 생산 전문인력 부족(2020 사업지 선정 사유)",
+    "target": null,
+    "stage": "채용지원",
+    "occupation": [
+      "바이오생산",
+      "바이오품질"
+    ],
+    "intervention": null,
+    "region": "연수구 송도 연세대 국제캠퍼스",
+    "application_period": null,
+    "budget": null,
+    "output_kpi": "연 2,000명 배출(구축사업 KPI인지 불명)",
+    "outcome_kpi": null,
+    "linked_upstream": [
+      "바이오헬스 인력양성 국가정책(2020)"
+    ],
+    "linked_downstream": [
+      "IC-BIO-002"
+    ]
+  },
+  "missing_fields": [
+    "target",
+    "intervention",
+    "application_period",
+    "budget",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.hitnews.co.kr/news/articleView.html?idxno=71356",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음",
+    "source_span[occupation]: 인용문이 원문에 없음",
+    "source_span[linked_upstream]: 인용문이 원문에 없음",
+    "source_span[linked_downstream]: 인용문이 원문에 없음"
+  ],
+  "stable_policy_id": "IC-BIO-001",
+  "evidence_status": "CONFLICTING_FIGURES",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오"
+}

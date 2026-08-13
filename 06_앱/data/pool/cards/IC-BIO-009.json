@@ -1,0 +1,54 @@
+{
+  "policy_id": "IC-BIO-009",
+  "name": "양자바이오 센싱솔루션 실증·컨설팅 사업",
+  "status": "결정",
+  "owner_dept": "인천시(과기정통부 공모 선정)",
+  "executor": null,
+  "problem": "양자-바이오 융합 실증 기반 부재",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "실증 및 컨설팅",
+  "region": "인천",
+  "application_period": "2026~",
+  "budget": "2026년 2.7억 신규편성",
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "정부 양자클러스터 지정 추진"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "양자바이오 센싱솔루션 실증·컨설팅 사업",
+    "status": "결정",
+    "owner_dept": "인천시(과기정통부 공모 선정)",
+    "problem": "양자-바이오 융합 실증 기반 부재",
+    "intervention": "실증 및 컨설팅",
+    "region": "인천",
+    "application_period": "2026~",
+    "budget": "2026년 2.7억 신규편성",
+    "linked_upstream": "정부 양자클러스터 지정 추진"
+  },
+  "missing_fields": [
+    "executor",
+    "output_kpi",
+    "outcome_kpi",
+    "stage",
+    "occupation"
+  ],
+  "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-BIO-009",
+  "evidence_status": "PRIMARY_VERIFIED",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "바이오+디지털데이터"
+}
