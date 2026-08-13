@@ -32,7 +32,7 @@
     "executor": "인천경제자유구역청",
     "problem": "글로벌 백신·바이오의약품 생산인력 부족",
     "target": "지원대상: 개발도상국 등 해외 교육생",
-    "stage": "교육훈련",
+    "stage": "사업내용: 백신·바이오의약품 생산공정 기본교육",
     "occupation": "대상 직무: 생산/공정",
     "intervention": "백신·바이오의약품 생산공정 기본교육",
     "region": "사업 지역: 연수구 송도",
@@ -46,9 +46,7 @@
   "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=257225",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [
-    "source_span[stage]: 인용문이 원문에 없음"
-  ],
+  "_validation_errors": [],
   "stable_policy_id": "IC-BIO-003",
   "evidence_status": "SECONDARY_PRESS_ONLY",
   "pool_version": "2026-08-13",

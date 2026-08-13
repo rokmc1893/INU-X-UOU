@@ -8,7 +8,7 @@
   "target": {
     "age_min": null,
     "age_max": null,
-    "residency": "인천",
+    "residency": null,
     "employment_status": null,
     "student_status": null,
     "income_criteria": null
@@ -38,10 +38,17 @@
   },
   "missing_fields": [
     "executor",
+    "target.age_min",
+    "target.age_max",
+    "target.residency",
+    "target.employment_status",
+    "target.student_status",
+    "target.income_criteria",
+    "stage",
+    "occupation",
     "output_kpi",
     "outcome_kpi",
-    "stage",
-    "occupation"
+    "linked_downstream"
   ],
   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
   "retrieved_at": "2026-08-13",

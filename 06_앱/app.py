@@ -1,4 +1,4 @@
-"""정책핏 인천 — 4화면 Streamlit 앱 (D-007, 공무원 UX 재프레이밍 D-013)."""
+"""정책핏 인천 — 4화면 Streamlit 앱 (D-007 · 공무원 UX D-013 · 정책 풀 D-015)."""
 import csv
 import json
 from datetime import date, datetime
@@ -17,6 +17,41 @@ load_dotenv()
 BASE = Path(__file__).resolve().parent / "data"
 ANCHOR = "P001"  # 기준사업: 청년도약기지
 TODAY = date(2026, 8, 13)
+STAGES = ["교육훈련", "일경험", "구직지원", "매칭", "채용지원", "정착"]
+
+# ── 디자인 토큰: 백서지 + 잉크 네이비 + 인천 항만청색, 판정 신호색 4종 ──
+st.markdown("""
+<style>
+:root{ --ink:#1A2B3C; --paper:#FBFBF9; --harbor:#0E5A8A;
+       --gap:#8A8F98; --cut:#C75000; --conflict:#B42318; --parallel:#1E7F4F; }
+h1, h2, h3 { color: var(--ink); letter-spacing: -0.01em; }
+code, .stg-id { font-family: Consolas, monospace; }
+/* 근거등급 칩 */
+.chip{ display:inline-block; padding:1px 8px; border-radius:2px; font-size:0.72rem;
+       font-weight:600; vertical-align:middle; margin-left:4px; white-space:nowrap;
+       border:1px solid transparent; }
+.chip.real{ color:var(--harbor); border-color:var(--harbor); background:#0E5A8A0D; }
+.chip.verified{ color:var(--parallel); border-color:var(--parallel); background:#1E7F4F0D; }
+.chip.virtual{ color:#8a6d00; border-color:#c9a800; background:#fff8dc; }
+.chip.press{ color:var(--gap); border-color:var(--gap); background:#8A8F980D; }
+.chip.conflict{ color:var(--conflict); border-color:var(--conflict); background:#B423180D; }
+/* 시그니처: 결재란 사슬 */
+.chain{ display:flex; align-items:stretch; gap:0; margin:0.6rem 0 1rem 0; }
+.stg{ flex:1; border:1.5px solid var(--ink); border-top:5px solid var(--harbor);
+      background:#fff; padding:8px 10px; text-align:center; min-width:0; }
+.stg.empty{ border-style:dashed; border-top-color:var(--gap); background:transparent; }
+.stg.anchor{ border-top-color:var(--cut); }
+.stg-name{ font-weight:700; font-size:0.95rem; color:var(--ink); }
+.stg-n{ font-size:0.78rem; color:var(--gap); margin-top:2px; }
+.lnk{ display:flex; flex-direction:column; justify-content:center; align-items:center;
+      width:64px; flex:none; font-size:0.72rem; }
+.lnk.cut{ color:var(--cut); }
+.lnk.cut .bar{ width:100%; border-top:2px dashed var(--cut); }
+.lnk.ok{ color:var(--parallel); }
+.lnk.ok .bar{ width:100%; border-top:2px solid var(--parallel); }
+.lnk .mark{ margin-top:2px; font-weight:700; }
+</style>
+""", unsafe_allow_html=True)
 
 # 소관 부서 공개 대표번호 (A1_actor_registry 기준, 2026-08-13 확인)
 DEPT_CONTACT = {
@@ -39,11 +74,16 @@ NEXT_ACTION = {
     "overlap_intent": "조치 불요 — 검토서에 '의도적 병행' 사유만 기재 (신규 유사사업 발의 방지 근거).",
 }
 
+SCOPES = ["청년일자리 (기본)", "청년일자리 + 바이오"]
+
 
 @st.cache_resource
-def init():
+def init(scope: str):
     cards = [json.loads(p.read_text(encoding="utf-8"))
              for p in sorted((BASE / "cards").glob("P*.json"))]
+    if "바이오" in scope:
+        cards += [json.loads(p.read_text(encoding="utf-8"))
+                  for p in sorted((BASE / "pool" / "cards").glob("IC-*.json"))]
     demands = []
     dp = BASE / "demand" / "demand_signals.csv"
     if dp.exists():
@@ -57,21 +97,55 @@ def init():
     return cards, demands, edges, store, findings
 
 
-cards, demands, edges, store, findings = init()
+st.sidebar.title("정책핏 인천")
+scope = st.sidebar.selectbox("분석 범위 — 산업 선택", SCOPES,
+                             help="산업을 추가하면 정책 풀에서 관련 정책을 끌어와 함께 진단합니다")
+cards, demands, edges, store, findings = init(scope)
 by_id = {c["policy_id"]: c for c in cards}
 
-st.sidebar.title("정책핏 인천")
 screen = st.sidebar.radio("화면", ["1 검토 개요", "2 정책 연계 지도", "3 유사·중복 검토표", "4 조치 제안서"])
-st.sidebar.caption(f"그래프 스토어: **{store.name}**")
 n_real_d = sum(1 for d in demands if d.get("data_type") == "real")
+st.sidebar.caption(f"그래프 스토어: **{store.name}**")
 st.sidebar.caption(f"정책 {len(cards)}건 · 수요신호 {len(demands)}건 "
                    f"(실신호 {n_real_d}건 · 가상 표본 {len(demands) - n_real_d}건)")
 st.sidebar.caption("기준일 2026-08-13 · 모든 판정은 '후보'이며 확정은 부서 협의로")
 
+with st.sidebar.expander("URL로 정책 가져오기"):
+    url_in = st.text_input("정책 안내 페이지 URL", placeholder="https://youth.incheon.go.kr/...")
+    if st.button("가져와서 분석에 추가"):
+        try:
+            from engine.extract import extract_card
+            from engine.fetch import fetch_policy_text
+            text = fetch_policy_text(url_in)
+            pid = f"U{len(st.session_state.get('extra_cards', [])) + 1:02d}"
+            card = extract_card(text, pid)
+            st.session_state.setdefault("extra_cards", []).append(card)
+            st.success(f"{card.get('name') or pid} 추가됨 — 화면 2·3에 반영")
+        except Exception as e:
+            st.error(f"가져오기 실패 — 원문 텍스트를 data/policies/raw에 직접 넣어도 됩니다. ({type(e).__name__})")
 
-def label(card_or_row):
-    dt = card_or_row.get("data_type", "real")
-    return "🟢 실데이터" if dt == "real" else "🟡 가상데이터"
+# URL로 추가된 세션 카드 반영 (파일 저장 없이 세션 한정)
+extra = st.session_state.get("extra_cards", [])
+if extra:
+    cards = cards + extra
+    by_id = {c["policy_id"]: c for c in cards}
+    edges = detect.build_edges(cards, demands)
+    findings = detect.run_rules(cards, demands, edges)
+    st.sidebar.caption(f"➕ URL로 추가된 정책 {len(extra)}건 (세션 한정)")
+
+
+def chip(c) -> str:
+    """근거등급 칩. 풀 카드는 evidence_status, 기본 카드는 data_type 기준."""
+    ev = c.get("evidence_status")
+    if ev == "PRIMARY_VERIFIED":
+        return '<span class="chip verified">1차 확인</span>'
+    if ev == "SECONDARY_PRESS_ONLY":
+        return '<span class="chip press">언론보도 기반</span>'
+    if ev == "CONFLICTING_FIGURES":
+        return '<span class="chip conflict">수치 충돌</span>'
+    if c.get("data_type", "real") == "real":
+        return '<span class="chip real">실데이터</span>'
+    return '<span class="chip virtual">가상</span>'
 
 
 def dept_of(pid):
@@ -84,9 +158,31 @@ def name_of(pid):
     return by_id[pid].get("name") or pid
 
 
+def chain_html():
+    """시그니처: 결재란 사슬 — 인계가 없는 구간은 절단선으로 표시."""
+    stage_ids = {s: {c["policy_id"] for c in cards if c.get("stage") == s} for s in STAGES}
+    handoff = [(e["src"], e["dst"]) for e in edges if e["type"] == "HANDOFF"]
+    parts = []
+    for i, s in enumerate(STAGES):
+        n = len(stage_ids[s])
+        klass = "stg" + (" empty" if n == 0 else "") + (" anchor" if ANCHOR in stage_ids[s] else "")
+        parts.append(f'<div class="{klass}"><div class="stg-name">{s}</div>'
+                     f'<div class="stg-n">{"정책 없음" if n == 0 else f"{n}건"}</div></div>')
+        if i < len(STAGES) - 1:
+            nxt = STAGES[i + 1]
+            ok = any((a in stage_ids[s] and b in stage_ids[nxt]) or
+                     (a in stage_ids[nxt] and b in stage_ids[s]) for a, b in handoff)
+            if stage_ids[s] and stage_ids[nxt]:
+                cls, mark = ("ok", "인계 있음") if ok else ("cut", "✂ 인계 없음")
+            else:
+                cls, mark = "cut", "구간 비어 있음"
+            parts.append(f'<div class="lnk {cls}"><div class="bar"></div><div class="mark">{mark}</div></div>')
+    return '<div class="chain">' + "".join(parts) + "</div>"
+
+
 def draft_report():
     lines = ["# 유사·중복 사업 자체 검토서 (초안 — 자동 생성, 담당자 확인 필수)",
-             f"작성 기준일: 2026-08-13 · 검토 대상: 인천 청년 일자리 정책 {len(cards)}건", ""]
+             f"작성 기준일: 2026-08-13 · 분석 범위: {scope} · 검토 대상 {len(cards)}건", ""]
     for f in findings["overlaps_harmful"]:
         names = " / ".join(name_of(p) for p in f["items"])
         lines.append(f"- [조정 필요 중복 후보] {names} — 사유: {f['reason']} — 조치안: 통합·조정 협의 "
@@ -102,13 +198,13 @@ def draft_report():
         lines.append(f"- [지원 공백 후보] 직무 '{g['occupation']}' — {g['reason']} — 조치안: 신규사업 발의 검토")
     lines.append("")
     lines.append("※ 본 문서는 규칙 기반 후보 선별 결과이며, 확정 판정은 부서 협의를 거친다.")
-    lines.append("※ 수요신호는 가상 표본 기반 — 공백 판정은 실데이터(고용24 등) 확보 후 재검증 필요.")
+    lines.append("※ 수요신호 일부는 가상 표본 — 공백 판정은 실데이터(고용24 등) 확보 후 재검증 필요.")
     return "\n".join(lines)
 
 
 if screen.startswith("1"):
     st.title("이 돈은 성과로 이어지고 있는가?")
-    st.markdown("**유사·중복 검토, 전화 핑퐁 대신 10분 안에 — 최종 판단은 담당자가 합니다**")
+    st.markdown("**유사·중복 검토를 전화 협의 없이 한 화면에서 — 최종 판단은 담당자가 합니다**")
     st.success("**이 도구가 대신하는 업무** — 신규사업 검토 8단계 중 "
                "**3단계 '타 부서 협의·유사·중복 검토'** (예산 지침 필수 항목). "
                "유사·중복 사업 자체 검토서 작성에 필요한 후보를 자동 선별합니다.")
@@ -118,16 +214,16 @@ if screen.startswith("1"):
     c3.metric("조정 필요 중복 후보", f"{len(findings['overlaps_harmful'])}건", help="유사·중복 검토서 기재 대상")
     c4.metric("의도적 병행", f"{len(findings['overlaps_intentional'])}건", help="조치 불요 — 사유만 기재")
     st.divider()
-    st.markdown("""
+    st.markdown(f"""
 **기준사업: 인천 청년도약기지(취업아카데미)** — 교육훈련 3개월 + 인턴십 3개월, 130명.
 
 질문은 하나다. **교육을 마친 청년이 채용까지 도달하는 사슬이 끊기지 않고 이어지는가?**
-정책 10건을 정책 그래프로 적재하고, 규칙이 **공백 · 인계 공백 · 조정 필요 중복 · 의도적 병행**을
+정책 {len(cards)}건을 정책 그래프로 적재하고, 규칙이 **공백 · 인계 공백 · 조정 필요 중복 · 의도적 병행**을
 후보로 선별한다. 최종 판단은 사람이 한다.
 """)
     a = by_id.get(ANCHOR, {})
-    st.info(f"{label(a)} · [원문]({a.get('source_url')}) · 수집 {a.get('retrieved_at')}")
-    st.markdown("분석범위: 인천 청년 일자리·교육훈련 정책 10건 (단일 산업 시연 — 운영 단계는 다산업 확장)")
+    st.info(f"[기준사업 원문]({a.get('source_url')}) · 수집 {a.get('retrieved_at')} · "
+            f"분석 범위: **{scope}** — 풀에서 산업별 정책을 끌어와 결합 (운영 단계는 6대 산업 전체)")
     st.divider()
     st.subheader("지금 판정하면 언제 반영되나 (2026-08-13 기준)")
     WINDOWS = [("RISE 실행계획 수정·연계", date(2026, 11, 30), "9/1 착수 — 교육협력담당관"),
@@ -141,22 +237,24 @@ if screen.startswith("1"):
 
 elif screen.startswith("2"):
     st.title("정책 연계 지도 — 어디서 끊기나")
-    stages = ["교육훈련", "일경험", "구직지원", "매칭", "채용지원", "정착"]
-    cols = st.columns(len(stages))
-    for col, stg in zip(cols, stages):
+    st.markdown(chain_html(), unsafe_allow_html=True)
+    st.caption("결재란 사슬: 인접 단계 사이에 명시된 인계(HANDOFF)가 있으면 실선, 없으면 절단선(✂). "
+               "기준사업이 있는 칸은 주황 상단선.")
+    cols = st.columns(len(STAGES))
+    for col, stg in zip(cols, STAGES):
         col.markdown(f"**{stg}**")
-        placed = False
         for c in cards:
             if c.get("stage") == stg:
-                col.markdown(f"{'⭐' if c['policy_id'] == ANCHOR else '·'} "
-                             f"[{c.get('name') or c['policy_id']}]({c.get('source_url')}) {label(c)}")
+                star = "⭐ " if c["policy_id"] == ANCHOR else "· "
+                col.markdown(f"{star}[{c.get('name') or c['policy_id']}]({c.get('source_url')}) {chip(c)}",
+                             unsafe_allow_html=True)
                 dept = (c.get("owner_dept") or "").replace("인천광역시 ", "")
                 if dept:
-                    ext = "" if "청년정책담당관" in dept or "담당관" in dept or "과" in dept else "🏛️ "
-                    col.caption(f"　{ext}{dept}")
-                placed = True
-        if not placed:
-            col.markdown("⬜ *정책 없음*")
+                    col.caption(f"　{dept}")
+    unstaged = [c for c in cards if not c.get("stage")]
+    if unstaged:
+        st.caption("사슬 밖(시설·기업지원·계획 등): " +
+                   ", ".join(c.get("name") or c["policy_id"] for c in unstaged))
     st.divider()
     st.subheader("인계 공백 후보 — 구간별 (사업 간 연계 끊김)")
     groups = {}
@@ -216,7 +314,7 @@ elif screen.startswith("3"):
                      "정책": ", ".join(c.get("name") or c["policy_id"] for c in pols)})
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
     st.caption("바이오생산 수요는 B2 실신호 기반(B/D급 — 전국 단위 보고서·사업주체 서술이라 한계 있음), "
-               "나머지 3건은 가상 표본(🟡) — 공백 판정은 고용24 실데이터 교체 후 확정. "
+               "나머지 3건은 가상 표본 — 공백 판정은 고용24 실데이터 교체 후 확정. "
                f"공백 시 → {NEXT_ACTION['gap']}")
     st.caption("광역 컨텍스트: 인천 산업기술인력 부족 1,138명(A급, 시도 단위 — 산업별 분해 불가, B2 D-001)")
     with st.expander("수요신호 상세 — 출처·증거등급·한계"):
@@ -241,12 +339,13 @@ elif screen.startswith("3"):
 
 elif screen.startswith("4"):
     st.title("조치 제안서 — 최종 판단은 담당자가")
+    st.caption(f"분석 범위: **{scope}** — 범위를 바꾸면 판정 후보가 달라집니다 (사이드바)")
     st.markdown("""
 | 구분 | 내용 |
 |---|---|
 | **주조치** | 교육훈련(도약기지)→매칭(대학일자리플러스) 구간의 명시적 인계 절차 신설 |
 | **보조조치** | 구직지원 3종(정장·활동비·응시료)의 안내 통합 |
-| **새로 필요한 것** | 바이오 생산·품질 직무 전용 트랙 (현재 공백 후보 — 전직무 일반 지원만 존재) |
+| **새로 필요한 것** | 바이오 생산·품질 직무 연결장치 (청년일자리 범위 기준 공백 후보 — 바이오 풀 결합 시 K-NIBRT 교육과정이 수요를 커버해 공백은 해소되고, 대신 K-NIBRT→매칭·채용 구간의 인계 공백이 드러남) |
 | **새로 만들 필요 낮은 것** | 구직지원 신규 사업 — 의도적 병행으로 이미 커버 |
 | **추가 검토** | 수요신호 실데이터(고용24) 확보 후 공백 재판정 |
 """)
@@ -268,8 +367,5 @@ elif screen.startswith("4"):
         c4.metric("중첩 오판 없음", fmt(r["overlap_correct_rate"]),
                   help="의도적 병행을 중복으로 잘못 지목하지 않은 비율")
         st.caption(f"정답셋 {r['n_cases']}건 (2인 교차판정 확정 전 — 잠정치)")
-        if any(c.get("_extraction") == "manual_provisional" for c in cards):
-            st.warning("현재 카드는 API 키 확보 전 수동 추출본이다. "
-                       "LLM 배치 추출로 교체 후 이 수치를 재측정해야 한다.")
     else:
         st.warning("results.json 없음 — `python -m engine.evaluate` 실행 필요")

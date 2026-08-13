@@ -13,55 +13,41 @@
     "student_status": null,
     "income_criteria": null
   },
-  "stage": "구직지원",
-  "occupation": [
-    "전직무"
-  ],
+  "stage": null,
+  "occupation": null,
   "intervention": "수요발굴 → 과제선정 → 시작품/공정고도화 R&D",
   "region": "인천",
   "application_period": "종료",
   "budget": null,
-  "output_kpi": null,
+  "output_kpi": "신청 10건 → 4건 선정, 연속반응유동기·분말배지 개발",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [
-    "IC-BIO-004"
+    "IC-BIO-004(연계 미확인)"
   ],
   "source_span": {
     "name": "인천 바이오 소부장 제조기반 경쟁력 강화 기술개발",
     "status": "종료",
     "problem": "바이오 원부자재 수입의존, 역내 공급망 부재",
     "target": "인천 관내 바이오기업 + 소부장 기업",
-    "stage": "구직지원",
-    "occupation": [
-      "전직무"
-    ],
     "intervention": "수요발굴 → 과제선정 → 시작품/공정고도화 R&D",
     "region": "인천",
     "application_period": "종료",
-    "budget": null,
-    "output_kpi": null,
-    "outcome_kpi": null,
-    "linked_upstream": [],
-    "linked_downstream": [
-      "IC-BIO-004"
-    ]
+    "output_kpi": "신청 10건 → 4건 선정, 연속반응유동기·분말배지 개발",
+    "linked_downstream": "IC-BIO-004(연계 미확인)"
   },
   "missing_fields": [
     "owner_dept",
     "executor",
+    "stage",
+    "occupation",
     "budget",
-    "output_kpi",
     "outcome_kpi"
   ],
   "source_url": "https://scienceon.kisti.re.kr/srch/selectPORSrchReport.do?cn=TRKO202500010493",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [
-    "source_span[stage]: 인용문이 원문에 없음",
-    "source_span[occupation]: 인용문이 원문에 없음",
-    "source_span[linked_downstream]: 인용문이 원문에 없음"
-  ],
+  "_validation_errors": [],
   "stable_policy_id": "IC-BIO-015",
   "evidence_status": "PRIMARY_VERIFIED",
   "pool_version": "2026-08-13",

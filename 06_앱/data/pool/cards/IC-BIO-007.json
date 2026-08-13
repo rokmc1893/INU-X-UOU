@@ -17,7 +17,7 @@
   "occupation": null,
   "intervention": "해외 박람회 참가 등(추정)",
   "region": "인천",
-  "application_period": "계속사업",
+  "application_period": null,
   "budget": "2026년 전년比 1억 감액(총액 미확인)",
   "output_kpi": null,
   "outcome_kpi": null,
@@ -30,16 +30,18 @@
     "problem": "해외 판로·네트워크 부족",
     "intervention": "해외 박람회 참가 등(추정)",
     "region": "인천",
-    "application_period": "계속사업",
     "budget": "2026년 전년比 1억 감액(총액 미확인)"
   },
   "missing_fields": [
     "executor",
+    "target.age_min",
+    "target.age_max",
     "target.employment_status",
     "target.student_status",
     "target.income_criteria",
     "stage",
     "occupation",
+    "application_period",
     "output_kpi",
     "outcome_kpi"
   ],

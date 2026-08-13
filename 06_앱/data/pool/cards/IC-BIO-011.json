@@ -32,19 +32,15 @@
     "problem": "지역혁신기관 간 협업 네트워크 부재",
     "target": "지원대상: 시·경자청·TP·대학·병원·연구소·기업",
     "intervention": "협의회 운영, 발전전략·정책 반영",
-    "region": "사업 지역: 인천",
-    "application_period": "신청기간: 해당없음",
-    "budget": "해당없음",
-    "output_kpi": "해당없음",
-    "outcome_kpi": "해당없음"
+    "region": "사업 지역: 인천"
   },
   "missing_fields": [
     "owner_dept",
-    "stage",
     "application_period",
     "budget",
     "output_kpi",
-    "outcome_kpi"
+    "outcome_kpi",
+    "stage"
   ],
   "source_url": "https://www.itp.or.kr/intro.asp?tmid=139",
   "retrieved_at": "2026-08-13",

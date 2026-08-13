@@ -8,7 +8,7 @@
   "target": {
     "age_min": null,
     "age_max": null,
-    "residency": null,
+    "residency": "영종구",
     "employment_status": null,
     "student_status": null,
     "income_criteria": null
@@ -38,7 +38,6 @@
     "executor",
     "target.age_min",
     "target.age_max",
-    "target.residency",
     "target.employment_status",
     "target.student_status",
     "target.income_criteria",

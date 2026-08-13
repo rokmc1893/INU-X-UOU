@@ -37,11 +37,11 @@
   },
   "missing_fields": [
     "executor",
-    "stage",
-    "occupation",
     "budget",
     "output_kpi",
-    "outcome_kpi"
+    "outcome_kpi",
+    "stage",
+    "occupation"
   ],
   "source_url": "https://www.tookyung.com/news/articleView.html?idxno=702069",
   "retrieved_at": "2026-08-13",
