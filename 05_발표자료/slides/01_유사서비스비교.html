@@ -1,0 +1,114 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  /* 유사 서비스 비교 — 앞 슬라이드 형식 그대로.
+     서비스를 하나씩 늘어놓으면 여섯 줄이 되어 아무도 안 읽는다.
+     **성격이 같은 것끼리 묶어 세 줄로** 줄이고, 우리는 마지막 한 줄에 둔다.
+     읽는 사람이 눈으로 좇아야 하는 것은 「마지막 줄만 다르다」 하나다.
+
+     그리고 **우리가 X인 칸을 지우지 않는다.** 전부 O 인 표는 아무도 믿지 않는다. */
+  :root {
+    --ink:#14161A; --label:#9AA0A8; --rule:#E6E8EC; --muted:#5B616B;
+    --deep:#262F8F; --i:#3F51E0; --mid:#6C79E8; --soft:#A6AFF0; --wash:#EEF0FD;
+    --x:#C0392B; --tri:#B08A2A;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1600px; height:900px; background:#fff; overflow:hidden;
+    font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;
+    color:var(--ink); word-break:keep-all;
+    padding:56px 76px 44px; display:flex; flex-direction:column;
+  }
+  .chapter { font-size:19px; font-weight:700; color:var(--label); letter-spacing:-.01em; }
+  .hr { height:1px; background:var(--rule); margin:16px 0 36px; }
+  .eyebrow { font-size:26px; font-weight:800; color:var(--deep); letter-spacing:-.02em; }
+  h1 { font-size:56px; font-weight:900; letter-spacing:-.035em; margin-top:10px; line-height:1.12; }
+
+  table { width:100%; border-collapse:collapse; margin-top:40px; }
+  th, td { text-align:center; padding:0; }
+  thead th { font-size:19px; font-weight:800; color:var(--deep); padding:0 10px 16px;
+             line-height:1.3; letter-spacing:-.015em; vertical-align:bottom; }
+  thead th.who { text-align:left; padding-left:4px; }
+  tbody tr { border-top:1.5px solid var(--rule); }
+  tbody td { padding:20px 10px; font-size:34px; font-weight:900; line-height:1; }
+  td.who { text-align:left; padding-left:4px; }
+  .name { font-size:22px; font-weight:800; letter-spacing:-.02em; line-height:1.25; }
+  .sub  { font-size:15px; font-weight:600; color:var(--label); margin-top:5px; letter-spacing:-.01em; }
+  .o { color:var(--i); } .x { color:var(--x); opacity:.62; } .t { color:var(--tri); }
+
+  /* 우리 줄 — 이 슬라이드에서 유일하게 색을 깐 자리 */
+  tr.ours { background:var(--deep); }
+  tr.ours td { color:#fff; }
+  tr.ours .name { color:#fff; font-size:23px; }
+  tr.ours .sub { color:var(--soft); }
+  tr.ours .o { color:#fff; }
+  tr.ours .x { color:#FF9C8F; opacity:1; }
+  tr.ours td:first-child { border-radius:14px 0 0 14px; padding-left:22px; }
+  tr.ours td:last-child  { border-radius:0 14px 14px 0; }
+
+  .foot { margin-top:auto; padding-top:26px; display:flex; align-items:flex-end;
+          justify-content:space-between; gap:44px; }
+  .legend { font-size:16px; font-weight:700; color:var(--muted); line-height:1.75; letter-spacing:-.01em; }
+  .legend b.o{color:var(--i)} .legend b.t{color:var(--tri)} .legend b.x{color:var(--x)}
+  .legend .note { display:block; font-weight:600; color:var(--label); font-size:14px; margin-top:6px; }
+  .honest { flex-shrink:0; max-width:560px; border-left:4px solid var(--soft);
+            padding:4px 0 4px 20px; }
+  .honest .h { font-size:17px; font-weight:800; color:var(--deep); letter-spacing:-.015em; }
+  .honest .b { font-size:16px; font-weight:600; color:var(--muted); margin-top:7px; line-height:1.6; letter-spacing:-.01em; }
+</style>
+
+<div class="chapter">Chapter 2. 접근방식</div>
+<div class="hr"></div>
+
+<div class="eyebrow">국내 유사 서비스 비교</div>
+<h1>중복 판정부터 개편 초안까지, 한 흐름으로 묶은 곳은 없었습니다</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th class="who" style="width:31%">서비스 / 운영 주체</th>
+      <th style="width:15%">사업끼리<br>중복 판정</th>
+      <th style="width:15%">산업 현장<br>수요와 대조</th>
+      <th style="width:14%">개편<br>검토서 초안</th>
+      <th style="width:13%">출처·근거<br>링크</th>
+      <th style="width:12%">전국 재정<br>데이터 연계</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="who"><div class="name">정책 검색 포털</div>
+        <div class="sub">온통청년 · 기업마당 · 인천청년포털</div></td>
+      <td class="x">✕</td><td class="x">✕</td><td class="x">✕</td><td class="o">○</td><td class="x">✕</td>
+    </tr>
+    <tr>
+      <td class="who"><div class="name">행정 생성형 AI 플랫폼</div>
+        <div class="sub">서울AI플랫폼 · 경기 생성형 AI · 서울AI챗</div></td>
+      <td class="x">✕</td><td class="x">✕</td><td class="t">△</td><td class="x">✕</td><td class="x">✕</td>
+    </tr>
+    <tr>
+      <td class="who"><div class="name">재정·데이터 분석 도구</div>
+        <div class="sub">지방재정 지능화 · 혜안 · 인구과소지역 정책지원</div></td>
+      <td class="x">✕</td><td class="t">△</td><td class="x">✕</td><td class="o">○</td><td class="o">○</td>
+    </tr>
+    <tr class="ours">
+      <td class="who"><div class="name">정책핏 인천</div>
+        <div class="sub">팀 F4</div></td>
+      <td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="x">✕</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="foot">
+  <div class="legend">
+    <b class="o">○</b> 공개 기능에서 확인 &nbsp;·&nbsp;
+    <b class="t">△</b> 일부만 &nbsp;·&nbsp;
+    <b class="x">✕</b> 공개 기능에서 확인되지 않음
+    <span class="note">2026년 8월 공개 기능 기준의 정성 비교입니다. 제품 성능 평가가 아니며, 로그인 후 화면은 확인하지 못했습니다.</span>
+  </div>
+  <div class="honest">
+    <div class="h">저희가 ✕인 칸도 지우지 않았습니다</div>
+    <div class="b">전국 재정 데이터 연계는 <b>지방재정 지능화 서비스가 낫습니다.</b>
+      저희 예산 장부 대조는 아직 10건입니다.</div>
+  </div>
+</div>
