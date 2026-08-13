@@ -78,10 +78,10 @@ def reviewers_for(card):
     text = (card.get("name") or "") + " " + str(card.get("summary") or "")
     out = []
     if any(w in text for w in _YOUTH_WORDS):
-        out.append(dict(who=YOUTH_REVIEWER, why="청년 사업이라 A3 3단계 검토자에 포함됩니다"))
+        out.append(dict(who=YOUTH_REVIEWER, why="청년 대상 사업이라 협의 단계에서 같이 봅니다"))
     if any(w in text for w in _RISE_WORDS):
-        out.append(dict(who=RISE_REVIEWER, why="대학·RISE 연계라 A3 3단계 검토자에 포함됩니다"))
-    out.append(dict(who=EVAL_REVIEWER, why="A3 3단계의 상시 검토자입니다"))
+        out.append(dict(who=RISE_REVIEWER, why="대학·RISE와 엮여 있어 협의 단계에서 같이 봅니다"))
+    out.append(dict(who=EVAL_REVIEWER, why="협의 단계에서 늘 같이 보는 자리입니다"))
     return out
 
 
