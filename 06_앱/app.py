@@ -54,15 +54,21 @@ code, .stg-id { font-family: Consolas, monospace; }
 </style>
 """, unsafe_allow_html=True)
 
-# 소관 부서 공개 대표번호 (A1_actor_registry 기준, 2026-08-13 확인)
-DEPT_CONTACT = {
-    "청년정책담당관": "032-440-2882 (청년일자리팀)",
-    "AI블록체인과": "032-440-4342 (AI융합팀)",
-    "AI혁신과": "032-440-4342 (AI융합팀)",
-    "반도체바이오과": "032-440-4282 (바이오산업팀)",
-    "교육협력담당관": "032-440-2142 (RISE추진팀)",
-    "예산담당관": "032-440-2252 (예산팀)",
-}
+# 소관 부서 연락처 — A1 actor registry가 단일 출처 (data/pool/A1_actor_registry.csv)
+from engine import refdata
+# 2026-08 조직개편으로 원장과 카드의 과 명칭이 다른 경우의 별칭
+DEPT_ALIAS = {"AI혁신과": "AI블록체인과"}
+
+
+def dept_info(dept_text):
+    """카드의 owner_dept → (레지스트리 부서명, 정보). 별칭을 먼저 적용한다."""
+    if not dept_text:
+        return None, None
+    for alias, canon in DEPT_ALIAS.items():
+        if alias in dept_text:
+            return canon, refdata.actors().get(canon)
+    return refdata.contact_for(dept_text)
+
 
 # 판정 → 공무원 다음 행동 번역 (A3 워크플로우 3단계 '유사·중복 검토' 기준)
 NEXT_ACTION = {
@@ -90,11 +96,12 @@ def init(scope: str):
     if dp.exists():
         with open(dp, encoding="utf-8-sig") as f:
             demands = list(csv.DictReader(f))
-    edges = detect.build_edges(cards, demands)
+    links = refdata.linkages()
+    edges = detect.build_edges(cards, demands, links)
     store = get_store()
     store.load(cards, demands)
     store.add_edges(edges)
-    findings = detect.run_rules(cards, demands, edges)
+    findings = detect.run_rules(cards, demands, edges, links)
     return cards, demands, edges, store, findings
 
 
@@ -158,8 +165,9 @@ extra = st.session_state.get("extra_cards", [])
 if extra:
     cards = cards + extra
     by_id = {c["policy_id"]: c for c in cards}
-    edges = detect.build_edges(cards, demands)
-    findings = detect.run_rules(cards, demands, edges)
+    links = refdata.linkages()
+    edges = detect.build_edges(cards, demands, links)
+    findings = detect.run_rules(cards, demands, edges, links)
     # 그래프에도 반영한다 — 카드 구성이 바뀐 경우에만 재적재(매 rerun마다 쓰지 않는다)
     sig = (scope, tuple(c["policy_id"] for c in cards))
     if st.session_state.get("graph_sig") != sig:
@@ -194,8 +202,63 @@ def chip(c) -> str:
 
 def dept_of(pid):
     d = (by_id.get(pid) or {}).get("owner_dept") or "소관 미확인"
-    key = next((k for k in DEPT_CONTACT if k in d), None)
-    return f"{d} · ☎ {DEPT_CONTACT[key]}" if key else d
+    _, info = dept_info(d)
+    return f"{d} · ☎ {info['tel']}" if info and info.get("tel") else d
+
+
+def _is_youth(c):
+    t = c.get("target") or {}
+    lo, hi = t.get("age_min"), t.get("age_max")
+    in_range = lo is not None and hi is not None and lo >= 15 and hi <= 45
+    return in_range or "청년" in (c.get("name") or "")
+
+
+def _is_university_rise(c):
+    blob = f"{c.get('name') or ''} {c.get('executor') or ''} {c.get('owner_dept') or ''}"
+    return any(k in blob for k in ("대학", "RISE", "학점", "인천대", "인하대", "재능대"))
+
+
+def a3_reviewers(pids):
+    """A3 3단계의 **고정 검토자**를 사업 성격에 따라 반환한다.
+
+    A3 원문: 검토자 = 청년정책담당관(청년사업 시) · 교육협력담당관(대학/RISE 연계 시) · 평가담당관
+    소관 부서끼리의 협의와 별개로, 이 검토자들은 사업 성격이 맞으면 반드시 들어간다.
+    """
+    cs = [by_id[p] for p in pids if p in by_id]
+    out = []
+    reg = refdata.actors()
+    tel = lambda k: (reg.get(k) or {}).get("tel")
+    if any(_is_youth(c) for c in cs):
+        out.append(("청년정책담당관", tel("청년정책담당관"), "청년사업"))
+    if any(_is_university_rise(c) for c in cs):
+        out.append(("교육협력담당관", tel("교육협력담당관"), "대학·RISE 연계"))
+    out.append(("평가담당관", tel("평가담당관"), "전 사업 공통"))
+    return out
+
+
+def consult_lines(pids):
+    """협의 안내 — 소관 부서 + A3 3단계 고정 검토자. 동일 부서면 협조공문이 아니다."""
+    raw = [(by_id.get(p) or {}).get("owner_dept") for p in pids]
+    owners = {o for o in raw if o}
+    out = []
+    if any(o is None for o in raw):
+        known = ", ".join(sorted(owners)) or "없음"
+        out.append(f"소관: 확인된 부서 {known} · **나머지는 소관 미확인** — "
+                   "원문에서 주관기관을 추출하지 못했다. 협의 전에 사무분장으로 확인할 것.")
+    elif len(owners) == 1:
+        out.append(f"소관: {next(iter(owners))} — 두 사업이 같은 부서 소관이므로 "
+                   "협조공문이 아니라 부서 내 조정 사안이다.")
+    else:
+        out.append("소관 협의: " + " ↔ ".join(dept_of(p) for p in pids))
+    for name, tel, why in a3_reviewers(pids):
+        if any(name in (o or "") for o in owners):
+            continue
+        out.append(f"A3 3단계 필수 검토자: {name}" + (f" · ☎ {tel}" if tel else "") + f" ({why})")
+    return out
+
+
+def consult_block(pids):
+    return "\n\n".join("　" + ln for ln in consult_lines(pids))
 
 
 def name_of(pid):
@@ -252,9 +315,8 @@ def draft_report():
             for kind, items, reason in hits:
                 other = " / ".join(name_of(p) for p in items if p not in drafts)
                 lines.append(f"- [{kind}] 기존사업 「{other}」 — 사유: {reason}")
-                for p in items:
-                    if p not in drafts:
-                        lines.append(f"    - 협의 대상: {dept_of(p)}")
+                for line in consult_lines(items):
+                    lines.append("    - " + line)
         else:
             lines.append("- 규칙상 걸린 기존사업 없음. **단, 이는 '중복 없음'의 증명이 아니라 "
                          "현재 코퍼스 범위에서 후보가 나오지 않았다는 뜻이다.**")
@@ -263,8 +325,9 @@ def draft_report():
         lines.append("")
     for f in findings["overlaps_harmful"]:
         names = " / ".join(name_of(p) for p in f["items"])
-        lines.append(f"- [조정 필요 중복 후보] {names} — 사유: {f['reason']} — 조치안: 통합·조정 협의 "
-                     f"({dept_of(f['items'][0])} ↔ {dept_of(f['items'][1])})")
+        lines.append(f"- [조정 필요 중복 후보] {names} — 사유: {f['reason']} — 조치안: 통합·조정 협의")
+        for line in consult_lines(f["items"]):
+            lines.append("    - " + line)
     for f in findings["overlaps_intentional"]:
         names = " / ".join(name_of(p) for p in f["items"])
         lines.append(f"- [의도적 병행] {names} — 사유: {f['reason']} — 조치 불요, 사유 기재")
@@ -273,8 +336,9 @@ def draft_report():
         lines.append(f"- [보완 관계 · 중복 아님] {names} — 사유: {f['reason']}")
     for f in findings["handoff_breaks"]:
         names = " ↔ ".join(name_of(p) for p in f["items"])
-        lines.append(f"- [인계 공백 후보] {names} — 조치안: 인계 절차 신설 협조공문 "
-                     f"({dept_of(f['items'][0])} ↔ {dept_of(f['items'][1])})")
+        lines.append(f"- [인계 공백 후보] {names} — 조치안: 인계 절차 신설 협의")
+        for line in consult_lines(f["items"]):
+            lines.append("    - " + line)
     for g in findings["gaps"]:
         lines.append(f"- [지원 공백 후보] 직무 '{g['occupation']}' — {g['reason']} — 조치안: 신규사업 발의 검토")
     lines.append("")
@@ -311,14 +375,13 @@ if screen.startswith("1"):
             f"분석 범위: **{scope}** — 풀에서 산업별 정책을 끌어와 결합 (운영 단계는 6대 산업 전체)")
     st.divider()
     st.subheader("지금 판정하면 언제 반영되나 (2026-08-13 기준)")
-    WINDOWS = [("RISE 실행계획 수정·연계", date(2026, 11, 30), "9/1 착수 — 교육협력담당관"),
-               ("2027년 1차 추경 제출", date(2027, 3, 15), "2027.1.15 착수 — 신규 긴급사업 경로"),
-               ("2028년 본예산 신규사업", date(2027, 6, 30), "2027.4 착수 — 정식 신규사업 경로"),
-               ("정부 공모 대응", None, "수시 — 공고 후 14~30일, 시비 매칭 확약 필요")]
-    for wname, dl, note in WINDOWS:
-        dday = f"D-{(dl - TODAY).days}" if dl else "상시"
-        st.markdown(f"- **{wname}** · 마감 {dl or '수시'} (**{dday}**) — {note}")
-    st.caption("2027년 본예산 요구서(6/30)·하반기 추경(7/31)은 마감 경과 — 차기 창구 기준으로 표시")
+    for w in refdata.calendar():
+        need = w["inputs"]
+        mark = " ✅ 이 도구의 산출물" if "유사중복" in need or "유사·중복" in need else ""
+        st.markdown(f"- **{w['type']}** · 착수 {w['start']} · 마감 {w['deadline']}")
+        st.caption(f"　필요문서: {need}{mark} · 심사: {w['review']} · 다음 창구: {w['next']} "
+                   f"({w['status']})")
+    st.caption("출처: 조사자 A의 A2 의사결정 달력 (증거 E021). 연도별 실제 공고일과 대조 필요.")
 
 elif screen.startswith("2"):
     st.title("정책 연계 지도 — 어디서 끊기나")
@@ -354,7 +417,7 @@ elif screen.startswith("2"):
             for pair in pairs:
                 names = " ↔ ".join(name_of(p) for p in pair)
                 st.markdown(f"- {'**' + names + '**' if ANCHOR in pair else names}")
-                st.caption(f"　협의 대상: {dept_of(pair[0])} ↔ {dept_of(pair[1])}")
+                st.markdown(consult_block(pair))
             st.info(f"→ 다음 행동: {NEXT_ACTION['handoff_break']}")
     st.caption("연락처는 2026-08-13 기준 공개 대표번호이며 발송 전 재확인 필요")
     st.divider()
@@ -408,7 +471,7 @@ elif screen.startswith("3"):
         with st.expander(f"🔴 조정 필요 중복 후보 {len(findings['overlaps_harmful'])}건 — 상세"):
             for f in findings["overlaps_harmful"]:
                 st.markdown(f"- {' / '.join(name_of(p) for p in f['items'])} — {f['reason']}")
-                st.caption(f"　협의 대상: {dept_of(f['items'][0])} ↔ {dept_of(f['items'][1])}")
+                st.markdown(consult_block(f['items']))
             st.info(f"→ 다음 행동: {NEXT_ACTION['overlap_harmful']}")
     if findings["overlaps_intentional"]:
         with st.expander(f"🟢 의도적 병행 {len(findings['overlaps_intentional'])}건 — 상세"):

@@ -49,13 +49,20 @@ def _occ_overlap(a, b):
     return bool(sa & sb)
 
 
-def build_edges(cards, demands):
+def build_edges(cards, demands, linkages=None):
+    """linkages: 조사자 B의 B3 연계근거 (handoff=YES면 확인된 인계, NOT_FOUND면 확인된 부재)."""
     edges = []
     by_name = {}
     for c in cards:
         by_name[c["policy_id"]] = c["policy_id"]
         if c.get("name"):
             by_name[c["name"]] = c["policy_id"]
+    ids = {c["policy_id"] for c in cards}
+    for lk in linkages or []:  # 조사로 확인된 인계 — LLM 추출보다 근거 등급이 높다
+        if lk.get("handoff") == "YES" and lk["a"] in ids and lk["b"] in ids:
+            edges.append({"src": lk["a"], "dst": lk["b"], "type": "HANDOFF",
+                          "props": {"evidence": lk.get("evidence_id") or "B3",
+                                    "source": "조사 확인(B3)"}})
     for c in cards:  # HANDOFF: 원문에 명시된 인계만 (LLM 추출 링크 → 규칙이 엣지화)
         for ref in c.get("linked_downstream") or []:
             if ref in by_name:
@@ -99,8 +106,11 @@ def build_edges(cards, demands):
     return edges
 
 
-def run_rules(cards, demands, edges):
+def run_rules(cards, demands, edges, linkages=None):
     handoff = {(e["src"], e["dst"]) for e in edges if e["type"] == "HANDOFF"}
+    # B3에서 '찾아봤는데 인계가 없다'로 확인된 쌍 — 같은 인계 공백이라도 근거 등급이 다르다
+    confirmed_absent = {frozenset((lk["a"], lk["b"])) for lk in (linkages or [])
+                        if lk.get("handoff") == "NOT_FOUND"}
     res = {"handoff_breaks": [], "gaps": [], "overlaps_harmful": [],
            "overlaps_intentional": [], "complements": []}
     for a, b in combinations(cards, 2):  # 인계 단절: 동일 target·occupation ∧ HANDOFF 없음
@@ -112,9 +122,12 @@ def run_rules(cards, demands, edges):
             def _idx(c):
                 return STAGE_ORDER.index(c.get("stage")) if c.get("stage") in STAGE_ORDER else 99
             first, second = (a, b) if _idx(a) <= _idx(b) else (b, a)
+            confirmed = frozenset((pa, pb)) in confirmed_absent
             res["handoff_breaks"].append({
                 "items": [first["policy_id"], second["policy_id"]],
-                "reason": f"{first.get('stage')}→{second.get('stage')} 구간에 명시된 인계 없음"})
+                "evidence": "조사 확인(B3)" if confirmed else "원문 미언급",
+                "reason": f"{first.get('stage')}→{second.get('stage')} 구간에 명시된 인계 없음"
+                          + (" — **조사자가 확인한 부재**" if confirmed else "")})
     covered_specific = {e["dst"] for e in edges if e["type"] == "COVERS"
                         and e["props"].get("specificity") == "specific"}
     covered_generic = {e["dst"] for e in edges if e["type"] == "COVERS"
