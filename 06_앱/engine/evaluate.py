@@ -21,7 +21,8 @@ def score(cards, gold_rows, detect_result):
     field_hit = field_n = abst_hit = abst_n = ov_hit = ov_n = 0
     details = []
     pairs = {"harmful": [set(f["items"]) for f in detect_result.get("overlaps_harmful", [])],
-             "intentional": [set(f["items"]) for f in detect_result.get("overlaps_intentional", [])]}
+             "intentional": [set(f["items"]) for f in detect_result.get("overlaps_intentional", [])],
+             "complementary": [set(f["items"]) for f in detect_result.get("complements", [])]}
     for row in gold_rows:
         ct, ok = row["check_type"], False
         if ct == "field":

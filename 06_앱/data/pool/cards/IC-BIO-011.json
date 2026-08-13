@@ -14,12 +14,11 @@
     "income_criteria": null
   },
   "stage": null,
-  "occupation": [
-    "전직무"
-  ],
+  "occupation": null,
   "intervention": "협의회 운영, 발전전략·정책 반영",
   "region": "인천",
   "application_period": null,
+  "intervention_type": null,
   "budget": null,
   "output_kpi": null,
   "outcome_kpi": null,
@@ -30,17 +29,23 @@
     "status": "운영",
     "executor": "인천테크노파크",
     "problem": "지역혁신기관 간 협업 네트워크 부재",
-    "target": "지원대상: 시·경자청·TP·대학·병원·연구소·기업",
     "intervention": "협의회 운영, 발전전략·정책 반영",
-    "region": "사업 지역: 인천"
+    "region": "인천"
   },
   "missing_fields": [
     "owner_dept",
-    "application_period",
+    "target.age_min",
+    "target.age_max",
+    "target.employment_status",
+    "target.student_status",
+    "target.income_criteria",
+    "stage",
+    "occupation",
+    "intervention_type",
     "budget",
     "output_kpi",
     "outcome_kpi",
-    "stage"
+    "application_period"
   ],
   "source_url": "https://www.itp.or.kr/intro.asp?tmid=139",
   "retrieved_at": "2026-08-13",

@@ -6,22 +6,21 @@
   "executor": "인천테크노파크(추정)",
   "problem": "대기업 편중 구조, 선도-중소기업 연결 부재",
   "target": {
-    "age_min": null,
-    "age_max": null,
-    "residency": null,
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
     "employment_status": null,
     "student_status": null,
     "income_criteria": null
   },
   "stage": null,
-  "occupation": [
-    "전직무"
-  ],
+  "occupation": null,
   "intervention": "개방형 혁신(기술이전, 공동연구, PoC, 글로벌 마케팅)",
   "region": "인천 전역 + 동북아",
   "application_period": "2026 공고별 상이",
+  "intervention_type": null,
   "budget": "시비(추정)",
-  "output_kpi": "미발표(1년차)",
+  "output_kpi": null,
   "outcome_kpi": null,
   "linked_upstream": [
     "인천 6대 전략산업 육성 종합계획"
@@ -35,22 +34,19 @@
     "owner_dept": "인천시 미래산업국 반도체바이오과",
     "executor": "인천테크노파크(추정)",
     "problem": "대기업 편중 구조, 선도-중소기업 연결 부재",
-    "intervention": "개방형 혁신(기술이전, 공동연구, PoC, 글로벌 마케팅)",
-    "region": "인천 전역 + 동북아",
-    "application_period": "2026 공고별 상이",
-    "budget": "시비(추정)",
-    "output_kpi": "미발표(1년차)",
-    "linked_upstream": "인천 6대 전략산업 육성 종합계획",
-    "linked_downstream": "IC-BIO-005"
+    "target": "지원대상: 셀트리온 등 선도기업 + 국내외 중소기업/스타트업",
+    "intervention": "사업내용: 개방형 혁신(기술이전, 공동연구, PoC, 글로벌 마케팅)",
+    "region": "사업 지역: 인천 전역 + 동북아",
+    "application_period": "신청기간: 2026 공고별 상이",
+    "budget": "재원: 시비(추정)",
+    "linked_upstream": "선행 사업: 인천 6대 전략산업 육성 종합계획",
+    "linked_downstream": "후속 사업: IC-BIO-005"
   },
   "missing_fields": [
-    "target.age_min",
-    "target.age_max",
-    "target.residency",
-    "target.employment_status",
-    "target.student_status",
-    "target.income_criteria",
+    "intervention_type",
     "stage",
+    "occupation",
+    "output_kpi",
     "outcome_kpi"
   ],
   "source_url": "https://www.dongbangilbo.co.kr/news/articleView.html?idxno=82711",

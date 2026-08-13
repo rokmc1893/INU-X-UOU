@@ -6,8 +6,8 @@
   "executor": null,
   "problem": null,
   "target": {
-    "age_min": null,
-    "age_max": null,
+    "age_min": 0,
+    "age_max": 200,
     "residency": null,
     "employment_status": null,
     "student_status": null,
@@ -18,6 +18,7 @@
   "intervention": null,
   "region": null,
   "application_period": null,
+  "intervention_type": null,
   "budget": null,
   "output_kpi": null,
   "outcome_kpi": null,
@@ -25,18 +26,19 @@
   "linked_downstream": [],
   "source_span": {
     "name": "인천광역시 제2차 청년정책 기본계획(2026~2030)",
-    "owner_dept": "청년정책담당관"
+    "owner_dept": "청년정책담당관",
+    "target": "제2차 청년정책 기본계획(2026~2030)을 게시하오니, 많은 관심과 참조바랍니다."
   },
   "missing_fields": [
     "status",
     "executor",
     "problem",
-    "target",
     "stage",
     "occupation",
     "intervention",
     "region",
     "application_period",
+    "intervention_type",
     "budget",
     "output_kpi",
     "outcome_kpi"

@@ -164,18 +164,18 @@ s.addNotes("시연 실패 대비 녹화 백업 준비. 화면에 실데이터/�
 // ── 7. 검증 ──
 s = pres.addSlide(); s.background = { color: PAPER };
 title(s, "저희는 취업률을 올렸다고 말하지 않습니다",
-      "자체 정답셋 36건 실측 (2026-08-13, E022) — 2인 교차판정 전 잠정치 · 네 지표 중 둘은 100%가 아닙니다");
+      "자체 정답셋 37건 실측 (2026-08-13, E022) — 2인 교차판정 전 잠정치 · 인용 실재율은 100%가 아닙니다");
 s.addChart(pres.ChartType.bar, [{
-  name: "필드 추출 정확도", labels: ["v2", "v3", "v4", "v6", "v7"], values: [42, 92, 92, 100, 100] }], {
+  name: "필드 추출 정확도", labels: ["v2", "v3", "v6", "v9"], values: [42, 92, 100, 100] }], {
   x: 0.5, y: 1.45, w: 4.2, h: 2.5, chartColors: [HARBOR], showValue: true,
   dataLabelPosition: "outEnd", dataLabelColor: INK, dataLabelFontSize: 11,
   showTitle: true, title: "정답셋이 프롬프트를 개선시켰다 (%)", titleFontSize: 12, titleColor: INK,
   showLegend: false, catAxisLabelColor: INK, valAxisLabelColor: GRAY,
   valGridLine: { color: "E5E7EB", size: 0.5 }, catGridLine: { style: "none" },
   valAxisMaxVal: 100, fontFace: F });
-const met = [["인용 실재율", "91%", "9%는 모델이 원문을 그대로 복사하지 못했습니다", CUT],
-             ["기권 정확도", "89%", "양성 통제군을 넣자 100%가 89%로 내려갔습니다", CUT],
-             ["중첩 오판 회피", "100%", "의도적 병행을 중복으로 몰지 않은 비율", GREEN]];
+const met = [["인용 실재율", "81%", "필드가 늘며 91%에서 내려갔습니다 — 실측 그대로", CUT],
+             ["기권 정확도", "100%", "양성 통제군을 넣어 판별력을 확보한 뒤의 값", GREEN],
+             ["중첩 판정", "100%", "수단 축을 넣기 전에는 0%였습니다", GREEN]];
 met.forEach((m, i) => {
   const y = 1.45 + i * 0.85;
   s.addShape("roundRect", { x: 5.0, y, w: 4.5, h: 0.75, rectRadius: 0.05,
@@ -189,7 +189,7 @@ s.addText([
   { text: "검증하지 않은 것: ", options: { bold: true, color: RED } },
   { text: "실제 취업·근속 증가 · 기업 매출 · 청년 순유출 감소 · 기관 도입 의향 — 3일 해커톤에서 증명할 수 없는 것은 주장하지 않는다", options: { color: INK } },
 ], { x: 0.5, y: 4.35, w: 9.0, h: 0.6, fontSize: 12, fontFace: F, margin: 0 });
-s.addText("전 과정 결정로그 D-001~D-022 · 프롬프트 v2→v7 반복은 전부 정답셋 실측이 유도했다", {
+s.addText("전 과정 결정로그 D-001~D-023 · 프롬프트 v2→v9 반복은 전부 정답셋과 워크스루가 유도했다", {
   x: 0.5, y: 4.95, w: 9.0, h: 0.3, fontSize: 10.5, color: GRAY, fontFace: F, margin: 0 });
 
 // ── 8. 한계와 다음 단계 (다크 클로징) ──

@@ -14,8 +14,30 @@ def _target_overlaps(a, b):
     return ea is None or eb is None or ea == eb
 
 
-def _target_equal(a, b):
-    return (a.get("target") or {}) == (b.get("target") or {})
+SEGMENT_KEYS = ["residency", "employment_status", "student_status", "income_criteria",
+                "age_min", "age_max"]
+
+
+def _target_differs_explicitly(a, b):
+    """대상 세분이 **명시적으로** 다른가.
+
+    한쪽이 null(=원문에 언급 없음)인 것은 '다름'이 아니라 '미확인'이다.
+    양쪽에 값이 있고 서로 다를 때만 세분 차이로 인정한다 — 그래야 정보 부족이
+    '의도적 병행'으로 둔갑해 진짜 중복을 놓치는 일이 없다.
+    """
+    ta, tb = a.get("target") or {}, b.get("target") or {}
+    for k in SEGMENT_KEYS:
+        va, vb = ta.get(k), tb.get(k)
+        if va is not None and vb is not None and va != vb:
+            return True
+    return a.get("region") is not None and b.get("region") is not None \
+        and a.get("region") != b.get("region")
+
+
+def _means_differ(a, b):
+    """수단이 명시적으로 다른가 (A3 3단계 반려사유의 '수단' 축)."""
+    ia, ib = a.get("intervention_type"), b.get("intervention_type")
+    return ia is not None and ib is not None and ia != ib
 
 
 def _occ_overlap(a, b):
@@ -60,18 +82,27 @@ def build_edges(cards, demands):
         pa, pb = a["policy_id"], b["policy_id"]
         if (pa, pb) in handoff or (pb, pa) in handoff:
             continue
-        if a.get("region") != b.get("region") or not _target_equal(a, b):
+        if _means_differ(a, b):
+            # 수단이 다르면 중복이 아니라 보완 관계다 (정장 대여 vs 활동비 현금지원)
+            edges.append({"src": pa, "dst": pb, "type": "OVERLAP_COMPLEMENTARY",
+                          "props": {"reason": f"같은 단계·대상이나 수단이 다름"
+                                              f"({a.get('intervention_type')} vs {b.get('intervention_type')}) — 보완 관계"}})
+            continue
+        if _target_differs_explicitly(a, b):
             edges.append({"src": pa, "dst": pb, "type": "OVERLAP_INTENTIONAL",
-                          "props": {"reason": "지역 또는 대상 세분이 다름 — 낭비 아님"}})
+                          "props": {"reason": f"수단({a.get('intervention_type') or '미상'})은 같으나 "
+                                              "대상 세분 또는 지역이 명시적으로 다름 — 낭비 아님"}})
         else:
             edges.append({"src": pa, "dst": pb, "type": "OVERLAP_HARMFUL",
-                          "props": {"reason": "동일 stage·직무·대상·지역, 상호 인계 없음"}})
+                          "props": {"reason": f"대상·수단({a.get('intervention_type') or '미상'})·직무가 "
+                                              "같고 상호 인계도 없음 — A3 3단계 반려사유에 해당"}})
     return edges
 
 
 def run_rules(cards, demands, edges):
     handoff = {(e["src"], e["dst"]) for e in edges if e["type"] == "HANDOFF"}
-    res = {"handoff_breaks": [], "gaps": [], "overlaps_harmful": [], "overlaps_intentional": []}
+    res = {"handoff_breaks": [], "gaps": [], "overlaps_harmful": [],
+           "overlaps_intentional": [], "complements": []}
     for a, b in combinations(cards, 2):  # 인계 단절: 동일 target·occupation ∧ HANDOFF 없음
         pa, pb = a["policy_id"], b["policy_id"]
         if (_occ_overlap(a, b) and _target_overlaps(a, b)
@@ -100,6 +131,9 @@ def run_rules(cards, demands, edges):
         elif e["type"] == "OVERLAP_INTENTIONAL":
             res["overlaps_intentional"].append({"items": [e["src"], e["dst"]],
                                                 "reason": e["props"]["reason"]})
+        elif e["type"] == "OVERLAP_COMPLEMENTARY":
+            res["complements"].append({"items": [e["src"], e["dst"]],
+                                       "reason": e["props"]["reason"]})
     return res
 
 
@@ -111,7 +145,7 @@ CYPHER = {
         "  AND NOT (a)-[:HANDOFF]-(b)\n"
         "RETURN a.policy_id, b.policy_id  // 동일 대상·직무 겹침은 앱 계층에서 target JSON 비교"),
     "gaps": (
-        "MATCH (d:Demand) WHERE NOT ( (:Policy)-[c:COVERS {specificity: 'specific'}]->(d) )\n"
+        "MATCH (d:Demand) WHERE NOT ( (:Policy)-[:COVERS {specificity: 'specific'}]->(d) )\n"
         "RETURN d.signal_id, d.occupation  // 전직무 일반 지원(generic)만으로는 커버로 보지 않음"),
     "overlaps_harmful": (
         "MATCH (a:Policy)-[e:OVERLAP_HARMFUL]->(b:Policy)\n"

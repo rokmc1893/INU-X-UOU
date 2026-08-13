@@ -6,8 +6,8 @@
   "executor": null,
   "problem": "바이오 원부자재 수입의존, 역내 공급망 부재",
   "target": {
-    "age_min": null,
-    "age_max": null,
+    "age_min": 0,
+    "age_max": 200,
     "residency": "인천",
     "employment_status": null,
     "student_status": null,
@@ -18,12 +18,13 @@
   "intervention": "수요발굴 → 과제선정 → 시작품/공정고도화 R&D",
   "region": "인천",
   "application_period": "종료",
+  "intervention_type": null,
   "budget": null,
-  "output_kpi": "신청 10건 → 4건 선정, 연속반응유동기·분말배지 개발",
+  "output_kpi": "신청 10건 → 4건 선정",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [
-    "IC-BIO-004(연계 미확인)"
+    "IC-BIO-004"
   ],
   "source_span": {
     "name": "인천 바이오 소부장 제조기반 경쟁력 강화 기술개발",
@@ -33,14 +34,14 @@
     "intervention": "수요발굴 → 과제선정 → 시작품/공정고도화 R&D",
     "region": "인천",
     "application_period": "종료",
-    "output_kpi": "신청 10건 → 4건 선정, 연속반응유동기·분말배지 개발",
-    "linked_downstream": "IC-BIO-004(연계 미확인)"
+    "output_kpi": "신청 10건 → 4건 선정"
   },
   "missing_fields": [
     "owner_dept",
     "executor",
     "stage",
     "occupation",
+    "intervention_type",
     "budget",
     "outcome_kpi"
   ],

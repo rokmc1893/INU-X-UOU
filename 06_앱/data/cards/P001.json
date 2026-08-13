@@ -2,8 +2,8 @@
   "policy_id": "P001",
   "name": "2026년 인천 청년도약기지(취업아카데미) 사업 안내",
   "status": null,
-  "owner_dept": "인천광역시 청년정책담당관",
-  "executor": "(사)인천경영자총협회 사업추진팀",
+  "owner_dept": null,
+  "executor": null,
   "problem": null,
   "target": {
     "age_min": 18,
@@ -15,12 +15,13 @@
   },
   "stage": "교육훈련",
   "occupation": [
-    "SW·AI",
-    "일반사무"
+    "일반사무",
+    "SW·AI"
   ],
   "intervention": null,
   "region": "인천",
   "application_period": "2026.04.15(10시) ~ 2026.05.11(14시)",
+  "intervention_type": "교육훈련",
   "budget": null,
   "output_kpi": "130명",
   "outcome_kpi": null,
@@ -28,17 +29,15 @@
   "linked_downstream": [],
   "source_span": {
     "name": "2026년 인천 청년도약기지(취업아카데미) 사업 안내",
-    "owner_dept": "인천광역시 청년정책담당관",
-    "executor": "(사)인천경영자총협회 사업추진팀",
     "target": "인천시 거주 18세~39세 이하 구직희망 청년",
     "stage": "실무 교육훈련(3개월) 및 인턴십(3개월)을 통한 취업 연계 지원",
     "occupation": "경영일반(회계,인사,총무, 기획 등), 홍보· 마케팅· 영업 등",
-    "region": "인천",
-    "application_period": "2026.04.15(10시) ~ 2026.05.11(14시)",
-    "output_kpi": "130명"
+    "intervention_type": "실무 교육훈련(3개월) 및 인턴십(3개월)"
   },
   "missing_fields": [
     "status",
+    "owner_dept",
+    "executor",
     "problem",
     "intervention",
     "budget",

@@ -18,8 +18,9 @@
     "전직무"
   ],
   "intervention": "심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화 등 맞춤형 프로그램 지원",
-  "region": null,
+  "region": "인천",
   "application_period": "2026. 1. 29.(목). ~ 9.30.(수)",
+  "intervention_type": "상담·컨설팅",
   "budget": null,
   "output_kpi": "264명 모집",
   "outcome_kpi": null,
@@ -35,13 +36,14 @@
       "전직무"
     ],
     "intervention": "심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화 등 맞춤형 프로그램 지원",
+    "region": "인천",
     "application_period": "2026. 1. 29.(목). ~ 9.30.(수)",
+    "intervention_type": "상담·컨설팅",
     "output_kpi": "264명 모집"
   },
   "missing_fields": [
     "status",
     "problem",
-    "region",
     "budget",
     "outcome_kpi"
   ],
@@ -50,6 +52,7 @@
   "data_type": "real",
   "_validation_errors": [
     "source_span[stage]: 인용문이 원문에 없음",
-    "source_span[occupation]: 인용문이 원문에 없음"
+    "source_span[occupation]: 인용문이 원문에 없음",
+    "source_span[intervention_type]: 인용문이 원문에 없음"
   ]
 }

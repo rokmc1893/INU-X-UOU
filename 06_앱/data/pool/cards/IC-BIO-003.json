@@ -6,8 +6,8 @@
   "executor": "인천경제자유구역청",
   "problem": "글로벌 백신·바이오의약품 생산인력 부족",
   "target": {
-    "age_min": null,
-    "age_max": null,
+    "age_min": 0,
+    "age_max": 200,
     "residency": null,
     "employment_status": null,
     "student_status": null,
@@ -20,8 +20,9 @@
   "intervention": "백신·바이오의약품 생산공정 기본교육",
   "region": "연수구 송도",
   "application_period": "2024~",
+  "intervention_type": null,
   "budget": null,
-  "output_kpi": null,
+  "output_kpi": "59명 교육, 40명 추가 예정(2023)",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
@@ -31,22 +32,31 @@
     "owner_dept": "보건복지부(WHO 협력)",
     "executor": "인천경제자유구역청",
     "problem": "글로벌 백신·바이오의약품 생산인력 부족",
-    "target": "지원대상: 개발도상국 등 해외 교육생",
-    "stage": "사업내용: 백신·바이오의약품 생산공정 기본교육",
-    "occupation": "대상 직무: 생산/공정",
+    "target": "개발도상국 등 해외 교육생",
+    "stage": "교육훈련",
+    "occupation": [
+      "바이오생산"
+    ],
     "intervention": "백신·바이오의약품 생산공정 기본교육",
-    "region": "사업 지역: 연수구 송도",
-    "application_period": "사업기간: 2024~"
+    "region": "연수구 송도",
+    "application_period": "2024~",
+    "intervention_type": null,
+    "budget": null,
+    "output_kpi": "59명 교육, 40명 추가 예정(2023)",
+    "outcome_kpi": null
   },
   "missing_fields": [
+    "intervention_type",
     "budget",
-    "output_kpi",
     "outcome_kpi"
   ],
   "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=257225",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [],
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음",
+    "source_span[occupation]: 인용문이 원문에 없음"
+  ],
   "stable_policy_id": "IC-BIO-003",
   "evidence_status": "SECONDARY_PRESS_ONLY",
   "pool_version": "2026-08-13",

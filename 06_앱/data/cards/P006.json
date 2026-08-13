@@ -20,24 +20,26 @@
   "intervention": "1인 1회, 연 최대 10만원 범위 자격증시험 응시료 지원",
   "region": "인천",
   "application_period": "2026.02.01(09시) ~ 2026.11.30(18시)",
+  "intervention_type": "현금지원",
   "budget": null,
-  "output_kpi": 5500,
+  "output_kpi": "5500명",
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
   "source_span": {
     "name": "청년 자격증 응시료 지원",
-    "owner_dept": "인천광역시 청년정책담당관",
-    "executor": "인천시 군·구",
-    "target": "18세~39세 청년(1986.1.1. ~ 2008.12.31.출생)",
+    "owner_dept": "주관기관: 인천광역시 청년정책담당관",
+    "executor": "운영기관: 인천시 군·구",
+    "target": "지원대상 - 신청일 현재 주민등록상 인천시 거주자이며, 응시일 현재 미취업자 (2025.12.1. 이후 응시한 시험)",
     "stage": "구직지원",
     "occupation": [
       "전직무"
     ],
     "intervention": "1인 1회, 연 최대 10만원 범위 자격증시험 응시료 지원",
     "region": "인천",
-    "application_period": "2026.02.01(09시) ~ 2026.11.30(18시)",
-    "output_kpi": "5500명"
+    "application_period": "신청기간: 2026.02.01(09시) ~ 2026.11.30(18시)",
+    "intervention_type": "현금지원",
+    "output_kpi": "지원규모: 5500명"
   },
   "missing_fields": [
     "status",
@@ -50,6 +52,7 @@
   "data_type": "real",
   "_validation_errors": [
     "source_span[stage]: 인용문이 원문에 없음",
-    "source_span[occupation]: 인용문이 원문에 없음"
+    "source_span[occupation]: 인용문이 원문에 없음",
+    "source_span[intervention_type]: 인용문이 원문에 없음"
   ]
 }

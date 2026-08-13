@@ -17,6 +17,7 @@ def make_card(**over):
         "owner_dept": None, "executor": None, "problem": None,
         "target": {"age_min": 18, "age_max": 39, "residency": "인천", "employment_status": None},
         "stage": "교육훈련", "occupation": ["전직무"], "intervention": "실무 교육훈련 3개월",
+        "intervention_type": "교육훈련",
         "region": "인천", "application_period": None, "budget": None,
         "output_kpi": None, "outcome_kpi": None,
         "linked_upstream": [], "linked_downstream": [],

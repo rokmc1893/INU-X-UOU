@@ -17,9 +17,10 @@
   "occupation": [
     "전직무"
   ],
-  "intervention": "대학일자리플러스센터 운영비 지원(인하대, 인천대, 재능대, 인하공전)",
+  "intervention": "대학일자리플러스센터 운영비 지원",
   "region": "인천",
   "application_period": null,
+  "intervention_type": "기업보조금",
   "budget": null,
   "output_kpi": "진로·취업 프로그램 참여자 47,000명",
   "outcome_kpi": null,
@@ -29,10 +30,11 @@
     "name": "대학일자리플러스센터 운영 지원",
     "target": "지원대상: 인천시 소재 대학생·2년 이내 졸업생, 인천시 거주 청년 누구나",
     "stage": "구직스킬 향상 취업스터디, 직무특강, 커리어 매칭 프로그램, 청년층 선호 기업(공기업·대기업 등) 특별반운영 등",
-    "occupation": "지원연령: 18세 ~ 39세",
-    "intervention": "대학일자리플러스센터 운영비 지원(인하대, 인천대, 재능대, 인하공전)",
+    "occupation": "전직무",
+    "intervention": "대학일자리플러스센터 운영비 지원",
     "region": "인천",
-    "output_kpi": "지원규모: 진로·취업 프로그램 참여자 47,000명"
+    "intervention_type": "기업보조금",
+    "output_kpi": "진로·취업 프로그램 참여자 47,000명"
   },
   "missing_fields": [
     "status",
@@ -46,5 +48,8 @@
   "source_url": "https://youth.incheon.go.kr/job/university.jsp",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": []
+  "_validation_errors": [
+    "source_span[occupation]: 인용문이 원문에 없음",
+    "source_span[intervention_type]: 인용문이 원문에 없음"
+  ]
 }

@@ -10,7 +10,7 @@
     "age_max": 39,
     "residency": "인천",
     "employment_status": "미취업",
-    "student_status": "재학생 포함",
+    "student_status": null,
     "income_criteria": null
   },
   "stage": "구직지원",
@@ -20,6 +20,7 @@
   "intervention": null,
   "region": "인천",
   "application_period": "2026년 01월 26일 ~ 2026년 12월 11일",
+  "intervention_type": "현물·물품대여",
   "budget": null,
   "output_kpi": "6,000회 예산 범위 내",
   "outcome_kpi": null,
@@ -31,9 +32,8 @@
     "executor": "인천테크노파크 고용안정센터",
     "target": "인천 구직 청년",
     "stage": "구직지원",
-    "occupation": [
-      "전직무"
-    ],
+    "occupation": "전직무",
+    "intervention_type": "현물·물품대여",
     "output_kpi": "6,000회 예산 범위 내",
     "application_period": "2026년 01월 26일 ~ 2026년 12월 11일"
   },
@@ -50,6 +50,7 @@
   "data_type": "real",
   "_validation_errors": [
     "source_span[stage]: 인용문이 원문에 없음",
-    "source_span[occupation]: 인용문이 원문에 없음"
+    "source_span[occupation]: 인용문이 원문에 없음",
+    "source_span[intervention_type]: 인용문이 원문에 없음"
   ]
 }

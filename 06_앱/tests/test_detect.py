@@ -1,8 +1,8 @@
 from engine.detect import build_edges, run_rules, CYPHER
 
-def card(pid, stage, occ, age=(18, 39), res="인천", emp=None, up=None, down=None):
+def card(pid, stage, occ, age=(18, 39), res="인천", emp=None, up=None, down=None, itype="현금지원"):
     return {"policy_id": pid, "name": pid, "stage": stage, "occupation": occ,
-            "region": res,
+            "region": res, "intervention_type": itype,
             "target": {"age_min": age[0], "age_max": age[1],
                        "residency": res, "employment_status": emp},
             "linked_upstream": up or [], "linked_downstream": down or []}
@@ -68,6 +68,28 @@ def test_handoff_break_wildcard_occupation():
     edges = build_edges(cards, [])
     res = run_rules(cards, [], edges)
     assert any(set(f["items"]) == {"P1", "P2"} for f in res["handoff_breaks"])
+
+def test_means_differ_is_not_overlap():
+    """수단이 다르면 중복 후보가 아니다 — 정장 대여 vs 응시료 지원."""
+    cards = [card("P1", "구직지원", ["전직무"], itype="현물·물품대여"),
+             card("P2", "구직지원", ["전직무"], itype="현금지원")]
+    res = run_rules(cards, [], build_edges(cards, []))
+    assert not res["overlaps_harmful"] and not res["overlaps_intentional"]
+
+def test_same_means_same_target_is_harmful():
+    """수단·대상·직무가 같으면 조정 필요 중복 후보다."""
+    cards = [card("P1", "구직지원", ["전직무"], itype="현물·물품대여"),
+             card("P2", "구직지원", ["전직무"], itype="현물·물품대여")]
+    res = run_rules(cards, [], build_edges(cards, []))
+    assert any(set(f["items"]) == {"P1", "P2"} for f in res["overlaps_harmful"])
+
+def test_null_segment_is_not_a_difference():
+    """한쪽만 값이 있는 것은 '다름'이 아니라 '미확인' — 중복을 놓치면 안 된다."""
+    a = card("P1", "구직지원", ["전직무"], itype="현물·물품대여")
+    b = card("P2", "구직지원", ["전직무"], itype="현물·물품대여")
+    a["target"]["student_status"] = "재학생 포함"   # b는 키 자체가 없음(=null)
+    res = run_rules([a, b], [], build_edges([a, b], []))
+    assert any(set(f["items"]) == {"P1", "P2"} for f in res["overlaps_harmful"])
 
 def test_no_openai_import():
     import engine.detect as d, inspect

@@ -35,6 +35,7 @@ code, .stg-id { font-family: Consolas, monospace; }
 .chip.virtual{ color:#8a6d00; border-color:#c9a800; background:#fff8dc; }
 .chip.press{ color:var(--gap); border-color:var(--gap); background:#8A8F980D; }
 .chip.conflict{ color:var(--conflict); border-color:var(--conflict); background:#B423180D; }
+.chip.draft{ color:#fff; border-color:var(--cut); background:var(--cut); }
 /* 시그니처: 결재란 사슬 */
 .chain{ display:flex; align-items:stretch; gap:0; margin:0.6rem 0 1rem 0; }
 .stg{ flex:1; border:1.5px solid var(--ink); border-top:5px solid var(--harbor);
@@ -110,17 +111,45 @@ st.sidebar.caption(f"정책 {len(cards)}건 · 수요신호 {len(demands)}건 "
                    f"(실신호 {n_real_d}건 · 가상 표본 {len(demands) - n_real_d}건)")
 st.sidebar.caption("기준일 2026-08-13 · 모든 판정은 '후보'이며 확정은 부서 협의로")
 
-with st.sidebar.expander("URL로 정책 가져오기"):
+def _add_card(text: str, prefix: str, label: str):
+    """수집·입력 텍스트 → 카드 → 세션 추가. 파이프라인은 배치와 동일하다."""
+    from engine.extract import extract_card
+    n = len(st.session_state.get("extra_cards", [])) + 1
+    card = extract_card(text, f"{prefix}{n:02d}")
+    card["origin"] = label
+    st.session_state.setdefault("extra_cards", []).append(card)
+    return card
+
+
+with st.sidebar.expander("① 검토할 신규사업(안) 넣기", expanded=True):
+    st.caption("A3 3단계 — 발의하려는 사업의 개요를 붙여넣으면 기존 사업과 대조합니다. "
+               "신규사업은 공고가 없으므로 URL 대신 이 칸을 씁니다.")
+    draft_in = st.text_area(
+        "사업기획서(안) 개요",
+        height=130,
+        placeholder="사업명: 청년 바이오 취업 브릿지\n"
+                    "지원대상: 인천 거주 18~39세 미취업 청년\n"
+                    "사업내용: 바이오 생산·품질 직무 교육 2개월 + 송도 기업 인턴 3개월\n"
+                    "지원규모: 40명")
+    if st.button("내 사업으로 대조하기"):
+        if not (draft_in or "").strip():
+            st.warning("사업 개요를 붙여넣어 주세요.")
+        else:
+            try:
+                head = ("# source_url: (미공고 — 검토 중인 사업안)\n"
+                        f"# retrieved_at: {TODAY.isoformat()}\n# data_type: draft\n# ---\n")
+                card = _add_card(head + draft_in, "N", "신규사업(안)")
+                st.success(f"「{card.get('name') or card['policy_id']}」 대조 시작 — 화면 2·3·4에 반영")
+            except Exception as e:
+                st.error(f"카드 변환 실패 — 사업명·지원대상·사업내용을 포함해 다시 넣어 주세요. ({type(e).__name__})")
+
+with st.sidebar.expander("② 기존 정책 URL로 가져오기"):
     url_in = st.text_input("정책 안내 페이지 URL", placeholder="https://youth.incheon.go.kr/...")
     if st.button("가져와서 분석에 추가"):
         try:
-            from engine.extract import extract_card
             from engine.fetch import fetch_policy_text
-            text = fetch_policy_text(url_in)
-            pid = f"U{len(st.session_state.get('extra_cards', [])) + 1:02d}"
-            card = extract_card(text, pid)
-            st.session_state.setdefault("extra_cards", []).append(card)
-            st.success(f"{card.get('name') or pid} 추가됨 — 화면 2·3에 반영")
+            card = _add_card(fetch_policy_text(url_in), "U", "URL 수집")
+            st.success(f"{card.get('name') or card['policy_id']} 추가됨 — 화면 2·3에 반영")
         except Exception as e:
             st.error(f"가져오기 실패 — 원문 텍스트를 data/policies/raw에 직접 넣어도 됩니다. ({type(e).__name__})")
 
@@ -140,11 +169,17 @@ if extra:
             st.session_state["graph_sig"] = sig
         except Exception as e:
             st.sidebar.warning(f"그래프 재적재 실패 — 판정은 파이썬 규칙으로 계속됩니다. ({type(e).__name__})")
-    st.sidebar.caption(f"➕ URL로 추가된 정책 {len(extra)}건 — {store.name}에 적재됨 (세션 한정, 파일 미저장)")
+    n_draft = sum(1 for c in extra if c.get("data_type") == "draft")
+    label = f"검토 중인 사업안 {n_draft}건" if n_draft else ""
+    label += (" · " if label and len(extra) - n_draft else "") + \
+             (f"URL 수집 {len(extra) - n_draft}건" if len(extra) - n_draft else "")
+    st.sidebar.caption(f"➕ {label} — {store.name}에 적재됨 (세션 한정, 파일 미저장)")
 
 
 def chip(c) -> str:
     """근거등급 칩. 풀 카드는 evidence_status, 기본 카드는 data_type 기준."""
+    if c.get("data_type") == "draft":
+        return '<span class="chip draft">검토 중인 사업안</span>'
     ev = c.get("evidence_status")
     if ev == "PRIMARY_VERIFIED":
         return '<span class="chip verified">1차 확인</span>'
@@ -189,9 +224,43 @@ def chain_html():
     return '<div class="chain">' + "".join(parts) + "</div>"
 
 
+def _findings_for(pids):
+    """특정 정책들이 걸린 판정만 추린다 (신규사업안 대조용)."""
+    out = []
+    for f in findings["overlaps_harmful"]:
+        if set(f["items"]) & pids:
+            out.append(("조정 필요 중복 후보", f["items"], f["reason"]))
+    for f in findings["overlaps_intentional"]:
+        if set(f["items"]) & pids:
+            out.append(("의도적 병행", f["items"], f["reason"]))
+    for f in findings["handoff_breaks"]:
+        if set(f["items"]) & pids:
+            out.append(("인계 공백 후보", f["items"], f["reason"]))
+    return out
+
+
 def draft_report():
+    drafts = {c["policy_id"] for c in cards if c.get("data_type") == "draft"}
     lines = ["# 유사·중복 사업 자체 검토서 (초안 — 자동 생성, 담당자 확인 필수)",
              f"작성 기준일: 2026-08-13 · 분석 범위: {scope} · 검토 대상 {len(cards)}건", ""]
+    if drafts:
+        names = ", ".join(name_of(p) for p in sorted(drafts))
+        lines.append(f"## 1. 검토 대상 신규사업(안): {names}")
+        lines.append("")
+        hits = _findings_for(drafts)
+        if hits:
+            for kind, items, reason in hits:
+                other = " / ".join(name_of(p) for p in items if p not in drafts)
+                lines.append(f"- [{kind}] 기존사업 「{other}」 — 사유: {reason}")
+                for p in items:
+                    if p not in drafts:
+                        lines.append(f"    - 협의 대상: {dept_of(p)}")
+        else:
+            lines.append("- 규칙상 걸린 기존사업 없음. **단, 이는 '중복 없음'의 증명이 아니라 "
+                         "현재 코퍼스 범위에서 후보가 나오지 않았다는 뜻이다.**")
+        lines.append("")
+        lines.append("### 참고: 분석 범위 전체의 기존사업 간 관계")
+        lines.append("")
     for f in findings["overlaps_harmful"]:
         names = " / ".join(name_of(p) for p in f["items"])
         lines.append(f"- [조정 필요 중복 후보] {names} — 사유: {f['reason']} — 조치안: 통합·조정 협의 "
@@ -199,6 +268,9 @@ def draft_report():
     for f in findings["overlaps_intentional"]:
         names = " / ".join(name_of(p) for p in f["items"])
         lines.append(f"- [의도적 병행] {names} — 사유: {f['reason']} — 조치 불요, 사유 기재")
+    for f in findings.get("complements", []):
+        names = " / ".join(name_of(p) for p in f["items"])
+        lines.append(f"- [보완 관계 · 중복 아님] {names} — 사유: {f['reason']}")
     for f in findings["handoff_breaks"]:
         names = " ↔ ".join(name_of(p) for p in f["items"])
         lines.append(f"- [인계 공백 후보] {names} — 조치안: 인계 절차 신설 협조공문 "
@@ -217,11 +289,15 @@ if screen.startswith("1"):
     st.success("**이 도구가 대신하는 업무** — 신규사업 검토 8단계 중 "
                "**3단계 '타 부서 협의·유사·중복 검토'** (예산 지침 필수 항목). "
                "유사·중복 사업 자체 검토서 작성에 필요한 후보를 자동 선별합니다.")
-    c1, c2, c3, c4 = st.columns(4)
+    c1, c2, c3, c4, c5 = st.columns(5)
     c1.metric("지원 공백 후보", f"{len(findings['gaps'])}건", help="신규사업 발의 검토 대상")
     c2.metric("인계 공백 후보", f"{len(findings['handoff_breaks'])}쌍", help="부서 간 협조공문 검토 대상")
-    c3.metric("조정 필요 중복 후보", f"{len(findings['overlaps_harmful'])}건", help="유사·중복 검토서 기재 대상")
-    c4.metric("의도적 병행", f"{len(findings['overlaps_intentional'])}건", help="조치 불요 — 사유만 기재")
+    c3.metric("조정 필요 중복 후보", f"{len(findings['overlaps_harmful'])}건",
+              help="대상·수단·직무가 같고 상호 인계도 없음 — A3 3단계 반려사유. 검토서 기재 대상")
+    c4.metric("의도적 병행", f"{len(findings['overlaps_intentional'])}건",
+              help="수단은 같으나 대상이 명시적으로 다름 — 조치 불요, 사유만 기재")
+    c5.metric("보완 관계", f"{len(findings.get('complements', []))}건",
+              help="같은 단계·대상이나 수단이 다름 — 중복이 아님")
     st.divider()
     st.markdown(f"""
 **기준사업: 인천 청년도약기지(취업아카데미)** — 교육훈련 3개월 + 인턴십 3개월, 130명.
@@ -339,12 +415,21 @@ elif screen.startswith("3"):
             for f in findings["overlaps_intentional"]:
                 st.markdown(f"- {' / '.join(name_of(p) for p in f['items'])} — {f['reason']}")
             st.info(f"→ 다음 행동: {NEXT_ACTION['overlap_intent']}")
+    if findings.get("complements"):
+        with st.expander(f"🔵 보완 관계 {len(findings['complements'])}건 — 중복이 아님"):
+            for f in findings["complements"]:
+                st.markdown(f"- {' / '.join(name_of(p) for p in f['items'])} — {f['reason']}")
+            st.info("→ 다음 행동: 조치 불요. **A3 3단계 반려사유는 '대상·수단·직무 동일'이므로 "
+                    "수단이 다르면 중복이 아니다** — 검토서에 보완 관계로 기재해 신규 발의 반려를 예방한다.")
     with st.expander("[심사위원용] 그래프 질의 원문 (Cypher) — 기술 검증"):
         for qname, q in detect.CYPHER.items():
             st.markdown(f"**{qname}**")
             st.code(q, language="cypher")
-        st.caption(f"현재 스토어: {store.name}"
-                   + ("" if store.name == "Neo4j" else " — Cypher는 Neo4j 가동 시 실행, 지금은 동일 논리 파이썬 규칙"))
+        st.caption(
+            f"현재 스토어: **{store.name}** · 정책·수요·엣지는 위 그래프에 실제로 적재돼 있다. "
+            "위 질의문은 **판정과 동일한 논리를 그래프 질의로 표현한 것**이며, 화면의 판정 수치는 "
+            "`detect.run_rules()`의 파이썬 규칙이 계산한다 — 대상 연령·직무 겹침 비교가 앱 계층에 있어 "
+            "질의를 그대로 실행하면 행 수가 더 많이 나온다(예: 인계 공백 질의 53행 vs 화면 29쌍).")
 
 elif screen.startswith("4"):
     st.title("조치 제안서 — 최종 판단은 담당자가")

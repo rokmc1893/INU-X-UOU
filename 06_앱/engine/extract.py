@@ -5,9 +5,12 @@ from pathlib import Path
 
 STAGES = ["교육훈련", "일경험", "구직지원", "매칭", "채용지원", "정착"]
 OCCUPATIONS = ["바이오생산", "바이오품질", "SW·AI", "일반사무", "전직무"]
+# 수단(intervention_type) — A3 3단계 반려사유 "대상·수단·직무 동일"의 '수단' 축
+INTERVENTION_TYPES = ["현금지원", "현물·물품대여", "교육훈련", "상담·컨설팅",
+                      "알선·매칭", "시설·인프라", "기업보조금"]
 
 NULLABLE_FIELDS = ["name", "status", "owner_dept", "executor", "problem", "stage",
-                   "intervention", "region", "application_period", "budget",
+                   "intervention", "intervention_type", "region", "application_period", "budget",
                    "output_kpi", "outcome_kpi"]
 TARGET_KEYS = ["age_min", "age_max", "residency", "employment_status"]
 
@@ -23,21 +26,30 @@ PROMPT = """당신은 정책 원문에서 정책카드를 추출한다. 반드�
    - 매칭: 구인-구직 연결 — 취업스터디, 매칭 프로그램, 알선. 기관 운영비 지원 사업은 그 기관의 핵심 기능으로 분류한다(예: 대학일자리센터 운영 지원 → 매칭)
    - 채용지원: 기업에 주는 채용 인센티브·환경개선 지원
    - 정착: 채용 이후 근속·정착 지원
-   - 인력 사슬 밖 사업(시설·인프라 구축, 기업 R&D 지원, 산업 육성 계획 등 사람의 취업 단계를 직접 다루지 않는 사업)은 stage를 null로 기권한다
+   - 인력 사슬 밖 사업(시설·인프라 구축, 기업 R&D 지원, 산업 육성 계획 등 사람의 취업 단계를 직접 다루지 않는 사업)은 stage를 null로 기권한다.
+     단 **청년 신규채용을 조건으로 기업에 주는 지원(근로환경 개선비 등)은 시설 개보수가 포함돼 있어도 "채용지원"**이다 — 사람의 채용에 직접 연동되기 때문이다.
 4. occupation은 다음 어휘의 배열: {occupations}
    - occupation은 지원 자격이 아니라 **사업이 겨냥하는 직무**다. 지원대상이 "시민 누구나"여도 사업 내용이 특정 직무를 다루면 그 직무로 분류한다.
    - 교육·훈련 사업은 훈련 과정이 가르치는 내용으로 분류한다(예: 회계·인사·마케팅 실무 → 일반사무, AI·SW 개발 → SW·AI, 바이오 생산공정 → 바이오생산). 여러 직무를 가르치면 배열에 모두 넣는다.
    - 직무와 무관한 일반 지원(정장 대여, 활동비·응시료 지원, 상담, 매칭 일반)은 반드시 ["전직무"]로 기입한다. null 기권 금지 — 이것은 추측이 아니라 코딩 규칙이다.
-5. output_kpi는 **산출 목표치**다 — 원문의 "지원규모", "모집인원", "○○명", "○○개사" 같은 수혜 규모 표현이 있으면 반드시 추출한다(기권 금지). outcome_kpi는 취업률·근속률 등 **결과 지표**이며, 원문에 없으면 기권한다.
-6. linked_upstream/linked_downstream: 원문에 명시적으로 언급된 선행/후속 사업명 배열(없으면 []).
-7. target은 {{"age_min": 숫자|null, "age_max": 숫자|null, "residency": 문자열|null, "employment_status": 문자열|null, "student_status": 문자열|null, "income_criteria": 문자열|null}}.
+5. intervention_type은 **지원 수단**의 분류다. 다음 중 하나만: {itypes}
+   - 현금지원: 수당·활동비·응시료 등 돈을 직접 준다
+   - 현물·물품대여: 정장 대여, 물품 제공 등 물건·서비스를 준다
+   - 교육훈련: 교육 과정을 운영한다 · 상담·컨설팅: 상담·진로탐색·컨설팅을 제공한다
+   - 알선·매칭: 구인-구직을 연결하거나 매칭 기관을 운영한다
+   - 시설·인프라: 건물·장비를 구축한다 · 기업보조금: 기업에 보조금·인센티브를 준다
+   사업내용을 알 수 없는 문서만 null로 기권한다. 이것도 분류(코딩) 필드다.
+6. output_kpi는 **산출 목표치**다 — 원문의 "지원규모", "모집인원", "○○명", "○○개사" 같은 수혜 규모 표현이 있으면 반드시 추출한다(기권 금지). outcome_kpi는 취업률·근속률 등 **결과 지표**이며, 원문에 없으면 기권한다.
+7. linked_upstream/linked_downstream: 원문에 명시적으로 언급된 선행/후속 사업명 배열(없으면 []).
+8. target은 {{"age_min": 숫자|null, "age_max": 숫자|null, "residency": 문자열|null, "employment_status": 문자열|null, "student_status": 문자열|null, "income_criteria": 문자열|null}}.
    - employment_status는 "미취업"/"재직"/null로 정규화, residency는 시·군·구 수준("인천" 등)으로 정규화한다.
+   - 원문이 "제한없음"·"누구나"처럼 **제한이 없음을 명시**하면 age_min=0, age_max=200으로 기입한다. 언급 자체가 없을 때만 null이다 — 이 둘은 다른 정보다.
    - student_status: 원문이 재학생 포함/제외를 명시하면 "재학생 포함" 또는 "재학생 제외", 언급 없으면 null.
    - income_criteria: 원문에 소득·재산 기준이 명시되면 원문 표현 그대로, 없으면 null. 이 두 필드는 대상 세분(의도적 중첩 판정)에 쓰인다.
 
 스키마: {{"policy_id": "{pid}", "name", "status", "owner_dept", "executor", "problem",
 "target", "stage", "occupation", "intervention", "region", "application_period",
-"budget", "output_kpi", "outcome_kpi", "linked_upstream", "linked_downstream",
+"intervention_type", "budget", "output_kpi", "outcome_kpi", "linked_upstream", "linked_downstream",
 "source_span", "missing_fields"}}
 
 원문:
@@ -74,6 +86,9 @@ def validate_card(card: dict, body: str) -> list:
             errors.append(f"missing_fields: null 필드 '{f}'가 기권 기록에 없음")
     if card.get("stage") is not None and card["stage"] not in STAGES:
         errors.append(f"stage: '{card['stage']}'는 통제 어휘가 아님")
+    it = card.get("intervention_type")
+    if it is not None and it not in INTERVENTION_TYPES:
+        errors.append(f"intervention_type: '{it}'는 통제 어휘가 아님")
     occ_list = card.get("occupation")
     if occ_list is not None and not isinstance(occ_list, list):
         errors.append("occupation: 배열(JSON array)이어야 함")
@@ -116,7 +131,8 @@ def extract_card(raw_text: str, policy_id: str, llm=None, model: str = "gpt-4o-m
     meta, body = parse_meta(raw_text)
     if llm is None:
         llm = _openai_llm(model)
-    prompt = PROMPT.format(stages=STAGES, occupations=OCCUPATIONS, pid=policy_id, body=body)
+    prompt = PROMPT.format(stages=STAGES, occupations=OCCUPATIONS,
+                           itypes=INTERVENTION_TYPES, pid=policy_id, body=body)
     card = json.loads(llm(prompt))
     card["policy_id"] = policy_id
     card["source_url"] = meta.get("source_url")

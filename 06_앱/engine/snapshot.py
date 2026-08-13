@@ -77,7 +77,8 @@ def build(scope_label, cards, demands):
     out.append('<div class="cards">')
     for lbl, n in [("지원 공백 후보", len(f["gaps"])), ("인계 공백 후보", len(f["handoff_breaks"])),
                    ("조정 필요 중복 후보", len(f["overlaps_harmful"])),
-                   ("의도적 병행", len(f["overlaps_intentional"]))]:
+                   ("의도적 병행", len(f["overlaps_intentional"])),
+                   ("보완 관계", len(f.get("complements", [])))]:
         out.append(f'<div class="card"><b>{n}</b><span>{lbl}</span></div>')
     out.append('</div>')
 
@@ -157,7 +158,10 @@ def main():
     with open(base / "demand" / "demand_signals.csv", encoding="utf-8-sig") as fp:
         demands = list(csv.DictReader(fp))
 
-    parts = [f"<style>{CSS}</style>",
+    parts = ['<!doctype html><html lang="ko"><head><meta charset="utf-8">'
+             '<meta name="viewport" content="width=device-width, initial-scale=1">'
+             '<title>정책핏 인천 — 시연 백업</title>',
+             f"<style>{CSS}</style></head><body>",
              "<h1>정책핏 인천 — 시연 백업 스냅샷</h1>",
              '<div class="sub">앱·DB·인터넷 없이 열리는 정적 사본 · 기준일 2026-08-13 · '
              '모든 판정은 “후보”이며 확정은 부서 협의로</div>',
@@ -181,6 +185,7 @@ def main():
     parts.append('<div class="warn">수요신호 4건 중 3건은 <b>가상 표본</b>이며, 바이오생산 1건만 '
                  'B/D급 실신호(전국 단위 보고서·사업주체 서술)다. 공백 판정은 고용24 실데이터 확보 후 확정한다.</div>')
 
+    parts.append("</body></html>")
     out = base / "demo_fallback.html"
     out.write_text("\n".join(parts), encoding="utf-8")
     print(f"{out} 생성 — 앱 없이 브라우저로 열면 4화면 핵심 내용이 그대로 나온다")
