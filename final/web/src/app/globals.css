@@ -88,13 +88,23 @@ a { color: inherit; }
 @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .grow { transform-origin: left; animation: grow .8s cubic-bezier(.2,.7,.3,1) both; }
 
+/* 페이지가 열릴 때 위에서부터 차례로 — 읽는 차례를 만든다 */
+.stagger > * { animation: rise .42s cubic-bezier(.2,.7,.3,1) both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+.stagger > *:nth-child(n+6) { animation-delay: 300ms; }
+
 /* 카드 — 누를 수 있다는 것만 알려 준다 */
 .pick { transition: transform .12s ease, border-color .12s ease, background-color .12s ease; }
 .pick:hover { transform: translateY(-1px); }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise, .grow { animation: none; }
+  .rise, .grow, .stagger > * { animation: none; }
   .pick:hover { transform: none; }
+  * { transition: none !important; }
 }
 
 @media print {

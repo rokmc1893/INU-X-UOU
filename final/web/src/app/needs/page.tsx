@@ -31,78 +31,81 @@ export default function NeedsPage() {
         lead="기업이 필요하다고 말한 것을 일곱 가지로 나눠, 그걸 해주는 사업이 있는지 하나씩 맞춰 봅니다."
       />
 
-      <Counts items={[
-        { label: "기업이 말한 것", n: r.needs.length },
-        { label: "해주는 사업이 없음", n: gaps.length, tone: "gap" },
-        { label: "사업 하나에만 걸림", n: thin.length },
-        { label: "이 사업이 맡은 것", n: r.needs.filter((n) => n.mine).length, tone: "pen" },
-      ]} />
-
-      {r.posture && (
-        <Card title="이 산업에는 무엇부터 물어야 합니까">
-          <p className="flex flex-wrap items-center gap-2 text-[15px]">
-            <Tag tone={r.posture.posture === "대응형" ? "pen" : "hold"}>
-              {r.posture.posture === "대응형" ? "이미 필요하다고 나옴" : "아직 자료 없음"}
-            </Tag>
-            <b>{r.posture.question}</b>
-          </p>
-          <p className="mt-2 text-[13px] text-muted">{r.posture.why}</p>
-          <p className="mt-2 border-t border-rule pt-2 text-[12px] text-muted">
-            이 구분은 저희가 정한 것이 아니라 조사 자료가 정한 것입니다.
-            새 자료가 들어오면 구분도 질문도 저절로 바뀝니다.
-          </p>
-        </Card>
-      )}
-
-      <Card title="무엇이 채워졌고 무엇이 비었나">
-        <ul className="space-y-2">
-          {[...by].map(([plain, d]) => (
-            <li key={plain} className="grid grid-cols-[7rem_1fr_3.5rem] items-center gap-3">
-              <span className={`text-[13px] font-semibold ${d.covered === 0 ? "text-gap" : ""}`}>
-                {plain}
-                <span className="block text-[11px] font-normal text-faint">{d.label}</span>
-              </span>
-              <Slots filled={d.covered} empty={d.covered === 0} />
-              <span className="text-right text-[12px] text-muted">{d.covered}÷{d.total}</span>
-            </li>
-          ))}
-        </ul>
-      </Card>
-
-      <Card title="하나씩 보기" sub="자료마다 근거 등급과 원문이 붙어 있습니다.">
-        <ul className="space-y-2.5">
-          {[...r.needs].sort((a, b) =>
-            (a.verdict === "uncovered" ? 0 : 1) - (b.verdict === "uncovered" ? 0 : 1)
-          ).map((n) => (
-            <li key={n.signal_id} className="flex flex-wrap items-start gap-2 border-b border-rule pb-2.5">
-              <Tag tone={n.verdict === "uncovered" ? "gap" : n.mine ? "pen" : "flat"}>
-                {n.verdict === "uncovered" ? "없음" : n.mine ? "이 사업이 맡음" : `${n.covers.length}건`}
+      <div className="stagger">
+        <Counts items={[
+          { label: "기업이 말한 것", n: r.needs.length },
+          { label: "해주는 사업이 없음", n: gaps.length, tone: "gap" },
+          { label: "사업 하나에만 걸림", n: thin.length },
+          { label: "이 사업이 맡은 것", n: r.needs.filter((n) => n.mine).length, tone: "pen" },
+        ]} />
+  
+        {r.posture && (
+          <Card title="이 산업에는 무엇부터 물어야 합니까">
+            <p className="flex flex-wrap items-center gap-2 text-[15px]">
+              <Tag tone={r.posture.posture === "대응형" ? "pen" : "hold"}>
+                {r.posture.posture === "대응형" ? "이미 필요하다고 나옴" : "아직 자료 없음"}
               </Tag>
-              <span className="min-w-0 flex-1">
-                <b className="text-[14px]">{n.plain}</b>
-                <span className="text-[14px]"> · {n.problem_type}</span>
-                <span className="mt-0.5 block text-[12px] text-muted">
-                  {n.value.slice(0, 70)} · {n.signal_id} {n.grade}등급 {n.trend}
-                  <Src url={n.source_url} label="자료" />
+              <b>{r.posture.question}</b>
+            </p>
+            <p className="mt-2 text-[13px] text-muted">{r.posture.why}</p>
+            <p className="mt-2 border-t border-rule pt-2 text-[12px] text-muted">
+              이 구분은 저희가 정한 것이 아니라 조사 자료가 정한 것입니다.
+              새 자료가 들어오면 구분도 질문도 저절로 바뀝니다.
+            </p>
+          </Card>
+        )}
+  
+        <Card title="무엇이 채워졌고 무엇이 비었나">
+          <ul className="space-y-2">
+            {[...by].map(([plain, d]) => (
+              <li key={plain} className="grid grid-cols-[7rem_1fr_3.5rem] items-center gap-3">
+                <span className={`text-[13px] font-semibold ${d.covered === 0 ? "text-gap" : ""}`}>
+                  {plain}
+                  <span className="block text-[11px] font-normal text-faint">{d.label}</span>
                 </span>
-                {n.limit && (
-                  <span className="mt-0.5 block text-[12px] text-faint">
-                    이 자료의 한계 — {n.limit.slice(0, 90)}
+                <Slots filled={d.covered} empty={d.covered === 0} />
+                <span className="text-right text-[12px] text-muted">{d.covered}÷{d.total}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+  
+        <Card title="하나씩 보기" sub="자료마다 근거 등급과 원문이 붙어 있습니다.">
+          <ul className="space-y-2.5">
+            {[...r.needs].sort((a, b) =>
+              (a.verdict === "uncovered" ? 0 : 1) - (b.verdict === "uncovered" ? 0 : 1)
+            ).map((n) => (
+              <li key={n.signal_id} className="flex flex-wrap items-start gap-2 border-b border-rule pb-2.5">
+                <Tag tone={n.verdict === "uncovered" ? "gap" : n.mine ? "pen" : "flat"}>
+                  {n.verdict === "uncovered" ? "없음" : n.mine ? "이 사업이 맡음" : `${n.covers.length}건`}
+                </Tag>
+                <span className="min-w-0 flex-1">
+                  <b className="text-[14px]">{n.plain}</b>
+                  <span className="text-[14px]"> · {n.problem_type}</span>
+                  <span className="mt-0.5 block text-[12px] text-muted">
+                    {n.value.slice(0, 70)} · {n.signal_id} {n.grade}등급 {n.trend}
+                    <Src url={n.source_url} label="자료" />
                   </span>
-                )}
-                {n.coverNames.filter(Boolean).length > 0 && (
-                  <span className="mt-0.5 block text-[12px] text-pen">
-                    → {n.coverNames.filter(Boolean).slice(0, 3).join(", ")}
-                  </span>
-                )}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </Card>
+                  {n.limit && (
+                    <span className="mt-0.5 block text-[12px] text-faint">
+                      이 자료의 한계 — {n.limit.slice(0, 90)}
+                    </span>
+                  )}
+                  {n.coverNames.filter(Boolean).length > 0 && (
+                    <span className="mt-0.5 block text-[12px] text-pen">
+                      → {n.coverNames.filter(Boolean).slice(0, 3).join(", ")}
+                    </span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+  
+        {gaps.length > 0 && <FindSources r={r} kinds={[...new Set(gaps.map((g) => g.plain))]} />}
+        <Intake industry={(r.card.industry ?? "").split("+")[0]} />
+      </div>
 
-      {gaps.length > 0 && <FindSources r={r} kinds={[...new Set(gaps.map((g) => g.plain))]} />}
-      <Intake industry={(r.card.industry ?? "").split("+")[0]} />
     </>
   );
 }

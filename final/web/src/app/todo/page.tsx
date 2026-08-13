@@ -36,61 +36,64 @@ export default function Home() {
         lead={`손볼 것 ${todo.length}건 · 확인만 하면 되는 것 ${items.length - todo.length}건`}
       />
 
-      <section className="mb-6 grid gap-4 md:grid-cols-[1.05fr_1fr]">
-        <Summary r={r} />
-        <GapBars r={r} />
-      </section>
-
-      <p className="mb-2.5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px] text-muted">
-        <span className="flex items-center gap-1.5">
-          <span className="grid h-5 w-5 place-items-center rounded-[3px] border border-gap text-[11px] font-bold text-gap">1</span>
-          붉은 번호는 손보셔야 할 것
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="grid h-5 w-5 place-items-center rounded-[3px] border border-pen bg-pen-soft text-[11px] font-bold text-pen">✓</span>
-          파란 표는 확인만 하면 되는 것
-        </span>
-        <span className="text-faint">
-          옆의 「사업 N건 · 자료 N건」은 그 항목에 걸린 개수입니다
-        </span>
-      </p>
-
-      <ol className="space-y-2">
-        {items.map((it) => {
-          const n = it.action ? todo.indexOf(it) + 1 : 0;
-          const go = GO[it.section];
-          return (
-            <li key={it.key}
-                className={`rounded-lg border bg-paper p-4 ${
-                  it.action ? "border-rule" : "border-dashed border-rule"}`}>
-              <div className="flex items-start gap-3">
-                <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-[3px] border text-[11px] font-bold ${
-                  it.action ? "border-gap text-gap" : "border-pen bg-pen-soft text-pen"}`}>
-                  {it.action ? n : "✓"}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="flex flex-wrap items-center gap-2">
-                    <b className="text-[15px]">{it.title}</b>
-                    {it.count ? (
-                      <Tag tone={it.action ? "gap" : "flat"}>
-                        {it.unit} {it.count}건
-                      </Tag>
-                    ) : null}
-                  </p>
-                  <p className="mt-1 text-[13px] text-muted">{it.now}</p>
-                  <p className="mt-1.5 text-[13px] text-pen">→ {it.then}</p>
+      <div className="stagger">
+        <section className="mb-6 grid gap-4 md:grid-cols-[1.05fr_1fr]">
+          <Summary r={r} />
+          <GapBars r={r} />
+        </section>
+  
+        <p className="mb-2.5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px] text-muted">
+          <span className="flex items-center gap-1.5">
+            <span className="grid h-5 w-5 place-items-center rounded-[3px] border border-gap text-[11px] font-bold text-gap">1</span>
+            붉은 번호는 손보셔야 할 것
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="grid h-5 w-5 place-items-center rounded-[3px] border border-pen bg-pen-soft text-[11px] font-bold text-pen">✓</span>
+            파란 표는 확인만 하면 되는 것
+          </span>
+          <span className="text-faint">
+            옆의 「사업 N건 · 자료 N건」은 그 항목에 걸린 개수입니다
+          </span>
+        </p>
+  
+        <ol className="space-y-2">
+          {items.map((it) => {
+            const n = it.action ? todo.indexOf(it) + 1 : 0;
+            const go = GO[it.section];
+            return (
+              <li key={it.key}
+                  className={`rounded-lg border bg-paper p-4 ${
+                    it.action ? "border-rule" : "border-dashed border-rule"}`}>
+                <div className="flex items-start gap-3">
+                  <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-[3px] border text-[11px] font-bold ${
+                    it.action ? "border-gap text-gap" : "border-pen bg-pen-soft text-pen"}`}>
+                    {it.action ? n : "✓"}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="flex flex-wrap items-center gap-2">
+                      <b className="text-[15px]">{it.title}</b>
+                      {it.count ? (
+                        <Tag tone={it.action ? "gap" : "flat"}>
+                          {it.unit} {it.count}건
+                        </Tag>
+                      ) : null}
+                    </p>
+                    <p className="mt-1 text-[13px] text-muted">{it.now}</p>
+                    <p className="mt-1.5 text-[13px] text-pen">→ {it.then}</p>
+                  </div>
+                  <Link
+                    href={{ pathname: go, query: { 사업: pid } }}
+                    className="mt-0.5 shrink-0 rounded-md border border-rule px-2.5 py-1 text-[12px] text-muted hover:border-pen hover:text-pen"
+                  >
+                    {GO_LABEL}
+                  </Link>
                 </div>
-                <Link
-                  href={{ pathname: go, query: { 사업: pid } }}
-                  className="mt-0.5 shrink-0 rounded-md border border-rule px-2.5 py-1 text-[12px] text-muted hover:border-pen hover:text-pen"
-                >
-                  {GO_LABEL}
-                </Link>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+
     </>
   );
 }

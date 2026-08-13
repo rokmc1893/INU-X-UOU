@@ -2,54 +2,74 @@
 
 /* 관계도 — 이 사업이 어디에 물려 있나.
  *
- * 선의 종류가 뜻을 나른다. 목록으로는 "몇 건"만 보이는데, 그려 놓으면 이 사업이
- * 어느 쪽으로 얽혀 있는지가 한눈에 들어온다.
- *   굵은 붉은 선  정리가 필요한 겹침
- *   가는 회색 선  겹쳐 보이지만 겹치지 않음
- *   점선          넘기는 절차가 없음
+ * **색이 뜻을 나른다.** 앞서는 「겹치지 않음」과 「넘기는 절차 없음」이 같은 회색이라
+ * 점선인지 실선인지로만 갈렸다. 화면 다른 곳에서 쓰는 세 가지 뜻에 그대로 맞춘다.
+ *   붉음(gap)   조치가 필요하다        — 정리가 필요한 겹침
+ *   파랑(pen)   확인했고 문제없다      — 겹쳐 보이지만 겹치지 않음
+ *   황토(hold)  살펴봐야 한다          — 넘기는 절차가 없음
+ * 색만으로 가르지 않도록 굵기와 점선도 함께 준다.
  *
- * 종류가 같은 것끼리 묶어 두면 열 줄이 한 다발로 엉키지 않는다.
+ * 폭은 자리에 맞춰 늘고 준다. 이름이 잘리는 길이도 그에 따라 달라진다.
  */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Pair, Review } from "@/lib/api";
 import { Src } from "./bits";
 
 type Kind = "harmful" | "same" | "handoff";
 
-const KIND: Record<Kind, { stroke: string; width: number; dash?: string; label: string }> = {
-  harmful: { stroke: "#c0392b", width: 2.6, label: "정리 필요" },
-  same: { stroke: "#9aa0a6", width: 1.4, label: "겹치지 않음" },
-  handoff: { stroke: "#9aa0a6", width: 1.4, dash: "5 4", label: "넘기는 절차 없음" },
+const KIND: Record<Kind, {
+  stroke: string; soft: string; width: number; dash?: string; label: string;
+}> = {
+  harmful: { stroke: "#c0392b", soft: "#fdf0ee", width: 2.6, label: "정리가 필요합니다" },
+  same: { stroke: "#1f5fd0", soft: "#eef3fd", width: 1.6, label: "겹치지 않습니다" },
+  handoff: { stroke: "#b08a2a", soft: "#fbf6e9", width: 1.6, dash: "5 4",
+             label: "넘기는 절차가 없습니다" },
 };
+const ORDER: Kind[] = ["harmful", "handoff", "same"];
 
-const W = 940;
-const CX = 190;          // 가운데 상자 중심
-const LX = 600;          // 이름이 시작하는 자리
-const ROW = 34;          // 한 줄 높이
-const GROUP_GAP = 12;    // 종류가 바뀌는 자리에 두는 틈
+const CX = 190;
+const ROW = 34;
+const GROUP_GAP = 14;
+const NAME_W = 8.6;   // 13px 한글 한 글자 어림 너비
 
 export default function Relations({ r }: { r: Review }) {
+  const box = useRef<HTMLDivElement>(null);
+  const [W, setW] = useState(900);
   const [sel, setSel] = useState<Pair | null>(null);
   const [hover, setHover] = useState<string | null>(null);
+  const [shown, setShown] = useState(false);
 
-  const rows: { p: Pair; kind: Kind }[] = [
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) =>
+      setW(Math.max(560, Math.round(e.contentRect.width))));
+    ro.observe(el);
+    const t = setTimeout(() => setShown(true), 30);
+    return () => { ro.disconnect(); clearTimeout(t); };
+  }, []);
+
+  const all: { p: Pair; kind: Kind }[] = [
     ...r.overlaps.harmful.map((p) => ({ p, kind: "harmful" as const })),
     ...r.overlaps.intentional.map((p) => ({ p, kind: "same" as const })),
     ...r.overlaps.complement.map((p) => ({ p, kind: "same" as const })),
     ...r.handoffs.items.map((p) => ({ p, kind: "handoff" as const })),
   ];
-  if (!rows.length) return null;
+  if (!all.length) return null;
+  const rows = ORDER.flatMap((k) => all.filter((x) => x.kind === k));
 
-  // 종류가 바뀌는 자리에 틈을 둬 다발이 갈라져 보이게 한다
+  const LX = Math.min(600, Math.max(430, W * 0.52));   // 이름이 시작하는 자리
+  const maxChars = Math.max(10, Math.floor((W - LX - 66) / NAME_W));
+
   const ys: number[] = [];
   let y = 30;
   rows.forEach((row, i) => {
     if (i > 0 && rows[i - 1].kind !== row.kind) y += GROUP_GAP;
-    ys.push(y);
-    y += ROW;
+    ys.push(y); y += ROW;
   });
   const H = y + 20;
   const cy = H / 2;
+  const cut = (s: string) => (s.length > maxChars ? `${s.slice(0, maxChars - 1)}…` : s);
 
   return (
     <section className="mb-5 rounded-lg border border-rule bg-paper p-5">
@@ -58,7 +78,7 @@ export default function Relations({ r }: { r: Review }) {
         오른쪽 이름을 누르면 왜 그렇게 봤는지 나옵니다
       </p>
 
-      <div className="mt-3 overflow-x-auto">
+      <div ref={box} className="mt-3 w-full overflow-x-auto">
         <svg width={W} height={H} role="img"
              aria-label="검토 대상 사업과 다른 사업들의 관계를 선으로 이은 그림">
           {rows.map((row, i) => {
@@ -68,69 +88,82 @@ export default function Relations({ r }: { r: Review }) {
             const hot = hover === row.p.id;
             const lit = on || hot;
             const dim = (sel || hover) && !lit;
-            const name = row.p.name.length > 22 ? `${row.p.name.slice(0, 21)}…` : row.p.name;
             return (
               <g key={`${row.p.id}-${i}`}
                  onClick={() => setSel(on ? null : row.p)}
                  onMouseEnter={() => setHover(row.p.id)}
                  onMouseLeave={() => setHover(null)}
-                 style={{ cursor: "pointer" }}>
-                {/* 누를 수 있는 넓은 자리 — 글자만 겨냥하지 않아도 눌린다 */}
+                 style={{
+                   cursor: "pointer",
+                   opacity: shown ? (dim ? 0.28 : 1) : 0,
+                   transform: shown ? "none" : "translateX(-14px)",
+                   transition: `opacity .45s ease ${i * 55}ms, transform .45s cubic-bezier(.2,.7,.3,1) ${i * 55}ms`,
+                 }}>
                 <rect x={LX - 26} y={ry - 15} width={W - LX + 22} height={30} rx={5}
-                      className={lit ? "fill-pen-soft" : "fill-transparent"} />
+                      fill={lit ? k.soft : "transparent"} />
                 <path
-                  d={`M ${CX + 108} ${cy} C ${CX + 250} ${cy}, ${LX - 190} ${ry}, ${LX - 22} ${ry}`}
+                  d={`M ${CX + 108} ${cy} C ${CX + 240} ${cy}, ${LX - 180} ${ry}, ${LX - 22} ${ry}`}
                   fill="none" stroke={k.stroke}
                   strokeWidth={lit ? k.width + 1.4 : k.width}
-                  strokeDasharray={k.dash} opacity={dim ? 0.25 : 1}
+                  strokeDasharray={k.dash}
+                  style={{ transition: "stroke-width .15s ease" }}
                 />
                 <circle cx={LX - 14} cy={ry} r={lit ? 6 : 4.5} fill={k.stroke}
-                        opacity={dim ? 0.25 : 1} />
-                <text x={LX} y={ry + 5}
-                      className={`text-[13px] ${lit ? "fill-pen font-semibold" : "fill-ink"}`}
-                      opacity={dim ? 0.4 : 1}
+                        style={{ transition: "r .15s ease" }} />
+                <text x={LX} y={ry + 5} className="text-[13px]"
+                      fill={lit ? k.stroke : "#16191d"}
+                      fontWeight={lit ? 600 : 400}
                       style={{ textDecoration: lit ? "underline" : "none" }}>
-                  {name}
+                  {cut(row.p.name)}
                   <title>{row.p.name}</title>
                 </text>
                 {lit && (
                   <text x={W - 12} y={ry + 5} textAnchor="end"
-                        className="fill-pen text-[12px] font-semibold">보기 ›</text>
+                        className="text-[12px] font-semibold" fill={k.stroke}>보기 ›</text>
                 )}
               </g>
             );
           })}
 
-          <rect x={CX - 108} y={cy - 27} width={216} height={54} rx={7}
-                className="fill-pen-soft stroke-pen" strokeWidth={2} />
-          <text x={CX} y={cy - 5} textAnchor="middle"
-                className="fill-pen text-[12px] font-bold">지금 검토 중</text>
-          <text x={CX} y={cy + 13} textAnchor="middle" className="fill-ink text-[12px]">
-            {r.card.name.length > 17 ? `${r.card.name.slice(0, 16)}…` : r.card.name}
-            <title>{r.card.name}</title>
-          </text>
+          <g style={{
+            opacity: shown ? 1 : 0,
+            transition: "opacity .4s ease",
+          }}>
+            <rect x={CX - 108} y={cy - 27} width={216} height={54} rx={7}
+                  className="fill-pen-soft stroke-pen" strokeWidth={2} />
+            <text x={CX} y={cy - 5} textAnchor="middle"
+                  className="fill-pen text-[12px] font-bold">지금 검토 중</text>
+            <text x={CX} y={cy + 13} textAnchor="middle" className="fill-ink text-[12px]">
+              {r.card.name.length > 17 ? `${r.card.name.slice(0, 16)}…` : r.card.name}
+              <title>{r.card.name}</title>
+            </text>
+          </g>
         </svg>
       </div>
 
-      <p className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px] text-muted">
-        {(Object.keys(KIND) as Kind[]).map((k) => {
+      <p className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px]">
+        {ORDER.map((k) => {
           const v = KIND[k];
           const n = rows.filter((x) => x.kind === k).length;
           if (!n) return null;
           return (
-            <span key={k} className="flex items-center gap-1.5">
+            <span key={k} className="flex items-center gap-1.5" style={{ color: v.stroke }}>
               <svg width={26} height={8} aria-hidden>
                 <line x1={0} y1={4} x2={26} y2={4} stroke={v.stroke}
                       strokeWidth={v.width} strokeDasharray={v.dash} />
               </svg>
-              {v.label} {n}건
+              <b>{n}건</b> {v.label}
             </span>
           );
         })}
       </p>
 
       {sel ? (
-        <div className="mt-3 rounded-md border border-pen bg-pen-soft p-3.5 text-[13px]">
+        <div className="rise mt-3 rounded-md border p-3.5 text-[13px]"
+             style={{
+               borderColor: KIND[rows.find((x) => x.p.id === sel.id)!.kind].stroke,
+               background: KIND[rows.find((x) => x.p.id === sel.id)!.kind].soft,
+             }}>
           <p className="text-[14px] font-semibold">{sel.name}<Src url={sel.url} /></p>
           <p className="mt-1">{sel.reason}</p>
         </div>
