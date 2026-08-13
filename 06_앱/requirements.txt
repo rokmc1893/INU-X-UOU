@@ -1,7 +1,9 @@
-openai
-streamlit
-pandas
-python-dotenv
-neo4j
-pytest
-requests
+# 검증 환경 고정 버전 (2026-08-13 기준, 테스트 27건 통과 확인)
+# 재현성이 필요한 심사·검증에서는 이 버전을 그대로 쓴다.
+openai==2.2.0
+streamlit==1.40.1
+pandas==1.5.3
+python-dotenv==1.0.1
+neo4j==5.28.4
+requests==2.32.3
+pytest==6.2.3
