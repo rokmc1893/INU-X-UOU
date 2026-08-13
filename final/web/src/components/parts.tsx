@@ -61,21 +61,3 @@ export function Card({ title, children, sub }: {
     </section>
   );
 }
-
-/** 몇 건 중 몇 건이 확인됐나 — 한 줄 막대. */
-export function RatioBar({ done, total, label }: {
-  done: number; total: number; label: string;
-}) {
-  const pct = total ? Math.round((done / total) * 100) : 0;
-  return (
-    <div>
-      <div className="flex items-baseline justify-between text-[13px]">
-        <span>{label}</span>
-        <span className="text-muted">{done}÷{total}건 ({pct}%)</span>
-      </div>
-      <div className="mt-1 h-3 w-full overflow-hidden rounded-sm border border-rule bg-shell">
-        <div className="h-full bg-pen" style={{ width: `${pct}%` }} />
-      </div>
-    </div>
-  );
-}

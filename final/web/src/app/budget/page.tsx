@@ -3,7 +3,7 @@
 /* ① 예산이 제대로 붙어 있나 — 공식 예산 장부와 대조한다. */
 import { Loading, PageHead, useReview } from "@/components/Shell";
 import { Src, Tag, Void } from "@/components/bits";
-import { Card, Counts, RatioBar } from "@/components/parts";
+import { Card, Counts } from "@/components/parts";
 
 export default function BudgetPage() {
   const { r, err } = useReview();
@@ -73,18 +73,6 @@ export default function BudgetPage() {
         )}
   
         {b.empty && <Card title="이 사업은 아직 대조하지 못했습니다"><Void r={b.empty} /></Card>}
-  
-        <Card title="이 도구가 대조를 마친 범위"
-              sub="장부 대조는 조사자가 손으로 맞춰 본 것이라 아직 일부만 끝났습니다.">
-          <RatioBar done={10} total={52} label="6대 산업 사업 중 장부 대조가 끝난 것" />
-          <p className="mt-3 text-[13px]">
-            나머지는 <b>「예산이 없다」가 아니라 「아직 확인하지 못했다」</b>입니다.
-            장부에서 못 찾았다는 이유로 사업을 깎으면 안 됩니다.
-          </p>
-          <p className="mt-2 text-[12px] text-muted">
-            채우려면 인천시 예산서에서 이 사업의 세부사업명을 찾아 금액과 소관을 확인하면 됩니다.
-          </p>
-        </Card>
   
         <p className="text-[12px] text-faint">
           검토 대상 원문 <Src url={r.card.url} />
