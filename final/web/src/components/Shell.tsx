@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { getBusinesses, getReview, type Business, type Review } from "@/lib/api";
 
 export const NAV = [
-  { href: "/", label: "지금 할 일", no: "" },
+  { href: "/todo", label: "지금 할 일", no: "" },
   { href: "/budget", label: "예산이 제대로 붙어 있나", no: "1" },
   { href: "/links", label: "사업끼리 겹치거나 끊기지 않았나", no: "2" },
   { href: "/needs", label: "필요한 걸 해주고 있나", no: "3" },
@@ -40,18 +40,21 @@ export function useReview() {
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
+  const bare = path === "/";   // 랜딩에서는 머리를 감춘다
   const router = useRouter();
   const pid = usePid();
   const [list, setList] = useState<Business[]>([]);
 
   useEffect(() => { getBusinesses().then((d) => setList(d.items)).catch(() => {}); }, []);
 
+  if (bare) return <>{children}</>;
+
   return (
     <div className="min-h-screen">
       <header className="border-b border-rule bg-paper">
         <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 px-6 py-3">
-          <Link href={{ pathname: "/", query: { 사업: pid } }} className="shrink-0">
-            <span className="font-display text-[19px] font-bold">정책핏 인천</span>
+          <Link href={{ pathname: "/todo", query: { 사업: pid } }} className="shrink-0">
+            <span className="text-[19px] font-bold tracking-tight">정책핏 인천</span>
           </Link>
           <label className="flex min-w-0 flex-1 items-center justify-end gap-2 text-[13px]">
             <span className="shrink-0 text-muted">맡은 사업</span>

@@ -1,136 +1,183 @@
 "use client";
 
-/* 지금 할 일 — 여기서 시작한다.
+/* 랜딩 — 맡은 사업을 고르고 들어간다.
  *
- * 항목마다 「지금 이렇다 → 하고 나면 이렇게 된다」를 적고, 근거는 해당 페이지로 넘긴다.
- * 기대효과는 직접효과만 쓴다 (D-002 — 사업성과·지역성과는 이 도구에 귀속하지 않는다).
+ * 실제 사례에서 담당자는 산업을 고르는 것이 아니라 위원회 안건이나 내부 지시로
+ * **사업을 배정받아** 시작한다. 그래서 첫 화면이 사업 고르기다.
+ *
+ * 고르고 나면 판정이 도는 동안 무엇을 하고 있는지 보인다. 미리 짜 둔 답을 꺼내는 것이
+ * 아니라 그때 계산한다는 것을 보이려는 것이고, 실제로 그 순서대로 돈다.
  */
-import Link from "next/link";
-import { useMemo } from "react";
-import { Loading, PageHead, useReview } from "@/components/Shell";
-import { Slots, Src, Tag } from "@/components/bits";
-import { buildChecklist } from "@/lib/checklist";
-import type { Review } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { API, getBusinesses, getReview, type Business } from "@/lib/api";
 
-const GO = {
-  budget: { href: "/budget", label: "예산 보기" },
-  overlap: { href: "/links", label: "연계 보기" },
-  gap: { href: "/needs", label: "필요한 것 보기" },
-  draft: { href: "/action", label: "조치 보기" },
-} as const;
+/* 판정 서버가 실제로 밟는 차례. api/main.py 의 _state() 와 같은 순서다. */
+const STEPS = [
+  "사업 원장과 조사 자료 읽는 중",
+  "사업끼리 관계 잇는 중",
+  "겹치는 곳과 끊긴 곳 가리는 중",
+  "기업이 말한 것과 맞춰 보는 중",
+];
 
-export default function Home() {
-  const { pid, r, err } = useReview();
-  const items = useMemo(() => (r ? buildChecklist(r) : []), [r]);
-  const todo = items.filter((i) => i.action);
+export default function Landing() {
+  const router = useRouter();
+  const [list, setList] = useState<Business[]>([]);
+  const [q, setQ] = useState("");
+  const [pid, setPid] = useState<string | null>(null);
+  const [going, setGoing] = useState(false);
+  const [step, setStep] = useState(0);
+  const [err, setErr] = useState<string | null>(null);
 
-  if (!r) return <Loading err={err} />;
+  useEffect(() => {
+    getBusinesses().then((d) => setList(d.items))
+      .catch(() => setErr("판정 서버에 닿지 않습니다"));
+  }, []);
 
-  return (
-    <>
-      <PageHead
-        r={r} title="지금 할 일"
-        lead={`손볼 것 ${todo.length}건 · 확인만 하면 되는 것 ${items.length - todo.length}건`}
-      />
+  const groups = useMemo(() => {
+    const hit = list.filter((b) =>
+      !q || b.name.includes(q) || (b.industry ?? "").includes(q));
+    const m = new Map<string, Business[]>();
+    for (const b of hit) {
+      const k = b.industry ?? "산업 미상";
+      m.set(k, [...(m.get(k) ?? []), b]);
+    }
+    return [...m];
+  }, [list, q]);
 
-      <section className="mb-6 grid gap-4 md:grid-cols-[1.05fr_1fr]">
-        <Summary r={r} />
-        <GapBars r={r} />
-      </section>
-
-      <ol className="space-y-2">
-        {items.map((it) => {
-          const n = it.action ? todo.indexOf(it) + 1 : 0;
-          const go = GO[it.section];
-          return (
-            <li key={it.key}
-                className={`rounded-lg border bg-paper p-4 ${
-                  it.action ? "border-rule" : "border-dashed border-rule"}`}>
-              <div className="flex items-start gap-3">
-                <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-[3px] border text-[11px] font-bold ${
-                  it.action ? "border-gap text-gap" : "border-pen bg-pen-soft text-pen"}`}>
-                  {it.action ? n : "✓"}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="flex flex-wrap items-center gap-2">
-                    <b className="text-[15px]">{it.title}</b>
-                    {it.count ? <Tag tone={it.action ? "gap" : "flat"}>{it.count}건</Tag> : null}
-                  </p>
-                  <p className="mt-1 text-[13px] text-muted">{it.now}</p>
-                  <p className="mt-1.5 text-[13px] text-pen">→ {it.then}</p>
-                </div>
-                <Link
-                  href={{ pathname: go.href, query: { 사업: pid } }}
-                  className="mt-0.5 shrink-0 rounded-md border border-rule px-2.5 py-1 text-[12px] text-muted hover:border-pen hover:text-pen"
-                >
-                  {go.label}
-                </Link>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
-    </>
-  );
-}
-
-function Summary({ r }: { r: Review }) {
-  return (
-    <div className="rounded-lg border border-rule bg-paper p-5">
-      <p className="text-[12px] text-muted">검토 대상</p>
-      <h2 className="mt-1 text-[19px] leading-snug">
-        {r.card.name}<Src url={r.card.url} />
-      </h2>
-      <dl className="mt-3 grid grid-cols-[5.5rem_1fr] gap-x-3 gap-y-1.5 text-[13px]">
-        <dt className="text-muted">산업</dt><dd>{r.card.industry}</dd>
-        <dt className="text-muted">해주는 것</dt>
-        <dd>{r.card.means ?? <span className="text-hold">원문에 안 적혀 있음</span>}</dd>
-        <dt className="text-muted">예산</dt>
-        <dd>{r.budget.won
-          ? `${r.budget.won.toLocaleString()}원 (장부 확인)`
-          : <span className="text-hold">장부에서 못 찾음</span>}</dd>
-        <dt className="text-muted">협의처</dt>
-        <dd>{r.consult.length
-          ? r.consult.map((c) => (
-              <span key={c.team}>{c.team}<Src url={c.source_url} label="부서 근거" /></span>))
-          : <span className="text-hold">산업이 확인되지 않아 안내 못 함</span>}</dd>
-      </dl>
-      <p className="mt-3 border-t border-rule pt-2 text-[12px] text-muted">
-        판정은 모두 <b>후보</b>입니다. 확정은 부서 협의로 합니다.
-      </p>
-    </div>
-  );
-}
-
-function GapBars({ r }: { r: Review }) {
-  const by = new Map<string, { covered: number; total: number }>();
-  for (const n of r.needs) {
-    const d = by.get(n.plain) ?? { covered: 0, total: 0 };
-    d.total += 1; d.covered += n.verdict === "covered" ? 1 : 0;
-    by.set(n.plain, d);
+  async function start(id: string) {
+    setPid(id); setGoing(true); setStep(0);
+    const tick = setInterval(() => setStep((s) => Math.min(s + 1, STEPS.length - 1)), 420);
+    try {
+      await getReview(id);            // 실제로 판정을 돌려 본다
+      clearInterval(tick);
+      setStep(STEPS.length);
+      setTimeout(() => router.push(`/todo?${new URLSearchParams({ 사업: id })}`), 380);
+    } catch (e) {
+      clearInterval(tick);
+      setGoing(false);
+      setErr(e instanceof Error ? e.message : "판정을 불러오지 못했습니다");
+    }
   }
-  const gaps = r.needs.filter((n) => n.verdict === "uncovered").length;
+
+  if (going) return <Booting step={step} name={list.find((b) => b.id === pid)?.name ?? ""} />;
+
   return (
-    <div className="rounded-lg border border-rule bg-paper p-5">
-      <p className="text-[12px] text-muted">이 산업 기업이 말한 것</p>
-      <p className="mt-1 text-[15px]">
-        <b>{r.needs.length}건</b> 중 해주는 사업이 없는 것{" "}
-        <b className={gaps ? "text-gap" : ""}>{gaps}건</b>
-      </p>
-      <ul className="mt-3 space-y-2">
-        {[...by].map(([plain, d]) => (
-          <li key={plain} className="grid grid-cols-[4.5rem_1fr_3rem] items-center gap-2">
-            <span className={`text-[13px] font-semibold ${d.covered === 0 ? "text-gap" : ""}`}>
-              {plain}
+    <main className="mx-auto grid min-h-screen max-w-[1180px] grid-rows-[auto_1fr] px-6 py-10">
+      <header className="mb-8">
+        <p className="text-[13px] font-semibold tracking-wide text-pen">인천광역시 · 6대 전략산업</p>
+        <h1 className="mt-2 text-[40px] leading-[1.15] tracking-tight sm:text-[48px]">
+          맡으신 사업이
+          <br />
+          <span className="text-pen">기업이 필요하다고 말한 것</span>과
+          <br />
+          맞는지 확인합니다
+        </h1>
+        <p className="mt-4 max-w-[640px] text-[15px] leading-relaxed text-muted">
+          예산 장부와 어긋난 곳, 다른 사업과 겹치는 곳, 기업이 아쉬워하는데 아무도
+          안 하고 있는 곳을 <b className="text-ink">근거와 함께</b> 짚어
+          결재문서에 붙일 검토서 초안까지 만들어 드립니다.
+        </p>
+        <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-muted">
+          <li>· 판정은 모두 <b className="text-ink">후보</b>입니다. 확정은 부서 협의로 합니다.</li>
+          <li>· 고르는 일에 AI는 관여하지 않습니다.</li>
+          <li>· 원문에 없는 값은 채우지 않고 비워 둡니다.</li>
+        </ul>
+      </header>
+
+      <section className="rounded-xl border border-rule bg-paper p-6">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <div>
+            <h2 className="text-[19px]">검토를 맡으신 사업을 고르세요</h2>
+            <p className="mt-1 text-[13px] text-muted">
+              위원회 안건이나 내부 지시로 배정받은 사업입니다.
+            </p>
+          </div>
+          <input
+            value={q} onChange={(e) => setQ(e.target.value)}
+            placeholder="사업명 또는 산업으로 찾기"
+            className="w-[260px] rounded-md border border-rule px-3 py-2 text-[13px]"
+          />
+        </div>
+
+        {err && (
+          <p className="mt-4 rounded-md border border-dashed border-rule bg-shell p-3 text-[13px]">
+            {err}
+            <span className="mt-1 block text-[12px] text-faint">
+              판정 서버를 켜 주세요 — <code>{API}</code>
             </span>
-            <Slots filled={d.covered} empty={d.covered === 0} />
-            <span className="text-right text-[12px] text-muted">{d.covered}÷{d.total}</span>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-3 border-t border-rule pt-2 text-[12px] text-muted">
-        점선이 비어 있는 곳입니다.
-      </p>
-    </div>
+          </p>
+        )}
+
+        <div className="mt-5 max-h-[46vh] space-y-5 overflow-y-auto pr-1">
+          {groups.map(([ind, items]) => (
+            <div key={ind}>
+              <p className="mb-2 text-[12px] font-semibold text-faint">
+                {ind} <span className="font-normal">{items.length}건</span>
+              </p>
+              <ul className="grid gap-1.5 sm:grid-cols-2">
+                {items.map((b) => (
+                  <li key={b.id}>
+                    <button
+                      onClick={() => start(b.id)}
+                      className="w-full rounded-lg border border-rule px-3.5 py-2.5 text-left transition hover:border-pen hover:bg-pen-soft"
+                    >
+                      <span className="block text-[14px] font-medium leading-snug">{b.name}</span>
+                      <span className="mt-0.5 block text-[12px] text-muted">
+                        {b.status ?? "상태 미상"}
+                        {b.means ? ` · ${b.means}` : " · 해주는 것이 원문에 안 적힘"}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          {!groups.length && !err && (
+            <p className="text-[13px] text-muted">찾으시는 사업이 없습니다.</p>
+          )}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+/* 판정이 도는 동안 — 무엇을 하고 있는지 보인다. */
+function Booting({ step, name }: { step: number; name: string }) {
+  return (
+    <main className="grid min-h-screen place-items-center px-6">
+      <div className="w-full max-w-[420px]">
+        <p className="text-[13px] text-muted">검토 대상</p>
+        <p className="mt-1 text-[19px] font-bold leading-snug">{name}</p>
+        <ul className="mt-6 space-y-2.5">
+          {STEPS.map((s, i) => {
+            const done = i < step;
+            const now = i === step;
+            return (
+              <li key={s} className="flex items-center gap-2.5 text-[14px]">
+                <span className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border text-[11px] ${
+                  done ? "border-pen bg-pen text-white"
+                    : now ? "border-pen text-pen" : "border-rule text-faint"}`}>
+                  {done ? "✓" : i + 1}
+                </span>
+                <span className={done ? "text-muted" : now ? "font-semibold" : "text-faint"}>
+                  {s}
+                </span>
+                {now && (
+                  <span className="ml-auto h-1.5 w-1.5 animate-ping rounded-full bg-pen" />
+                )}
+              </li>
+            );
+          })}
+        </ul>
+        <div className="mt-6 h-1 w-full overflow-hidden rounded-full bg-rule">
+          <div className="h-full bg-pen transition-[width] duration-300"
+               style={{ width: `${(step / STEPS.length) * 100}%` }} />
+        </div>
+        <p className="mt-3 text-[12px] text-faint">
+          미리 만들어 둔 답을 꺼내는 것이 아니라 지금 계산합니다.
+        </p>
+      </div>
+    </main>
   );
 }

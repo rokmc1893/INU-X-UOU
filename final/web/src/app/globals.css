@@ -25,21 +25,21 @@
   --color-hold: #8a6d1f;     /* 모름 — 판단을 보류한다 */
   --color-hold-soft: #fbf6e9;
 
-  --font-display: "Gowun Batang", "Nanum Myeongjo", serif;
-  --font-body: "Pretendard", -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, "Segoe UI",
+    "Malgun Gothic", sans-serif;
 }
 
 html {
   background: var(--color-shell);
   color: var(--color-ink);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-feature-settings: "tnum";
   -webkit-font-smoothing: antialiased;
 }
 
 body { margin: 0; line-height: 1.6; }
 
-h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
 
 a { color: inherit; }
 
