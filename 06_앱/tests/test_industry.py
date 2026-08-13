@@ -4,7 +4,7 @@ from engine.detect import run_rules
 
 
 def _row(ind, trend, grade, sid="D-999"):
-    return {"signal_id": sid, "strategic_industry": ind,
+    return {"signal_id": sid, "strategic_industry": ind, "problem_type": "인력",
             "sustained_or_spike": trend, "evidence_grade": grade}
 
 
@@ -70,3 +70,28 @@ def test_유도형_근거3종은_없는것을_있다고_하지_않는다():
     ev = industry.inducement_evidence(card, plans=[])
     assert [e["ok"] for e in ev] == [False, False, False]
     assert all(e["detail"] for e in ev), "근거가 없으면 왜 없는지 적어야 한다"
+
+
+def test_공급_모수_부재지표는_수요로_세지_않는다():
+    """실제로 걸러낸 회귀 — 이걸 수요로 세면 로봇·항공이 대응형으로 잘못 올라선다."""
+    for pt in ("시설-이용실적", "데이터 공백", "인력-모수", "산업기반-결손",
+               "산업규모(맥락지표)", "수요부재-전환 미준비", "흡수역량 결손",
+               "인력-공급실적", "집행지연", "정책유행 경보", "수요조사 노후화"):
+        rows = [dict(_row("항공", "SUSTAINED", "A"), problem_type=pt)]
+        assert industry.posture("항공", rows)["posture"] == industry.INDUCING, \
+            f"'{pt}'이 실측 수요로 샜다"
+
+
+def test_채용실적은_실현된_수요라_통과한다():
+    """'공급실적'은 막고 '채용실적'은 통과시킨다 — 채용은 이미 일어난 수요다."""
+    rows = [dict(_row("항공", "SUSTAINED", "B"), problem_type="인력-채용실적")]
+    assert industry.posture("항공", rows)["posture"] == industry.RESPONSIVE
+
+
+def test_문턱을_놓친_신호를_숨기지_않는다():
+    """유도형이라고 근거를 감추면 '채용이 일어나고 있지 않나'는 질문에 답할 재료가 없다."""
+    rows = [dict(_row("항공", "SUSTAINED", "C", "D-340"), problem_type="인력-채용실적")]
+    p = industry.posture("항공", rows)
+    assert p["posture"] == industry.INDUCING
+    assert p["near_miss"] == ["D-340"]
+    assert "D-340" in p["why"]

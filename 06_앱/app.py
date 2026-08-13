@@ -148,7 +148,9 @@ SCOPES = {
     "청년일자리 (기본)": None,
     "+ 바이오": ("바이오",),
     "+ 반도체": ("반도체",),
-    "+ 로봇·항공": ("로봇", "항공"),
+    "+ 로봇": ("로봇",),
+    "+ 항공": ("항공",),
+    "+ 미래차": ("미래차",),
     "+ 디지털·AI": ("디지털데이터",),
     "+ 6대 전략산업 전체": ("바이오", "반도체", "로봇", "항공",
                        "디지털데이터", "미래차", "공통"),
@@ -898,7 +900,11 @@ elif screen.startswith("3"):
                '<th style="text-align:left;padding:.35rem .5rem;width:5rem">산업</th>'
                '<th style="text-align:left;padding:.35rem .5rem">무엇이 확인됐는가</th>'
                '<th style="text-align:left;padding:.35rem .5rem;width:11rem">이 신호의 한계</th></tr>']
-        for s_ in _isig:
+        # 근거가 강한 것부터 — 70건을 다 보여주면 A등급 원자료가 언론 서술에 묻힌다
+        _isig = sorted(_isig, key=lambda s_: ("ABCD".find(s_["evidence_grade"] or "D"),
+                                              s_["trend"] != "SUSTAINED", s_["signal_id"]))
+        _shown, _rest = _isig[:24], max(0, len(_isig) - 24)
+        for s_ in _shown:
             _ir.append(
                 '<tr style="border-bottom:1px solid var(--rule)">'
                 f'<td style="padding:.4rem .5rem;font-weight:700">{_esc("/".join(s_["industries"]))}</td>'
@@ -908,6 +914,10 @@ elif screen.startswith("3"):
                 f'<td style="padding:.4rem .5rem;font-size:.76rem;color:var(--muted)">'
                 f'{_esc(s_["proxy_limit"][:70])}</td></tr>')
         st.markdown("".join(_ir) + "</table>", unsafe_allow_html=True)
+        if _rest:
+            st.markdown(f'<p class="small">근거가 강한 순으로 24건만 보였습니다. '
+                        f'나머지 {_rest}건은 원장 <code>B2_demand_signal.csv</code>에 있습니다 — '
+                        '숨긴 것이 아니라 지면 관계로 접었습니다.</p>', unsafe_allow_html=True)
 
     st.subheader("다. 사업끼리 겹치는 것이 낭비인가")
     gap_occs = {g["occupation"]: g["reason"] for g in findings["gaps"]}

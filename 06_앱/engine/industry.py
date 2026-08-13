@@ -27,12 +27,40 @@ INDUSTRY_KEYWORDS = {
 }
 INDUSTRIES = list(INDUSTRY_KEYWORDS)
 
-# 태세 판정에 쓰는 근거 문턱. **실측 수요**로 인정하는 조건이다.
-#   - trend == SUSTAINED : 두 시점 이상에서 반복 확인 (단발 SPIKE·전망 FORECAST 제외)
-#   - grade in (A, B)    : 공공 통계 원자료·공식 계획서 (C=언론 정성서술, D=자기정당화 제외)
-# 둘 다 만족하는 신호가 하나라도 있으면 대응형이다.
+# 태세 판정에 쓰는 근거 문턱. **실측 수요**로 인정하는 조건 세 가지다.
+#   1. trend == SUSTAINED : 두 시점 이상에서 반복 확인 (단발 SPIKE·전망 FORECAST 제외)
+#   2. grade in (A, B)    : 공공 통계 원자료·공식 계획서 (C=언론, D=자기정당화 제외)
+#   3. problem_type이 **수요 유형**일 것 — 아래 NON_DEMAND_MARKERS에 걸리지 않을 것
+# 셋 다 만족하는 신호가 하나라도 있으면 대응형이다.
 MEASURED_TRENDS = {"SUSTAINED"}
 MEASURED_GRADES = {"A", "B"}
+
+# 3번이 없으면 **공급 지표가 수요로 둔갑한다.** 실제로 걸러낸 예:
+#   로봇 D-315 '시설-이용실적' 계약 67건(A등급) → 시설을 쓴 실적이지 인력 수요가 아니다
+#   로봇 D-322 '데이터 공백' 전국 종사자 3.4만(A등급) → 인천 분해가 안 된다는 뜻이다
+#   항공 D-325 '인력-모수' 정비인력 6,000명(B등급) → **현원**이지 부족인원이 아니다
+#   항공 D-328 '산업기반-결손' 항공제조 10개사(B등급) → 기반이 없다는 뜻이라 오히려 유도 논거다
+# 이 넷을 수요로 세면 로봇·항공이 실측 수요가 있는 산업으로 잘못 올라선다.
+# '공급실적'·'이용실적'만 막고 '채용실적'은 통과시킨다 — 채용은 실현된 수요다.
+NON_DEMAND_MARKERS = (
+    "맥락지표",       # 규모·위상·시장구조. 크다는 말이지 모자란다는 말이 아니다
+    "시설-",          # 면적·입주·분양. 공급 쪽 지표
+    "모수",           # 현원. 부족인원이 아니다
+    "수요부재",       # 조사자가 스스로 '수요가 없다'고 표시한 행
+    "결손",           # 기반·역량 자체가 없다 → 대응할 수요가 아니라 만들 대상이다
+                     #   (미래차 '흡수역량 결손': R&D 미수행 74.3% = 인력을 뽑아도 배치할 조직이 없다)
+    "데이터 공백",     # 수요를 모른다는 뜻
+    "수요조사",        # 조사가 낡았다는 뜻
+    "수요신호 부재",   # 찾아봤는데 없었다는 뜻
+    "공급실적", "이용실적",  # 배출 인원·이용 건수. 공급 지표
+    "집행지연",        # 행정 문제
+    "정책유행",        # 이미 경보로 따로 표시한다
+)
+
+
+def _is_demand_type(row):
+    pt = (row.get("problem_type") or "")
+    return not any(m in pt for m in NON_DEMAND_MARKERS)
 
 RESPONSIVE, INDUCING, UNDECIDED = "대응형", "유도형", "판단보류"
 
@@ -72,25 +100,35 @@ def posture(industry, b2_rows):
     바로 답할 수 있다.
     """
     mine = [r for r in b2_rows if industry in _industries_of_signal(r)]
-    measured = [r for r in mine
-                if (r.get("sustained_or_spike") or "").strip() in MEASURED_TRENDS
-                and (r.get("evidence_grade") or "").strip() in MEASURED_GRADES]
+    sustained_demand = [r for r in mine
+                        if (r.get("sustained_or_spike") or "").strip() in MEASURED_TRENDS
+                        and _is_demand_type(r)]
+    measured = [r for r in sustained_demand
+                if (r.get("evidence_grade") or "").strip() in MEASURED_GRADES]
+    # 문턱을 아슬하게 놓친 신호 — 반복 확인된 수요 유형인데 근거가 언론·자기정당화뿐이다.
+    # 숨기면 "항공은 채용이 일어나고 있지 않나"라는 질문에 답할 재료가 사라진다.
+    near = [r for r in sustained_demand if r not in measured]
     if measured:
         state = RESPONSIVE
         why = (f"반복 확인된 공공자료 수요신호 {len(measured)}건 — "
                + ", ".join(r["signal_id"] for r in measured))
     elif mine:
         state = INDUCING
-        why = (f"수요신호 {len(mine)}건이 있으나 전부 단발이거나 언론·자기정당화 근거다 "
-               f"({', '.join(sorted({(r.get('sustained_or_spike') or '?') + '/' + (r.get('evidence_grade') or '?') for r in mine}))})"
-               " — 실측 수요로 보기 어렵다")
+        why = f"수요신호 {len(mine)}건이 있으나 공공자료로 반복 확인된 수요는 없다"
+        if near:
+            why += (" — 문턱에 가장 가까운 것: "
+                    + ", ".join(f"{r['signal_id']}({r.get('problem_type')}, "
+                                f"{r.get('evidence_grade')}등급)" for r in near[:2]))
+        else:
+            why += " (단발·전망·정책유행이거나 공급·모수 지표뿐)"
     else:
         state = UNDECIDED
         why = "이 산업을 다루는 수요신호가 조사 원장에 없다"
     return {"industry": industry, "posture": state, "question": POSTURE_QUESTION[state],
             "label": POSTURE_LABEL[state], "why": why,
             "signals": [r["signal_id"] for r in mine],
-            "measured": [r["signal_id"] for r in measured]}
+            "measured": [r["signal_id"] for r in measured],
+            "near_miss": [r["signal_id"] for r in near]}
 
 
 def postures(b2_rows):
