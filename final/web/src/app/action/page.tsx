@@ -12,11 +12,28 @@ import { Card } from "@/components/parts";
 import YearWindows from "@/components/YearWindows";
 import { getDraft } from "@/lib/api";
 
-const TRACKS = ["기존사업 개편/확대", "다음 연도 본예산 신규사업"];
+/* 창구에 따라 내는 문서가 다르다. 고르기 전에 무엇이 달라지는지 보여야
+   「어느 창구로」가 뜻 없는 물음이 되지 않는다. (A2 결정 달력) */
+const TRACKS = [
+  {
+    name: "기존사업 개편/확대",
+    when: "이미 하고 있는 사업을 고칠 때",
+    makes: "피드백 반영 개편안",
+    also: "기존사업 성과평가서",
+    due: "5월 1일 착수 · 7월 31일 마감",
+  },
+  {
+    name: "다음 연도 본예산 신규사업",
+    when: "새 사업을 만들 때",
+    makes: "유사·중복 검토서",
+    also: "사업계획서 · 수요조사서",
+    due: "4월 1일 착수 · 6월 30일 마감",
+  },
+];
 
 export default function ActionPage() {
   const { pid, r, err } = useReview();
-  const [track, setTrack] = useState(TRACKS[0]);
+  const [track, setTrack] = useState(TRACKS[0].name);
   const [md, setMd] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -45,15 +62,36 @@ export default function ActionPage() {
 
       <Card title="검토서 초안"
             sub="판정 결과와 근거, 못 본 것과 그 이유, 협의 요청 부서, 다음 창구와 마감이 들어갑니다. 수치마다 원문 링크가 붙습니다.">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[13px] text-muted">어느 창구로</span>
-          {TRACKS.map((t) => (
-            <button key={t} onClick={() => { setTrack(t); setMd(null); }}
-                    className={`rounded-md border px-3 py-1.5 text-[13px] ${
-                      t === track ? "border-pen bg-pen-soft font-semibold text-pen" : "border-rule text-muted"}`}>
-              {t}
-            </button>
-          ))}
+        <p className="text-[14px] font-semibold">어느 창구로 내십니까</p>
+        <p className="mt-0.5 text-[12px] text-muted">
+          창구에 따라 내야 하는 문서가 다릅니다. 고르시면 그 창구에 맞는 초안을 만듭니다.
+        </p>
+        <div className="mt-2.5 grid gap-2 sm:grid-cols-2">
+          {TRACKS.map((t) => {
+            const on = t.name === track;
+            return (
+              <button key={t.name}
+                      onClick={() => { setTrack(t.name); setMd(null); }}
+                      aria-pressed={on}
+                      className={`pick rounded-lg border px-3.5 py-3 text-left ${
+                        on ? "border-pen bg-pen-soft" : "border-rule hover:border-pen"}`}>
+                <span className="flex items-center gap-2">
+                  <span className={`grid h-4 w-4 shrink-0 place-items-center rounded-full border text-[10px] ${
+                    on ? "border-pen bg-pen text-white" : "border-rule"}`}>
+                    {on ? "✓" : ""}
+                  </span>
+                  <b className={`text-[14px] ${on ? "text-pen" : ""}`}>{t.name}</b>
+                </span>
+                <span className="mt-1.5 block text-[12px] text-muted">{t.when}</span>
+                <span className="mt-1.5 block text-[12px]">
+                  <b className="text-ink">여기서 만드는 것</b> {t.makes}
+                </span>
+                <span className="mt-0.5 block text-[12px] text-muted">
+                  같이 내야 할 것 {t.also} · {t.due}
+                </span>
+              </button>
+            );
+          })}
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
           <button onClick={() => make(true)} disabled={busy}
