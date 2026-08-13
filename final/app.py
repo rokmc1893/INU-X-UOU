@@ -69,9 +69,26 @@ SCREENS = ["0 무엇을 보는가", "1 예산이 제대로 붙어 있나", "2 �
            "3 필요한 걸 해주고 있나", "4 조치 제안"]
 screen = st.sidebar.radio("화면", SCREENS, label_visibility="collapsed")
 st.sidebar.divider()
+
+# 입구는 「배정받은 사업」이다. 실제 사례(A4)에서 담당자는 산업을 고르는 것이 아니라
+# 위원회 안건이나 내부 지시로 **사업을 배정받아** 시작한다. 그리고 A1상 발의권이 과(課)
+# 단위라 담당자에게 산업은 이미 정해져 있다 — 그래서 산업은 입구가 아니라 아래 필터다.
+_assigned = sorted([c for c in works if c.get("strategic_industry")],
+                   key=lambda c: (c.get("strategic_industry") or "", c["name"]))
+TARGET = st.sidebar.selectbox(
+    "검토를 맡은 사업", ["(고르지 않음 — 전체 훑어보기)"] + _assigned,
+    format_func=lambda c: c if isinstance(c, str)
+    else f"[{c.get('strategic_industry')}] {c['name'][:34]}",
+    help="위원회 안건이나 내부 지시로 배정받은 사업을 고르세요. "
+         "실제 사례에서 담당자는 여기서 시작합니다.")
+if isinstance(TARGET, str):
+    TARGET = None
 _inds = ["전체"] + industry.INDUSTRIES
-pick = st.sidebar.selectbox("산업", _inds,
-                            help="6대 전략산업. 이 목록의 근거는 화면 0에 밝혀 뒀습니다.")
+_default_ind = (TARGET.get("strategic_industry") or "전체").split("+")[0] if TARGET else "전체"
+pick = st.sidebar.selectbox(
+    "산업 (맡은 사업에 따라 자동으로 맞춰집니다)", _inds,
+    index=_inds.index(_default_ind) if _default_ind in _inds else 0,
+    help="담당자에게 산업은 보통 이미 정해져 있습니다 — 소관 과가 곧 산업입니다.")
 st.sidebar.caption(f"사업 {len(works)}건 · 계획 {len(plans)}건 · 기업이 필요하다고 말한 자료 {len(B2)}건")
 
 
@@ -144,6 +161,44 @@ if screen.startswith("0"):
         + ' — <b>사업이 몰려 있는 곳과, 기업이 아쉬워하는 곳이 서로 다릅니다.</b> '
         '이것이 「지역 산업·정책 연계 부족」을 숫자로 본 모습입니다.'
         '</div></div>', unsafe_allow_html=True)
+
+    # 실제 사례(A4)가 보여준 시작점 — 담당자는 산업이 아니라 여기서 들어온다
+    st.subheader("담당자는 보통 이렇게 시작합니다")
+    _entries = [
+        ("① 사업을 배정받았다",
+         "위원회 안건이나 내부 지시로 「이 사업을 손봐라」가 내려옵니다",
+         "실제 사례: 청년도약기지 — 2023.10 청년정책 조정위원회 안건", True),
+        ("② 공모 공고가 떴다",
+         "중앙부처가 국비 공모를 발표하면 대응 여부를 판단합니다",
+         "실제 사례: K-NIBRT — 2020.04 산자부·복지부 공모 발표", False),
+        ("③ 현장 자료가 올라왔다",
+         "기업·대학이 낸 수요조사서를 받아 사업으로 만들지 봅니다",
+         "A3 1단계 입력문서 「기업/대학/현장 수요조사서」", False),
+    ]
+    _er = ['<table style="width:100%;border-collapse:collapse;font-size:.83rem">']
+    for t, what, ex, ready in _entries:
+        _er.append(
+            '<tr style="border-bottom:1px solid var(--rule)">'
+            f'<td style="padding:.45rem .5rem;width:11rem;font-weight:700">{esc(t)}</td>'
+            f'<td style="padding:.45rem .5rem">{esc(what)}'
+            f'<br><span class="small">{esc(ex)}</span></td>'
+            f'<td style="padding:.45rem .5rem;width:7rem">'
+            f'{badge("ok", "지금 됩니다") if ready else badge("na", "아직 안 됩니다")}</td></tr>')
+    st.markdown("".join(_er) + "</table>", unsafe_allow_html=True)
+    st.markdown('<p class="small">지금은 <b>①만</b> 됩니다. 왼쪽에서 맡으신 사업을 고르면 '
+                '그 사업 기준으로 화면이 맞춰집니다. ②③은 아직 만들지 않았습니다 — '
+                '되는 것처럼 보이게 두지 않았습니다.</p>', unsafe_allow_html=True)
+
+    if TARGET:
+        _c = actors.consult_for(TARGET)
+        st.markdown(
+            '<div style="border-left:3px solid var(--seal);padding:.5rem .8rem;margin:.6rem 0">'
+            f'<b>맡으신 사업</b> — {esc(TARGET["name"])}<br>'
+            f'<span class="small">전략산업 {esc(TARGET.get("strategic_industry"))} · '
+            f'주는 것 {esc(TARGET.get("intervention_type") or "원문에 안 적혀 있음")} · '
+            f'예산 {esc(TARGET.get("budget") or "확인 못 함")}<br>'
+            f'협의처 {esc(", ".join(a["team"] for a in _c) or "산업 미상이라 안내 못 함")}'
+            '</span></div>', unsafe_allow_html=True)
 
     st.subheader("세 단어를 구분해서 씁니다")
     st.markdown(
@@ -490,7 +545,9 @@ else:
     st.subheader("검토서 초안 내려받기")
     _cands = [c for c in works if in_scope(c) and c.get("strategic_industry")]
     if _cands:
-        _pick = st.selectbox("검토 대상 사업", _cands,
+        # 왼쪽에서 맡은 사업을 이미 골랐으면 그것을 기본값으로 — 두 번 고르게 하지 않는다
+        _idx = _cands.index(TARGET) if TARGET in _cands else 0
+        _pick = st.selectbox("검토 대상 사업", _cands, index=_idx,
                              format_func=lambda c: f"[{c.get('strategic_industry')}] {c['name'][:44]}")
         _track = st.radio("어느 창구로 가십니까", [calendar.RENEW_TRACK, calendar.NEW_TRACK],
                           horizontal=True,
