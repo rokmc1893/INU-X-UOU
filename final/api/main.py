@@ -103,6 +103,7 @@ def overview():
                      "needs": len(real),
                      "gaps": sum(1 for c in real if c["verdict"] == "uncovered")},
         "needs": [{"need": n, "plain": needs.plain(n), "label": needs.NEED_LABEL[n],
+                   "hint": needs.hint(n),
                    "covered": d["covered"], "total": d["total"]}
                   for n, d in sorted(by_need.items(), key=lambda kv: -kv[1]["total"])],
         "means": [{"need": n, "plain": needs.plain(n), "count": v}
@@ -163,7 +164,7 @@ def review(pid: str):
         },
         "handoffs": {"items": [pair(f) for f in mine("handoff_breaks")],
                      "empty": empty.handoffs(card, same, mine("handoff_breaks"))},
-        "needs": [{**c, "plain": needs.plain(c["need"]),
+        "needs": [{**c, "plain": needs.plain(c["need"]), "hint": needs.hint(c["need"]),
                    "label": needs.NEED_LABEL[c["need"]],
                    "mine": pid in c["covers"],
                    "coverNames": [(_card(cards, q) or {}).get("name") for q in c["covers"]]}

@@ -116,9 +116,17 @@ export default function Landing() {
           <div className="mt-4 max-h-[380px] space-y-4 overflow-y-auto pr-1">
             {groups.map(([ind, items]) => (
               <div key={ind}>
-                <p className="mb-1.5 text-[12px] font-semibold text-faint">
+                {/* 빈칸은 사업이 아니라 **산업**의 것이다. 사업마다 붙이면 같은 배지가
+                    그 산업 카드 전부에 똑같이 반복돼, 이 사업의 흠으로 잘못 읽힌다. */}
+                <p className="text-[12px] font-semibold text-faint">
                   {ind} <span className="font-normal">{items.length}건</span>
                 </p>
+                {items[0]?.gaps && items[0].gaps.length > 0 && (
+                  <p className="mb-1.5 mt-0.5 text-[11px] leading-snug text-gap">
+                    이 산업에서 아무 사업도 안 하고 있는 것 —{" "}
+                    <b>{items[0].gaps.join(" · ")}</b>
+                  </p>
+                )}
                 <ul className="space-y-1.5">
                   {items.map((b) => (
                     <li key={b.id}>
@@ -133,11 +141,6 @@ export default function Landing() {
                           <span>{b.status ?? "상태 미상"}</span>
                           <span>·</span>
                           <span>{b.means ?? "해주는 것이 원문에 안 적힘"}</span>
-                          {b.gaps && b.gaps.length > 0 && (
-                            <span className="rounded-[3px] border border-[#eec4bd] bg-gap-soft px-1.5 font-semibold text-gap">
-                              {b.gaps.join("·")} 비어 있음
-                            </span>
-                          )}
                         </span>
                       </button>
                     </li>

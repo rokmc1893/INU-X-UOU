@@ -9,6 +9,8 @@
 **모든 판정은 '후보'로 적는다.** 조사자 C의 실패기준:
   "역할중첩 후보를 '확정'으로 표시하는 화면 요소가 하나라도 발견되면 즉시 되돌린다."
 """
+from fit import needs as _needs
+
 from . import actors, calendar, workflow
 
 DISCLAIMER = ("이 문서는 초안입니다. 아래 판정은 전부 **후보**이며, 확정은 부서 협의로 합니다. "
@@ -18,6 +20,34 @@ DISCLAIMER = ("이 문서는 초안입니다. 아래 판정은 전부 **후보**
 
 def _bullet(items):
     return "\n".join(f"- {i}" for i in items) if items else "- (해당 없음)"
+
+
+def _kinds(rows):
+    """빈칸의 종류를 겹치지 않게, 나온 차례대로."""
+    out = []
+    for c in rows:
+        p = _needs.plain(c["need"])
+        if p not in out:
+            out.append(p)
+    return out
+
+
+def _hints(rows):
+    """머리줄에 쓴 칸 이름이 무엇을 세는지 바로 밑에 푼다.
+
+    항목과 같은 높이에 두면 자료 하나로 잘못 읽힌다. 들여쓴 괄호 줄로 둔다.
+    """
+    seen, out = set(), []
+    for c in rows:
+        if c["need"] not in seen:
+            seen.add(c["need"])
+            out.append(f"  ({_needs.plain(c['need'])} = {_needs.HINT[c['need']]})")
+    return "\n".join(out)
+
+
+def _sub(items):
+    """머리줄에 딸린 항목 — 한 단 들여쓴다."""
+    return "\n".join(f"  - {i}" for i in items) if items else "  - (해당 없음)"
 
 
 def _link(name, url):
@@ -86,14 +116,21 @@ def draft(card, findings, coverage, track_name, today, name_of=lambda p: p, url_
         "",
         "## 3. 이 산업에 필요한 것을 사업이 해주고 있는가",
         "",
-        f"- 해주는 사업이 없는 것: **{len(uncovered)}건**",
-        _bullet([f"{c['problem_type']} ({c['need']}) — {c['value'][:60]} · "
-                 f"{_link(c['signal_id'] + ' ' + c['grade'] + '등급', c.get('source_url'))}"
-                 for c in uncovered]),
+        # 「2건」만 적으면 결재선에서 무엇이 비었는지 알 수 없다. 어느 칸인지 이름을
+        # 먼저 밝히고, 그 칸이 무엇을 세는지도 한 줄 붙인다 — 「자금」이 이 사업에 붙은
+        # 예산으로 읽히면 「30억이 있는데 왜 비었나」가 된다.
+        f"- 해주는 사업이 없는 것: **{len(uncovered)}건** — "
+        + (" · ".join(_kinds(uncovered)) if uncovered else "없음"),
+        _hints(uncovered),
+        _sub([f"{c['problem_type']} — {c['value'][:60]} · "
+              f"{_link(c['signal_id'] + ' ' + c['grade'] + '등급', c.get('source_url'))}"
+              for c in uncovered]),
         "",
-        f"- 해주는 사업이 딱 하나뿐인 것: **{len(thin)}건** (그 사업이 멈추면 바로 공백이 됩니다)",
-        _bullet([f"{c['problem_type']} ({c['need']}) ← "
-                 f"{_link(name_of(c['covers'][0]), url_of(c['covers'][0]))}" for c in thin]),
+        f"- 해주는 사업이 딱 하나뿐인 것: **{len(thin)}건** (그 사업이 멈추면 바로 공백이 됩니다)"
+        + (" — " + " · ".join(_kinds(thin)) if thin else ""),
+        _hints(thin),
+        _sub([f"{c['problem_type']} ← "
+              f"{_link(name_of(c['covers'][0]), url_of(c['covers'][0]))}" for c in thin]),
         "",
         "## 4. 미확인 항목과 그 이유",
         "",

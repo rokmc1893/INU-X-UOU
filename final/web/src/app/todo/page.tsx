@@ -143,7 +143,7 @@ function GapBars({ r }: { r: Review }) {
       </p>
       <ul className="mt-3 space-y-2">
         {[...by].map(([plain, d]) => (
-          <li key={plain} className="grid grid-cols-[4.5rem_1fr_3rem] items-center gap-2">
+          <li key={plain} className="grid grid-cols-[6.5rem_1fr_3rem] items-center gap-2">
             <span className={`text-[13px] font-semibold ${d.covered === 0 ? "text-gap" : ""}`}>
               {plain}
             </span>

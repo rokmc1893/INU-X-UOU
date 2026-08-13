@@ -22,7 +22,7 @@ export type Empty = {
 export type Pair = { id: string; name: string; url: string | null; reason: string };
 
 export type NeedRow = {
-  need: string; plain: string; label: string;
+  need: string; plain: string; label: string; hint: string;
   verdict: "covered" | "uncovered";
   signal_id: string; problem_type: string; value: string; grade: string;
   trend: string; limit: string; source_url: string;
@@ -70,7 +70,8 @@ export type Overview = {
   today: string;
   ledger: { works: number; plans: number; signals: number; uploaded: number };
   computed: { edges: number; findings: number; needs: number; gaps: number };
-  needs: { need: string; plain: string; label: string; covered: number; total: number }[];
+  needs: { need: string; plain: string; label: string; hint: string;
+           covered: number; total: number }[];
   means: { need: string; plain: string; count: number }[];
   axes: { rank: string; outcome: string; covered: string; module: string | null; gap: string }[];
 };

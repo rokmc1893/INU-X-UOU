@@ -86,8 +86,10 @@ export function buildChecklist(r: Review): Item[] {
   if (gaps.length) {
     out.push({
       key: "gap", section: "gap", action: true, count: gaps.length, unit: "자료",
-      title: `비어 있는 「${gapKinds.join("·")}」을 채울지 판단한다`,
-      now: `이 산업 기업이 ${gapKinds.join("·")}을 말한 자료가 ${gaps.length}건인데 해주는 사업이 없습니다.`,
+      // 칸 이름 뒤에 조사를 붙이면 「공간·장비를」·「기업 자금을」처럼 칸마다 달라진다.
+      // 「칸을」·「에 관한」으로 받아 이름이 무엇이든 문장이 성립하게 둔다.
+      title: `비어 있는 「${gapKinds.join("·")}」 칸을 채울지 판단한다`,
+      now: `${gapKinds.join("·")}에 관한 자료가 ${gaps.length}건 있는데 해주는 사업이 없습니다.`,
       then: "이 사업을 넓힐지 새로 만들지, 근거를 갖고 정할 수 있습니다.",
     });
   }
@@ -96,7 +98,7 @@ export function buildChecklist(r: Review): Item[] {
     out.push({
       key: "thin", section: "gap", action: true, count: thin.length, unit: "자료",
       title: "사업 하나에만 걸린 것을 표시한다",
-      now: `${[...new Set(thin.map((t) => t.plain))].join("·")} 자료 ${thin.length}건이 `
+      now: `${[...new Set(thin.map((t) => t.plain))].join("·")}에 관한 자료 ${thin.length}건이 `
         + `사업 하나에 걸려 있습니다.`,
       then: "그 사업이 멈추면 바로 빈칸이 된다는 것을 예산 심의에서 근거로 씁니다.",
     });
@@ -106,7 +108,7 @@ export function buildChecklist(r: Review): Item[] {
     out.push({
       key: "mine", section: "gap", action: false, count: mine.length, unit: "자료",
       title: "이 사업이 맡고 있는 자리를 확인합니다",
-      now: `${[...new Set(mine.map((m) => m.plain))].join("·")} 자료 ${mine.length}건을 `
+      now: `${[...new Set(mine.map((m) => m.plain))].join("·")}에 관한 자료 ${mine.length}건을 `
         + `이 사업이 채우고 있습니다.`,
       then: "개편안에서 무엇을 유지해야 하는지 분명해집니다.",
     });

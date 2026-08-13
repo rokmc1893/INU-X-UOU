@@ -98,9 +98,16 @@ def test_출처_안내판이_막힌_곳을_지우지_않는다():
 
 
 def test_비어있는_칸마다_채울_출처가_있다():
+    """이름을 손으로 적지 않는다 — 적어 두면 PLAIN 을 고칠 때 여기만 옛 이름으로 남는다.
+
+    출처의 `gives` 는 PLAIN 값과 글자까지 같아야 걸린다. 어긋나면 검사가 아니라
+    화면이 먼저 빈다 — 「어디서 찾나」에 아무것도 안 나온다.
+    """
     from fit import needs as N
     from scenario import sources
-    for need in ("사람", "돈", "기술", "받쳐 줄 기업", "공간·장비", "행정"):
+    밖 = {g for s in sources.SOURCES for g in s["gives"]} - set(N.PLAIN.values())
+    assert not 밖, f"PLAIN 에 없는 이름을 출처가 쓴다: {밖}"
+    for need in N.PLAIN.values():
         got = sources.for_industry("미래차", need=need)
         assert got, f"「{need}」을 채울 출처가 하나도 없다"
 
@@ -113,6 +120,8 @@ def test_검색어가_붙은_주소는_실제로_만들어진다():
 
 
 def test_청구문안에_산업이_들어간다():
+    from fit import needs as N
     from scenario import sources
-    assert "미래차" in sources.claim_text("돈", "미래차")
-    assert sources.claim_text("공간·장비", "로봇") is None
+    assert set(sources.CLAIM_TEXTS) <= set(N.PLAIN.values()), "청구 문안이 없는 이름에 걸려 있다"
+    assert "미래차" in sources.claim_text(N.plain("금융"), "미래차")
+    assert sources.claim_text(N.plain("시설"), "로봇") is None

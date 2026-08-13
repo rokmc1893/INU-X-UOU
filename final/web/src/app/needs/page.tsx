@@ -17,9 +17,9 @@ export default function NeedsPage() {
 
   const gaps = r.needs.filter((n) => n.verdict === "uncovered");
   const thin = r.needs.filter((n) => n.verdict === "covered" && n.covers.length === 1);
-  const by = new Map<string, { covered: number; total: number; label: string }>();
+  const by = new Map<string, { covered: number; total: number; label: string; hint: string }>();
   for (const n of r.needs) {
-    const d = by.get(n.plain) ?? { covered: 0, total: 0, label: n.label };
+    const d = by.get(n.plain) ?? { covered: 0, total: 0, label: n.label, hint: n.hint };
     d.total += 1; d.covered += n.verdict === "covered" ? 1 : 0;
     by.set(n.plain, d);
   }
@@ -55,16 +55,21 @@ export default function NeedsPage() {
           </Card>
         )}
   
-        <Card title="무엇이 채워졌고 무엇이 비었나">
-          <ul className="space-y-2">
+        <Card title="무엇이 채워졌고 무엇이 비었나"
+              sub="칸 이름 밑에 그 칸이 무엇을 세는지 적어 뒀습니다.">
+          <ul className="space-y-2.5">
             {[...by].map(([plain, d]) => (
-              <li key={plain} className="grid grid-cols-[7rem_1fr_3.5rem] items-center gap-3">
-                <span className={`text-[13px] font-semibold ${d.covered === 0 ? "text-gap" : ""}`}>
-                  {plain}
-                  <span className="block text-[11px] font-normal text-faint">{d.label}</span>
-                </span>
-                <Slots filled={d.covered} empty={d.covered === 0} />
-                <span className="text-right text-[12px] text-muted">{d.covered}÷{d.total}</span>
+              <li key={plain} className="border-b border-rule pb-2.5 last:border-0 last:pb-0">
+                <div className="grid grid-cols-[7rem_1fr_3.5rem] items-center gap-3">
+                  <span className={`text-[13px] font-semibold ${d.covered === 0 ? "text-gap" : ""}`}>
+                    {plain}
+                  </span>
+                  <Slots filled={d.covered} empty={d.covered === 0} />
+                  <span className="text-right text-[12px] text-muted">{d.covered}÷{d.total}</span>
+                </div>
+                {/* 문제 표현(label)은 칸 이름과 같은 말이 겹친다 —
+                    「일할 사람 / 사람이 없다」. 무엇을 세는지만 남긴다. */}
+                <p className="mt-1 text-[11px] leading-snug text-faint">{d.hint}</p>
               </li>
             ))}
           </ul>

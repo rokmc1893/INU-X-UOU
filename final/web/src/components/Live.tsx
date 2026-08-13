@@ -75,7 +75,7 @@ export default function Live() {
           const pct = n.total ? (n.covered / n.total) * 100 : 0;
           const empty = n.covered === 0;
           return (
-            <li key={n.need} className="grid grid-cols-[5.5rem_1fr_3.2rem] items-center gap-2.5">
+            <li key={n.need} className="grid grid-cols-[6.5rem_1fr_3.2rem] items-center gap-2.5">
               <span className={`text-[13px] font-semibold ${empty ? "text-gap" : ""}`}>
                 {n.plain}
               </span>
@@ -95,6 +95,8 @@ export default function Live() {
       </ul>
       <p className="mt-3 text-[11px] leading-snug text-faint">
         채워진 만큼 파랗게 찹니다. 하나도 못 채운 줄은 통째로 붉습니다.
+        {" "}<b className="font-semibold">기업 자금</b>은 기업이 밖에서 구하는 돈이라,
+        사업에 붙은 예산과 다릅니다.
       </p>
     </section>
   );
