@@ -26,6 +26,9 @@ class MemoryStore:
     def edges(self):
         return list(self._edges)
 
+    def chains(self, lo=2, hi=3):
+        return _chains_python(self._edges, lo, hi)
+
 
 class Neo4jStore:
     name = "Neo4j"
@@ -77,6 +80,20 @@ class Neo4jStore:
     def demands(self):
         return self._rows("MATCH (n:Demand) RETURN n")
 
+    def chains(self, lo=2, hi=3):
+        """인계가 2~3단계로 이어지는 경로. 쌍(pair) 비교로는 나오지 않는 관계다."""
+        q = (f"MATCH p=(a:Policy)-[:HANDOFF*{lo}..{hi}]->(b:Policy) "
+             "WHERE a.policy_id <> b.policy_id "
+             "RETURN [n IN nodes(p) | n.policy_id] AS ids LIMIT 40")
+        with self._driver.session() as s:
+            seen, out = set(), []
+            for r in s.run(q):
+                k = tuple(r["ids"])
+                if k not in seen:
+                    seen.add(k)
+                    out.append(r["ids"])
+            return out
+
     def edges(self):
         with self._driver.session() as s:
             return [{"src": r["src"], "dst": r["dst"], "type": r["type"],
@@ -84,6 +101,34 @@ class Neo4jStore:
                     for r in s.run(
                         "MATCH (a)-[e]->(b) RETURN coalesce(a.policy_id,a.signal_id) AS src, "
                         "coalesce(b.policy_id,b.signal_id) AS dst, type(e) AS type, properties(e) AS props")]
+
+
+def _chains_python(edges, lo=2, hi=3):
+    """HANDOFF 다단계 사슬을 파이썬 순회로 찾는다 (MemoryStore 폴백).
+
+    Cypher는 `[:HANDOFF*2..3]` 한 줄이면 되는 것을 여기서는 직접 순회해야 한다.
+    지금 규모에서는 둘 다 즉시 끝나지만, 정책이 수천 건이 되면 차이가 난다.
+    """
+    adj = {}
+    for e in edges:
+        if e["type"] == "HANDOFF":
+            adj.setdefault(e["src"], set()).add(e["dst"])   # 중복 엣지 흡수
+    adj = {k: sorted(v) for k, v in adj.items()}
+    out, seen = [], set()
+
+    def walk(path):
+        if len(path) - 1 >= lo and tuple(path) not in seen:
+            seen.add(tuple(path))
+            out.append(list(path))
+        if len(path) - 1 >= hi:
+            return
+        for nxt in adj.get(path[-1], []):
+            if nxt not in path:          # 순환 방지
+                walk(path + [nxt])
+
+    for start in adj:
+        walk([start])
+    return out
 
 
 def get_store():

@@ -18,7 +18,7 @@
   "intervention": "자율주행차 기술개발 지원",
   "region": "인천",
   "application_period": null,
-  "intervention_type": null,
+  "intervention_type": "R&D·기술지원",
   "budget": null,
   "output_kpi": null,
   "outcome_kpi": null,
@@ -40,7 +40,6 @@
   "missing_fields": [
     "stage",
     "occupation",
-    "intervention_type",
     "application_period",
     "budget",
     "output_kpi",

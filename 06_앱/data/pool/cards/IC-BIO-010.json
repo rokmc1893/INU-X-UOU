@@ -2,7 +2,7 @@
   "policy_id": "IC-BIO-010",
   "name": "인천TP 바이오 장비 구축·운영 및 사용지원",
   "status": "운영",
-  "owner_dept": null,
+  "owner_dept": "인천시(추정)",
   "executor": "인천테크노파크 바이오사업단",
   "problem": "중소기업 고가 장비 접근성 부족",
   "target": {
@@ -18,7 +18,7 @@
   "intervention": "70여종 장비 개방, 시험분석·인증·전임상·시생산·실증, 기능성화장품 세포효능평가",
   "region": "인천",
   "application_period": "상시(추정)",
-  "intervention_type": null,
+  "intervention_type": "시설·인프라",
   "budget": null,
   "output_kpi": null,
   "outcome_kpi": null,
@@ -27,18 +27,16 @@
   "source_span": {
     "name": "인천TP 바이오 장비 구축·운영 및 사용지원",
     "status": "운영",
+    "owner_dept": "인천시(추정)",
     "executor": "인천테크노파크 바이오사업단",
     "problem": "중소기업 고가 장비 접근성 부족",
     "target": "인천 바이오·헬스케어 기업",
-    "intervention": "70여종 장비 개방, 시험분석·인증·전임상·시생산·실증, 기능성화장품 세포효능평가",
     "region": "인천",
     "application_period": "상시(추정)"
   },
   "missing_fields": [
-    "owner_dept",
     "stage",
     "occupation",
-    "intervention_type",
     "budget",
     "output_kpi",
     "outcome_kpi"

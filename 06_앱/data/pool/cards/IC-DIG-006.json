@@ -18,7 +18,7 @@
   "intervention": "데이터 개방 및 플랫폼 운영",
   "region": "인천",
   "application_period": null,
-  "intervention_type": null,
+  "intervention_type": "네트워크·협의체",
   "budget": "시비",
   "output_kpi": "공공데이터 목록 3,471건(2023-03 기준)",
   "outcome_kpi": null,
@@ -39,7 +39,6 @@
     "executor",
     "stage",
     "occupation",
-    "intervention_type",
     "application_period",
     "outcome_kpi"
   ],

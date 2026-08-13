@@ -166,6 +166,11 @@ CYPHER = {
     "overlaps_intentional": (
         "MATCH (a:Policy)-[e:OVERLAP_INTENTIONAL]->(b:Policy)\n"
         "RETURN a.policy_id, b.policy_id, e.reason"),
+    "chains": (
+        "MATCH p=(a:Policy)-[:HANDOFF*2..3]->(b:Policy)\n"
+        "WHERE a.policy_id <> b.policy_id\n"
+        "RETURN [n IN nodes(p) | n.policy_id] AS 사슬\n"
+        "// 쌍 비교로는 나오지 않는 다단계 경로 — 파이썬으로는 순회를 직접 써야 한다"),
     "complements": (
         "MATCH (a:Policy)-[e:OVERLAP_COMPLEMENTARY]->(b:Policy)\n"
         "RETURN a.policy_id, b.policy_id, e.reason  // 수단이 달라 중복이 아닌 보완 관계"),

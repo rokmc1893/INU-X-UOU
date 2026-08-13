@@ -2,13 +2,13 @@
   "policy_id": "IC-ROB-003",
   "name": "인천로봇랜드 피지컬 AI 거점 육성",
   "status": "계획",
-  "owner_dept": "인천시(시장 100대 시정과제)",
+  "owner_dept": null,
   "executor": null,
   "problem": "기존 로봇랜드의 산업적 성과 미흡",
   "target": {
-    "age_min": 0,
-    "age_max": 200,
-    "residency": "서해구 청라",
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
     "employment_status": null,
     "student_status": null,
     "income_criteria": null
@@ -29,15 +29,14 @@
   "source_span": {
     "name": "인천로봇랜드 피지컬 AI 거점 육성",
     "status": "계획",
-    "owner_dept": "인천시(시장 100대 시정과제)",
     "problem": "기존 로봇랜드의 산업적 성과 미흡",
     "target": "로봇·AI 기업",
     "intervention": "피지컬 AI 거점화(수단 미상세)",
     "region": "서해구 청라",
-    "application_period": "2026~",
-    "linked_upstream": "IC-ROB-001"
+    "application_period": "2026~"
   },
   "missing_fields": [
+    "owner_dept",
     "executor",
     "stage",
     "occupation",

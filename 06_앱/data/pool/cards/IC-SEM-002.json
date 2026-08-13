@@ -15,14 +15,16 @@
   },
   "stage": null,
   "occupation": null,
-  "intervention": null,
+  "intervention": "3년간 성장단계별 맞춤형 패키지 지원",
   "region": "인천",
   "application_period": "2026~3년간",
-  "intervention_type": null,
+  "intervention_type": "기업보조금",
   "budget": "3억원",
   "output_kpi": "유망기업 27개사 육성",
   "outcome_kpi": null,
-  "linked_upstream": [],
+  "linked_upstream": [
+    "레전드 50+ 1.0"
+  ],
   "linked_downstream": [],
   "source_span": {
     "name": "레전드 50+ 2.0 프로젝트",
@@ -33,17 +35,14 @@
     "region": "인천",
     "application_period": "2026~3년간",
     "budget": "3억원",
-    "output_kpi": "유망기업 27개사 육성"
+    "output_kpi": "유망기업 27개사 육성",
+    "linked_upstream": "레전드 50+ 1.0(선행사업, 미확인)"
   },
   "missing_fields": [
     "executor",
-    "intervention",
     "stage",
     "occupation",
-    "intervention_type",
-    "outcome_kpi",
-    "linked_upstream",
-    "linked_downstream"
+    "outcome_kpi"
   ],
   "source_url": "https://news.nate.com/view/20260311n24470",
   "retrieved_at": "2026-08-13",

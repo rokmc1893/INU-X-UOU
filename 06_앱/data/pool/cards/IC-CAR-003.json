@@ -18,7 +18,7 @@
   "intervention": "차량 보급 및 충전 인프라 구축",
   "region": "인천",
   "application_period": "2026회계연도",
-  "intervention_type": null,
+  "intervention_type": "시설·인프라",
   "budget": "1,407억 4,954만원",
   "output_kpi": null,
   "outcome_kpi": null,
@@ -30,7 +30,6 @@
     "owner_dept": "인천시(환경 소관 추정)",
     "problem": "전기·수소차 보급 확대 필요",
     "target": "시민 및 사업자",
-    "intervention": "차량 보급 및 충전 인프라 구축",
     "region": "인천",
     "application_period": "2026회계연도",
     "budget": "1,407억 4,954만원"
@@ -39,7 +38,6 @@
     "executor",
     "stage",
     "occupation",
-    "intervention_type",
     "output_kpi",
     "outcome_kpi"
   ],

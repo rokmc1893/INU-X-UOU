@@ -6,9 +6,9 @@
   "executor": null,
   "problem": "공항 인접 산업기반 취약",
   "target": {
-    "age_min": 0,
-    "age_max": 200,
-    "residency": "영종구",
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
     "employment_status": null,
     "student_status": null,
     "income_criteria": null
@@ -31,20 +31,21 @@
     "status": "계획",
     "owner_dept": "인천시/영종구",
     "problem": "공항 인접 산업기반 취약",
-    "target": "대상 산업: 항공",
     "intervention": "공항경제권 구축(수단 미상세)",
-    "region": "사업 지역: 영종구",
-    "linked_upstream": "선행 사업: 인천형 행정체제 개편 구정방향"
+    "region": "영종구",
+    "linked_upstream": "인천형 행정체제 개편 구정방향"
   },
   "missing_fields": [
     "executor",
+    "target",
     "stage",
     "occupation",
     "intervention_type",
-    "application_period",
     "budget",
     "output_kpi",
-    "outcome_kpi"
+    "outcome_kpi",
+    "application_period",
+    "linked_downstream"
   ],
   "source_url": "https://www.incheon.go.kr/IC01070101",
   "retrieved_at": "2026-08-13",

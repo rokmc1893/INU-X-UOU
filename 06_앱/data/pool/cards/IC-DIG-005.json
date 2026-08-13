@@ -8,7 +8,7 @@
   "target": {
     "age_min": null,
     "age_max": null,
-    "residency": "인천",
+    "residency": null,
     "employment_status": null,
     "student_status": null,
     "income_criteria": null
@@ -19,7 +19,7 @@
   "region": "인천",
   "application_period": null,
   "intervention_type": null,
-  "budget": null,
+  "budget": "시비",
   "output_kpi": null,
   "outcome_kpi": null,
   "linked_upstream": [],
@@ -27,7 +27,8 @@
   "source_span": {
     "status": "운영",
     "owner_dept": "인천시 디지털산업과",
-    "region": "인천"
+    "region": "인천",
+    "budget": "시비"
   },
   "missing_fields": [
     "name",
@@ -39,7 +40,6 @@
     "intervention",
     "application_period",
     "intervention_type",
-    "budget",
     "output_kpi",
     "outcome_kpi"
   ],

@@ -7,7 +7,9 @@ STAGES = ["교육훈련", "일경험", "구직지원", "매칭", "채용지원",
 OCCUPATIONS = ["바이오생산", "바이오품질", "SW·AI", "일반사무", "전직무"]
 # 수단(intervention_type) — A3 3단계 반려사유 "대상·수단·직무 동일"의 '수단' 축
 INTERVENTION_TYPES = ["현금지원", "현물·물품대여", "교육훈련", "상담·컨설팅",
-                      "알선·매칭", "시설·인프라", "기업보조금"]
+                      "알선·매칭", "시설·인프라", "기업보조금",
+                      # 기업·산업 대상 사업 축 — 청년 일자리 어휘만으로는 6대 전략산업 정책을 담지 못한다
+                      "R&D·기술지원", "실증·시범", "네트워크·협의체", "판로·해외진출"]
 
 NULLABLE_FIELDS = ["name", "status", "owner_dept", "executor", "problem", "stage",
                    "intervention", "intervention_type", "region", "application_period", "budget",
@@ -37,8 +39,16 @@ PROMPT = """당신은 정책 원문에서 정책카드를 추출한다. 반드�
    - 현물·물품대여: 정장 대여, 물품 제공 등 물건·서비스를 준다
    - 교육훈련: 교육 과정을 운영한다 · 상담·컨설팅: 상담·진로탐색·컨설팅을 제공한다
    - 알선·매칭: 구인-구직을 연결하거나 매칭 기관을 운영한다
-   - 시설·인프라: 건물·장비를 구축한다 · 기업보조금: 기업에 보조금·인센티브를 준다
-   사업내용을 알 수 없는 문서만 null로 기권한다. 이것도 분류(코딩) 필드다.
+   - 시설·인프라: 건물·장비·클러스터를 구축한다 · 기업보조금: 기업에 보조금·인센티브를 준다
+   - R&D·기술지원: 기술개발·기술협력체계·장비 활용을 지원한다
+   - 실증·시범: 실증사업·시범운영·테스트베드를 운영한다
+   - 네트워크·협의체: 협의회·생태계·교류 네트워크를 만들거나 운영한다
+   - 판로·해외진출: 전시회 참가·수출·해외 진출을 지원한다
+   **stage나 occupation을 기권했더라도 intervention_type은 따로 판단한다.** 사업이 사람의 취업 단계를
+   다루지 않아도(시설 구축·기업 R&D·클러스터 조성 등) 무엇을 주는 사업인지는 분류할 수 있다.
+   예: "대-중소 기술개발 협력체계" → R&D·기술지원 / "클러스터 조성" → 시설·인프라 /
+       "전시회 참가 지원" → 판로·해외진출 / "협의회 운영" → 네트워크·협의체
+   `사업내용` 줄 자체가 없는 문서만 null로 기권한다.
 6. output_kpi는 **산출 목표치**다 — 원문의 "지원규모", "모집인원", "○○명", "○○개사" 같은 수혜 규모 표현이 있으면 반드시 추출한다(기권 금지). outcome_kpi는 취업률·근속률 등 **결과 지표**이며, 원문에 없으면 기권한다.
 7. linked_upstream/linked_downstream: 원문에 명시적으로 언급된 선행/후속 사업명 배열(없으면 []).
 8. target은 {{"age_min": 숫자|null, "age_max": 숫자|null, "residency": 문자열|null, "employment_status": 문자열|null, "student_status": 문자열|null, "income_criteria": 문자열|null}}.
@@ -134,22 +144,83 @@ def extract_card(raw_text: str, policy_id: str, llm=None, model: str = "gpt-4o-m
     prompt = PROMPT.format(stages=STAGES, occupations=OCCUPATIONS,
                            itypes=INTERVENTION_TYPES, pid=policy_id, body=body)
     card = json.loads(llm(prompt))
+    _normalize_nulls(card)
     card["policy_id"] = policy_id
     card["source_url"] = meta.get("source_url")
     card["retrieved_at"] = meta.get("retrieved_at")
     card["data_type"] = meta.get("data_type", "real")
     errors = validate_card(card, body)
     if errors:  # 1회 재시도: 위반 내역을 프롬프트에 붙여 교정 요청
-        retry = prompt + "\n\n이전 출력의 계약 위반:\n" + "\n".join(errors) + "\n위반을 수정한 JSON을 다시 출력하라."
+        retry = (prompt + "\n\n이전 출력의 계약 위반:\n" + "\n".join(errors)
+                 + "\n위반을 수정한 JSON을 다시 출력하라. **위반과 무관한 필드의 값은 그대로 유지하라.**"
+                 " source_span 위반은 그 필드의 인용문만 빼면 되고, 분류값까지 null로 바꾸지 마라.")
         card2 = json.loads(llm(retry))
+        _normalize_nulls(card2)
+        _keep_valid_values(card, card2, errors)
         card2.update({"policy_id": policy_id, "source_url": meta.get("source_url"),
                       "retrieved_at": meta.get("retrieved_at"),
                       "data_type": meta.get("data_type", "real")})
+        _enforce_vocabulary(card2)
         _auto_repair(card2)
         card2["_validation_errors"] = validate_card(card2, body)
         return card2
-    card["_validation_errors"] = []
+    _enforce_vocabulary(card)
+    _auto_repair(card)
+    card["_validation_errors"] = validate_card(card, body)
     return card
+
+
+_NULLISH = {"null", "none", "n/a", "na", "없음", "미상", "unknown", "해당없음", "-", ""}
+
+
+def _normalize_nulls(card):
+    """LLM이 문자열로 돌려준 'null'·'없음'을 진짜 null로 바꾼다."""
+    for k, v in list(card.items()):
+        if isinstance(v, str) and v.strip().lower() in _NULLISH:
+            card[k] = None
+    tgt = card.get("target")
+    if isinstance(tgt, dict):
+        for k, v in list(tgt.items()):
+            if isinstance(v, str) and v.strip().lower() in _NULLISH:
+                tgt[k] = None
+
+
+def _keep_valid_values(first, second, errors):
+    """재시도가 **멀쩡했던 값까지 버리는 것**을 막는다.
+
+    재시도는 위반을 고치라는 요청인데, 모델이 위반과 무관한 필드까지 기권해 버리는 일이
+    잦다. 첫 응답에서 값이 있었고 그 필드가 위반 목록에 없었다면 되살린다.
+    """
+    # `source_span[X]` 위반은 **인용문** 문제이지 값 문제가 아니다. 값까지 버리면 안 된다.
+    value_errors = [e for e in errors if not e.startswith("source_span[")]
+    faulted = {f for f in NULLABLE_FIELDS + ["occupation", "target"]
+               if any(f in e for e in value_errors)}
+    for f in NULLABLE_FIELDS + ["occupation"]:
+        if f in faulted:
+            continue
+        if second.get(f) is None and first.get(f) is not None:
+            second[f] = first[f]
+            mf = second.get("missing_fields")
+            if isinstance(mf, list) and f in mf:
+                mf.remove(f)
+
+
+def _enforce_vocabulary(card):
+    """통제 어휘를 벗어난 분류값은 **버린다**.
+
+    잘못된 값을 그대로 두면 판정이 오염된다 — 예컨대 stage에 수단 어휘가 들어가면
+    같은 단계 비교가 무너진다. 위반은 기록하되 값은 null로 떨어뜨린다.
+    """
+    if card.get("stage") is not None and card["stage"] not in STAGES:
+        card["stage"] = None
+    if card.get("intervention_type") is not None and card["intervention_type"] not in INTERVENTION_TYPES:
+        card["intervention_type"] = None
+    occ = card.get("occupation")
+    if isinstance(occ, list):
+        kept = [o for o in occ if o in OCCUPATIONS]
+        card["occupation"] = kept or None
+    elif occ is not None:
+        card["occupation"] = None
 
 
 def _auto_repair(card):

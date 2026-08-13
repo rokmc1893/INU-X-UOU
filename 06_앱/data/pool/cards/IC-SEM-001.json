@@ -14,11 +14,13 @@
     "income_criteria": null
   },
   "stage": null,
-  "occupation": null,
+  "occupation": [
+    "전직무"
+  ],
   "intervention": "대-중소 상생 기술개발 협력체계",
   "region": "인천",
   "application_period": "2026",
-  "intervention_type": null,
+  "intervention_type": "R&D·기술지원",
   "budget": "27억원",
   "output_kpi": null,
   "outcome_kpi": null,
@@ -33,24 +35,28 @@
     "executor": "한국생산기술연구원, 인천테크노파크",
     "problem": "후공정(OSAT) 소부장 경쟁력 부족, 대-중소 기술수요 미연결",
     "target": "대기업 수요기술 개발 중소기업",
-    "intervention": "대-중소 상생 기술개발 협력체계",
+    "stage": "R&D·기술지원",
+    "occupation": [
+      "전직무"
+    ],
     "region": "인천",
     "application_period": "2026",
     "budget": "27억원",
     "linked_upstream": "인천 6대 전략산업"
   },
   "missing_fields": [
-    "occupation",
-    "stage",
-    "intervention_type",
     "output_kpi",
     "outcome_kpi",
-    "linked_downstream"
+    "linked_downstream",
+    "stage"
   ],
   "source_url": "https://news.nate.com/view/20260311n24470",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [],
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음",
+    "source_span[occupation]: 인용문이 원문에 없음"
+  ],
   "stable_policy_id": "IC-SEM-001",
   "evidence_status": "SECONDARY_PRESS_ONLY",
   "pool_version": "2026-08-13",

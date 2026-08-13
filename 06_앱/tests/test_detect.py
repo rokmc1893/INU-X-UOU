@@ -115,4 +115,4 @@ def test_no_openai_import():
 def test_cypher_covers_every_judgment():
     """화면에 노출하는 Cypher가 판정 5종을 빠짐없이 덮는다 — 심사위원이 열어 볼 수 있다."""
     assert set(CYPHER) == {"handoff_breaks", "gaps", "overlaps_harmful",
-                           "overlaps_intentional", "complements"}
+                           "overlaps_intentional", "complements", "chains"}

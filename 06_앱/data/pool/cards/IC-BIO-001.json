@@ -22,7 +22,7 @@
   "region": "연수구 송도 연세대 국제캠퍼스",
   "application_period": null,
   "intervention_type": "시설·인프라",
-  "budget": null,
+  "budget": "출처 간 수치 충돌로 미기재",
   "output_kpi": "연 2,000명 배출(구축사업 KPI인지 불명)",
   "outcome_kpi": null,
   "linked_upstream": [
@@ -37,26 +37,37 @@
     "owner_dept": "산업통상부/보건복지부",
     "executor": "인천경제자유구역청, 연세대 K-NIBRT사업단, 인천테크노파크",
     "problem": "바이오의약품 생산 전문인력 부족(2020 사업지 선정 사유)",
-    "target": "지원대상: 바이오공정 예비취업자/재직자/경력보유자",
-    "intervention": "사업내용: GMP 수준 실습시설 구축(6,600㎡)",
-    "region": "사업 지역: 연수구 송도 연세대 국제캠퍼스",
-    "application_period": "신청기간: 해당없음",
-    "intervention_type": "시설구축",
-    "output_kpi": "성과지표: 연 2,000명 배출(구축사업 KPI인지 불명)",
-    "linked_upstream": "선행 사업: 바이오헬스 인력양성 국가정책(2020)",
-    "linked_downstream": "후속 사업: IC-BIO-002"
+    "target": "바이오공정 예비취업자/재직자/경력보유자",
+    "stage": "시설·인프라",
+    "occupation": [
+      "바이오생산",
+      "바이오품질"
+    ],
+    "region": "연수구 송도 연세대 국제캠퍼스",
+    "application_period": "해당없음",
+    "budget": "출처 간 수치 충돌로 미기재",
+    "output_kpi": "연 2,000명 배출(구축사업 KPI인지 불명)",
+    "linked_upstream": [
+      "바이오헬스 인력양성 국가정책(2020)"
+    ],
+    "linked_downstream": [
+      "IC-BIO-002"
+    ]
   },
   "missing_fields": [
-    "stage",
-    "budget",
+    "application_period",
     "outcome_kpi",
-    "region",
-    "application_period"
+    "stage"
   ],
   "source_url": "https://www.hitnews.co.kr/news/articleView.html?idxno=71356",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [],
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음",
+    "source_span[occupation]: 인용문이 원문에 없음",
+    "source_span[linked_upstream]: 인용문이 원문에 없음",
+    "source_span[linked_downstream]: 인용문이 원문에 없음"
+  ],
   "stable_policy_id": "IC-BIO-001",
   "evidence_status": "CONFLICTING_FIGURES",
   "pool_version": "2026-08-13",

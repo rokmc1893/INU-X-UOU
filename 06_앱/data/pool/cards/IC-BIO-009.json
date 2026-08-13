@@ -9,7 +9,7 @@
     "age_min": 0,
     "age_max": 200,
     "residency": "인천",
-    "employment_status": null,
+    "employment_status": "미취업",
     "student_status": null,
     "income_criteria": null
   },
@@ -18,7 +18,7 @@
   "intervention": "실증 및 컨설팅",
   "region": "인천",
   "application_period": "2026~",
-  "intervention_type": null,
+  "intervention_type": "상담·컨설팅",
   "budget": "2026년 2.7억 신규편성",
   "output_kpi": null,
   "outcome_kpi": null,
@@ -31,18 +31,17 @@
     "status": "결정",
     "owner_dept": "인천시(과기정통부 공모 선정)",
     "problem": "양자-바이오 융합 실증 기반 부재",
-    "target": "바이오·양자 융합 기업",
-    "intervention": "실증 및 컨설팅",
-    "region": "인천",
-    "application_period": "2026~",
-    "budget": "2026년 2.7억 신규편성",
-    "linked_upstream": "정부 양자클러스터 지정 추진"
+    "target": "지원대상: 바이오·양자 융합 기업",
+    "intervention": "사업내용: 실증 및 컨설팅",
+    "region": "사업 지역: 인천",
+    "application_period": "사업기간: 2026~",
+    "budget": "예산: 2026년 2.7억 신규편성",
+    "linked_upstream": "선행 사업: 정부 양자클러스터 지정 추진"
   },
   "missing_fields": [
     "executor",
     "stage",
     "occupation",
-    "intervention_type",
     "output_kpi",
     "outcome_kpi"
   ],

@@ -9,7 +9,7 @@
     "age_min": 0,
     "age_max": 200,
     "residency": "인천",
-    "employment_status": null,
+    "employment_status": "미취업",
     "student_status": null,
     "income_criteria": null
   },
@@ -35,24 +35,26 @@
     "executor": "인천테크노파크",
     "problem": "디지털·데이터 산업 성장을 위한 인재 부족",
     "target": "지원대상: 디지털·데이터 분야 인재",
-    "stage": "사업내용: 인재 양성(수단 미상세)",
-    "occupation": "대상 직무: 디지털 인재",
-    "intervention": "사업내용: 인재 양성(수단 미상세)",
-    "region": "사업 지역: 인천",
+    "stage": null,
+    "occupation": null,
+    "intervention": "인재 양성(수단 미상세)",
+    "region": "인천",
     "application_period": null,
     "intervention_type": null,
     "budget": null,
     "output_kpi": null,
     "outcome_kpi": null,
-    "linked_upstream": "선행 사업: 인천 전략산업육성 종합계획",
-    "linked_downstream": []
+    "linked_upstream": null,
+    "linked_downstream": null
   },
   "missing_fields": [
-    "application_period",
     "intervention_type",
     "budget",
     "output_kpi",
-    "outcome_kpi"
+    "outcome_kpi",
+    "stage",
+    "occupation",
+    "application_period"
   ],
   "source_url": "https://www.kyeonggi.com/article/20231006580065",
   "retrieved_at": "2026-08-13",

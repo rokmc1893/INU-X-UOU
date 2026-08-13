@@ -2,7 +2,7 @@
   "policy_id": "IC-AIR-007",
   "name": "항공정비산업(MRO) 생태계 구축",
   "status": "계획",
-  "owner_dept": null,
+  "owner_dept": "인천시/영종구",
   "executor": null,
   "problem": "MRO 앵커기업은 유치했으나 협력업체 생태계 미형성",
   "target": {
@@ -29,41 +29,26 @@
   "source_span": {
     "name": "항공정비산업(MRO) 생태계 구축",
     "status": "계획",
-    "owner_dept": null,
-    "executor": null,
+    "owner_dept": "인천시/영종구",
     "problem": "MRO 앵커기업은 유치했으나 협력업체 생태계 미형성",
-    "target": "지원대상: 항공정비 기업",
-    "stage": null,
-    "occupation": null,
+    "target": "항공정비 기업",
     "intervention": "생태계 구축(수단 미상세)",
-    "region": "사업 지역: 영종구",
-    "application_period": null,
-    "intervention_type": null,
-    "budget": null,
-    "output_kpi": null,
-    "outcome_kpi": null,
-    "linked_upstream": [
-      "IC-AIR-001"
-    ],
-    "linked_downstream": []
+    "region": "영종구"
   },
   "missing_fields": [
-    "owner_dept",
     "executor",
     "stage",
     "occupation",
     "intervention_type",
+    "application_period",
     "budget",
     "output_kpi",
-    "outcome_kpi",
-    "application_period"
+    "outcome_kpi"
   ],
   "source_url": "https://www.incheon.go.kr/IC01070101",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [
-    "source_span[linked_upstream]: 인용문이 원문에 없음"
-  ],
+  "_validation_errors": [],
   "stable_policy_id": "IC-AIR-007",
   "evidence_status": "SECONDARY_PRESS_ONLY",
   "pool_version": "2026-08-13",

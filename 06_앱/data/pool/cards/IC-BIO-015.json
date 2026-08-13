@@ -18,7 +18,7 @@
   "intervention": "수요발굴 → 과제선정 → 시작품/공정고도화 R&D",
   "region": "인천",
   "application_period": "종료",
-  "intervention_type": null,
+  "intervention_type": "R&D·기술지원",
   "budget": null,
   "output_kpi": "신청 10건 → 4건 선정",
   "outcome_kpi": null,
@@ -31,7 +31,6 @@
     "status": "종료",
     "problem": "바이오 원부자재 수입의존, 역내 공급망 부재",
     "target": "인천 관내 바이오기업 + 소부장 기업",
-    "intervention": "수요발굴 → 과제선정 → 시작품/공정고도화 R&D",
     "region": "인천",
     "application_period": "종료",
     "output_kpi": "신청 10건 → 4건 선정"
@@ -39,11 +38,9 @@
   "missing_fields": [
     "owner_dept",
     "executor",
-    "stage",
-    "occupation",
-    "intervention_type",
     "budget",
-    "outcome_kpi"
+    "outcome_kpi",
+    "stage"
   ],
   "source_url": "https://scienceon.kisti.re.kr/srch/selectPORSrchReport.do?cn=TRKO202500010493",
   "retrieved_at": "2026-08-13",

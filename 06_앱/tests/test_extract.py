@@ -60,3 +60,15 @@ def test_extract_card_with_fake_llm():
     assert card["source_url"] == "https://example.org/p"
     assert card["data_type"] == "real"
     assert card["stage"] in STAGES
+
+
+def test_vocabulary_violation_is_dropped():
+    """통제 어휘를 벗어난 분류값은 버린다 — 잘못된 값이 판정을 오염시키면 안 된다."""
+    import json as _j
+    from engine.extract import extract_card
+    bad = make_card(stage="시설·인프라", intervention_type="이상한값",
+                    occupation=["바이오생산", "없는직무"])
+    card = extract_card(RAW, "P999", llm=lambda _: _j.dumps(bad, ensure_ascii=False))
+    assert card["stage"] is None
+    assert card["intervention_type"] is None
+    assert card["occupation"] == ["바이오생산"]

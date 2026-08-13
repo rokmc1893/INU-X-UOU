@@ -20,10 +20,14 @@
   "application_period": null,
   "intervention_type": null,
   "budget": "일반조정교부금 교부율 22.3%, 3년간 연 100억 범위 특별조정교부금",
-  "output_kpi": "2026-07-01 개편 완료, 행정정보시스템 397종 데이터 전환",
+  "output_kpi": null,
   "outcome_kpi": null,
-  "linked_upstream": [],
-  "linked_downstream": [],
+  "linked_upstream": [
+    "관련 법률 2024 제정"
+  ],
+  "linked_downstream": [
+    "전 산업 geography 필드에 영향"
+  ],
   "source_span": {
     "name": "인천형 행정체제 개편(2군8구 → 2군9구)",
     "status": "운영",
@@ -32,7 +36,8 @@
     "problem": "생활권과 행정구역 불일치(영종·검단 접근성)",
     "region": "인천 전역",
     "budget": "일반조정교부금 교부율 22.3%, 3년간 연 100억 범위 특별조정교부금",
-    "output_kpi": "2026-07-01 개편 완료, 행정정보시스템 397종 데이터 전환"
+    "linked_upstream": "관련 법률 2024 제정",
+    "linked_downstream": "전 산업 geography 필드에 영향"
   },
   "missing_fields": [
     "target",
@@ -41,9 +46,8 @@
     "intervention",
     "application_period",
     "intervention_type",
-    "outcome_kpi",
-    "linked_upstream",
-    "linked_downstream"
+    "output_kpi",
+    "outcome_kpi"
   ],
   "source_url": "https://www.incheon.go.kr/IC01070101",
   "retrieved_at": "2026-08-13",

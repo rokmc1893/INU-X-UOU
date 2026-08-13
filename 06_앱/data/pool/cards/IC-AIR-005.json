@@ -18,9 +18,9 @@
   "intervention": "드론 배송 상용화 및 공공안전 서비스 실증, 덕적도·대이작도 배송거점",
   "region": "옹진군 도서지역",
   "application_period": "5년 연속 선정(2026 포함)",
-  "intervention_type": null,
+  "intervention_type": "실증·시범",
   "budget": "2026년 약 6억8,000만원",
-  "output_kpi": "국토부 드론 실증도시 5년 연속 선정",
+  "output_kpi": null,
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
@@ -30,17 +30,15 @@
     "owner_dept": "국토교통부(공모)/인천시",
     "problem": "도서지역 물류 접근성 부족, 드론 상용화 실증 필요",
     "target": "드론 서비스 기업, 도서지역 주민",
-    "intervention": "드론 배송 상용화 및 공공안전 서비스 실증, 덕적도·대이작도 배송거점",
     "region": "옹진군 도서지역",
     "application_period": "5년 연속 선정(2026 포함)",
-    "budget": "2026년 약 6억8,000만원",
-    "output_kpi": "국토부 드론 실증도시 5년 연속 선정"
+    "budget": "2026년 약 6억8,000만원"
   },
   "missing_fields": [
     "executor",
     "stage",
     "occupation",
-    "intervention_type",
+    "output_kpi",
     "outcome_kpi"
   ],
   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=680061",

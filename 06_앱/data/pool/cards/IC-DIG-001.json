@@ -9,23 +9,25 @@
     "age_min": 0,
     "age_max": 200,
     "residency": "연수구 송도",
-    "employment_status": "미취업",
+    "employment_status": null,
     "student_status": null,
     "income_criteria": null
   },
-  "stage": "교육훈련",
+  "stage": null,
   "occupation": [
     "전직무"
   ],
   "intervention": "기업 기술개발 + 전문인력 양성, 연구 인프라 구축",
   "region": "연수구 송도",
   "application_period": "2026~(지정 시 5년간)",
-  "intervention_type": null,
+  "intervention_type": "R&D·기술지원",
   "budget": "2026년 약 19억9,300만원 투입 / 지정 시 5년간 최대 1,000억원 전망",
-  "output_kpi": null,
+  "output_kpi": "1,000억원 전망",
   "outcome_kpi": null,
   "linked_upstream": [],
-  "linked_downstream": [],
+  "linked_downstream": [
+    "IC-BIO-009"
+  ],
   "source_span": {
     "name": "인천 양자클러스터 지정 추진 및 기업 기술개발·인력양성",
     "status": "운영",
@@ -33,8 +35,8 @@
     "executor": "연세대 국제캠퍼스 등",
     "problem": "양자기술 산업거점 미확보",
     "target": "양자기술 기업 및 연구인력",
-    "stage": "교육훈련",
-    "occupation": "연구인력",
+    "stage": null,
+    "occupation": null,
     "intervention": "기업 기술개발 + 전문인력 양성, 연구 인프라 구축",
     "region": "연수구 송도",
     "application_period": "2026~(지정 시 5년간)",
@@ -48,15 +50,14 @@
     ]
   },
   "missing_fields": [
-    "intervention_type",
-    "output_kpi",
-    "outcome_kpi"
+    "outcome_kpi",
+    "stage",
+    "occupation"
   ],
   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=680061",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
   "_validation_errors": [
-    "source_span[stage]: 인용문이 원문에 없음",
     "source_span[linked_downstream]: 인용문이 원문에 없음"
   ],
   "stable_policy_id": "IC-DIG-001",

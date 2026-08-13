@@ -17,8 +17,8 @@
   "occupation": null,
   "intervention": "해외 박람회 참가 등(추정)",
   "region": "인천",
-  "application_period": null,
-  "intervention_type": null,
+  "application_period": "계속사업",
+  "intervention_type": "판로·해외진출",
   "budget": "2026년 전년比 1억 감액(총액 미확인)",
   "output_kpi": null,
   "outcome_kpi": null,
@@ -30,16 +30,14 @@
     "owner_dept": "인천시 반도체바이오과",
     "problem": "해외 판로·네트워크 부족",
     "target": "인천 바이오기업",
-    "intervention": "해외 박람회 참가 등(추정)",
     "region": "인천",
+    "application_period": "계속사업",
     "budget": "2026년 전년比 1억 감액(총액 미확인)"
   },
   "missing_fields": [
     "executor",
     "stage",
     "occupation",
-    "intervention_type",
-    "application_period",
     "output_kpi",
     "outcome_kpi"
   ],

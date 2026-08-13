@@ -17,10 +17,10 @@
   "occupation": [
     "전직무"
   ],
-  "intervention": null,
+  "intervention": "정부 R&D 과제 대응체계 구축",
   "region": "미추홀구 인하대",
   "application_period": null,
-  "intervention_type": null,
+  "intervention_type": "R&D·기술지원",
   "budget": "국비",
   "output_kpi": null,
   "outcome_kpi": null,
@@ -32,28 +32,24 @@
     "owner_dept": "교육부/과기정통부(대학중점연구소)",
     "executor": "인하대학교, 인천TP 산·학·연 컨소시엄",
     "problem": "고부가 패키징 핵심기술 선점 필요",
-    "target": null,
-    "stage": null,
-    "occupation": "대상 직무: 연구인력",
-    "intervention": null,
-    "region": "사업 지역: 미추홀구 인하대",
-    "application_period": null,
-    "intervention_type": null,
-    "budget": "재원: 국비"
+    "target": "연구자 및 기업",
+    "stage": "R&D·기술지원",
+    "occupation": "연구인력",
+    "region": "미추홀구 인하대",
+    "budget": "국비"
   },
   "missing_fields": [
-    "target",
-    "stage",
-    "intervention",
     "application_period",
-    "intervention_type",
     "output_kpi",
-    "outcome_kpi"
+    "outcome_kpi",
+    "stage"
   ],
   "source_url": "https://news.nate.com/view/20260311n24470",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [],
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음"
+  ],
   "stable_policy_id": "IC-SEM-003",
   "evidence_status": "SECONDARY_PRESS_ONLY",
   "pool_version": "2026-08-13",

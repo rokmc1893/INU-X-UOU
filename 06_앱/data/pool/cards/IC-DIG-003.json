@@ -18,7 +18,7 @@
   "intervention": "실증 시범서비스 발굴(공유주차장, 플라스틱 수거·재활용 등), 선도기업 육성",
   "region": "인천경제자유구역",
   "application_period": "2022~2026(5개년)",
-  "intervention_type": null,
+  "intervention_type": "실증·시범",
   "budget": "총사업비 133억원",
   "output_kpi": null,
   "outcome_kpi": null,
@@ -29,17 +29,15 @@
     "status": "운영",
     "owner_dept": "인천경제자유구역청",
     "problem": "디지털 경제 전환 대응 필요",
-    "target": "지원대상: 블록체인 선도기업",
-    "intervention": "실증 시범서비스 발굴(공유주차장, 플라스틱 수거·재활용 등), 선도기업 육성",
-    "region": "사업 지역: 인천경제자유구역",
-    "application_period": "사업기간: 2022~2026(5개년)",
-    "budget": "예산: 총사업비 133억원"
+    "target": "블록체인 선도기업",
+    "region": "인천경제자유구역",
+    "application_period": "2022~2026(5개년)",
+    "budget": "총사업비 133억원"
   },
   "missing_fields": [
     "executor",
     "stage",
     "occupation",
-    "intervention_type",
     "output_kpi",
     "outcome_kpi"
   ],

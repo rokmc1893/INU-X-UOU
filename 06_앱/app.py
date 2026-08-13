@@ -698,6 +698,26 @@ elif screen.startswith("2"):
     st.markdown('<p class="small">단계 요약 — 인접 단계 사이에 인계가 하나라도 있으면 실선, '
                 '없으면 절취선. 정착 칸이 비어 있으면 취업 이후를 다루는 정책이 없다는 뜻이다.</p>',
                 unsafe_allow_html=True)
+    # 다단계 인계 사슬 — 쌍(pair) 비교로는 나오지 않는 관계. 그래프 질의의 값이 여기서 나온다.
+    try:
+        _chains = store.chains()
+    except Exception:
+        _chains = []
+    if _chains:
+        st.subheader("이어지는 인계 사슬")
+        st.markdown(
+            f'<p class="small">A→B→C로 <b>2단계 이상 이어지는 경로</b> {len(_chains)}건. '
+            f'쌍끼리 비교해서는 나오지 않고, 그래프를 따라가야 나온다 — '
+            f'Cypher로는 <code>[:HANDOFF*2..3]</code> 한 줄, 파이썬으로는 순회를 직접 쓴다. '
+            f'(현재 스토어: <b>{store.name}</b>)</p>', unsafe_allow_html=True)
+        for ch in _chains[:6]:
+            st.markdown('<p class="small">　'
+                        + ' <span style="color:#0E5A8A">→</span> '.join(
+                            f'<b>{_esc((by_id.get(p) or {}).get("name") or p)}</b>' for p in ch)
+                        + '</p>', unsafe_allow_html=True)
+        if len(_chains) > 6:
+            st.markdown(f'<p class="small">　외 {len(_chains)-6}건</p>', unsafe_allow_html=True)
+
     unstaged = [c for c in cards if not c.get("stage")]
     if unstaged:
         st.markdown('<p class="small">사슬 밖(시설·기업지원·계획 등) — 사람의 취업 단계를 직접 '

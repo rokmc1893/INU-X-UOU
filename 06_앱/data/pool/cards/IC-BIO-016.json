@@ -18,7 +18,7 @@
   "intervention": "박람회 참가 + 스타트업 유치",
   "region": "중국(개최지)",
   "application_period": "2026-03",
-  "intervention_type": null,
+  "intervention_type": "알선·매칭",
   "budget": null,
   "output_kpi": null,
   "outcome_kpi": null,
@@ -32,7 +32,6 @@
     "owner_dept": "인천광역시",
     "problem": "해외 네트워크 부족",
     "target": "인천 바이오기업, 해외 스타트업",
-    "intervention": "박람회 참가 + 스타트업 유치",
     "region": "중국(개최지)",
     "application_period": "2026-03",
     "linked_upstream": "IC-BIO-004"
@@ -41,7 +40,6 @@
     "executor",
     "stage",
     "occupation",
-    "intervention_type",
     "budget",
     "output_kpi",
     "outcome_kpi"

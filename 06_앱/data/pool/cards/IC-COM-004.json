@@ -9,15 +9,13 @@
     "age_min": 0,
     "age_max": 200,
     "residency": "인천",
-    "employment_status": "미취업",
+    "employment_status": null,
     "student_status": null,
     "income_criteria": null
   },
-  "stage": "교육훈련",
-  "occupation": [
-    "전직무"
-  ],
-  "intervention": "인력양성 기본계획 수립",
+  "stage": null,
+  "occupation": null,
+  "intervention": null,
   "region": "인천",
   "application_period": null,
   "intervention_type": null,
@@ -32,20 +30,16 @@
     "owner_dept": "인천지역인적자원개발위원회(인천인자위)",
     "executor": "인천인자위",
     "problem": "전략산업 신규인력 확보 + 재직자 직무전환 교육 수요 동시 증가",
-    "target": "지원대상: 인천 전략산업 및 기반제조업 재직자·구직자",
-    "stage": "교육훈련",
-    "occupation": "대상 직무: 해당없음",
-    "intervention": "사업내용: 인력양성 기본계획 수립",
-    "region": "사업 지역: 인천",
-    "application_period": "신청기간: 해당없음",
-    "intervention_type": "해당없음",
-    "budget": "해당없음",
-    "output_kpi": "보고된 실적: 해당없음",
-    "outcome_kpi": "해당없음"
+    "target": "인천 전략산업 및 기반제조업 재직자·구직자",
+    "region": "인천",
+    "business_period": "2026"
   },
   "missing_fields": [
-    "application_period",
+    "intervention",
+    "stage",
+    "occupation",
     "intervention_type",
+    "application_period",
     "budget",
     "output_kpi",
     "outcome_kpi"
@@ -53,9 +47,7 @@
   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1328735",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_validation_errors": [
-    "source_span[stage]: 인용문이 원문에 없음"
-  ],
+  "_validation_errors": [],
   "stable_policy_id": "IC-COM-004",
   "evidence_status": "SECONDARY_PRESS_ONLY",
   "pool_version": "2026-08-13",

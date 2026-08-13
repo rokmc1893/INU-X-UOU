@@ -17,10 +17,10 @@
   "occupation": [
     "전직무"
   ],
-  "intervention": null,
+  "intervention": "3주 90시간 이론+실무, 제주항공 정비기지 현장실습",
   "region": "영종구",
   "application_period": "2026-06-15 ~ 2026-07-14 모집",
-  "intervention_type": null,
+  "intervention_type": "교육훈련",
   "budget": "구비(추정)",
   "output_kpi": "교육생 20명 선발·개강",
   "outcome_kpi": "취업 연계",
@@ -45,10 +45,7 @@
     "linked_upstream": "IC-AIR-003",
     "linked_downstream": ""
   },
-  "missing_fields": [
-    "intervention",
-    "intervention_type"
-  ],
+  "missing_fields": [],
   "source_url": "https://www.addnewsin.com/news/articleView.html?idxno=60745",
   "retrieved_at": "2026-08-13",
   "data_type": "real",

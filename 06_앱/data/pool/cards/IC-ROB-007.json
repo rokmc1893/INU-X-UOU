@@ -2,13 +2,13 @@
   "policy_id": "IC-ROB-007",
   "name": "인천 로봇산업 혁신 클러스터(로봇 기반 산업혁신 플랫폼)",
   "status": "운영",
-  "owner_dept": null,
+  "owner_dept": "인천도시공사",
   "executor": "인천도시공사",
   "problem": "기관 간 공유·협력 부재",
   "target": {
     "age_min": 0,
     "age_max": 200,
-    "residency": "서해구 청라",
+    "residency": null,
     "employment_status": null,
     "student_status": null,
     "income_criteria": null
@@ -18,7 +18,7 @@
   "intervention": "공유·협력 공간 조성, 물류·엔터테인먼트 특화 투자유치",
   "region": "서해구 청라",
   "application_period": null,
-  "intervention_type": null,
+  "intervention_type": "시설·인프라",
   "budget": null,
   "output_kpi": null,
   "outcome_kpi": null,
@@ -29,22 +29,17 @@
   "source_span": {
     "name": "인천 로봇산업 혁신 클러스터(로봇 기반 산업혁신 플랫폼)",
     "status": "운영",
-    "executor": "인천도시공사",
+    "owner_dept": "인천도시공사",
     "problem": "기관 간 공유·협력 부재",
-    "target": "로봇 기업·창업·연구기관·대학",
-    "intervention": "공유·협력 공간 조성, 물류·엔터테인먼트 특화 투자유치",
-    "region": "서해구 청라",
-    "linked_upstream": "IC-ROB-001"
+    "region": "서해구 청라"
   },
   "missing_fields": [
-    "owner_dept",
-    "stage",
-    "occupation",
-    "intervention_type",
+    "application_period",
     "budget",
     "output_kpi",
     "outcome_kpi",
-    "application_period"
+    "stage",
+    "occupation"
   ],
   "source_url": "https://www.ih.co.kr/main/land/landDetail.do?land_seq=74&landDiv=1160&amcDiv=2",
   "retrieved_at": "2026-08-13",

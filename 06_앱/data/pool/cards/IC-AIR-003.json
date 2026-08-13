@@ -20,7 +20,7 @@
   "intervention": "자격 취득 중심 교육",
   "region": "영종구",
   "application_period": "2026 상반기",
-  "intervention_type": null,
+  "intervention_type": "교육훈련",
   "budget": null,
   "output_kpi": null,
   "outcome_kpi": null,
@@ -33,16 +33,17 @@
     "status": "종료",
     "problem": "공항경제권 청년 일자리 부족",
     "target": "관내 미취업 청년",
-    "stage": "자격 취득 중심 교육",
-    "occupation": "항공정비인력",
-    "region": "영종구(구 중구)",
-    "application_period": "2026 상반기",
-    "linked_downstream": "IC-AIR-004"
+    "stage": "대상 직무: 항공정비인력",
+    "occupation": "대상 산업: 항공정비(MRO)",
+    "intervention": "자격 취득 중심 교육",
+    "region": "사업 지역: 영종구(구 중구)",
+    "application_period": "신청기간: 2026 상반기",
+    "intervention_type": "사업내용: 자격 취득 중심 교육",
+    "linked_downstream": "후속 사업: IC-AIR-004"
   },
   "missing_fields": [
     "owner_dept",
     "executor",
-    "intervention_type",
     "budget",
     "output_kpi",
     "outcome_kpi"

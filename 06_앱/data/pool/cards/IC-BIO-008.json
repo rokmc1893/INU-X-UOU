@@ -17,7 +17,7 @@
   "occupation": null,
   "intervention": null,
   "region": "인천",
-  "application_period": null,
+  "application_period": "계속사업",
   "intervention_type": null,
   "budget": "2026년 전년比 0.8억 감액(총액 미확인)",
   "output_kpi": null,
@@ -29,6 +29,7 @@
     "status": "운영",
     "owner_dept": "인천시 반도체바이오과",
     "region": "인천",
+    "application_period": "계속사업",
     "budget": "2026년 전년比 0.8억 감액(총액 미확인)"
   },
   "missing_fields": [
@@ -40,7 +41,6 @@
     "stage",
     "occupation",
     "intervention",
-    "application_period",
     "intervention_type",
     "output_kpi",
     "outcome_kpi"
