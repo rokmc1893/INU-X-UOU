@@ -163,7 +163,7 @@ s.addNotes("시연 실패 대비 녹화 백업 준비. 화면에 실데이터/�
 
 // ── 7. 검증 ──
 s = pres.addSlide(); s.background = { color: PAPER };
-title(s, "저희는 취업률을 올렸다고 말하지 않습니다", "자체 정답셋 16건 실측 — 2인 교차판정 전 잠정치");
+title(s, "저희는 취업률을 올렸다고 말하지 않습니다", "자체 정답셋 31건 실측 — 2인 교차판정 전 잠정치");
 s.addChart(pres.ChartType.bar, [{
   name: "필드 추출 정확도", labels: ["v2", "v3", "v4", "v6 최종"], values: [42, 92, 92, 100] }], {
   x: 0.5, y: 1.45, w: 4.2, h: 2.5, chartColors: [HARBOR], showValue: true,
