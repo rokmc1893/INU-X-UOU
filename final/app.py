@@ -14,10 +14,12 @@ import streamlit as st
 
 import fit  # noqa: F401  — 06_앱의 engine을 sys.path에 올린다
 from fit import axes, load, needs
+from scenario import actors, calendar, report, workflow
 from engine import industry
 
 BASE = Path(__file__).resolve().parent
-TODAY = "2026-08-13"
+TODAY = "2026-08-14"
+TODAY_MD = (8, 14)   # A2 결정 달력의 창구 판정에 쓴다
 
 st.set_page_config(page_title="정책핏 인천 — 확정본", layout="wide")
 st.markdown((BASE / "fit" / "_style.txt").read_text(encoding="utf-8"),
@@ -104,19 +106,28 @@ if screen.startswith("0"):
     for c in works:
         for n in needs.needs_covered_by(c):
             _means[n] = _means.get(n, 0) + 1
+    # 공백이 가장 몰린 (산업, 유형) 한 쌍 — 이게 발표의 대표 사례가 된다
+    _cluster = {}
+    for c in _unc:
+        _cluster[(c["industry"], c["need"])] = _cluster.get((c["industry"], c["need"]), 0) + 1
+    (_ti, _tn), _tc = max(_cluster.items(), key=lambda kv: kv[1]) if _cluster else (("", ""), 0)
+    _tgives = sorted({n for c in works
+                      if _ti and _ti in (c.get("strategic_industry") or "")
+                      for n in needs.needs_covered_by(c)})
     st.markdown(
         '<div style="border:2px solid var(--ink);padding:.8rem 1rem;margin:.3rem 0 1.2rem">'
         '<div style="font-family:var(--serif);font-size:1.05rem;font-weight:600">'
-        f'지금 자료로 내린 결론 — 인천 6대 산업의 공백은 「{"·".join(_gapkinds)}」에 몰려 있습니다'
+        f'지금 자료로 내린 결론 — <b>{esc(_ti)}</b> 사업은 '
+        f'{"·".join(_tgives) if _tgives else "아무것도"} 주는데, '
+        f'{esc(_ti)} 산업이 필요로 하는 것은 <b>{esc(_tn)}</b>입니다'
         '</div><div class="small" style="margin-top:.4rem">'
-        f'대조한 산업 수요 {len(_real)}건 중 덮는 사업이 없는 것은 <b>{len(_unc)}건</b>이고, '
-        f'그 <b>전부</b>가 {"·".join(_gapkinds)} 수요입니다. '
+        f'대조한 산업 수요 {len(_real)}건 중 덮는 사업이 없는 것 <b>{len(_unc)}건</b>. '
+        f'가장 몰린 곳이 <b>{esc(_ti)}·{esc(_tn)} {_tc}건</b>입니다. '
         + " / ".join(f'{n} {v[0]-v[1]}÷{v[0]} 덮임' for n, v in sorted(_by_need.items()))
-        + '<br>반면 사업이 주는 것은 '
+        + '<br>사업 전체가 주는 것은 '
         + ", ".join(f"{n} {v}건" for n, v in sorted(_means.items(), key=lambda x: -x[1]))
-        + '입니다 — <b>정책이 몰려 있는 곳'
-        + f'({"·".join(n for n, _ in sorted(_means.items(), key=lambda x: -x[1])[:2])})과 '
-        + f'모자란 곳({"·".join(_gapkinds)})이 다릅니다.</b>'
+        + ' — <b>정책이 몰려 있는 곳과 산업이 모자란 곳이 다릅니다.</b> '
+        '이것이 「지역 산업·정책 연계 부족」의 실측입니다.'
         '</div></div>', unsafe_allow_html=True)
 
     st.subheader("세 단어를 구분해서 씁니다")
@@ -459,6 +470,43 @@ else:
         st.caption("「선점논거」는 어느 원장에도 없습니다. 지어내지 않고 없다고 표시합니다.")
     else:
         st.caption("이 범위에는 유도형 산업 사업이 없습니다")
+
+    # A3 3단계 산출물 — 담당자가 결재문서에 붙여 쓴다. 우리는 정책을 제안하지 않는다.
+    st.subheader("검토서 초안 내려받기")
+    _cands = [c for c in works if in_scope(c) and c.get("strategic_industry")]
+    if _cands:
+        _pick = st.selectbox("검토 대상 사업", _cands,
+                             format_func=lambda c: f"[{c.get('strategic_industry')}] {c['name'][:44]}")
+        _track = st.radio("어느 창구로 가십니까", [calendar.RENEW_TRACK, calendar.NEW_TRACK],
+                          horizontal=True,
+                          help="A2 결정 달력의 트랙입니다. 트랙마다 내야 할 문서가 다릅니다.")
+        _cov = [c for c in COV if _pick.get("strategic_industry", "") and
+                any(i in c["industry"] for i in _pick["strategic_industry"].split("+"))]
+        _md = report.draft(_pick, findings, _cov, _track, TODAY_MD, name_of=name_of)
+        st.download_button(f"「{calendar.OUR_DOC.get(_track, '검토서')}」 초안 (.md)", _md,
+                           file_name=f"검토서초안_{_pick['policy_id']}.md")
+        with st.expander("초안 미리 보기"):
+            st.markdown(_md)
+        _consult = actors.consult_for(_pick)
+        if _consult:
+            st.markdown('<p class="small"><b>협의 요청 부서</b> — '
+                        + ", ".join(f'{a["team"]}({a["bureau"]})' for a in _consult)
+                        + f'<br>{esc(actors.CAVEAT)}</p>', unsafe_allow_html=True)
+
+    st.subheader("지금 열려 있는 창구")
+    _open = calendar.open_windows(TODAY_MD)
+    _soon = calendar.upcoming(TODAY_MD, 3)
+    if _open:
+        for o in _open:
+            t = o["track"]
+            st.markdown(f'- **{t["decision_type"]}**{" (수시)" if o["always"] else ""} · '
+                        f'마감 {t["formal_deadline"]}')
+    else:
+        st.warning("오늘 기준 착수 창구가 열린 트랙이 없습니다")
+    if _soon:
+        st.markdown('<p class="small">곧 열리는 것 — '
+                    + ", ".join(f'{u["track"]["decision_type"]} ({u["opens"]})' for u in _soon)
+                    + '</p>', unsafe_allow_html=True)
 
     st.subheader("이 판정을 그대로 믿으면 안 되는 이유")
     st.markdown(

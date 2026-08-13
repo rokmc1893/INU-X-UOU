@@ -1,0 +1,6726 @@
+{
+ "today": "2026-08-13",
+ "cards": [
+  {
+   "policy_id": "P001",
+   "name": "2026년 인천 청년도약기지(취업아카데미) 사업 안내",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "",
+   "intervention_type": "교육훈련",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/job/leap.jsp",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P002",
+   "name": "인천광역시 제2차 청년정책 기본계획(2026-2030)",
+   "is_plan": true,
+   "strategic_industry": "",
+   "owner_dept": "청년정책담당관",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/bbs/bbsMsgDetail.do?bcd=data&msg_seq=22",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P003",
+   "name": "청년도전 지원사업",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "인천광역시 청년정책담당관",
+   "intervention_type": "상담·컨설팅",
+   "budget": "",
+   "budget_status": "EXACT",
+   "summary": "",
+   "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": null,
+    "employment_status": "미취업",
+    "student_status": "재학생 제외",
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/job/challenge.jsp",
+   "needs_covered": [
+    "기술",
+    "판로"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P004",
+   "name": "드림나래(면접정장대여)",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "인천광역시 청년정책담당관",
+   "intervention_type": "현물·물품대여",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/job/suit.jsp",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P005",
+   "name": "드림체크카드(구직활동비 지원)",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "인천광역시 청년정책담당관",
+   "intervention_type": "현금지원",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": "가구 기준 중위소득 50% 초과 ~ 150% 이하인 자"
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/job/dream.jsp",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P006",
+   "name": "청년 자격증 응시료 지원",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "인천광역시 청년정책담당관",
+   "intervention_type": "현금지원",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/job/certificate.jsp",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P007",
+   "name": "대학일자리플러스센터 운영 지원",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "청년정책담당관",
+   "intervention_type": "기업보조금",
+   "budget": "",
+   "budget_status": "FUZZY",
+   "summary": "",
+   "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/job/university.jsp",
+   "needs_covered": [
+    "금융"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P008",
+   "name": "청년고용 우수기업 근로환경 개선 사업",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "인천광역시 청년정책담당관",
+   "intervention_type": "기업보조금",
+   "budget": "기업별 6백만원 ~ 24백만원 이내(청년 신규채용 1인당 3백만원 기준)",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/job/working.jsp",
+   "needs_covered": [
+    "금융"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "P009",
+   "name": "SW.AI기술 활용인력 양성교육",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "인천광역시 AI혁신과",
+   "intervention_type": "교육훈련",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/education/ai.jsp",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": "디지털데이터"
+  },
+  {
+   "policy_id": "P010",
+   "name": "청년 체험형 인턴 운영",
+   "is_plan": false,
+   "strategic_industry": "",
+   "owner_dept": "",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 19,
+    "age_max": 34,
+    "residency": null,
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://youth.incheon.go.kr/education/intern.jsp",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-AIR-001",
+   "name": "대한항공 영종 항공 MRO 클러스터 조성(민간투자 유치)",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "인천시 산업입지심의회 / 인천경제자유구역청",
+   "intervention_type": "시설·인프라",
+   "budget": "출처 간 수치 충돌로 미기재",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://biz.heraldcorp.com/article/10741457",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "항공"
+  },
+  {
+   "policy_id": "IC-AIR-002",
+   "name": "대한항공 신엔진정비공장 건립",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "",
+   "intervention_type": "시설·인프라",
+   "budget": "5,800억원",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.khan.co.kr/article/202605201125001",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "항공"
+  },
+  {
+   "policy_id": "IC-AIR-003",
+   "name": "청년 항공정비(MRO) 특화교육",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "",
+   "intervention_type": "교육훈련",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "영종구",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://news.ifm.kr/news/articleView.html?idxno=467022",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": "항공"
+  },
+  {
+   "policy_id": "IC-AIR-004",
+   "name": "항공정비(MRO) 인력양성과정 - 일경험 프로그램",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "인천시 영종구",
+   "intervention_type": "교육훈련",
+   "budget": "구비(추정)",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "영종구",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.addnewsin.com/news/articleView.html?idxno=60745",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": "항공"
+  },
+  {
+   "policy_id": "IC-AIR-005",
+   "name": "드론 실증도시 구축사업",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "국토교통부(공모)/인천시",
+   "intervention_type": "실증·시범",
+   "budget": "2026년 약 6억8,000만원",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "옹진군",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=680061",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-AIR-006",
+   "name": "공항경제권 구축",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "인천시/영종구",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheon.go.kr/IC01070101",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "항공"
+  },
+  {
+   "policy_id": "IC-AIR-007",
+   "name": "항공정비산업(MRO) 생태계 구축",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "인천시/영종구",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "영종구",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheon.go.kr/IC01070101",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "항공"
+  },
+  {
+   "policy_id": "IC-AIR-008",
+   "name": "대한항공 운항훈련센터",
+   "is_plan": false,
+   "strategic_industry": "항공",
+   "owner_dept": "",
+   "intervention_type": "교육훈련",
+   "budget": "민간",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.khan.co.kr/article/202605201125001",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": "항공"
+  },
+  {
+   "policy_id": "IC-BIO-001",
+   "name": "한국형 바이오공정·개발 전문인력양성센터 구축(K-NIBRT) - 시설구축",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "산업통상부/보건복지부",
+   "intervention_type": "시설·인프라",
+   "budget": "출처 간 수치 충돌로 미기재",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.hitnews.co.kr/news/articleView.html?idxno=71356",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-002",
+   "name": "K-NIBRT 바이오공정 교육과정 운영",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "보건복지부/산업통상부",
+   "intervention_type": "교육훈련",
+   "budget": "국비+시비(001과 분리 여부 불명)",
+   "budget_status": "RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "http://knibrt.com/education/edu0402.php",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-003",
+   "name": "글로벌 바이오 인력양성 허브(GTH-B) 생산공정 기본교육",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "보건복지부(WHO 협력)",
+   "intervention_type": "교육훈련",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=257225",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-004",
+   "name": "바이오 커넥트 기반 혁신생태계 조성사업",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천시 미래산업국 반도체바이오과",
+   "intervention_type": "",
+   "budget": "시비(추정)",
+   "budget_status": "RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.dongbangilbo.co.kr/news/articleView.html?idxno=82711",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-005",
+   "name": "2026년 바이오 커넥트 - 글로벌 오픈이노베이션 액셀러레이터 모집",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천광역시",
+   "intervention_type": "알선·매칭",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://bizok.incheon.go.kr/open_content/support.do?act=detail&policyno=6740",
+   "needs_covered": [
+    "인력",
+    "판로"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-006",
+   "name": "바이오클러스터 조성 지원",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천시 반도체바이오과",
+   "intervention_type": "시설·인프라",
+   "budget": "2026년 전년比 1.3억 감액(총액 미확인)",
+   "budget_status": "RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-007",
+   "name": "바이오기업 해외진출 지원",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천시 반도체바이오과",
+   "intervention_type": "판로·해외진출",
+   "budget": "2026년 전년比 1억 감액(총액 미확인)",
+   "budget_status": "RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [
+    "판로"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-008",
+   "name": "바이오자원 공유 네트워크 활성화 지원",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천시 반도체바이오과",
+   "intervention_type": "",
+   "budget": "2026년 전년比 0.8억 감액(총액 미확인)",
+   "budget_status": "RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-009",
+   "name": "양자바이오 센싱솔루션 실증·컨설팅 사업",
+   "is_plan": false,
+   "strategic_industry": "바이오+디지털데이터",
+   "owner_dept": "인천시(과기정통부 공모 선정)",
+   "intervention_type": "상담·컨설팅",
+   "budget": "2026년 2.7억 신규편성",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [
+    "기술",
+    "판로"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-010",
+   "name": "인천TP 바이오 장비 구축·운영 및 사용지원",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천시(추정)",
+   "intervention_type": "시설·인프라",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.itp.or.kr/intro.asp?tmid=139",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-011",
+   "name": "인천바이오헬스밸리 추진협의회 / 바이오아시아 국제교류협의회",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "",
+   "intervention_type": "네트워크·협의체",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.itp.or.kr/intro.asp?tmid=139",
+   "needs_covered": [
+    "공급망"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-012",
+   "name": "인천대학교 바이오융합 기업협업센터(ICC)",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "교육부(LINC3.0→RISE 승계)",
+   "intervention_type": "교육훈련",
+   "budget": "국비+시비",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://news.unn.net/news/articleView.html?idxno=580072",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-015",
+   "name": "인천 바이오 소부장 제조기반 경쟁력 강화 기술개발",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "",
+   "intervention_type": "R&D·기술지원",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://scienceon.kisti.re.kr/srch/selectPORSrchReport.do?cn=TRKO202500010493",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-016",
+   "name": "2026 바이오 차이나(BIO CHINA) 등 글로벌 박람회 참가 지원",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천광역시",
+   "intervention_type": "알선·매칭",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.tookyung.com/news/articleView.html?idxno=702069",
+   "needs_covered": [
+    "인력",
+    "판로"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-017",
+   "name": "바이오 첨단클러스터 조성(영종구)",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "인천시/영종구",
+   "intervention_type": "시설·인프라",
+   "budget": "600,000,000원 (공식 원장, C9)",
+   "budget_status": "NEEDS_REVIEW",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "영종구",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheon.go.kr/IC01070101",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "바이오"
+  },
+  {
+   "policy_id": "IC-BIO-018",
+   "name": "(사업명 미확인 · IC-BIO-018)",
+   "is_plan": false,
+   "strategic_industry": "바이오",
+   "owner_dept": "",
+   "intervention_type": "",
+   "budget": "민간",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "http://knibrt.com/education/edu0402.php",
+   "needs_covered": [],
+   "name_missing": true,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-CAR-001",
+   "name": "부품기업 자율주행차 기술개발 지원",
+   "is_plan": false,
+   "strategic_industry": "미래차",
+   "owner_dept": "인천시 산업정책과",
+   "intervention_type": "R&D·기술지원",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.kyeonggi.com/article/20231006580065",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": "미래차"
+  },
+  {
+   "policy_id": "IC-CAR-002",
+   "name": "미래차 산업육성 지원체계 구축",
+   "is_plan": false,
+   "strategic_industry": "미래차",
+   "owner_dept": "인천시 산업정책과",
+   "intervention_type": "",
+   "budget": "2,200,000,000원 (공식 원장, C9)",
+   "budget_status": "RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.kyeonggi.com/article/20231006580065",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "미래차"
+  },
+  {
+   "policy_id": "IC-CAR-003",
+   "name": "친환경자동차 보급 및 충전 인프라 구축",
+   "is_plan": false,
+   "strategic_industry": "미래차",
+   "owner_dept": "인천시(환경 소관 추정)",
+   "intervention_type": "시설·인프라",
+   "budget": "1,407억 4,954만원",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "미래차"
+  },
+  {
+   "policy_id": "IC-COM-001",
+   "name": "인천 전략산업육성 종합계획(6대 전략산업 선정)",
+   "is_plan": true,
+   "strategic_industry": "공통",
+   "owner_dept": "인천시 산업정책과(총괄)",
+   "intervention_type": "",
+   "budget": "시비",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheonin.com/news/articleView.html?idxno=97695",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-COM-002",
+   "name": "인천형 라이즈(i-RISE) 기본계획",
+   "is_plan": true,
+   "strategic_industry": "공통",
+   "owner_dept": "인천시(교육부 재원 이관)",
+   "intervention_type": "교육훈련",
+   "budget": "1년차 총 214억(국비183+시비31)",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": "재학생 포함",
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://news.unn.net/news/articleView.html?idxno=590725",
+   "needs_covered": [
+    "인력"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-COM-003",
+   "name": "2025년 인천형 라이즈 2차 공모 선정사업",
+   "is_plan": false,
+   "strategic_industry": "공통",
+   "owner_dept": "인천시 라이즈위원회",
+   "intervention_type": "",
+   "budget": "총 37억원",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=312821",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-COM-004",
+   "name": "2026 인천지역 인력양성 기본계획",
+   "is_plan": true,
+   "strategic_industry": "공통",
+   "owner_dept": "인천지역인적자원개발위원회(인천인자위)",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1328735",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-COM-005",
+   "name": "인천형 행정체제 개편(2군8구 → 2군9구)",
+   "is_plan": false,
+   "strategic_industry": "공통",
+   "owner_dept": "행정안전부/인천시",
+   "intervention_type": "",
+   "budget": "일반조정교부금 교부율 22.3%, 3년간 연 100억 범위 특별조정교부금",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheon.go.kr/IC01070101",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-DIG-001",
+   "name": "인천 양자클러스터 지정 추진 및 기업 기술개발·인력양성",
+   "is_plan": false,
+   "strategic_industry": "디지털데이터",
+   "owner_dept": "인천시 데이터산업과(과기정통부 지정 도전)",
+   "intervention_type": "R&D·기술지원",
+   "budget": "2026년 약 19억9,300만원 투입 / 지정 시 5년간 최대 1,000억원 전망",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "연수구 송도",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=680061",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": "디지털데이터"
+  },
+  {
+   "policy_id": "IC-DIG-002",
+   "name": "인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역",
+   "is_plan": true,
+   "strategic_industry": "디지털데이터",
+   "owner_dept": "인천시 디지털산업과",
+   "intervention_type": "",
+   "budget": "시비",
+   "budget_status": "",
+   "summary": "",
+   "target": "",
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "디지털데이터"
+  },
+  {
+   "policy_id": "IC-DIG-003",
+   "name": "블록체인 허브도시 조성 5개년 계획",
+   "is_plan": false,
+   "strategic_industry": "디지털데이터",
+   "owner_dept": "인천경제자유구역청",
+   "intervention_type": "실증·시범",
+   "budget": "총사업비 133억원",
+   "budget_status": "PARTIALLY_RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://m.boannews.com/html/detail.html?idx=117917",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-DIG-004",
+   "name": "디지털 인재 양성",
+   "is_plan": false,
+   "strategic_industry": "디지털데이터",
+   "owner_dept": "인천시 데이터산업과",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.kyeonggi.com/article/20231006580065",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "디지털데이터"
+  },
+  {
+   "policy_id": "IC-DIG-005",
+   "name": "(사업명 미확인 · IC-DIG-005)",
+   "is_plan": false,
+   "strategic_industry": "디지털데이터",
+   "owner_dept": "인천시 디지털산업과",
+   "intervention_type": "",
+   "budget": "시비",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [],
+   "name_missing": true,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-DIG-006",
+   "name": "인천시 빅데이터 통합 플랫폼 / 인천데이터포털 운영",
+   "is_plan": false,
+   "strategic_industry": "디지털데이터",
+   "owner_dept": "인천시 데이터산업과",
+   "intervention_type": "네트워크·협의체",
+   "budget": "시비",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheon.go.kr/data/DATA010201",
+   "needs_covered": [
+    "공급망"
+   ],
+   "name_missing": false,
+   "industry_guess": "디지털데이터"
+  },
+  {
+   "policy_id": "IC-ROB-001",
+   "name": "인천 로봇랜드 조성사업",
+   "is_plan": false,
+   "strategic_industry": "로봇",
+   "owner_dept": "산업통상자원부/인천시",
+   "intervention_type": "시설·인프라",
+   "budget": "국비+시비+민간",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1327572",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "로봇"
+  },
+  {
+   "policy_id": "IC-ROB-002",
+   "name": "로봇랜드 산업단지 분양 및 기업유치",
+   "is_plan": false,
+   "strategic_industry": "로봇",
+   "owner_dept": "인천시",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1327572",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "로봇"
+  },
+  {
+   "policy_id": "IC-ROB-003",
+   "name": "인천로봇랜드 피지컬 AI 거점 육성",
+   "is_plan": false,
+   "strategic_industry": "로봇",
+   "owner_dept": "",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1327572",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "로봇"
+  },
+  {
+   "policy_id": "IC-ROB-004",
+   "name": "2026년 로봇산업 혁신성장 지원사업",
+   "is_plan": false,
+   "strategic_industry": "로봇",
+   "owner_dept": "",
+   "intervention_type": "기업보조금",
+   "budget": "기업당 최대 5,000만원",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.govmatch.kr/announcements/84962",
+   "needs_covered": [
+    "금융"
+   ],
+   "name_missing": false,
+   "industry_guess": "로봇"
+  },
+  {
+   "policy_id": "IC-ROB-005",
+   "name": "로보컵 2026 인천 개최",
+   "is_plan": false,
+   "strategic_industry": "로봇",
+   "owner_dept": "인천시",
+   "intervention_type": "네트워크·협의체",
+   "budget": "",
+   "budget_status": "CONFIRMED_ABSENT",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=679121",
+   "needs_covered": [
+    "공급망"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-ROB-006",
+   "name": "인하대·인천대 AI·휴머노이드 기술개발 지원",
+   "is_plan": false,
+   "strategic_industry": "로봇",
+   "owner_dept": "인천시",
+   "intervention_type": "R&D·기술지원",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=679121",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": "디지털데이터"
+  },
+  {
+   "policy_id": "IC-ROB-007",
+   "name": "인천 로봇산업 혁신 클러스터(로봇 기반 산업혁신 플랫폼)",
+   "is_plan": false,
+   "strategic_industry": "로봇",
+   "owner_dept": "인천도시공사",
+   "intervention_type": "시설·인프라",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.ih.co.kr/main/land/landDetail.do?land_seq=74&landDiv=1160&amcDiv=2",
+   "needs_covered": [
+    "시설"
+   ],
+   "name_missing": false,
+   "industry_guess": "로봇"
+  },
+  {
+   "policy_id": "IC-SEM-001",
+   "name": "시스템반도체 기술협력 체계 구축(한국생산기술연구원 협력)",
+   "is_plan": false,
+   "strategic_industry": "반도체",
+   "owner_dept": "인천시 반도체바이오과",
+   "intervention_type": "R&D·기술지원",
+   "budget": "27억원",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://news.nate.com/view/20260311n24470",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": "반도체"
+  },
+  {
+   "policy_id": "IC-SEM-002",
+   "name": "레전드 50+ 2.0 프로젝트",
+   "is_plan": false,
+   "strategic_industry": "반도체",
+   "owner_dept": "인천시 반도체바이오과",
+   "intervention_type": "기업보조금",
+   "budget": "3억원",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://news.nate.com/view/20260311n24470",
+   "needs_covered": [
+    "금융"
+   ],
+   "name_missing": false,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-SEM-003",
+   "name": "인하대 반도체 패키징 대학중점연구소 거점 R&D 대응체계",
+   "is_plan": false,
+   "strategic_industry": "반도체",
+   "owner_dept": "교육부/과기정통부(대학중점연구소)",
+   "intervention_type": "R&D·기술지원",
+   "budget": "국비",
+   "budget_status": "RESOLVED",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://news.nate.com/view/20260311n24470",
+   "needs_covered": [
+    "기술"
+   ],
+   "name_missing": false,
+   "industry_guess": "반도체"
+  },
+  {
+   "policy_id": "IC-SEM-004",
+   "name": "반도체 설계(팹리스) 기업 발굴·육성",
+   "is_plan": false,
+   "strategic_industry": "반도체",
+   "owner_dept": "인천시 반도체바이오과",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://www.tookyung.com/news/articleView.html?idxno=702069",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "반도체"
+  },
+  {
+   "policy_id": "IC-SEM-005",
+   "name": "(사업명 미확인 · IC-SEM-005)",
+   "is_plan": false,
+   "strategic_industry": "반도체",
+   "owner_dept": "인천시 미래산업국 반도체바이오과",
+   "intervention_type": "",
+   "budget": "157억 9,807만 6,000원(전년比 2.7% 증가)",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [],
+   "name_missing": true,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-SEM-006",
+   "name": "(사업명 미확인 · IC-SEM-006)",
+   "is_plan": false,
+   "strategic_industry": "반도체",
+   "owner_dept": "인천시 산업입지과",
+   "intervention_type": "",
+   "budget": "144억 3,514만 3,000원(전년比 25% 감소)",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "needs_covered": [],
+   "name_missing": true,
+   "industry_guess": ""
+  },
+  {
+   "policy_id": "IC-SEM-007",
+   "name": "첨단 패키징 R&D 강화",
+   "is_plan": false,
+   "strategic_industry": "반도체",
+   "owner_dept": "인천시",
+   "intervention_type": "",
+   "budget": "",
+   "budget_status": "",
+   "summary": "",
+   "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+   },
+   "period": "",
+   "source_url": "https://news.nate.com/view/20260311n24470",
+   "needs_covered": [],
+   "name_missing": false,
+   "industry_guess": "반도체"
+  }
+ ],
+ "findings": {
+  "handoff_breaks": [
+   {
+    "items": [
+     "P001",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-AIR-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "P003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P003",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "P004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P004",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "P005"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P005",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "P006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 구직지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P006",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "구직지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "P007"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "P008"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-AIR-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "P010"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "조사 확인(B3)",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다 (조사자가 직접 찾아봤지만 없었음)"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-AIR-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-AIR-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-AIR-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-AIR-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-AIR-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-AIR-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-AIR-002"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-AIR-002"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-AIR-002"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-AIR-002"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-AIR-002"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-AIR-002"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-BIO-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-BIO-012"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-BIO-018"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-ROB-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-AIR-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-BIO-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-AIR-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-AIR-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-BIO-012"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-BIO-018"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-AIR-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-AIR-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 일경험(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-ROB-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-004",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "일경험 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-BIO-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-BIO-012"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-BIO-018"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-ROB-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-BIO-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-BIO-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-BIO-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-ROB-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-ROB-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-BIO-012"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 매칭(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-ROB-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-012",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "매칭 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-BIO-018"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-BIO-018"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-SEM-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-DIG-001"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-ROB-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 채용지원(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-DIG-004",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "교육훈련 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-ROB-006"
+    ],
+    "same_industry": true,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-004",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "evidence": "원문 미언급",
+    "reason": "채용지원 다음 None(으)로 넘기는 절차가 문서에 없습니다"
+   }
+  ],
+  "gaps": [],
+  "overlaps_harmful": [
+   {
+    "items": [
+     "P005",
+     "P006"
+    ],
+    "same_industry": true,
+    "reason": "받는 사람·주는 것(현금지원)·직무가 모두 같습니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-DIG-004"
+    ],
+    "same_industry": true,
+    "reason": "받는 사람·주는 것(교육훈련)·직무가 모두 같습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-BIO-003"
+    ],
+    "same_industry": true,
+    "reason": "받는 사람·주는 것(교육훈련)·직무가 모두 같습니다"
+   },
+   {
+    "items": [
+     "IC-BIO-018",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "reason": "받는 사람·주는 것(미상)·직무가 모두 같습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-006",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "reason": "받는 사람·주는 것(R&D·기술지원)·직무가 모두 같습니다"
+   },
+   {
+    "items": [
+     "IC-ROB-006",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "reason": "받는 사람·주는 것(R&D·기술지원)·직무가 모두 같습니다"
+   },
+   {
+    "items": [
+     "IC-SEM-001",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "reason": "받는 사람·주는 것(R&D·기술지원)·직무가 모두 같습니다"
+   }
+  ],
+  "overlaps_intentional": [
+   {
+    "items": [
+     "P001",
+     "P009"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-AIR-003"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-AIR-008"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-COM-002"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P001",
+     "IC-DIG-004"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P008",
+     "IC-ROB-004"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(기업보조금) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-AIR-003"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-AIR-008"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P009",
+     "IC-COM-002"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "P010",
+     "IC-AIR-004"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(미상) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-001",
+     "IC-BIO-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-001",
+     "IC-BIO-018"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-001",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-002",
+     "IC-BIO-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-002",
+     "IC-BIO-018"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-002",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-AIR-008"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-BIO-002"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-BIO-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-COM-002"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-003",
+     "IC-DIG-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-BIO-002"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-BIO-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-COM-002"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-AIR-008",
+     "IC-DIG-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-001",
+     "IC-BIO-018"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-001",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(시설·인프라) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-COM-002"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-002",
+     "IC-DIG-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-COM-002"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-003",
+     "IC-DIG-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-018",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(미상) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-018",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(미상) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-018",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(미상) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-BIO-018",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(미상) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-COM-002",
+     "IC-DIG-004"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(교육훈련) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-DIG-001",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(R&D·기술지원) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-DIG-001",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(R&D·기술지원) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-DIG-001",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(R&D·기술지원) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-DIG-001",
+     "IC-SEM-004"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(R&D·기술지원) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-ROB-006",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것은 같지만(R&D·기술지원) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-SEM-001",
+     "IC-SEM-003"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(R&D·기술지원) 받는 사람이나 지역이 다릅니다"
+   },
+   {
+    "items": [
+     "IC-SEM-003",
+     "IC-SEM-004"
+    ],
+    "same_industry": true,
+    "reason": "주는 것은 같지만(R&D·기술지원) 받는 사람이나 지역이 다릅니다"
+   }
+  ],
+  "complements": [
+   {
+    "items": [
+     "P003",
+     "P004"
+    ],
+    "same_industry": true,
+    "reason": "주는 것이 다릅니다 — 상담·컨설팅 vs 현물·물품대여"
+   },
+   {
+    "items": [
+     "P003",
+     "P005"
+    ],
+    "same_industry": true,
+    "reason": "주는 것이 다릅니다 — 상담·컨설팅 vs 현금지원"
+   },
+   {
+    "items": [
+     "P003",
+     "P006"
+    ],
+    "same_industry": true,
+    "reason": "주는 것이 다릅니다 — 상담·컨설팅 vs 현금지원"
+   },
+   {
+    "items": [
+     "P004",
+     "P005"
+    ],
+    "same_industry": true,
+    "reason": "주는 것이 다릅니다 — 현물·물품대여 vs 현금지원"
+   },
+   {
+    "items": [
+     "P004",
+     "P006"
+    ],
+    "same_industry": true,
+    "reason": "주는 것이 다릅니다 — 현물·물품대여 vs 현금지원"
+   },
+   {
+    "items": [
+     "P007",
+     "IC-BIO-012"
+    ],
+    "same_industry": true,
+    "reason": "주는 것이 다릅니다 — 기업보조금 vs 교육훈련"
+   },
+   {
+    "items": [
+     "IC-AIR-001",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-AIR-001",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-AIR-001",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-AIR-001",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-AIR-002",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-AIR-002",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-AIR-002",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-AIR-002",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-BIO-001",
+     "IC-DIG-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-BIO-001",
+     "IC-ROB-006"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-BIO-001",
+     "IC-SEM-001"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   },
+   {
+    "items": [
+     "IC-BIO-001",
+     "IC-SEM-003"
+    ],
+    "same_industry": false,
+    "reason": "주는 것이 다릅니다 — 시설·인프라 vs R&D·기술지원"
+   }
+  ],
+  "budget_confirmed": [
+   {
+    "pid": "P003",
+    "source": "C0",
+    "status": "EXACT",
+    "budget_won": null,
+    "dept": "청년정책담당관",
+    "detail": "청년도전 지원사업",
+    "b_said": null
+   },
+   {
+    "pid": "P007",
+    "source": "C0",
+    "status": "FUZZY",
+    "budget_won": null,
+    "dept": "청년정책담당관",
+    "detail": "대학일자리플러스센터 운영 지원(고용노동부 직접)",
+    "b_said": null,
+    "loose": true
+   },
+   {
+    "pid": "IC-BIO-002",
+    "source": "C9",
+    "status": "RESOLVED",
+    "budget_won": 3000000000,
+    "dept": "경제자유구역청 혁신성장도시과",
+    "detail": "인천시 2026 예산 원장(list_excel.xlsx) 대조로 확정. B의 UNKNOWN 해소",
+    "b_said": "UNKNOWN"
+   },
+   {
+    "pid": "IC-BIO-004",
+    "source": "C9",
+    "status": "RESOLVED",
+    "budget_won": 200000000,
+    "dept": "반도체바이오과",
+    "detail": "인천시 2026 예산 원장 대조로 확정",
+    "b_said": "UNKNOWN"
+   },
+   {
+    "pid": "IC-BIO-006",
+    "source": "C9",
+    "status": "RESOLVED",
+    "budget_won": 600000000,
+    "dept": "반도체바이오과",
+    "detail": "B가 보도로 확인한 감액 방향과 일치. 총액만 원장으로 확정",
+    "b_said": "2026년 전년비 1.3억 감액(총액 미확인)"
+   },
+   {
+    "pid": "IC-BIO-007",
+    "source": "C9",
+    "status": "RESOLVED",
+    "budget_won": 500000000,
+    "dept": "반도체바이오과",
+    "detail": "동일",
+    "b_said": "2026년 전년비 1억 감액(총액 미확인)"
+   },
+   {
+    "pid": "IC-BIO-008",
+    "source": "C9",
+    "status": "RESOLVED",
+    "budget_won": 100000000,
+    "dept": "반도체바이오과",
+    "detail": "동일",
+    "b_said": "2026년 전년비 0.8억 감액(총액 미확인)"
+   },
+   {
+    "pid": "IC-CAR-002",
+    "source": "C9",
+    "status": "RESOLVED",
+    "budget_won": 2200000000,
+    "dept": "산업창업정책과",
+    "detail": "정식 사업명이 B 보도명과 다름. 원장 명칭으로 정정 필요",
+    "b_said": "UNKNOWN"
+   },
+   {
+    "pid": "IC-DIG-003",
+    "source": "C9",
+    "status": "PARTIALLY_RESOLVED",
+    "budget_won": 2722988000,
+    "dept": "AI혁신과",
+    "detail": "B의 133억은 5개년 총사업비. 원장 27.2억은 2026년도 단년 편성액. 상충 아니라 총액 vs 연차 배정의 차이 — B의 evidence_status를 CONFLICTING으로 바꾸면 안 됨",
+    "b_said": "총사업비 133억원",
+    "loose": true
+   },
+   {
+    "pid": "IC-SEM-003",
+    "source": "C9",
+    "status": "RESOLVED",
+    "budget_won": 100000000,
+    "dept": "반도체바이오과",
+    "detail": "국가직접지원 사업으로 원장에 별도 편성 라인 존재 확인",
+    "b_said": "UNKNOWN"
+   }
+  ],
+  "budget_unverified": [
+   {
+    "pid": "IC-ROB-005",
+    "source": "C9",
+    "status": "CONFIRMED_ABSENT",
+    "budget_won": null,
+    "dept": null,
+    "detail": "인천시 2026 예산 원장 전체(3711건)에 '로보컵' 문자열 없음. 국가직접·타 회계연도 편성이거나 아직 미편성. UNKNOWN 유지가 맞음",
+    "b_said": "UNKNOWN"
+   }
+  ],
+  "budget_conflicts": [
+   {
+    "pid": "IC-BIO-017",
+    "source": "C9",
+    "status": "NEEDS_REVIEW",
+    "budget_won": 600000000,
+    "dept": "반도체바이오과",
+    "detail": "IC-BIO-006과 원장상 동일 사업(같은 부서·같은 금액)에 매칭됨. B가 하나의 사업을 두 개 정책ID로 중복 등재했을 가능성 — B 확인 필요",
+    "b_said": "UNKNOWN"
+   }
+  ],
+  "dept_mismatch": [
+   {
+    "pid": "IC-BIO-002",
+    "card": "보건복지부/산업통상부",
+    "official": "경제자유구역청 혁신성장도시과"
+   },
+   {
+    "pid": "IC-BIO-017",
+    "card": "인천시/영종구",
+    "official": "반도체바이오과"
+   },
+   {
+    "pid": "IC-CAR-002",
+    "card": "인천시 산업정책과",
+    "official": "산업창업정책과"
+   },
+   {
+    "pid": "IC-DIG-003",
+    "card": "인천경제자유구역청",
+    "official": "AI혁신과"
+   },
+   {
+    "pid": "IC-SEM-003",
+    "card": "교육부/과기정통부(대학중점연구소)",
+    "official": "반도체바이오과"
+   }
+  ]
+ },
+ "postures": {
+  "바이오": {
+   "industry": "바이오",
+   "posture": "대응형",
+   "question": "산업이 이미 필요로 하는 것을 이 사업이 덮는가",
+   "label": "대응형 — 현재 산업, 정책이 맞춰준다",
+   "why": "반복 확인된 공공자료 수요신호 5건 — D-101, D-102, D-103, D-104, D-107",
+   "signals": [
+    "D-101",
+    "D-102",
+    "D-103",
+    "D-104",
+    "D-105",
+    "D-106",
+    "D-107",
+    "D-108",
+    "D-109",
+    "D-110"
+   ],
+   "measured": [
+    "D-101",
+    "D-102",
+    "D-103",
+    "D-104",
+    "D-107"
+   ],
+   "near_miss": [
+    "D-106"
+   ]
+  },
+  "반도체": {
+   "industry": "반도체",
+   "posture": "유도형",
+   "question": "아직 없는 수요를 만들 근거가 이 사업에 있는가",
+   "label": "유도형 — 미래 산업, 정책이 이끈다",
+   "why": "수요신호 4건이 있으나 공공자료로 반복 확인된 수요는 없다 — 문턱에 가장 가까운 것: D-203(기술, C등급)",
+   "signals": [
+    "D-201",
+    "D-202",
+    "D-203",
+    "D-204"
+   ],
+   "measured": [],
+   "near_miss": [
+    "D-203"
+   ]
+  },
+  "로봇": {
+   "industry": "로봇",
+   "posture": "유도형",
+   "question": "아직 없는 수요를 만들 근거가 이 사업에 있는가",
+   "label": "유도형 — 미래 산업, 정책이 이끈다",
+   "why": "수요신호 18건이 있으나 공공자료로 반복 확인된 수요는 없다 — 문턱에 가장 가까운 것: D-317(인력난(로봇 도입 유인), C등급)",
+   "signals": [
+    "D-301",
+    "D-302",
+    "D-303",
+    "D-310",
+    "D-311",
+    "D-312",
+    "D-313",
+    "D-314",
+    "D-315",
+    "D-316",
+    "D-317",
+    "D-318",
+    "D-319",
+    "D-320",
+    "D-321",
+    "D-322",
+    "D-323",
+    "D-324"
+   ],
+   "measured": [],
+   "near_miss": [
+    "D-317"
+   ]
+  },
+  "디지털데이터": {
+   "industry": "디지털데이터",
+   "posture": "유도형",
+   "question": "아직 없는 수요를 만들 근거가 이 사업에 있는가",
+   "label": "유도형 — 미래 산업, 정책이 이끈다",
+   "why": "수요신호 3건이 있으나 공공자료로 반복 확인된 수요는 없다 (단발·전망·정책유행이거나 공급·모수 지표뿐)",
+   "signals": [
+    "D-110",
+    "D-401",
+    "D-402"
+   ],
+   "measured": [],
+   "near_miss": []
+  },
+  "미래차": {
+   "industry": "미래차",
+   "posture": "대응형",
+   "question": "산업이 이미 필요로 하는 것을 이 사업이 덮는가",
+   "label": "대응형 — 현재 산업, 정책이 맞춰준다",
+   "why": "반복 확인된 공공자료 수요신호 2건 — D-372, D-374",
+   "signals": [
+    "D-501",
+    "D-360",
+    "D-361",
+    "D-362",
+    "D-363",
+    "D-364",
+    "D-365",
+    "D-366",
+    "D-367",
+    "D-368",
+    "D-369",
+    "D-370",
+    "D-371",
+    "D-372",
+    "D-373",
+    "D-374",
+    "D-375",
+    "D-376",
+    "D-377"
+   ],
+   "measured": [
+    "D-372",
+    "D-374"
+   ],
+   "near_miss": [
+    "D-371",
+    "D-375",
+    "D-376"
+   ]
+  },
+  "항공": {
+   "industry": "항공",
+   "posture": "유도형",
+   "question": "아직 없는 수요를 만들 근거가 이 사업에 있는가",
+   "label": "유도형 — 미래 산업, 정책이 이끈다",
+   "why": "수요신호 20건이 있으나 공공자료로 반복 확인된 수요는 없다 — 문턱에 가장 가까운 것: D-604(물류-접근성, C등급), D-340(인력-채용실적, C등급)",
+   "signals": [
+    "D-601",
+    "D-602",
+    "D-603",
+    "D-604",
+    "D-340",
+    "D-341",
+    "D-342",
+    "D-343",
+    "D-344",
+    "D-345",
+    "D-346",
+    "D-347",
+    "D-348",
+    "D-349",
+    "D-350",
+    "D-351",
+    "D-352",
+    "D-353",
+    "D-354",
+    "D-355"
+   ],
+   "measured": [],
+   "near_miss": [
+    "D-604",
+    "D-340"
+   ]
+  }
+ },
+ "coverage": [
+  {
+   "signal_id": "D-001",
+   "industry": "공통",
+   "problem_type": "인력",
+   "need": "인력",
+   "grade": "A",
+   "trend": "SUSTAINED",
+   "value": "1138 부족인원(명)",
+   "limit": "시도 단위이며 6대 산업 어느 것으로도 분해되지 않음. 산업별 배분은 추정 불가",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1328735",
+   "covers": [
+    "P001",
+    "P004",
+    "P005",
+    "P006",
+    "P009",
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-BIO-002",
+    "IC-BIO-003",
+    "IC-BIO-005",
+    "IC-BIO-012",
+    "IC-BIO-016",
+    "IC-COM-002"
+   ],
+   "generic": 0,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-002",
+   "industry": "공통",
+   "problem_type": "인력",
+   "need": "인력",
+   "grade": "A",
+   "trend": "SUSTAINED",
+   "value": "480 부족인원(명)",
+   "limit": "계열 구분일 뿐 직무 구분이 아님",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1328735",
+   "covers": [
+    "P001",
+    "P004",
+    "P005",
+    "P006",
+    "P009",
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-BIO-002",
+    "IC-BIO-003",
+    "IC-BIO-005",
+    "IC-BIO-012",
+    "IC-BIO-016",
+    "IC-COM-002"
+   ],
+   "generic": 0,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-003",
+   "industry": "공통",
+   "problem_type": "인력유출",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "'기술인재 서울행'은 언론 표제 수준. 유출률·순이동 정량치 미확보. 인천인자위 기본계획 원문 필요",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1328735",
+   "covers": [
+    "P001",
+    "P004",
+    "P005",
+    "P006",
+    "P009",
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-BIO-002",
+    "IC-BIO-003",
+    "IC-BIO-005",
+    "IC-BIO-012",
+    "IC-BIO-016",
+    "IC-COM-002"
+   ],
+   "generic": 0,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-004",
+   "industry": "공통",
+   "problem_type": "인력-직무전환",
+   "need": "인력",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "인천인자위 기본계획 분석 결과이나 원문 미확보. 대상 인원 규모 불명",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1328735",
+   "covers": [
+    "P001",
+    "P004",
+    "P005",
+    "P006",
+    "P009",
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-BIO-002",
+    "IC-BIO-003",
+    "IC-BIO-005",
+    "IC-BIO-012",
+    "IC-BIO-016",
+    "IC-COM-002"
+   ],
+   "generic": 0,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-005",
+   "industry": "공통",
+   "problem_type": "행정경계 단절",
+   "need": "행정",
+   "grade": "A",
+   "trend": "SPIKE",
+   "value": "2군8구 → 2군9구 행정구역",
+   "limit": "수요 신호가 아니라 데이터 구조 경보. 2026-07-01 전후 군구 단위 시계열이 단절되며 지방재정365 자치단체코드도 변경됨",
+   "source_url": "https://www.incheon.go.kr/IC01070101",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-101",
+   "industry": "바이오",
+   "problem_type": "인력-질적미스매치",
+   "need": "인력",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "전국 단위, 보고서 시점 오래됨. 인천 적용 시 지역 보정 근거 없음",
+   "source_url": "https://scienceon.kisti.re.kr/srch/selectPORSrchReport.do?cn=TRKO201800036147",
+   "covers": [
+    "IC-BIO-002",
+    "IC-BIO-003",
+    "IC-BIO-005",
+    "IC-BIO-012",
+    "IC-BIO-016",
+    "IC-COM-002"
+   ],
+   "generic": 8,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-102",
+   "industry": "바이오",
+   "problem_type": "산업구조-대기업편중",
+   "need": "공급망",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "61.8 %(정의 원문 확인 필요)",
+   "limit": "61.8%의 분모·분자 정의를 언론보도로 확인 불가. 원문 필수",
+   "source_url": "https://www.kyeongin.com/article/1767001",
+   "covers": [
+    "IC-BIO-011"
+   ],
+   "generic": 2,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-103",
+   "industry": "바이오",
+   "problem_type": "금융",
+   "need": "금융",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "'판교 대비 VC 인프라 부족'은 비교 서술. VC 투자건수·금액 정량치 미확보",
+   "source_url": "https://www.kyeongin.com/article/1767001",
+   "covers": [],
+   "generic": 4,
+   "verdict": "uncovered"
+  },
+  {
+   "signal_id": "D-104",
+   "industry": "바이오",
+   "problem_type": "공급망",
+   "need": "공급망",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "국산화율 수치 미제시. 역내 수급률 지표 별도 확보 필요",
+   "source_url": "https://www.kyeongin.com/article/1767001",
+   "covers": [
+    "IC-BIO-011"
+   ],
+   "generic": 2,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-105",
+   "industry": "바이오",
+   "problem_type": "기술",
+   "need": "기술",
+   "grade": "B",
+   "trend": "SPIKE",
+   "value": "10건 신청 / 4건 선정 과제수",
+   "limit": "충족률 40%로 보이나 신청 자체가 사업 인지도에 좌우되는 자기선택 표본. 미신청 수요 미포착",
+   "source_url": "https://scienceon.kisti.re.kr/srch/selectPORSrchReport.do?cn=TRKO202500010493",
+   "covers": [
+    "IC-BIO-009",
+    "IC-BIO-015"
+   ],
+   "generic": 8,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-106",
+   "industry": "바이오",
+   "problem_type": "인력",
+   "need": "인력",
+   "grade": "D",
+   "trend": "SUSTAINED",
+   "value": "60여개사 기업수",
+   "limit": "사업주체의 사업 정당화 문서 내 서술. 기업당 수요 인원 미제시",
+   "source_url": "http://knibrt.com/education/edu0402.php",
+   "covers": [
+    "IC-BIO-002",
+    "IC-BIO-003",
+    "IC-BIO-005",
+    "IC-BIO-012",
+    "IC-BIO-016",
+    "IC-COM-002"
+   ],
+   "generic": 8,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-107",
+   "industry": "바이오",
+   "problem_type": "판로/인력/자금 복합",
+   "need": "금융",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "악화 정성 추세",
+   "limit": "바이오 전용이 아닌 벤처 전체 기준. 성장기 기업 지원사업 부족은 별도 검증 필요",
+   "source_url": "https://www.ii.re.kr/base/search/total?searchType=ALL&searchWord=%EB%B0%94%EC%9D%B4%EC%98%A4%EC%82%B0%EC%97%85,+&menuLevel=1&menuNo=39",
+   "covers": [],
+   "generic": 4,
+   "verdict": "uncovered"
+  },
+  {
+   "signal_id": "D-108",
+   "industry": "바이오",
+   "problem_type": "산업규모(맥락지표)",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "생산액 3조9,724억 / 전국 18.9% / 종사자 5,931명 / 투자액 6,086억 복합",
+   "limit": "수요 신호가 아니라 규모 지표. 부족·병목 근거로 직접 사용 불가. 시점도 오래됨",
+   "source_url": "https://www.kyeonggi.com/article/20231006580065",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-109",
+   "industry": "바이오",
+   "problem_type": "인력-공급실적",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "881 누적 교육생(명)",
+   "limit": "공급 실적이지 수요가 아님. 목표 연2,000명 대비 격차 해석 시 시점 불일치 주의",
+   "source_url": "https://www.kyeonggi.com/article/20230913580034",
+   "covers": [
+    "IC-BIO-002",
+    "IC-BIO-003",
+    "IC-BIO-005",
+    "IC-BIO-012",
+    "IC-BIO-016",
+    "IC-COM-002"
+   ],
+   "generic": 8,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-110",
+   "industry": "바이오+디지털데이터",
+   "problem_type": "정책유행 경보",
+   "need": "행정",
+   "grade": "A",
+   "trend": "POLICY_TREND",
+   "value": "2.7 억원",
+   "limit": "기업 수요 출발 근거 미확인. 시의회가 '사업 타당성·기업 수요에 대한 구체적 설명 필요'로 지적",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-201",
+   "industry": "반도체",
+   "problem_type": "산업규모(맥락지표)",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "수출액 178억달러 / 시 전체 수출품목 1위 / 이 중 98%가 시스템반도체 복합",
+   "limit": "수출 강세 지표이지 병목 신호가 아님. 강점 논거로만 사용",
+   "source_url": "https://news.nate.com/view/20260311n24470",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-202",
+   "industry": "반도체",
+   "problem_type": "산업구조-밸류체인 결손",
+   "need": "공급망",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "'인천 산업의 약점으로 지적돼 온'이라는 서술만 존재. 팹리스 기업수·설계인력 정량치 미확보. 강한 신호이나 근거 등급 낮음",
+   "source_url": "https://www.tookyung.com/news/articleView.html?idxno=702069",
+   "covers": [],
+   "generic": 3,
+   "verdict": "uncovered"
+  },
+  {
+   "signal_id": "D-203",
+   "industry": "반도체",
+   "problem_type": "기술",
+   "need": "기술",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "'대기업 수요기술을 중소기업이 개발'이라는 사업 설계 서술에서 역산한 수요. 기업 실태조사 근거 아님",
+   "source_url": "https://news.nate.com/view/20260311n24470",
+   "covers": [
+    "IC-SEM-001",
+    "IC-SEM-003"
+   ],
+   "generic": 8,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-204",
+   "industry": "반도체",
+   "problem_type": "산업위상(맥락지표)",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "약 36 %(국내 시스템반도체 수출 비중)",
+   "limit": "산정 기준 원문 미확인",
+   "source_url": "https://news.nate.com/view/20260311n24470",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-301",
+   "industry": "로봇",
+   "problem_type": "시설-공급과잉 위험",
+   "need": "시설",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "전체 76만9,281㎡ 중 29만7,000㎡ 산단 지정 면적",
+   "limit": "수요 신호가 아니라 공급 지표. 분양 실적이 나와야 수요 판정 가능. 미분양이면 역방향 신호",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1327572",
+   "covers": [
+    "IC-ROB-001",
+    "IC-ROB-007"
+   ],
+   "generic": 7,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-302",
+   "industry": "로봇",
+   "problem_type": "수요조사 노후화",
+   "need": "행정",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "iH가 2023년 조사를 '보완' 중이라는 서술. 3년 경과한 수요조사로 산단계획을 운영 중이라는 뜻이며 그 자체가 데이터 공백 신호",
+   "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1327572",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-303",
+   "industry": "로봇",
+   "problem_type": "기술-공정도입",
+   "need": "기술",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "기업당 최대 5,000만원 지원한도",
+   "limit": "지원한도이지 수요량이 아님. 신청기업수·경쟁률을 확보해야 수요 강도 판정 가능",
+   "source_url": "https://www.govmatch.kr/announcements/84962",
+   "covers": [
+    "IC-ROB-006"
+   ],
+   "generic": 9,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-401",
+   "industry": "디지털데이터",
+   "problem_type": "정책유행 경보",
+   "need": "행정",
+   "grade": "C",
+   "trend": "POLICY_TREND",
+   "value": "19억9,300만원 투입 예산",
+   "limit": "정부 지정 여부에 따라 5년간 최대 1,000억이 걸린 하이리스크 사업. 지역 양자기업 수요 근거 미확인",
+   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=680061",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-402",
+   "industry": "디지털데이터",
+   "problem_type": "집행지연",
+   "need": "행정",
+   "grade": "A",
+   "trend": "SPIKE",
+   "value": "명시이월 집행상태",
+   "limit": "전략 수립 용역이 명시이월된 상태에서 실증사업 예산이 먼저 편성됨. 순서 역전 가능성",
+   "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-501",
+   "industry": "미래차",
+   "problem_type": "데이터 공백",
+   "need": "행정",
+   "grade": "D",
+   "trend": "UNKNOWN",
+   "value": "조사 실패 해당없음",
+   "limit": "6대 산업 중 유일하게 수요 신호를 하나도 확보하지 못함. 부품기업 전환 수요, 자율주행 실증 수요 모두 미확인. 반대가설: 인천 미래차 정책 자체가 소극적이라 공개자료가 적을 수 있음",
+   "source_url": "https://www.kyeonggi.com/article/20231006580065",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-601",
+   "industry": "항공",
+   "problem_type": "인력",
+   "need": "인력",
+   "grade": "C",
+   "trend": "FORECAST",
+   "value": "2,000 상주 전문인력(명, 전망)",
+   "limit": "실측이 아니라 사업자 전망치. 2031년 시점이므로 FORECAST로 취급해야 하며 현재 부족인원과 혼동 금지",
+   "source_url": "https://biz.heraldcorp.com/article/10741457",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-602",
+   "industry": "항공",
+   "problem_type": "인력-교육수요",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "20명 선발(모집기간 1개월) 교육생수",
+   "limit": "선발 20명은 확정치이나 지원자수 미공개라 경쟁률로 수요 강도를 볼 수 없음. 지원자수가 핵심",
+   "source_url": "https://www.addnewsin.com/news/articleView.html?idxno=60745",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-603",
+   "industry": "항공",
+   "problem_type": "교육-취업 연계 격차",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "정성 서술",
+   "limit": "상반기 자격 중심 교육만으로는 취업 연계가 부족했다는 사실상의 자인. 상반기 수료생 취업률이 확보되면 강한 근거가 됨",
+   "source_url": "https://www.addnewsin.com/news/articleView.html?idxno=60745",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-604",
+   "industry": "항공",
+   "problem_type": "물류-접근성",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "6억8,000만원 예산",
+   "limit": "투입 예산이지 수요량이 아님. 도서 물류 결손량 지표 별도 필요",
+   "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=680061",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-310",
+   "industry": "로봇",
+   "problem_type": "산업규모(맥락지표)",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "239 기업수(전국의 9.5%)",
+   "limit": "기업수이지 인력 수요 인원 미제시. 통제 어휘에 로봇 직무 없음. 출처인 '2025년 인천로봇산업 실태조사 보고서' 원문이 공개되지 않아 조사 모집단·기준연도·로봇기업 정의를 검증 불가. 2026-07-03과 2026-07-19 두 보도에 반복 등장하나 출처는 동일 조사 1건이므로 반복 확인으로 오독 금지",
+   "source_url": "https://www.irobotnews.com/news/articleView.html?idxno=47250",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-311",
+   "industry": "로봇",
+   "problem_type": "산업규모(맥락지표)",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "약 1조5000억원(전국의 24.4%) 매출액",
+   "limit": "매출 강세 지표이지 병목·수요 신호가 아님. 기업수 비중 9.5% 대비 매출 비중 24.4%는 소수 대기업 편중 가능성을 시사하나 상위 기업 집중도가 공개되지 않아 확인 불가. 종사자수는 이 조사에서 함께 공개되지 않아 매출 대비 고용 강도 산출 불가",
+   "source_url": "https://www.irobotnews.com/news/articleView.html?idxno=47250",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-312",
+   "industry": "로봇",
+   "problem_type": "정책공급 규모",
+   "need": null,
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "22억원 / 34개 기업·기관 예산·지원대상수",
+   "limit": "공급(지원) 규모이지 수요가 아님. 34개사는 인천 로봇기업 239개사(D-310)의 약 14%에 해당하나 신청기업수가 공개되지 않아 경쟁률로 수요 강도를 판정할 수 없음. 22억원 중 인력양성 배분액이 별도 제시되지 않았고 전년도 집행 실적도 기사에 없음",
+   "source_url": "https://www.irobotnews.com/news/articleView.html?idxno=45683",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-313",
+   "industry": "로봇",
+   "problem_type": "기술-공정도입",
+   "need": "기술",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "4개사 내외 선정 / 기업당 최대 5000만원 선정기업수·지원한도",
+   "limit": "D-303의 지원한도에 선정규모를 보탠 값. 선정 예정 수이지 신청 수가 아니며 신청기업수·경쟁률 미공개. 4개사는 인천 제조업 모집단 대비 극소수라 사업 존재만으로 수요 규모를 추정할 수 없음. 컨소시엄 의무 조항이 자기선택 표본을 더 좁혀 미신청 수요를 구조적으로 누락시킴",
+   "source_url": "https://www.irobotnews.com/news/articleView.html?idxno=46330",
+   "covers": [
+    "IC-ROB-006"
+   ],
+   "generic": 9,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-314",
+   "industry": "로봇",
+   "problem_type": "시설-공급과잉 위험",
+   "need": "시설",
+   "grade": "C",
+   "trend": "POLICY_TREND",
+   "value": "400여개(로봇기업 및 시험·인증·연구기관) 집적 목표 기관수",
+   "limit": "목표치이지 실측이 아니며 기업과 기관이 합산돼 순수 기업 목표를 분리할 수 없음. 인천 전체 로봇기업이 239개사(D-310)인데 로봇랜드 한 곳의 집적 목표가 400여개다. 달성하려면 인천 로봇기업 전부의 이전 또는 대규모 역외 유치가 필요한데 그 근거는 제시되지 않았다. 수요 신호가 아니라 목표 설정의 근거 결손 신호로 읽어야 함",
+   "source_url": "https://www.ngonews.kr/news/articleView.html?idxno=217183",
+   "covers": [
+    "IC-ROB-001",
+    "IC-ROB-007"
+   ],
+   "generic": 7,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-315",
+   "industry": "로봇",
+   "problem_type": "시설-이용실적",
+   "need": "시설",
+   "grade": "A",
+   "trend": "SUSTAINED",
+   "value": "67 입주 계약 건수",
+   "limit": "공공데이터 원자료이나 컬럼이 연번·소재지·면적·계약자·사용면적·사용목적·사용기간이라 67행은 계약 건수이며 동일 계약자 중복 제거 후 실기업수는 별도 확인 필요. 시설 이용 실적이지 인력 수요가 아님. 총 임대가능면적이 제시되지 않아 입주율·공실률 산출 불가. 기준일자 표기가 없고 등록일(2025-09-17)만 존재해 시점 해석 주의",
+   "source_url": "https://www.data.go.kr/data/15121429/fileData.do",
+   "covers": [
+    "IC-ROB-001",
+    "IC-ROB-007"
+   ],
+   "generic": 7,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-316",
+   "industry": "로봇",
+   "problem_type": "기술-공정도입(수요강도)",
+   "need": "기술",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "정원 40여명 → 90~100명으로 확대 설명회 참가인원",
+   "limit": "정원 2배 초과 신청은 인천에서 확인된 가장 직접적인 기업발 수요 신호다. 다만 (1)설명회 참석과 무료 진단 신청은 관심 표명이지 구매·투자 확정이 아니고 (2)참가자수이지 기업수가 아니며 (3)민간기업(마음AI) 공동주최라 영업 목적 동원 가능성을 배제할 수 없다. 결정적으로 이는 로봇 '도입' 수요이지 로봇 '인력' 수요가 아니고 인력난을 로봇으로 대체하려는 동기이므로 고용 수요와는 역방향이다",
+   "source_url": "https://www.kyeongin.com/article/1768180",
+   "covers": [
+    "IC-ROB-006"
+   ],
+   "generic": 9,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-317",
+   "industry": "로봇",
+   "problem_type": "인력난(로봇 도입 유인)",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "'기술자도 외국인 노동자도 구하기 어렵다', '사출·조립 공정 등 현장 핵심 인력과 경력직 수급이 특히 어렵다'(㈜알리 유길상 상무이사)는 기업 발언만 존재하고 부족인원·인력부족률 수치가 없다. 기사에 인용된 통계 출처도 없어 정성 서술 이상으로 격상 불가. 통제 어휘에 로봇·제조기술직 직무가 없어 occupation 기권. 이 인력난은 로봇산업의 인력 수요가 아니라 로봇 도입의 동기이므로 방향을 혼동하면 안 됨",
+   "source_url": "https://www.kyeongin.com/article/1768180",
+   "covers": [
+    "IC-COM-002"
+   ],
+   "generic": 13,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-318",
+   "industry": "로봇",
+   "problem_type": "수요신호 부재(역방향 근거)",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "인력·채용 애로 미제기 간담회 의제 구성",
+   "limit": "인천시·한국로봇산업진흥원 주최 간담회에서 기업이 제기한 애로는 인증·실증 소요기간(ISO 10218-1 등 해외인증 1년 이상, CE·UL 인증 수억원), 중국산 저가부품 대비 국산화, 하드웨어 편중에 따른 소프트웨어 지원 부족, 휴머노이드 수요처(레퍼런스) 부재였고 인력·채용 애로는 목록에 없었다. 참석 8개사는 자기선택 표본이고 간담회 의제가 사전 조율됐을 수 있어 '인력 애로가 없다'로 단정 불가. 다만 인천 대표 로봇기업이 모인 자리에서 인력이 의제가 아니었다는 사실은 기업발 인력 수요 신호 부재를 지지하는 반대증거로 사용 가능",
+   "source_url": "https://www.irobotnews.com/news/articleView.html?idxno=46484",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-319",
+   "industry": "로봇",
+   "problem_type": "정책유행 경보",
+   "need": "행정",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "45개국 364개팀 3919명 참가 / 방문객 2만4238명 / 로봇기업 약 40개사 참여 행사규모",
+   "limit": "국제행사 동원 규모이지 산업 수요 지표가 아님. 참여 로봇기업 약 40개사도 전시 참여이며 계약·수주·채용·투자 성과는 공개되지 않았다. 개최 예산과 지역 로봇기업 수주액이 없으면 비용 대비 효과 판정 불가. 인재 관련 서술은 '국제 협업 경험과 현장 문제 해결 능력을 키웠다'는 정성 표현뿐",
+   "source_url": "https://www.getnews.co.kr/news/articleView.html?idxno=874363",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-320",
+   "industry": "로봇",
+   "problem_type": "공급-집행 리스크",
+   "need": null,
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "토사 약 2만㎥ 1년 이상 방치 / 반출비 7~8천만원 → 최대 약 8억원 공사 지장물",
+   "limit": "수요 신호가 아니라 공급 일정 리스크. 2026년 말 산업시설용지 공급 목표(D-323)의 실현 가능성에 대한 반대증거이나 실제 준공 지연 일수는 미확인. 반출비 10배 증액은 사업비 압박 지표이지 기업 수요와 무관. 2026-08 현재 반출 완료 여부 후속 보도 미확보",
+   "source_url": "https://www.joongboo.com/news/articleView.html?idxno=363700365",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-321",
+   "industry": "로봇",
+   "problem_type": "인력-공급실적",
+   "need": "인력",
+   "grade": "D",
+   "trend": "SPIKE",
+   "value": "5주 과정 / 멘토링 6회 12시간 교육과정 규모",
+   "limit": "대학 자체 보도자료(사업주체의 사업 정당화 문서). 공급(교육) 실적이며 그마저 양성 목표 인원·수료 인원·예산·사업기간이 모두 미기재라 규모를 알 수 없다. 협력기업이 ㈜유일로보틱스 1개사뿐이라 지역 로봇기업 수요의 대표성 없음. 강화학습·로봇비전·시뮬레이션 교육 내용을 근거로 SW·AI로 분류했으나 통제 어휘에 로봇 직무가 없어 근사한 것이며 로봇 하드웨어·제어·정비 직무는 담기지 않음",
+   "source_url": "https://www.inu.ac.kr/inu/13580/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGaW51JTJGMjU5NCUyRjQxNzE1OSUyRmFydGNsVmlldy5kbyUzRg%3D%3D",
+   "covers": [
+    "IC-COM-002"
+   ],
+   "generic": 13,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-322",
+   "industry": "로봇",
+   "problem_type": "데이터 공백",
+   "need": "행정",
+   "grade": "A",
+   "trend": "SUSTAINED",
+   "value": "사업체 2509개사 / 종사자 3만4649명 / 수도권 1424개사(56.8%) 사업체수·종사자수",
+   "limit": "정부승인통계(산업통상자원부·한국로봇산업진흥원)이나 원보고서를 확보하지 못해 언론 요약을 경유했다. 공개 범위가 권역별(수도권 1424개사)까지여서 인천 몫으로 분해 불가. 종사자 3만4649명은 재직 인원이지 부족인원이 아니며 인력부족률·부족인원은 요약에 없다. 인천 로봇 인력 수요를 이 통계로 산출할 수 없다는 것이 이 행의 요점",
+   "source_url": "https://www.irobotnews.com/news/articleView.html?idxno=44544",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-323",
+   "industry": "로봇",
+   "problem_type": "시설-유인강도(역방향)",
+   "need": null,
+   "grade": "C",
+   "trend": "POLICY_TREND",
+   "value": "수도권 도시첨단산업단지 대비 40~50% 저렴 / 취득세 75% 감면 분양 유인조건",
+   "limit": "가격·세제 유인이지 수요 실적이 아님. 인근 대비 40~50% 할인과 취득세 75% 감면을 걸어야 한다는 사실 자체가 자연 수요의 약함을 시사할 수 있으나 산단 분양의 통상적 인센티브 수준과 비교하지 않으면 단정 불가. 평당 분양가 절대액은 이 기사에 없어 미확인으로 남김. 분양 신청·계약 실적이 나와야 수요 판정 가능한데 2026-08 현재 첫 분양공고(2026-12 예정)조차 미실시",
+   "source_url": "https://www.hankookilbo.com/News/Read/A2025120709540004681",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-324",
+   "industry": "로봇",
+   "problem_type": "인력-공급실적(정책유행)",
+   "need": "행정",
+   "grade": "C",
+   "trend": "POLICY_TREND",
+   "value": "200 연간 교육생 목표(명)",
+   "limit": "인천시 로봇산업 혁신성장 지원사업 22억원(D-312)에서 확인 가능한 유일한 인력 관련 정량 목표가 초등학생 로봇교실 200명이다. 취업 연계 인력양성이 아니라 저변 확대 사업이므로 기업 인력 수요와 무관. 다른 보도의 상반기 5개 과정 각 25명(=125명) 구성과 연간 200명이 정합하지 않아 배분 내역은 미확정. 지원자수 미공개로 경쟁률도 알 수 없음",
+   "source_url": "https://www.irobotnews.com/news/articleView.html?idxno=45683",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-340",
+   "industry": "항공",
+   "problem_type": "인력-채용실적",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "연초 50여명 → 500여명 초과 / 내년 1,000명 초과 예상 채용인원(명)",
+   "limit": "통제 어휘에 항공 직무 없음. 단일 언론기사가 전한 연내 추이라 고용보험 DB 등으로 교차검증 불가. '인천공항 MRO 사업'의 기업 범위(IKCS·대한항공·트리니티항공 등)가 불명확해 기업별 분해 불가. 다만 6대 산업을 통틀어 전망치가 아닌 실제 채용 실적이 확인된 드문 신호",
+   "source_url": "https://www.hankyung.com/article/202608068768h",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-341",
+   "industry": "항공",
+   "problem_type": "인력-공정소요",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "150 항공기 1대당 소요인력(명)",
+   "limit": "통제 어휘에 항공 직무 없음. 1대당 소요 인력이지 채용 계획 인원이 아님. 1대 개조에 약 5개월(2026-05 입고→10월 출고)이 걸리고 물량이 겹치므로 대수×150 단순 곱셈으로 총수요 환산 불가. 이스라엘 IAI 파견 기술자가 포함돼 있어 지역 채용분과 구분 불가",
+   "source_url": "https://www.kyeongin.com/article/1768579",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-342",
+   "industry": "항공",
+   "problem_type": "물량-생산목표",
+   "need": null,
+   "grade": "C",
+   "trend": "FORECAST",
+   "value": "매년 6~10대 목표 / 현재 계약 3대 개조 대수",
+   "limit": "사업자 목표치이며 실적이 아님. 확보 계약은 3대뿐이고 전량 중국 화물항공사향이라 대외 수요 변동에 취약. 물량 지표이지 인력 수요 지표가 아니며 D-341과 곱해 인력 수요를 만드는 것은 이중 추정",
+   "source_url": "https://www.hankyung.com/article/202608068768h",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-343",
+   "industry": "항공",
+   "problem_type": "인력-신규일자리 전망",
+   "need": "인력",
+   "grade": "C",
+   "trend": "FORECAST",
+   "value": "정비물량 연 100대 → 360대 / 신규 일자리 1,000명 이상 복합(전망)",
+   "limit": "통제 어휘에 항공 직무 없음. 사업자·언론 전망치이며 실측 아님. 기존 D-601(대한항공 MRO 클러스터 2,000명, 2031년)과 시점·시설 범위가 달라 합산 금지. 동일 공장에 대해 경향신문은 엔진 88대→501대(2030)라는 다른 기준을 제시(D-344)해 어느 쪽도 원자료 미확인",
+   "source_url": "https://www.m-i.kr/news/articleView.html?idxno=1339477",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-344",
+   "industry": "항공",
+   "problem_type": "시설-투자",
+   "need": "시설",
+   "grade": "C",
+   "trend": "FORECAST",
+   "value": "1,500억원 / 5만692㎡ / 엔진 정비 88대(현재) → 501대(2030) 복합",
+   "limit": "투자·면적 지표이지 인력 수요가 아님. 엔진 88대→501대는 D-343의 100대→360대와 상충하며 기준연도·산정범위 원자료 모두 미확인. 인천경제청 발표를 언론이 전달한 것이라 유치 성과 홍보 편향 가능",
+   "source_url": "https://www.khan.co.kr/article/202605201125001",
+   "covers": [
+    "IC-AIR-001",
+    "IC-AIR-002"
+   ],
+   "generic": 7,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-345",
+   "industry": "항공",
+   "problem_type": "인력-모수",
+   "need": null,
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "12개사 6,000여명 / 이 중 4,500여명이 대한항공·아시아나 정비인력(명)",
+   "limit": "통제 어휘에 항공 직무 없음. 전국·국적항공사 기준이라 인천분 분해 불가하고 독립 MRO·항공부품 제조업체는 아예 모수에서 빠짐. 기준시점 2021년말로 5년 경과. 현원 지표이지 부족인원이 아니며 부족인원 산출에 쓰려면 별도 수요 추정이 필요",
+   "source_url": "https://www.ii.re.kr/base/board/read?boardManagementNo=15&boardNo=15954&menuLevel=2&menuNo=77",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-346",
+   "industry": "항공",
+   "problem_type": "인력-수요전망",
+   "need": "인력",
+   "grade": "C",
+   "trend": "FORECAST",
+   "value": "직접고용 2,500개(이 중 항공MRO 2,000명) / '2027년까지 최소 2,000명 전문인력 필요' 일자리(개)·필요인력(명, 전망)",
+   "limit": "인천연구원 인용이나 원보고서명·산출식 미확인. 시설 가동을 전제한 전망치라 준공 지연 시 무효. 기업이 제출한 채용계획이 아니라 연구원 추정치이며, D-340의 실제 채용 실적과 산출 계열이 달라 합산 금지",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=301068",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-347",
+   "industry": "항공",
+   "problem_type": "기업수요-진출의향",
+   "need": null,
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "150개사 중 115개사(76.7%) 진출 의향 기업수(비율)",
+   "limit": "판로·업종 진출 의향이지 인력 수요가 아님. 조사명이 '진출 희망기업'이라 표본 자체가 관심 기업 자기선택 표본이며 76.7%를 인천 제조업 전체로 일반화 불가. 실제 준비·검토 경험 기업은 절반 수준에 그침. 조사 원문 미확보로 문항·모집단 정의 확인 불가",
+   "source_url": "https://www.kyeongin.com/article/1763300",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-348",
+   "industry": "항공",
+   "problem_type": "산업기반-결손",
+   "need": "공급망",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "인천 항공제조업 10개사 / 항공운송업 43개사 / 전국 항공정비업 36개사 / 지역 제조업체 500개 중 21개사(4.2%)만 항공제품 생산, 미진출 479개사 중 155개사(32.4%) 향후 활용 가능 응답 복합(기업수)",
+   "limit": "2018년 게시 자료로 8년 경과해 현재 수요 근거로 직접 사용 불가. 항공제조업 10개사는 공급기반 결손 지표이지 인력 수요가 아님. 다만 실제 진출률 4.2%와 D-347의 진출 의향 76.7% 사이의 격차가 핵심 — 의향은 많고 실행은 적다는 해석이 가능하나 두 조사의 모집단이 달라 직접 비교는 부적절",
+   "source_url": "https://www.ii.re.kr/base/board/read?boardManagementNo=18&boardNo=1247&menuLevel=2&menuNo=79",
+   "covers": [],
+   "generic": 3,
+   "verdict": "uncovered"
+  },
+  {
+   "signal_id": "D-349",
+   "industry": "항공",
+   "problem_type": "시설-공급",
+   "need": "시설",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "약 235만㎡ / 앵커기업 3곳(IKCS·트리니티항공·대한항공) 유치 완료 면적·기업수",
+   "limit": "공급(부지·유치) 지표이지 수요가 아님. 235만㎡ 대비 앵커 3곳으로 잔여 부지의 실수요는 미확인이며 2032년까지 유치 계획이라 미달 시 역방향 신호. D-301(로봇랜드 산단)과 같은 공급 과잉 위험 유형",
+   "source_url": "https://www.viva100.com/article/20260806501067",
+   "covers": [
+    "IC-AIR-001",
+    "IC-AIR-002"
+   ],
+   "generic": 7,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-350",
+   "industry": "항공",
+   "problem_type": "정책유행 경보",
+   "need": "행정",
+   "grade": "C",
+   "trend": "POLICY_TREND",
+   "value": "5대 전략 18개 실행과제 계획 구조",
+   "limit": "총 투입예산·목표 일자리 수·기업 수요조사 근거가 기사에 전혀 없음. MRO·UAM·드론·우주방산을 한 계획에 묶은 백화점식 구성이라 어느 축이 기업 수요에 기반했는지 분해 불가. 계획 원문 미확보",
+   "source_url": "https://www.ngonews.kr/news/articleView.html?idxno=205813",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-351",
+   "industry": "항공",
+   "problem_type": "정책유행 경보",
+   "need": "행정",
+   "grade": "C",
+   "trend": "POLICY_TREND",
+   "value": "거잠포→무의도 약 7분 / 자월도 약 20분 / 덕적도 약 50분 예상 운항시간(분)",
+   "limit": "운항시간 구상치일 뿐 수요량이 아님. 예산·기체 수·참여 기업 수가 모두 미공개이고 인천 소재 UAM 관련 기업 수나 기업 수요 근거는 기사에 전혀 없음. 정부 공모 일정에서 파생된 신호이며 공모 탈락 시 소멸. D-604(옹진 도서 드론 물류)와 대상 지역이 겹쳐 수요 이중계상 위험",
+   "source_url": "https://news.ifm.kr/news/articleView.html?idxno=475135",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-352",
+   "industry": "항공",
+   "problem_type": "시장구조(맥락지표)",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "세계 MRO 시장 약 171조원(2026) → 224조원(2035) / 국내 정비수요 60% 이상 해외 의존 복합",
+   "limit": "세계·전국 수치라 인천분 분해 불가. '해외 의존 60% 이상'은 국내 대체 잠재량이지 확정 수요가 아니며 분모(전체 정비수요) 산정 기준 원문 미확인. 시장 규모를 인천 인력 수요로 환산할 계수 없음",
+   "source_url": "https://www.viva100.com/article/20260806501067",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-353",
+   "industry": "항공",
+   "problem_type": "데이터 공백-분양 미개시",
+   "need": "행정",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "분양공고 2026-10 목표(미개시) 절차 진행상태",
+   "limit": "분양 실적이 없어 대한항공 외 협력사의 실수요를 판정할 수 없음. '협력사 집적효과 기대'는 기대 서술일 뿐 입주 의향 조사 결과가 아님. 분양률이 나오기 전까지 항공부품·협력사 수요는 미확인 상태이며 미분양이면 역방향 신호",
+   "source_url": "https://www.kyeongin.com/article/1767466",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-354",
+   "industry": "항공",
+   "problem_type": "인력-공급실적",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "40여명 참여(4일 과정) 교육 참여인원(명)",
+   "limit": "통제 어휘에 항공 직무 없음. 공급(교육) 실적이지 수요가 아니며 4일짜리 단기 과정이라 정비 실무 투입 인력으로 환산 불가. 지원자 수·취업 연계 실적 미공개라 경쟁률로 수요 강도를 볼 수 없음",
+   "source_url": "https://www.i-rise.or.kr/bbs/bbsView?mid=603002000000&bbsId=5&postNo=61",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-355",
+   "industry": "항공",
+   "problem_type": "인력-공급실적",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "9 수료 인원(명)",
+   "limit": "통제 어휘에 항공 직무 없음. 공급 실적이며 취업 연계 인원 미공개. 인천지역인적자원개발위원회가 참여한 사업임에도 배출 규모가 9명이라는 점은 연계된 기업 채용 수요가 확인되지 않았거나 매우 작다는 방증일 수 있음. 반대가설: 시범 차수라 의도적으로 소규모 운영",
+   "source_url": "https://www.livesnews.com/news/article.html?no=62854",
+   "covers": [
+    "IC-AIR-003",
+    "IC-AIR-004",
+    "IC-AIR-008",
+    "IC-COM-002"
+   ],
+   "generic": 10,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-360",
+   "industry": "미래차",
+   "problem_type": "산업규모-전환대상 모수",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "사업체 699개사 / 종사자 약 1만7,000명 복합",
+   "limit": "수요 신호가 아니라 전환 대상 모수다. 종사자 1만7,000명은 미래차 인력 수요가 아니라 내연기관 기반 재직자 규모이며, 2022년 이후 사업체수·종사자수가 동반 감소 중이므로 오히려 역방향 신호. 인천연구원 이슈&트렌드 26-03호(2026-03-27)를 인용한 언론보도이며 원문 PDF 수치 대조 필요",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=317621",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-361",
+   "industry": "미래차",
+   "problem_type": "수요부재-역방향 신호",
+   "need": null,
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "97.6 %(사업전환 의사 없음 응답 비율)",
+   "limit": "가장 강한 역방향 신호. 응답 기업의 97.6%가 사업전환 의사 자체가 없다고 답했으므로 미래차 전환에 따른 신규 인력 수요는 기업 측에서 발생하고 있지 않다는 뜻. 다만 응답률 23.6%로 전환에 관심 없는 기업이 오히려 무응답했을 가능성(자기선택 편의)은 반대 방향으로도 작동. 인천연구원 원문 PDF 미대조",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=317621",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-362",
+   "industry": "미래차",
+   "problem_type": "수요부재-전환 미준비",
+   "need": null,
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "준비 안 함 70.6 / 계획단계 13.7 / 개발단계 12.5 / 생산단계 1.9 %(미래차 산업 진출 준비 현황)",
+   "limit": "전환 준비도이지 인력 수요가 아니다. 실제 개발·생산 단계에 진입한 기업은 14.4%뿐이므로 미래차 직무 채용이 발생할 모수는 극히 작다. 원자료는 인천테크노파크(2022) 실태조사이며 조사 기업 수·조사방법이 인천연구원 보고서에 재인용만 되어 있어 표본 규모 미확인. 주의: 같은 보고서 요약(4쪽)은 74.3%를 '미래차 준비 안 됨'으로 서술하나 본문(22쪽)의 74.3%는 R&D 미수행 비율이고 미래차 미준비는 70.6%다 — 보고서 내부 불일치",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-363",
+   "industry": "미래차",
+   "problem_type": "흡수역량 결손",
+   "need": "기술",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "R&D 활동 미수행 74.3 / 기업부설연구소 14.8 / 연구전담부서 7.4 %",
+   "limit": "연구인력을 둘 조직 자체가 없다는 뜻이므로 연구개발 인력 수요의 부재 근거이지 부족 근거가 아니다. 인력을 채용해도 배치할 조직이 없는 상태를 가리키므로 인력양성 사업의 수요처 부재 경보로 읽어야 한다. 원자료 인천TP(2022) 실태조사 표본 규모 미확인",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [
+    "IC-CAR-001"
+   ],
+   "generic": 9,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-364",
+   "industry": "미래차",
+   "problem_type": "전환대상 모수(맥락지표)",
+   "need": null,
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "기업 914개 / 종사자 12,706명 (인천 제조업 대비 기업 1.92%·종사자 4.18%) 복합",
+   "limit": "전환 대상 모수이며 수요가 아니다. 원자료는 통계청 전국사업체조사(2022) 마이크로데이터이나 인천연구원이 재가공한 값이라 원자료 직접 대조 불가. 울산 34.39%·경남 21.18%와 비교하면 인천은 자동차 의존도가 낮은 편이어서 미래차를 전략산업 1순위로 놓을 근거가 약함. D-360의 699개사·1만7,000명과 정의(연도·업종범위)가 달라 시계열로 이어붙이면 안 됨",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-365",
+   "industry": "미래차",
+   "problem_type": "전환 리스크 모수",
+   "need": null,
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "부정적 영역 약 160개사 / 중립 405개사 / 긍정 55개사 기업수(추산)",
+   "limit": "실측이 아니라 부품군-사업체 매핑에 의한 추산치이며 기준연도가 2019년으로 7년 경과. 160개사는 '위험 기업 수'이지 재교육 대상 인원이 아니다. 기업당 종사자 수가 없어 전환 대상 인원으로 환산 불가. 원출처는 민규량·문재철(2022) 인천연구원 보고서로 재인용",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-366",
+   "industry": "미래차",
+   "problem_type": "지원사업 수요 저조-역방향 신호",
+   "need": null,
+   "grade": "B",
+   "trend": "SPIKE",
+   "value": "기술개발 지원 3개사 / 기술전환 컨설팅 3개사 / 시험지원 8건 수혜기업수·건수",
+   "limit": "전체 부품사 수(D-364 기준 914개) 대비 수혜기업이 3개사 수준이다. 보고서는 원인으로 '지원 금액이 많지 않아 기업 발굴이 쉽지 않다'는 공급 측 사정을 들었으나, D-361(사업전환 의사 없음 97.6%)·D-362(미준비 70.6%)와 겹쳐 읽으면 신청 수요 자체가 없다는 해석도 성립한다. 신청기업수·경쟁률이 공개돼야 두 해석을 가를 수 있다",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-367",
+   "industry": "미래차",
+   "problem_type": "정책 축소-역방향 신호",
+   "need": null,
+   "grade": "B",
+   "trend": "SPIKE",
+   "value": "합계 26억→10억(전년 대비 38% 수준) / R&D 지원 11.2억→1.8억 / 기술전환 촉진 6.0억→2.8억 예산(원)",
+   "limit": "기업 수요 지표가 아니라 정책 투입 지표다. 다만 R&D 지원 예산이 84% 삭감된 것은 인천시 스스로 미래차 전환 지원의 우선순위를 낮췄다는 뜻이므로 정책 지속성 경보로 사용해야 한다. 원자료는 '인천시 내부자료(2024)'로 표기돼 있어 공개 원장에서 재확인 불가. 2025~2026년 예산 미확인",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-368",
+   "industry": "미래차",
+   "problem_type": "지원공급 한도",
+   "need": null,
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "전문 기술 컨설팅 16개사 내외(기업당 최대 2,300만원) / 시험평가 22개사 내외 선정 예정 기업수·지원한도",
+   "limit": "선정 예정 기업수와 지원한도이지 수요량이 아니다(D-303과 같은 성격). '내외'라는 표현은 미달 가능성을 열어둔 것이며, 신청기업수·경쟁률이 공개되지 않아 수요 강도를 판정할 수 없다. 인력·고용 관련 언급은 공고에 전혀 없어 이 사업에서 인력 수요를 도출할 수 없음",
+   "source_url": "https://www.joongboo.com/news/articleView.html?idxno=363728845",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-369",
+   "industry": "미래차",
+   "problem_type": "계획목표 vs 실적 괴리",
+   "need": "행정",
+   "grade": "B",
+   "trend": "FORECAST",
+   "value": "기업수 628개→885개 / 일자리 2만1,951→3만512개 / 매출 14조3,000억→17조5,000억원 (5년간 1,104억원 투입) 계획 목표치",
+   "limit": "기업 수요 실측이 아니라 계획 수립 시점(2022-01)의 목표치이므로 FORECAST로만 취급해야 하며 현재 인력 수요와 혼동 금지. 목표 3만512개 일자리에 대해 2024년 실적은 사업체 699개·종사자 약 1만7,000명(D-360)으로 감소 중이어서 목표 미달이 사실상 확정적이다. 다만 D-360과 D-369의 산업 범위 정의(자동차산업 vs 자동차부품)가 달라 직접 뺄셈은 불가. 계획 종료연도가 2026년이므로 성과평가 문서가 나오면 교체 필요",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=214374",
+   "covers": [],
+   "generic": 0,
+   "verdict": "admin_task"
+  },
+  {
+   "signal_id": "D-370",
+   "industry": "미래차",
+   "problem_type": "인력-공급실적(수요 아님)",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "연 48명 / 3년간 총 144명 (3년간 약 18억원) 양성 목표 인원(명)",
+   "limit": "공급 실적·목표이지 수요가 아니다(D-109와 같은 성격). '산업현장 수요기반'이라는 표현만 있을 뿐 기업 수요조사 근거·참여기업 수가 기사에 제시되지 않았다. 사업기간이 2024년 종료로 2026년 현재 지속 여부 미확인이며, 실제 배출 인원·취업률도 미확인. 주관대학 페이지는 '연간 48명 교육생 배출, 80% 이상 취·창업·진학'을 목표로만 제시",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=219757",
+   "covers": [
+    "IC-COM-002"
+   ],
+   "generic": 13,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-371",
+   "industry": "미래차",
+   "problem_type": "인력-이탈/정착(미래차 아님)",
+   "need": "인력",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "총 9억4,000만원 / 신규 입사자 상생이음 장려금 50만원 / 3년 이상 재직자 미래이음 공제(월 15만원 매칭, 최대 300만원) 예산·지원단가",
+   "limit": "인천 자동차부품업에 실재하는 유일한 인력 신호이나 미래차 전환 수요가 아니라 기존 내연기관 부품업의 숙련인력 이탈·잦은 이직 문제다. 인천상의는 '단순한 채용 지원만으로는 숙련 인력의 이탈을 막는 데 분명한 한계'라며 채용 확대에서 정착 중심으로 전략을 바꿨다고 밝혔는데, 이는 신규 채용 수요가 크지 않다는 자인으로도 읽힌다. 지원 대상 기업수·근로자수 미공개, 이직률·미충원율 정량치 미확보",
+   "source_url": "https://www.incheonnews.com/news/articleView.html?idxno=434495",
+   "covers": [
+    "IC-COM-002"
+   ],
+   "generic": 13,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-372",
+   "industry": "미래차",
+   "problem_type": "인력-숙련인력 이탈",
+   "need": "인력",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "장기근속 장려금 총 193명(재직 2년 이상 80명·100만원 / 4년 이상 60명·150만원 / 6년 이상 53명·200만원) 지원 인원(명)",
+   "limit": "지원 정원이지 이탈 인원이나 부족 인원이 아니다. 193명은 예산으로 정해진 상한이므로 수요 규모로 읽으면 안 되며, 실제 신청·선정 인원이 공개돼야 수요 강도 판정 가능. 사업 목적이 '숙련근로자의 이탈 방지'라는 점에서 이탈 자체는 실재하나 미래차 전환과는 무관한 기존 부품업 정착 문제. 공고문에 미래차 언급 없음",
+   "source_url": "https://incheon.korcham.net/front/board/boardContentsView.do?boardId=51228&contId=118498&menuId=10130",
+   "covers": [
+    "IC-COM-002"
+   ],
+   "generic": 13,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-373",
+   "industry": "미래차",
+   "problem_type": "인력-질적 수요(전문가 의견)",
+   "need": "인력",
+   "grade": "B",
+   "trend": "POLICY_TREND",
+   "value": "전문가 16명 응답 응답자수(명)",
+   "limit": "기업의 채용 수요량이 아니라 전문가 16명의 의견 순위다. 향후 필요 정책 우선순위에서 '인력양성 및 재교육 프로그램 확대'가 상위로 조사됐고, 지원기관 응답에는 'SW(정보통신, 보안 등) 인력 확보, 진입기업들을 위한 고급 인력 육성 방안 필요', 대학 응답에는 '연구개발 인력양성 및 확보'가 제시됐다. 표본 16명은 수요 추정 근거로 쓸 수 없으며 부족인원·채용계획 인원은 전혀 제시되지 않음. POLICY_TREND로 취급",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [
+    "IC-COM-002"
+   ],
+   "generic": 13,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-374",
+   "industry": "미래차",
+   "problem_type": "인력-질적 미스매치",
+   "need": "인력",
+   "grade": "B",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "인천연구원은 인천시 인력양성이 '정비사 교육 중심'이며 인천TP 성장지원형 사업도 '미래차 전환 전문 기술교육으로 차량 정비 교육과정을 운영 중'이라고 진단하고 '정비사 교육 중심의 인력양성 정책을 넘어' 대상별 설계가 필요하다고 제언했다. 미스매치의 방향(정비 과잉·설계/SW 결손)은 서술로만 존재하고 과정별 수강 인원·수료생 취업처 정량치는 미확보. 연구자 진단이며 기업 실태조사 결과가 아님",
+   "source_url": "https://www.ii.re.kr/storage/report/BB0000040429.pdf",
+   "covers": [
+    "IC-COM-002"
+   ],
+   "generic": 13,
+   "verdict": "covered"
+  },
+  {
+   "signal_id": "D-375",
+   "industry": "미래차",
+   "problem_type": "공급망-단일고객 의존 리스크",
+   "need": "공급망",
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "현대·기아 74.5% · 한국GM 16.5%(2022) / 1차 협력사 완성차 대상 매출 중 한국GM 29.2%, 한국GM 거래 21개사 중 5개사는 매출 100% 의존(2026) %(매출 의존도)·기업수",
+   "limit": "수요 신호가 아니라 리스크 지표이며, 완성차 발주가 줄면 인천 부품업 고용이 함께 줄어드는 역방향 경로를 가리킨다. 2022년 인천TP 조사(현대·기아 74.5%)와 2026년 인천연구원 조사(한국GM 29.2%)는 모집단·분모 정의가 달라 두 수치를 직접 비교하면 안 됨. 2, 3차 협력사가 약 80%(3차 39.3%·2차 39.7%·1차 9.5%)여서 완성차와의 연결이 간접적이라는 점도 함께 봐야 함",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=317621",
+   "covers": [],
+   "generic": 3,
+   "verdict": "uncovered"
+  },
+  {
+   "signal_id": "D-376",
+   "industry": "미래차",
+   "problem_type": "고용 감소-역방향 신호",
+   "need": null,
+   "grade": "C",
+   "trend": "SUSTAINED",
+   "value": "정성 서술",
+   "limit": "미래차 수요의 역방향 신호. 부평2공장은 2022-11-26 생산을 중단했고 노조가 요구한 전기차 생산 유치는 '사실상 어렵게 됐다'고 보도됐다. 즉 인천 완성차 거점에 미래차 생산 물량이 배정되지 않았고 그만큼 미래차 인력 수요도 발생하지 않았다. 감소 인원·협력업체 수는 기사에 제시되지 않아 정량화 불가(사측은 부평1공장·창원공장 전환배치라고만 밝힘). 시점이 2022년으로 4년 경과했으므로 2026년 신차 배정 현황으로 갱신 필요",
+   "source_url": "https://www.24news.kr/news/articleView.html?idxno=207242",
+   "covers": [],
+   "generic": 0,
+   "verdict": "not_a_need"
+  },
+  {
+   "signal_id": "D-377",
+   "industry": "미래차",
+   "problem_type": "시설-공급 선행",
+   "need": "시설",
+   "grade": "C",
+   "trend": "SPIKE",
+   "value": "총 148억원(2022~2026) / 연면적 4,774㎡ / 시험평가 장비 12종 중 9종 구축 완료 예산·면적·장비수",
+   "limit": "수요 신호가 아니라 공급 지표다(D-301과 같은 성격). 이용 기업수·이용 건수·상주 인력이 기사에 전혀 제시되지 않아 수요 판정 불가이며, 미이용이면 역방향 신호가 된다. 사업비는 일부 언론이 360억6,500만원으로 보도해 148억원과 불일치하므로 인천경제자유구역청 원문 확인 전에는 슬라이드에 올리지 말 것. 운영 주체도 인천경제자유구역청/한국자동차연구원으로 보도가 엇갈림",
+   "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=316695",
+   "covers": [
+    "IC-CAR-003"
+   ],
+   "generic": 8,
+   "verdict": "covered"
+  }
+ ],
+ "axes": [
+  {
+   "rank": "1",
+   "outcome": "정책 예산의 비효율적 사용",
+   "score": "4.80",
+   "c_status": "MVP 1순위 (주 분석 모듈)",
+   "key": "budget",
+   "covered": "partial",
+   "module": "예산 원장 대조 — 매칭 상태·소관 불일치·중복 편성 의심",
+   "gap": "조사자 C가 대조를 마친 사업이 10건뿐이다. 나머지는 '예산이 없다'가 아니라 '아직 대조하지 못했다'로 남는다."
+  },
+  {
+   "rank": "2",
+   "outcome": "산업 생태계 형성 어려움",
+   "score": "3.70",
+   "c_status": "MVP 2순위 (역할중첩·시차 진단)",
+   "key": "ecosystem",
+   "covered": "partial",
+   "module": "사업 간 역할중첩·인계 단절 판정",
+   "gap": "같은 산업 안의 쌍만 쓴다. 산업이 다른 쌍은 접어 뒀다 — 실제 부서 협의로 이어지지 않기 때문이다."
+  },
+  {
+   "rank": "3",
+   "outcome": "정책 실효성 저하",
+   "score": "3.60",
+   "c_status": "상위 해석축",
+   "key": "fit",
+   "covered": "partial",
+   "module": "산업 수요 ↔ 사업 대조 (지원 유형 7종) + 산업 태세 판정",
+   "gap": "원문에 주는 것(수단)이 안 적힌 사업은 어떤 수요와도 맞출 수 없다 — 건수는 화면 3에 실측으로 표시한다. '덮는 사업이 없다'와 '수단을 못 읽었다'는 다르다."
+  },
+  {
+   "rank": "4",
+   "outcome": "지역 간 격차 심화",
+   "score": "3.10",
+   "c_status": "보조 시각화(행정구역 개편 반영 후)",
+   "key": "region",
+   "covered": "none",
+   "module": null,
+   "gap": "C8이 군구별 정규화를 해뒀으나 신설 4개 구(검단·서해·영종·제물포)의 인구통계가 없어 막혔고, C8 자체가 청년정책 범위라 6대 산업으로는 다시 계산해야 한다."
+  },
+  {
+   "rank": "5",
+   "outcome": "인재 유출과 일자리 미스매치",
+   "score": "3.00",
+   "c_status": "조건부 보류(워크넷 API 결과 대기)",
+   "key": "jobs",
+   "covered": "partial",
+   "module": "직무별 수요-사업 대조 (일자리 6단계)",
+   "gap": "C가 조건부 보류로 둔 축이다. 워크넷·NCS API가 차단돼 직종 축 실데이터가 없고, 직무 수요신호 5건 중 2건이 가상 표본이다."
+  },
+  {
+   "rank": "6",
+   "outcome": "기업의 정책 신뢰도 저하",
+   "score": "2.50",
+   "c_status": "별도 조사(정의 재검토 필요)",
+   "key": "trust",
+   "covered": "none",
+   "module": null,
+   "gap": "C가 '정의 자체가 애매하다'며 별도 조사로 뺐다 — 의회의 사업 타당성 의문은 기업 신뢰도와 다르다."
+  },
+  {
+   "rank": "7",
+   "outcome": "기업 경쟁력 약화",
+   "score": "2.30",
+   "c_status": "장기 결과(제외)",
+   "key": "competitiveness",
+   "covered": "none",
+   "module": null,
+   "gap": "C가 장기 결과로 제외했다 — 기업 단위 매출·고용·수출 데이터가 없어 정답 판정이 불가능하다."
+  }
+ ],
+ "axes_coverage": {
+  "total": 7,
+  "partial": 4,
+  "none": 3
+ },
+ "industries": [
+  "바이오",
+  "반도체",
+  "로봇",
+  "디지털데이터",
+  "미래차",
+  "항공"
+ ],
+ "principle": "현재 산업은 정책이 맞춰주고, 미래 산업은 정책이 유도한다.",
+ "need_label": {
+  "인력": "사람이 없다",
+  "기술": "기술·연구개발이 모자란다",
+  "금융": "돈을 못 구한다",
+  "판로": "팔 곳이 없다",
+  "공급망": "받쳐 줄 기업·기관이 없다",
+  "시설": "쓸 공간·장비가 없다",
+  "행정": "행정이 못 따라간다"
+ },
+ "responsive": "대응형",
+ "inducing": "유도형",
+ "b2_count": 78,
+ "inducement": [
+  {
+   "policy_id": "P009",
+   "name": "SW.AI기술 활용인력 양성교육",
+   "industry": "디지털데이터",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": true,
+     "detail": "상위 계획 인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 100명"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-AIR-001",
+   "name": "대한항공 영종 항공 MRO 클러스터 조성(민간투자 유치)",
+   "industry": "항공",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 운북지구 MRO 2,000명 이상 전문인력 상주 예정"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-AIR-002",
+   "name": "대한항공 신엔진정비공장 건립",
+   "industry": "항공",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 엔진 정비대수 88대 → 2030년 502대(보도)"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-AIR-003",
+   "name": "청년 항공정비(MRO) 특화교육",
+   "industry": "항공",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-AIR-004",
+   "name": "항공정비(MRO) 인력양성과정 - 일경험 프로그램",
+   "industry": "항공",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 교육생 20명 선발·개강"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-AIR-006",
+   "name": "공항경제권 구축",
+   "industry": "항공",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-AIR-007",
+   "name": "항공정비산업(MRO) 생태계 구축",
+   "industry": "항공",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-AIR-008",
+   "name": "대한항공 운항훈련센터",
+   "industry": "항공",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-DIG-001",
+   "name": "인천 양자클러스터 지정 추진 및 기업 기술개발·인력양성",
+   "industry": "디지털데이터",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": true,
+     "detail": "상위 계획 인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 1,000억원 전망"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-DIG-004",
+   "name": "디지털 인재 양성",
+   "industry": "디지털데이터",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": true,
+     "detail": "상위 계획 인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-DIG-006",
+   "name": "인천시 빅데이터 통합 플랫폼 / 인천데이터포털 운영",
+   "industry": "디지털데이터",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": true,
+     "detail": "상위 계획 인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 공공데이터 목록 3,471건(2023-03 기준)"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-ROB-001",
+   "name": "인천 로봇랜드 조성사업",
+   "industry": "로봇",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 전체 76만9,281㎡ 중 29만7,000㎡ 도시첨단산업단지 지정(2025-12)"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-ROB-002",
+   "name": "로봇랜드 산업단지 분양 및 기업유치",
+   "industry": "로봇",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-ROB-003",
+   "name": "인천로봇랜드 피지컬 AI 거점 육성",
+   "industry": "로봇",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-ROB-004",
+   "name": "2026년 로봇산업 혁신성장 지원사업",
+   "industry": "로봇",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-ROB-006",
+   "name": "인하대·인천대 AI·휴머노이드 기술개발 지원",
+   "industry": "디지털데이터",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": true,
+     "detail": "상위 계획 인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-ROB-007",
+   "name": "인천 로봇산업 혁신 클러스터(로봇 기반 산업혁신 플랫폼)",
+   "industry": "로봇",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-SEM-001",
+   "name": "시스템반도체 기술협력 체계 구축(한국생산기술연구원 협력)",
+   "industry": "반도체",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-SEM-003",
+   "name": "인하대 반도체 패키징 대학중점연구소 거점 R&D 대응체계",
+   "industry": "반도체",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-SEM-004",
+   "name": "반도체 설계(팹리스) 기업 발굴·육성",
+   "industry": "반도체",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": true,
+     "detail": "성과지표: 설계-제조-패키징 밸류체인 완성"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  },
+  {
+   "policy_id": "IC-SEM-007",
+   "name": "첨단 패키징 R&D 강화",
+   "industry": "반도체",
+   "evidence": [
+    {
+     "test": "상위계획",
+     "ok": false,
+     "detail": "이 산업을 명시한 상위 계획 문서를 원장에서 찾지 못했다"
+    },
+    {
+     "test": "출구조건",
+     "ok": false,
+     "detail": "성과지표가 원문에 없어 언제 접을지 판단할 근거가 없다"
+    },
+    {
+     "test": "선점논거",
+     "ok": false,
+     "detail": "타 지역 중복 여부는 조사 원장에 없다 — 담당자가 직접 확인해야 한다"
+    }
+   ]
+  }
+ ],
+ "counts": {
+  "works": 57,
+  "plans": 5
+ }
+}

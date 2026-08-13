@@ -1,0 +1,944 @@
+/*
+ * 정책핏 인천 — 화면 규칙
+ *
+ * 만드는 원칙 하나: 화면은 공문서를 흉내 낸다. 항목마다 왼쪽에 이름칸이 있고,
+ * 채우지 못한 칸에는 사선을 긋는다. 사선은 장식이 아니라 판정이다 —
+ * "여기는 판정하지 못했다"를 빈칸으로 두지 않는다는 뜻이다.
+ */
+
+:root {
+  /* 색 — 재생 관용지 위의 먹, 그리고 인주 */
+  --paper: #e5e8e2;
+  --sheet: #fbfbf8;
+  --sheet-2: #f3f4ef;
+  --ink: #14161a;
+  --ink-2: #5a6067;
+  --ink-3: #878d93;
+  --rule: #c3c8bf;
+  --rule-soft: #e0e3db;
+  --seal: #ab3527; /* 인주 — 조치가 필요한 것, 그리고 도장 */
+  --seal-soft: #f5e5e1;
+  --verified: #1b5e58; /* 원장과 대조가 끝난 것 */
+  --verified-soft: #dfeceb;
+  --pending: #7d6110; /* 일부만 확인된 것 */
+  --pending-soft: #f2ebd6;
+
+  --serif: "Song Myung", "Nanum Myeongjo", "Batang", serif;
+  --sans: "IBM Plex Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", "IBM Plex Sans KR", ui-monospace, monospace;
+
+  --rail-w: 15.5rem;
+  --gutter: 7.5rem; /* 공문서의 이름칸 폭 */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.72;
+  font-feature-settings: "tnum" 1;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--seal);
+  outline-offset: 2px;
+}
+
+/* ── 뼈대 ───────────────────────────────────────────────── */
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.rail {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  padding: 1.6rem 1.1rem 1.2rem;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.brand {
+  line-height: 1.3;
+}
+
+.brand b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.32rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.brand span {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.5rem;
+  padding: 0.62rem 0.45rem 0.62rem 0.15rem;
+  border-bottom: 1px solid var(--rule-soft);
+  text-decoration: none;
+  color: var(--ink-2);
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.step:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.step em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  padding-top: 0.12rem;
+}
+
+.step b {
+  display: block;
+  font-weight: 500;
+  font-size: 0.93rem;
+  line-height: 1.4;
+}
+
+.step i {
+  display: block;
+  font-style: normal;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+.step[aria-current="page"] {
+  color: var(--ink);
+  background: var(--sheet);
+  box-shadow: inset 2px 0 0 var(--seal);
+}
+
+.step[aria-current="page"] b {
+  font-weight: 600;
+}
+
+.railfoot {
+  margin-top: auto;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  line-height: 1.6;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.7rem;
+}
+
+.railfoot dl {
+  margin: 0 0 0.6rem;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.1rem 0.6rem;
+  justify-content: start;
+}
+
+.railfoot dt {
+  color: var(--ink-3);
+}
+
+.railfoot dd {
+  margin: 0;
+  font-family: var(--mono);
+  color: var(--ink-2);
+}
+
+.main {
+  background: var(--sheet);
+  border-left: 1px solid var(--rule);
+  margin-left: -1px;
+  min-width: 0;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.1rem;
+  padding: 0.75rem clamp(1.1rem, 4vw, 3.2rem);
+  background: var(--sheet);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+.topbar .spacer {
+  flex: 1;
+}
+
+.picker {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--ink-2);
+}
+
+.picker select {
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: var(--sheet-2);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 0.22rem 0.5rem;
+}
+
+.page {
+  padding: 2.2rem clamp(1.1rem, 4vw, 3.2rem) 5rem;
+  max-width: 74rem;
+}
+
+/* ── 문서 머리 ───────────────────────────────────────────── */
+
+.doctitle {
+  margin: 0 0 0.35rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.dockicker {
+  margin: 0 0 1.9rem;
+  font-size: 0.86rem;
+  color: var(--ink-2);
+  padding-bottom: 1.1rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* ── 항목 블록: 왼쪽 이름칸, 오른쪽 내용 ─────────────────── */
+
+.field {
+  display: grid;
+  grid-template-columns: var(--gutter) minmax(0, 1fr);
+  gap: 0 1.6rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.field > h2 {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  line-height: 1.6;
+  padding-top: 0.15rem;
+}
+
+.field > h2 small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}
+
+.field > div {
+  min-width: 0;
+}
+
+.lede {
+  margin: 0 0 1rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.note {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+
+.note b {
+  color: var(--ink);
+}
+
+/* ── 결론 도장 ───────────────────────────────────────────── */
+
+.verdict {
+  position: relative;
+  border: 1px solid var(--ink);
+  background: var(--sheet-2);
+  padding: 1.5rem 1.6rem 1.35rem;
+  margin: 0 0 0.4rem;
+}
+
+.verdict h3 {
+  margin: 0 0 0.75rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2.3vw, 1.6rem);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  max-width: 34ch;
+}
+
+.verdict h3 .keep {
+  white-space: nowrap;
+}
+
+.verdict h3 mark {
+  background: none;
+  color: var(--seal);
+  border-bottom: 2px solid var(--seal);
+  padding-bottom: 0.05rem;
+}
+
+.verdict p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+
+.stamp {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.2rem;
+  width: 5.4rem;
+  height: 5.4rem;
+  transform: rotate(-9deg);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* ── 판정 가능 범위 띠 ───────────────────────────────────── */
+
+.stripe {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  margin: 0.2rem 0 0.7rem;
+}
+
+.band {
+  border: 1px solid var(--rule);
+  background: var(--sheet);
+  padding: 0.45rem 0.5rem 0.55rem;
+  min-height: 5.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.band em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.7rem;
+  color: var(--ink-3);
+}
+
+.band span {
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.band .fill {
+  height: 0.42rem;
+  margin-top: auto;
+}
+
+.band.partial {
+  border-color: var(--pending);
+}
+
+.band.partial .fill {
+  background: linear-gradient(90deg, var(--pending) 0 55%, var(--pending-soft) 55% 100%);
+}
+
+.band.partial span {
+  color: var(--ink);
+}
+
+.band.none {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    var(--rule-soft) 6px 7px
+  );
+}
+
+.band.none .fill {
+  background: var(--rule-soft);
+}
+
+/* 사선 — 채우지 못한 칸. 이 화면의 서명. */
+.hatch {
+  background-image: repeating-linear-gradient(-45deg, transparent 0 6px, var(--rule) 6px 7px);
+}
+
+/* 표 안에서는 글씨를 가리지 않도록 결을 옅게 한다 — 읽히는 것이 먼저다. */
+.tbl td.hatch {
+  background-image: repeating-linear-gradient(-45deg, transparent 0 7px, var(--rule-soft) 7px 8px);
+}
+
+/* ── 지표 ────────────────────────────────────────────────── */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 1px;
+  background: var(--rule-soft);
+  border: 1px solid var(--rule-soft);
+  margin: 0 0 1.1rem;
+}
+
+.metric {
+  background: var(--sheet);
+  padding: 0.85rem 0.9rem 0.9rem;
+}
+
+.metric dt {
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+.metric dd {
+  margin: 0.15rem 0 0;
+  font-family: var(--mono);
+  font-size: 1.65rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.metric dd small {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  margin-left: 0.15rem;
+}
+
+.metric.alert dd {
+  color: var(--seal);
+}
+
+.metric.good dd {
+  color: var(--verified);
+}
+
+.metric .hint {
+  margin: 0.3rem 0 0;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* 확신 게이지 — 전체 중 얼마나 재 봤는가 */
+.gauge {
+  margin: 0.9rem 0 0;
+}
+
+.gauge .bar {
+  display: flex;
+  height: 0.55rem;
+  border: 1px solid var(--rule);
+}
+
+.gauge .bar i {
+  display: block;
+  background: var(--ink);
+}
+
+.gauge .bar u {
+  display: block;
+  flex: 1;
+  background-image: repeating-linear-gradient(-45deg, transparent 0 5px, var(--rule) 5px 6px);
+}
+
+.gauge p {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  color: var(--ink-2);
+}
+
+/* ── 표 ──────────────────────────────────────────────────── */
+
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.tbl th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  padding: 0.4rem 0.55rem;
+  border-bottom: 1.5px solid var(--ink);
+  white-space: nowrap;
+}
+
+.tbl td {
+  padding: 0.55rem 0.55rem;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.tbl tbody tr:hover {
+  background: var(--sheet-2);
+}
+
+.tbl .num {
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
+.tbl .sub {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  line-height: 1.55;
+}
+
+.tbl .lead {
+  font-weight: 600;
+}
+
+.tbl tr.void td {
+  color: var(--ink-3);
+}
+
+.scroll {
+  overflow-x: auto;
+}
+
+/* ── 표시 ────────────────────────────────────────────────── */
+
+.v {
+  display: inline-block;
+  font-size: 0.73rem;
+  letter-spacing: 0.02em;
+  padding: 0.05rem 0.42rem;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.v.ok {
+  color: var(--verified);
+  border-color: var(--verified);
+  background: var(--verified-soft);
+}
+
+.v.warn {
+  color: var(--pending);
+  border-color: var(--pending);
+  background: var(--pending-soft);
+}
+
+.v.act {
+  color: var(--seal);
+  border-color: var(--seal);
+  background: var(--seal-soft);
+}
+
+.v.na {
+  color: var(--ink-2);
+  border-color: var(--rule);
+  background: var(--sheet-2);
+}
+
+.sig {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--ink-3);
+}
+
+/* ── 알림 ────────────────────────────────────────────────── */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--ink-3);
+  background: var(--sheet-2);
+  padding: 0.8rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.86rem;
+}
+
+.callout.act {
+  border-left-color: var(--seal);
+}
+
+.callout.warn {
+  border-left-color: var(--pending);
+}
+
+.callout.ok {
+  border-left-color: var(--verified);
+}
+
+.callout p {
+  margin: 0.3rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.82rem;
+}
+
+.callout b {
+  color: var(--ink);
+}
+
+.callout ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--ink-2);
+  font-size: 0.82rem;
+}
+
+.callout li {
+  margin: 0.25rem 0;
+}
+
+/* ── 접는 항목 ───────────────────────────────────────────── */
+
+details.fold {
+  border-top: 1px solid var(--rule-soft);
+  padding: 0.55rem 0;
+}
+
+details.fold > summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  list-style: none;
+  display: flex;
+  gap: 0.55rem;
+  align-items: baseline;
+}
+
+details.fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.fold > summary::before {
+  content: "+";
+  font-family: var(--mono);
+  color: var(--seal);
+  width: 0.8rem;
+}
+
+details.fold[open] > summary::before {
+  content: "−";
+}
+
+details.fold > summary b {
+  font-weight: 500;
+}
+
+details.fold > summary .count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+.foldbody {
+  padding: 0.55rem 0 0.6rem 1.35rem;
+  font-size: 0.83rem;
+  color: var(--ink-2);
+}
+
+.foldbody ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.foldbody li {
+  margin: 0.2rem 0;
+}
+
+/* ── 짝 목록 ─────────────────────────────────────────────── */
+
+.pairs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pairs li {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.pairs .p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.pairs .p span {
+  color: var(--ink-3);
+}
+
+.pairs .why {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+/* ── 조치 목록 ───────────────────────────────────────────── */
+
+.todo {
+  list-style: none;
+  counter-reset: todo;
+  margin: 0;
+  padding: 0;
+}
+
+.todo li {
+  counter-increment: todo;
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  gap: 0 0.6rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.todo li::before {
+  content: counter(todo, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--seal);
+  padding-top: 0.22rem;
+}
+
+.todo b {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.todo p {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.todo a {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+.todo a:hover {
+  color: var(--seal);
+  border-bottom-color: var(--seal);
+}
+
+/* ── 근거 3항목 ──────────────────────────────────────────── */
+
+.tests {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tests li {
+  display: grid;
+  grid-template-columns: 3.4rem 5.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 0.82rem;
+}
+
+.tests li:last-child {
+  border-bottom: none;
+}
+
+.tests .detail {
+  color: var(--ink-2);
+}
+
+/* ── 낱말 정의 ───────────────────────────────────────────── */
+
+.defs {
+  border-top: 1.5px solid var(--ink);
+}
+
+.defs > div {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: 0.9rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 0.86rem;
+}
+
+.defs dt {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.defs dd {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.defs dd b {
+  color: var(--ink);
+}
+
+/* ── 애니메이션 — 한 번만, 화면에 들어올 때 ───────────────── */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page > * {
+  animation: rise 0.34s ease both;
+}
+
+.page > *:nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.page > *:nth-child(3) {
+  animation-delay: 0.08s;
+}
+
+.page > *:nth-child(n + 4) {
+  animation-delay: 0.12s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page > * {
+    animation: none;
+  }
+  * {
+    transition: none !important;
+  }
+}
+
+/* ── 좁은 화면 ───────────────────────────────────────────── */
+
+@media (max-width: 60rem) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rail {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+    border-top: none;
+  }
+
+  .step {
+    flex: 1 0 9.5rem;
+    border-bottom: none;
+    border-top: 2px solid var(--rule-soft);
+  }
+
+  .step[aria-current="page"] {
+    box-shadow: none;
+    border-top-color: var(--seal);
+  }
+
+  .step i {
+    display: none;
+  }
+
+  .railfoot {
+    margin-top: 0;
+  }
+
+  .main {
+    border-left: none;
+    margin-left: 0;
+  }
+
+  .field {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .stripe {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+  }
+
+  .band {
+    min-height: 0;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .band .fill {
+    display: none;
+  }
+
+  .stamp {
+    position: static;
+    display: block;
+    margin: 0 0 0.8rem auto;
+  }
+}

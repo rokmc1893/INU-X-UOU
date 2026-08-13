@@ -87,10 +87,36 @@ def test_공통은_명시적_전산업이라_덮는다():
     assert needs.coverage([card], rows)[0]["covers"] == ["P1"]
 
 
-def test_공백은_금융과_공급망에_몰려있다():
-    """확정 결론의 근거 — 이게 흔들리면 발표 결론도 바뀐다."""
+def test_계획문서는_수요를_덮지_않는다():
+    """예산이 안 붙는 계획이 수요를 덮는다고 나오면 공백이 통째로 사라진다.
+
+    실제로 「인천형 라이즈(i-RISE) 기본계획」이 미래차 인력 수요 4건을 덮는다고 나왔고,
+    그 탓에 '인력은 23건 전부 덮였다'는 잘못된 결론이 나왔다.
+    """
+    plan = {"policy_id": "PL", "name": "인천형 라이즈(i-RISE) 기본계획",
+            "strategic_industry": "미래차", "intervention_type": "교육훈련"}
+    rows = [{"signal_id": "D-1", "strategic_industry": "미래차",
+             "problem_type": "인력-질적 미스매치"}]
+    assert needs.needs_covered_by(plan) == []
+    assert needs.coverage([plan], rows)[0]["verdict"] == "uncovered"
+
+
+def test_미래차_인력공백이_확정결론의_근거다():
+    """시연 사례 — 미래차 사업은 기술·시설만 주는데 산업이 필요로 하는 건 사람이다."""
+    cards = load.cards()
+    cov = needs.coverage(cards, load.b2())
+    mob = [c for c in cov if c["industry"] == "미래차" and c["verdict"] == "uncovered"]
+    assert any(c["need"] == "인력" for c in mob), "미래차 인력 공백이 사라졌다"
+    means = set()
+    for c in cards:
+        if "미래차" in (c.get("strategic_industry") or ""):
+            means |= set(needs.needs_covered_by(c))
+    assert "인력" not in means, "미래차 사업이 인력 수단을 갖게 됐다 — 결론을 다시 확인하라"
+
+
+def test_공백이_한_유형에만_몰려있지_않다():
+    """축을 넓힌 효과 — 공백이 한 유형뿐이면 예전 상태로 되돌아간 것이다."""
     cards = load.cards()
     unc = [c for c in needs.coverage(cards, load.b2()) if c["verdict"] == "uncovered"]
     assert unc, "공백이 하나도 없으면 판정이 무력해진 것이다"
-    assert {c["need"] for c in unc} <= {"금융", "공급망"}, \
-        f"공백 유형이 바뀌었다: {sorted({c['need'] for c in unc})}"
+    assert len({c["need"] for c in unc}) >= 2

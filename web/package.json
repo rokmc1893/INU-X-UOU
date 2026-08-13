@@ -1,0 +1,23 @@
+{
+  "name": "policyfit-incheon-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "정책핏 인천 — 확정본 화면의 Next.js 재구현(껍데기). 판정 로직은 final/ 스트림릿 앱이 뽑아 둔 data/policyfit.json을 그대로 읽는다.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.5.23",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "typescript": "5.7.2"
+  }
+}
