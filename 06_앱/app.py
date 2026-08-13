@@ -213,20 +213,20 @@ purpose = st.sidebar.radio(
          "실제로는 기존 사업을 고치는 경우가 훨씬 많습니다 — 청년정책 69개 중 85.5%.")
 st.sidebar.caption(f"→ {PURPOSES[purpose]['stage']}")
 scope = st.sidebar.selectbox("분석 범위 — 산업 선택", list(SCOPES),
-                             help="산업을 추가하면 정책 풀에서 관련 정책을 끌어와 함께 진단합니다")
+                             help="산업을 추가하면 그 산업의 사업들을 함께 불러와 비교합니다")
 cards, demands, edges, store, findings = init(scope)
 by_id = {c["policy_id"]: c for c in cards}
 
-screen = st.sidebar.radio("화면", ["1 검토 개요", "2 정책 연계 지도", "3 유사·중복 검토표", "4 조치 제안서"])
+screen = st.sidebar.radio("화면", ["1 검토 개요", "2 사업 연계 지도", "3 유사·중복 검토표", "4 조치 제안서"])
 n_real_d = sum(1 for d in demands if d.get("data_type") == "real")
 st.sidebar.caption(f"그래프 스토어: **{store.name}**")
-with st.sidebar.expander(f"데이터 {len(cards)}건 — 어디서 왔나", expanded=False):
+with st.sidebar.expander(f"사업 {len(cards)}건 — 어디서 왔나", expanded=False):
     _raw_n = len(list((BASE / "policies" / "raw").glob("P*.txt")))
     _pool_n = len(cards) - _raw_n
     st.markdown(f"""
-**정책 {len(cards)}건**
+**사업 {len(cards)}건**
 - 인천청년포털 **원문 직접 수집 {_raw_n}건** — 각 카드에 원문 URL·수집일
-{f"- 조사자 B의 B1 정책원장에서 **{_pool_n}건** — 다수가 언론보도 2차 출처(카드에 등급 표기)" if _pool_n else ""}
+{f"- 조사자 B의 사업 원장에서 **{_pool_n}건** — 다수가 언론보도 2차 출처(카드에 등급 표기)" if _pool_n else ""}
 
 **수요신호 {len(demands)}건**
 - 조사자 B의 B2 원장 **29건을 읽어** 직무를 특정할 수 있는 **{n_real_d}건만** 신호로 씀
@@ -285,8 +285,8 @@ with st.sidebar.expander("① 검토할 신규사업(안) 넣기",
             except Exception as e:
                 st.error(f"카드 변환 실패 — 사업명·지원대상·사업내용을 포함해 다시 넣어 주세요. ({type(e).__name__})")
 
-with st.sidebar.expander("② 기존 정책 URL로 가져오기"):
-    url_in = st.text_input("정책 안내 페이지 URL", placeholder="https://youth.incheon.go.kr/...")
+with st.sidebar.expander("② 기존 사업을 주소로 가져오기"):
+    url_in = st.text_input("사업 안내 페이지 주소", placeholder="https://youth.incheon.go.kr/...")
     if st.button("가져와서 분석에 추가"):
         try:
             from engine.fetch import fetch_policy_text
@@ -398,6 +398,18 @@ def consult_block(pids):
 
 def name_of(pid):
     return by_id[pid].get("name") or pid
+
+
+PLAN_WORDS = ("기본계획", "종합계획", "발전전략", "5개년", "로드맵", "실행계획", "육성계획")
+
+
+def is_plan(c):
+    """계획·전략 문서인가 — 예산이 붙는 '사업'이 아니라 그 위의 방향 문서다.
+
+    유사·중복 검토의 대상은 사업이지 계획이 아니다. 계획을 사업과 나란히 두고
+    '중복'을 따지면 층위가 어긋난다.
+    """
+    return any(w in (c.get("name") or "") for w in PLAN_WORDS)
 
 
 def _esc(t):
@@ -615,7 +627,7 @@ def draft_report():
     return "\n".join(lines)
 
 
-SCREEN_TITLES = ["검토 개요", "정책 연계 지도", "유사·중복 검토표", "조치 제안"]
+SCREEN_TITLES = ["검토 개요", "사업 연계 지도", "유사·중복 검토표", "조치 제안"]
 _idx = int(screen[0]) - 1
 st.markdown(
     f'<div class="doc-head"><div class="t">{PURPOSES[purpose]["doc"]}</div>'
@@ -677,8 +689,10 @@ if screen.startswith("1"):
         f'<p class="small">기준사업 <b>인천 청년도약기지(취업아카데미)</b> '
         f'교육훈련 3개월 + 인턴십 3개월, 130명 · '
         f'<a href="{a.get("source_url")}">원문</a> · 수집 {a.get("retrieved_at")}<br>'
-        f'정책 {len(cards)}건을 그래프로 적재하고 규칙이 위 다섯 가지를 <b>후보</b>로 선별한다. '
-        f'판정에 AI는 개입하지 않는다.</p>', unsafe_allow_html=True)
+        f'<b>사업</b> {len(cards)}건을 그래프로 올리고, 규칙이 위 다섯 가지를 <b>후보</b>로 골라냅니다. '
+        f'고르는 일에 AI는 관여하지 않습니다.<br>'
+        f'검토 단위는 <b>예산이 붙는 사업</b>입니다 — 기본계획·종합계획 같은 상위 문서는 '
+        f'중복 검토 대상이 아니라 따로 표시합니다.</p>', unsafe_allow_html=True)
     st.divider()
     st.subheader("예산 반영 시점")
     _my_track = PURPOSES[purpose]["track"]
@@ -692,8 +706,8 @@ if screen.startswith("1"):
     st.caption("출처: 조사자 A의 A2 의사결정 달력 (증거 E021). 연도별 실제 공고일과 대조 필요.")
 
 elif screen.startswith("2"):
-    st.title("정책 연계 지도")
-    st.markdown('<p class="small">교육훈련부터 정착까지 6단계. 칸 사이 절취선이 인계가 끊긴 지점이다.</p>', unsafe_allow_html=True)
+    st.title("사업 연계 지도")
+    st.markdown('<p class="small">교육훈련부터 정착까지 6단계. 상자 하나가 사업 하나이고, 끊긴 선이 이어지는 절차가 없는 곳입니다.</p>', unsafe_allow_html=True)
     _focus = target_pid or ANCHOR
     _fname = (by_id.get(_focus) or {}).get("name") or _focus
     _svg, _hidden = chain_svg(_focus)
@@ -712,11 +726,17 @@ elif screen.startswith("2"):
         st.markdown('<p class="small">칸 사이에 이어지는 절차가 하나라도 있으면 실선, 없으면 절취선입니다. '
                     '정착 칸이 비어 있으면 취업한 뒤를 돌보는 정책이 없다는 뜻입니다.</p>',
                     unsafe_allow_html=True)
-        unstaged = [c for c in cards if not c.get("stage")]
-        if unstaged:
-            st.markdown('<p class="small">사슬 밖 — 시설을 짓거나 기업을 돕는 사업이라 '
+        _plans = [c for c in cards if is_plan(c)]
+        _other = [c for c in cards if not c.get("stage") and not is_plan(c)]
+        if _plans:
+            st.markdown('<p class="small"><b>계획·전략 문서</b> — 사업이 아니라 그 위의 방향 문서입니다. '
+                        '예산이 직접 붙지 않아 <b>중복 검토 대상이 아닙니다</b>: '
+                        + ", ".join(_esc(c.get("name") or c["policy_id"]) for c in _plans)
+                        + '</p>', unsafe_allow_html=True)
+        if _other:
+            st.markdown('<p class="small"><b>사슬 밖 사업</b> — 시설을 짓거나 기업을 돕는 사업이라 '
                         '사람의 취업 단계에 넣지 않았습니다: '
-                        + ", ".join(_esc(c.get("name") or c["policy_id"]) for c in unstaged)
+                        + ", ".join(_esc(c.get("name") or c["policy_id"]) for c in _other)
                         + '</p>', unsafe_allow_html=True)
     st.divider()
     st.subheader("인계 공백 후보 — 구간별 (사업 간 연계 끊김)")
@@ -753,7 +773,7 @@ elif screen.startswith("2"):
 
 elif screen.startswith("3"):
     st.title("유사·중복 검토표")
-    st.markdown('<p class="small">직무별로 어떤 정책이 있고, 겹치는 것이 낭비인지 아닌지를 가른다.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="small">직무별로 어떤 사업이 있고, 겹치는 것이 낭비인지 아닌지를 가릅니다.</p>', unsafe_allow_html=True)
     gap_occs = {g["occupation"]: g["reason"] for g in findings["gaps"]}
     hb_ids = {p for f in findings["handoff_breaks"] for p in f["items"]}
     oh_ids = {p for f in findings["overlaps_harmful"] for p in f["items"]}
@@ -763,7 +783,7 @@ elif screen.startswith("3"):
     tr = ['<table style="width:100%;border-collapse:collapse;font-size:.86rem">'
           '<tr style="border-bottom:1.5px solid var(--ink)">'
           '<th style="text-align:left;padding:.4rem .5rem">직무</th>'
-          '<th style="text-align:right;padding:.4rem .5rem;width:4.5rem">정책</th>'
+          '<th style="text-align:right;padding:.4rem .5rem;width:4.5rem">사업</th>'
           '<th style="text-align:left;padding:.4rem .5rem;width:20rem">판정 (후보)</th>'
           '<th style="text-align:left;padding:.4rem .5rem">소관 부서</th></tr>']
     for occ in OCCUPATIONS:

@@ -22,7 +22,8 @@ def test_app_parses():
 def test_app_defines_demo_entry_points():
     """데모 대본이 의존하는 함수가 실제로 정의돼 있다."""
     names = {n.name for n in ast.walk(_tree()) if isinstance(n, ast.FunctionDef)}
-    for fn in ("draft_report", "consult_lines", "a3_reviewers", "chain_html", "_findings_for"):
+    for fn in ("draft_report", "consult_lines", "a3_reviewers", "chain_html",
+               "_findings_for", "is_plan"):
         assert fn in names, f"{fn}이 app.py에 없다"
 
 
@@ -38,3 +39,10 @@ def test_next_action_covers_all_five_judgments():
     src = APP.read_text(encoding="utf-8")
     for key in ("gap", "handoff_break", "overlap_harmful", "overlap_intent", "complement"):
         assert f'"{key}"' in src, f"NEXT_ACTION에 {key}가 없다"
+
+
+def test_screen_terms_say_사업_not_정책():
+    """검토 단위는 예산이 붙는 '사업'이다 — 화면 용어가 '정책'과 섞이면 층위가 흐려진다."""
+    src = APP.read_text(encoding="utf-8")
+    assert "사업 연계 지도" in src
+    assert "정책 연계 지도" not in src
