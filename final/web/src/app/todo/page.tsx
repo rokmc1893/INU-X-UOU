@@ -12,12 +12,15 @@ import { Slots, Src, Tag } from "@/components/bits";
 import { buildChecklist } from "@/lib/checklist";
 import type { Review } from "@/lib/api";
 
+/* 어디로 가는지는 다르지만 하는 일은 같다 — 그 항목의 근거를 보러 간다.
+   단추 말이 넷이면 무엇이 다른지 읽느라 걸린다. */
 const GO = {
-  budget: { href: "/budget", label: "예산 보기" },
-  overlap: { href: "/links", label: "연계 보기" },
-  gap: { href: "/needs", label: "필요한 것 보기" },
-  draft: { href: "/action", label: "조치 보기" },
+  budget: "/budget",
+  overlap: "/links",
+  gap: "/needs",
+  draft: "/action",
 } as const;
+const GO_LABEL = "관련 정보 보기";
 
 export default function Home() {
   const { pid, r, err } = useReview();
@@ -78,10 +81,10 @@ export default function Home() {
                   <p className="mt-1.5 text-[13px] text-pen">→ {it.then}</p>
                 </div>
                 <Link
-                  href={{ pathname: go.href, query: { 사업: pid } }}
+                  href={{ pathname: go, query: { 사업: pid } }}
                   className="mt-0.5 shrink-0 rounded-md border border-rule px-2.5 py-1 text-[12px] text-muted hover:border-pen hover:text-pen"
                 >
-                  {go.label}
+                  {GO_LABEL}
                 </Link>
               </div>
             </li>

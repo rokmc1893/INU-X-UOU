@@ -96,7 +96,8 @@ export function buildChecklist(r: Review): Item[] {
     out.push({
       key: "thin", section: "gap", action: true, count: thin.length, unit: "자료",
       title: "사업 하나에만 걸린 것을 표시한다",
-      now: `${[...new Set(thin.map((t) => t.plain))].join("·")} — 해주는 사업이 하나뿐입니다.`,
+      now: `${[...new Set(thin.map((t) => t.plain))].join("·")} 자료 ${thin.length}건이 `
+        + `사업 하나에 걸려 있습니다.`,
       then: "그 사업이 멈추면 바로 빈칸이 된다는 것을 예산 심의에서 근거로 씁니다.",
     });
   }
@@ -105,7 +106,8 @@ export function buildChecklist(r: Review): Item[] {
     out.push({
       key: "mine", section: "gap", action: false, count: mine.length, unit: "자료",
       title: "이 사업이 맡고 있는 자리를 확인합니다",
-      now: `${[...new Set(mine.map((m) => m.plain))].join("·")} 쪽을 이 사업이 채우고 있습니다.`,
+      now: `${[...new Set(mine.map((m) => m.plain))].join("·")} 자료 ${mine.length}건을 `
+        + `이 사업이 채우고 있습니다.`,
       then: "개편안에서 무엇을 유지해야 하는지 분명해집니다.",
     });
   }
