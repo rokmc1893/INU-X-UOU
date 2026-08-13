@@ -130,15 +130,16 @@ def dept_info(dept_text):
 
 # 판정 → 공무원 다음 행동 번역 (A3 워크플로우 3단계 '유사·중복 검토' 기준)
 NEXT_ACTION = {
-    "gap": "신규사업 발의 검토 — 수요조사서 확보 후 사업계획서(안) 작성. "
-           "2027년 본예산 요구서 마감(6/30)은 지났으므로 1차 추경(2027.1) 또는 공모 대응이 최단 경로.",
-    "handoff_break": "두 사업 소관 부서 간 인계 절차 신설 협조공문 발송. "
-                     "예산 불요 조치이므로 예산 일정과 무관하게 즉시 착수 가능.",
-    "overlap_harmful": "유사·중복 사업 자체 검토서에 통합·조정안 기재, 소관 부서 협의 요청. "
-                       "차년도 통폐합 반영: 예산담당관 심사 8~9월.",
-    "overlap_intent": "조치 불요 — 검토서에 '의도적 병행' 사유만 기재 (신규 유사사업 발의 방지 근거).",
-    "complement": "조치 불요 — 검토서에 '수단이 달라 중복이 아님'을 기재한다. "
-                  "A3 3단계 반려사유는 '대상·수단·직무 동일'이므로, 이 기재가 부당 반려를 예방한다.",
+    "gap": "이 직무를 위한 사업을 새로 만들지 검토하세요. "
+           "먼저 수요조사서가 필요하고, 올해 본예산 신청은 마감됐으니 내년 1차 추경이나 공모가 빠릅니다.",
+    "handoff_break": "두 사업 담당 부서에 협조공문을 보내 넘기는 절차를 만드세요. "
+                     "돈이 안 드는 조치라 예산 일정과 상관없이 지금 시작할 수 있습니다.",
+    "overlap_harmful": "검토서에 '합치거나 조정하겠다'고 쓰고 상대 부서에 협의를 요청하세요. "
+                       "통폐합은 예산 심사(8~9월)에 반영됩니다.",
+    "overlap_intent": "할 일 없습니다. 검토서에 '일부러 나눠 놓은 것'이라고 이유만 적으세요. "
+                      "나중에 비슷한 사업을 또 만들자는 얘기가 나올 때 근거가 됩니다.",
+    "complement": "할 일 없습니다. 검토서에 '주는 것이 달라서 중복이 아니다'라고 적으세요. "
+                  "중복이라는 이유로 잘못 반려당하는 걸 막아 줍니다.",
 }
 
 # 분석 범위 — 값은 풀 카드의 strategic_industry와 대조한다 (None이면 청년일자리만)
@@ -155,14 +156,14 @@ SCOPES = {
 # A2 결정 달력의 두 트랙 = 공무원이 실제로 들어오는 두 경로 (D-025)
 PURPOSES = {
     "신규사업 발의": {
-        "stage": "A3 3단계 — 타 부서 협의·유사·중복 검토",
+        "stage": "다른 부서와 협의하고 비슷한 사업이 있는지 확인하는 단계",
         "track": "다음 연도 본예산 신규사업",
         "input": "사업기획서(안)을 넣고 기존 사업과 대조한다",
         "question": "내가 만들려는 사업이 기존 사업과 중복인가?",
         "doc": "유사·중복 사업 사전 검토",
     },
     "기존사업 개편": {
-        "stage": "A3 7→8단계 — 성과평가·환류 → 차년도 개편",
+        "stage": "성과를 평가해서 내년 사업을 고치는 단계",
         "track": "기존사업 개편/확대",
         "input": "개편을 검토할 기존 사업을 고른다",
         "question": "이 사업을 유지할까, 보완할까, 연결할까, 통합할까?",
@@ -208,8 +209,8 @@ def init(scope: str):
 st.sidebar.title("정책핏 인천")
 purpose = st.sidebar.radio(
     "무슨 검토를 하십니까", list(PURPOSES),
-    help="인천시 결정 달력(A2)에 두 트랙이 별도로 있습니다. "
-         "빈도는 기존사업 개편이 압도적입니다 — 청년정책 69개 사업 중 계속·확대 85.5%.")
+    help="인천시 예산 일정에 두 갈래가 따로 있습니다. "
+         "실제로는 기존 사업을 고치는 경우가 훨씬 많습니다 — 청년정책 69개 중 85.5%.")
 st.sidebar.caption(f"→ {PURPOSES[purpose]['stage']}")
 scope = st.sidebar.selectbox("분석 범위 — 산업 선택", list(SCOPES),
                              help="산업을 추가하면 정책 풀에서 관련 정책을 끌어와 함께 진단합니다")
@@ -259,12 +260,12 @@ if purpose == "기존사업 개편":
     target_pid = st.sidebar.selectbox(
         "개편을 검토할 사업", _opts, index=_opts.index(ANCHOR) if ANCHOR in _opts else 0,
         format_func=lambda p: (by_id[p].get("name") or p)[:32],
-        help="A3 7단계 성과평가 → 8단계 차년도 개편의 대상 사업")
+        help="성과를 보고 내년에 고칠지 판단할 사업을 고르세요")
 
 with st.sidebar.expander("① 검토할 신규사업(안) 넣기",
                          expanded=(purpose == "신규사업 발의")):
-    st.caption("A3 3단계 — 발의하려는 사업의 개요를 붙여넣으면 기존 사업과 대조합니다. "
-               "신규사업은 공고가 없으므로 URL 대신 이 칸을 씁니다.")
+    st.caption("만들려는 사업의 개요를 붙여넣으면 기존 사업과 비교해 드립니다. "
+               "새 사업은 아직 공고가 없으니 주소(URL) 대신 여기에 적으세요.")
     draft_in = st.text_area(
         "사업기획서(안) 개요",
         height=130,
@@ -377,17 +378,17 @@ def consult_lines(pids):
     out = []
     if any(o is None for o in raw):
         known = ", ".join(sorted(owners)) or "없음"
-        out.append(f"소관: 확인된 부서 {known} · **나머지는 소관 미확인** — "
-                   "원문에서 주관기관을 추출하지 못했다. 협의 전에 사무분장으로 확인할 것.")
+        out.append(f"담당 부서: {known} (나머지는 확인 안 됨 — 공고문에 주관기관이 안 적혀 있습니다. "
+                   "공문 보내기 전에 사무분장으로 확인하세요)")
     elif len(owners) == 1:
-        out.append(f"소관: {next(iter(owners))} — 두 사업이 같은 부서 소관이므로 "
-                   "협조공문이 아니라 부서 내 조정 사안이다.")
+        out.append(f"담당 부서: {next(iter(owners))} — 두 사업이 같은 부서 것이라 "
+                   "공문 보낼 필요 없이 부서 안에서 조정하면 됩니다.")
     else:
-        out.append("소관 협의: " + " ↔ ".join(dept_of(p) for p in pids))
+        out.append("협의할 부서: " + " ↔ ".join(dept_of(p) for p in pids))
     for name, tel, why in a3_reviewers(pids):
         if any(name in (o or "") for o in owners):
             continue
-        out.append(f"A3 3단계 필수 검토자: {name}" + (f" · ☎ {tel}" if tel else "") + f" ({why})")
+        out.append(f"반드시 함께 검토: {name}" + (f" · ☎ {tel}" if tel else "") + f" — {why}")
     return out
 
 
@@ -642,33 +643,34 @@ if screen.startswith("1"):
                    f"[원문]({_t.get('source_url')})")
         _opts = renewal_options(target_pid)
         if not _opts:
-            st.info("이 사업에 걸린 판정이 없다. 관계상으로는 개편 사유가 나오지 않는다 — "
-                    "성과평가서로 판단해야 한다.")
+            st.info("다른 사업과의 관계에서는 고칠 이유가 나오지 않았습니다. "
+                    "성과평가서를 봐야 판단할 수 있습니다.")
         for name, why, how, grounded in _opts:
             (st.success if grounded else st.warning)(
                 f"**{name}** — {why}\n\n　→ {how}"
                 + ("" if grounded else "\n\n　⚠ **근거 부족**: 이 선택지는 지금 데이터로 결론 낼 수 없다."))
-        st.caption("A3 8단계의 결과는 유지·증액/감액·통합·일몰이다. "
-                   "증액·감액·일몰은 **성과평가서(7단계 입력문서, 비공개)** 없이 판단하지 않는다 — "
-                   "조사자 B의 정책원장에서 성과지표가 채워진 사업은 25%뿐이다(B0 Q5).")
+        st.markdown('<p class="small"><b>돈을 늘릴지 줄일지, 접을지는 여기서 판단할 수 없습니다.</b> '
+                    '그러려면 이 사업이 성과를 냈는지 알아야 하는데, 성과평가서는 공개되지 않습니다. '
+                    '공개된 자료에 성과지표가 적힌 사업은 넷 중 하나뿐입니다.</p>',
+                    unsafe_allow_html=True)
         st.divider()
     c1, c2, c3, c4, c5 = st.columns(5)
     _gap_occs = sorted({g["occupation"] for g in findings["gaps"]})
     c1.metric("지원 공백 후보", f"{len(_gap_occs)}개 직무",
               help=f"{', '.join(_gap_occs) or '없음'} — 수요신호 {len(findings['gaps'])}건이 "
                    "이 직무를 특정하는 정책 없이 남아 있다. 신규사업 발의 검토 대상.")
-    c2.metric("인계 공백 후보", f"{len(findings['handoff_breaks'])}쌍", help="부서 간 협조공문 검토 대상")
+    c2.metric("인계 공백 후보", f"{len(findings['handoff_breaks'])}쌍", help="앞뒤 사업을 이어 주는 절차가 없는 곳입니다. 협조공문 대상.")
     if len(findings["handoff_breaks"]) > 50:
         st.warning(f"**인계 공백 {len(findings['handoff_breaks'])}쌍은 그대로 검토서에 넣을 수 없다.** "
                    "전수 비교(O(N²))에 '전직무'가 모든 직무와 겹치도록 설계된 결과다. "
                    "실사용에는 우선순위 스코어링과 상위 N건 컷이 필요하며, 아직 구현하지 않았다 — "
                    "지금은 기준사업이 걸린 쌍부터 보이도록 정렬만 해 두었다.")
     c3.metric("조정 필요 중복 후보", f"{len(findings['overlaps_harmful'])}건",
-              help="대상·수단·직무가 같고 상호 인계도 없음 — A3 3단계 반려사유. 검토서 기재 대상")
+              help="받는 사람·주는 것·직무가 모두 같은 사업 쌍입니다. 검토서에 적어야 합니다.")
     c4.metric("의도적 병행", f"{len(findings['overlaps_intentional'])}건",
-              help="수단은 같으나 대상이 명시적으로 다름 — 조치 불요, 사유만 기재")
+              help="주는 것은 같지만 받는 사람이 다릅니다. 할 일은 없고 이유만 적으면 됩니다.")
     c5.metric("보완 관계", f"{len(findings.get('complements', []))}건",
-              help="같은 단계·대상이나 수단이 다름 — 중복이 아님")
+              help="같은 단계지만 주는 것이 달라 중복이 아닙니다.")
     st.divider()
     a = by_id.get(ANCHOR, {})
     st.markdown(
@@ -693,47 +695,29 @@ elif screen.startswith("2"):
     st.title("정책 연계 지도")
     st.markdown('<p class="small">교육훈련부터 정착까지 6단계. 칸 사이 절취선이 인계가 끊긴 지점이다.</p>', unsafe_allow_html=True)
     _focus = target_pid or ANCHOR
+    _fname = (by_id.get(_focus) or {}).get("name") or _focus
     _svg, _hidden = chain_svg(_focus)
     st.markdown(_svg, unsafe_allow_html=True)
-    _fname = (by_id.get(_focus) or {}).get("name") or _focus
     st.markdown(
         f'<p class="small">'
-        f'<span style="color:#0E5A8A">━</span> 확인된 인계 (굵은 선은 조사자 B가 문서로 확인한 것) &nbsp;·&nbsp; '
-        f'<span style="color:#B4402E">┅ ✂</span> 인계 공백 &nbsp;·&nbsp; '
-        f'<span style="color:#B4402E">▌</span> 초점 사업 <b>{_esc(_fname)}</b><br>'
-        f'선을 전부 그리면 읽을 수 없으므로 <b>인계 공백은 초점 사업에 걸린 것만</b> 그린다. '
-        f'나머지 {_hidden}쌍은 아래 목록에 있다. 상자에 마우스를 올리면 소관·수단이 나온다.</p>',
+        f'<span style="color:#0E5A8A">──▶</span> 다음 사업으로 <b>이어짐</b> '
+        f'(굵은 선은 조사자가 문서로 확인한 것) &nbsp;·&nbsp; '
+        f'<span style="color:#B4402E">┅ ✂</span> 이어지는 절차가 <b>없음</b> &nbsp;·&nbsp; '
+        f'<span style="color:#B4402E">▌</span> 지금 보는 사업 <b>{_esc(_fname)}</b><br>'
+        f'끊긴 곳을 다 그리면 알아볼 수 없어서 <b>지금 보는 사업의 것만</b> 그렸습니다. '
+        f'나머지 {_hidden}쌍은 아래 목록에 있습니다. 상자에 마우스를 올리면 담당 부서가 나옵니다.</p>',
         unsafe_allow_html=True)
-    st.markdown(chain_html(), unsafe_allow_html=True)
-    st.markdown('<p class="small">단계 요약 — 인접 단계 사이에 인계가 하나라도 있으면 실선, '
-                '없으면 절취선. 정착 칸이 비어 있으면 취업 이후를 다루는 정책이 없다는 뜻이다.</p>',
-                unsafe_allow_html=True)
-    # 다단계 인계 사슬 — 쌍(pair) 비교로는 나오지 않는 관계. 그래프 질의의 값이 여기서 나온다.
-    try:
-        _chains = store.chains()
-    except Exception:
-        _chains = []
-    if _chains:
-        st.subheader("이어지는 인계 사슬")
-        st.markdown(
-            f'<p class="small">A→B→C로 <b>2단계 이상 이어지는 경로</b> {len(_chains)}건. '
-            f'쌍끼리 비교해서는 나오지 않고, 그래프를 따라가야 나온다 — '
-            f'Cypher로는 <code>[:HANDOFF*2..3]</code> 한 줄, 파이썬으로는 순회를 직접 쓴다. '
-            f'(현재 스토어: <b>{store.name}</b>)</p>', unsafe_allow_html=True)
-        for ch in _chains[:6]:
-            st.markdown('<p class="small">　'
-                        + ' <span style="color:#0E5A8A">→</span> '.join(
-                            f'<b>{_esc((by_id.get(p) or {}).get("name") or p)}</b>' for p in ch)
+    with st.expander("단계별 요약 보기"):
+        st.markdown(chain_html(), unsafe_allow_html=True)
+        st.markdown('<p class="small">칸 사이에 이어지는 절차가 하나라도 있으면 실선, 없으면 절취선입니다. '
+                    '정착 칸이 비어 있으면 취업한 뒤를 돌보는 정책이 없다는 뜻입니다.</p>',
+                    unsafe_allow_html=True)
+        unstaged = [c for c in cards if not c.get("stage")]
+        if unstaged:
+            st.markdown('<p class="small">사슬 밖 — 시설을 짓거나 기업을 돕는 사업이라 '
+                        '사람의 취업 단계에 넣지 않았습니다: '
+                        + ", ".join(_esc(c.get("name") or c["policy_id"]) for c in unstaged)
                         + '</p>', unsafe_allow_html=True)
-        if len(_chains) > 6:
-            st.markdown(f'<p class="small">　외 {len(_chains)-6}건</p>', unsafe_allow_html=True)
-
-    unstaged = [c for c in cards if not c.get("stage")]
-    if unstaged:
-        st.markdown('<p class="small">사슬 밖(시설·기업지원·계획 등) — 사람의 취업 단계를 직접 '
-                    '다루지 않아 사슬에 넣지 않았다: '
-                    + ", ".join(_esc(c.get("name") or c["policy_id"]) for c in unstaged)
-                    + '</p>', unsafe_allow_html=True)
     st.divider()
     st.subheader("인계 공백 후보 — 구간별 (사업 간 연계 끊김)")
     groups = {}

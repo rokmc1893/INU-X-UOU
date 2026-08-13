@@ -92,17 +92,17 @@ def build_edges(cards, demands, linkages=None):
         if _means_differ(a, b):
             # 수단이 다르면 중복이 아니라 보완 관계다 (정장 대여 vs 활동비 현금지원)
             edges.append({"src": pa, "dst": pb, "type": "OVERLAP_COMPLEMENTARY",
-                          "props": {"reason": f"같은 단계·대상이나 수단이 다름"
-                                              f"({a.get('intervention_type')} vs {b.get('intervention_type')}) — 보완 관계"}})
+                          "props": {"reason": f"주는 것이 다릅니다 — "
+                                              f"{a.get('intervention_type')} vs {b.get('intervention_type')}"}})
             continue
         if _target_differs_explicitly(a, b):
             edges.append({"src": pa, "dst": pb, "type": "OVERLAP_INTENTIONAL",
-                          "props": {"reason": f"수단({a.get('intervention_type') or '미상'})은 같으나 "
-                                              "대상 세분 또는 지역이 명시적으로 다름 — 낭비 아님"}})
+                          "props": {"reason": f"주는 것은 같지만({a.get('intervention_type') or '미상'}) "
+                                              "받는 사람이나 지역이 다릅니다"}})
         else:
             edges.append({"src": pa, "dst": pb, "type": "OVERLAP_HARMFUL",
-                          "props": {"reason": f"대상·수단({a.get('intervention_type') or '미상'})·직무가 "
-                                              "같고 상호 인계도 없음 — A3 3단계 반려사유에 해당"}})
+                          "props": {"reason": f"받는 사람·주는 것({a.get('intervention_type') or '미상'})·"
+                                              "직무가 모두 같습니다"}})
     return edges
 
 
@@ -155,17 +155,17 @@ def run_rules(cards, demands, edges, linkages=None):
             res["handoff_breaks"].append({
                 "items": [first["policy_id"], second["policy_id"]],
                 "evidence": "조사 확인(B3)" if confirmed else "원문 미언급",
-                "reason": f"{first.get('stage')}→{second.get('stage')} 구간에 명시된 인계 없음"
-                          + (" — **조사자가 확인한 부재**" if confirmed else "")})
+                "reason": f"{first.get('stage')} 다음 {second.get('stage')}(으)로 넘기는 절차가 문서에 없습니다"
+                          + (" (조사자가 직접 찾아봤지만 없었음)" if confirmed else "")})
     covered_specific = {e["dst"] for e in edges if e["type"] == "COVERS"
                         and e["props"].get("specificity") == "specific"}
     covered_generic = {e["dst"] for e in edges if e["type"] == "COVERS"
                        and e["props"].get("specificity") == "generic"}
     for d in demands:  # 공백 후보: 직무를 특정하여 다루는 정책이 없음
         if d["signal_id"] not in covered_specific:
-            note = " (전직무 일반 지원만 존재)" if d["signal_id"] in covered_generic else ""
+            note = " (모든 직무 대상 일반 지원만 있습니다)" if d["signal_id"] in covered_generic else ""
             res["gaps"].append({"signal_id": d["signal_id"], "occupation": d["occupation"],
-                                "reason": "이 직무를 특정하는 정책 없음" + note})
+                                "reason": "이 직무를 콕 집어 다루는 정책이 없습니다" + note})
     for e in edges:
         if e["type"] == "OVERLAP_HARMFUL":
             res["overlaps_harmful"].append({"items": [e["src"], e["dst"]],
