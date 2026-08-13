@@ -5,32 +5,49 @@
   "owner_dept": "인천광역시 청년정책담당관",
   "executor": "인천테크노파크 고용안정센터",
   "problem": null,
-  "target": {"age_min": 18, "age_max": 39, "residency": "인천", "employment_status": "미취업"},
+  "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": "재학생 제외",
+    "income_criteria": "가구 기준 중위소득 50% 초과 ~ 150% 이하인 자 (건강보험료 소득판정 기준, 2026년 1월과 2월 고지액 평균)"
+  },
   "stage": "구직지원",
-  "occupation": ["전직무"],
-  "intervention": "구직활동 직·간접 비용 지원 — 1인 월 50만원씩 최대 6개월(최대 300만원 지원)",
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": "구직활동에 관련된 직·간접 비용",
   "region": "인천",
   "application_period": "2026. 3. 3. 00:00 ~ 3. 18. 18:00",
-  "budget": null,
-  "output_kpi": "600명",
+  "budget": "최대 300만원 지원",
+  "output_kpi": null,
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
   "source_span": {
-    "name": "드림체크카드(구직활동비 지원) - 사업안내",
-    "owner_dept": "주관기관: 인천광역시 청년정책담당관",
-    "executor": "운영기관: 인천테크노파크 고용안정센터",
+    "name": "드림체크카드(구직활동비 지원)",
+    "owner_dept": "인천광역시 청년정책담당관",
+    "executor": "인천테크노파크 고용안정센터",
     "target": "지원대상: 공고일 기준 인천 거주 18세 ~ 39세 구직활동 중인 미취업 청년",
-    "employment_status": "공고일 기준 구직 중에 있는 미취업 청년",
-    "residency": "공고일 기준 주민등록 상 거주지가 인천광역시인 자",
-    "intervention": "지원금액: 1인 월 50만원씩 최대 6개월(최대 300만원 지원)",
-    "application_period": "신청기간: 2026. 3. 3. 00:00 ~ 3. 18. 18:00",
-    "output_kpi": "지원규모: 600명"
+    "stage": "구직지원",
+    "occupation": "전직무",
+    "intervention": "구직활동에 관련된 직·간접 비용",
+    "region": "인천",
+    "application_period": "2026. 3. 3. 00:00 ~ 3. 18. 18:00",
+    "budget": "최대 300만원 지원"
   },
-  "missing_fields": ["status", "problem", "budget", "outcome_kpi"],
+  "missing_fields": [
+    "status",
+    "problem",
+    "output_kpi",
+    "outcome_kpi"
+  ],
   "source_url": "https://youth.incheon.go.kr/job/dream.jsp",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_extraction": "manual_provisional",
-  "_validation_errors": []
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음",
+    "source_span[occupation]: 인용문이 원문에 없음"
+  ]
 }

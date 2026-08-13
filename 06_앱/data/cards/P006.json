@@ -2,35 +2,49 @@
   "policy_id": "P006",
   "name": "청년 자격증 응시료 지원",
   "status": null,
-  "owner_dept": "인천광역시 청년정책담당관",
-  "executor": "인천시 군·구",
+  "owner_dept": null,
+  "executor": null,
   "problem": null,
-  "target": {"age_min": 18, "age_max": 39, "residency": "인천", "employment_status": "미취업"},
+  "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+  },
   "stage": "구직지원",
-  "occupation": ["전직무"],
+  "occupation": [
+    "전직무"
+  ],
   "intervention": "1인 1회, 연 최대 10만원 범위 자격증시험 응시료 지원",
   "region": "인천",
   "application_period": "2026.02.01(09시) ~ 2026.11.30(18시)",
   "budget": null,
-  "output_kpi": "5500명",
+  "output_kpi": null,
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
   "source_span": {
-    "name": "청년 자격증 응시료 지원 - 사업 안내",
-    "owner_dept": "주관기관: 인천광역시 청년정책담당관",
-    "executor": "운영기관: 인천시 군·구",
+    "name": "청년 자격증 응시료 지원",
     "target": "18세~39세 청년(1986.1.1. ~ 2008.12.31.출생)",
-    "residency": "신청일 현재 주민등록상 인천시 거주자이며",
-    "employment_status": "응시일 현재 미취업자",
+    "stage": "지원대상",
+    "occupation": "지원 자격증 종목: 국가기술자격증, 국가전문자격증, 국가공인민간자격, 한국사 및 어학시험",
     "intervention": "1인 1회, 연 최대 10만원 범위 자격증시험 응시료 지원",
-    "application_period": "신청기간: 2026.02.01(09시) ~ 2026.11.30(18시)",
-    "output_kpi": "지원규모: 5500명"
+    "region": "인천",
+    "application_period": "신청기간: 2026.02.01(09시) ~ 2026.11.30(18시)"
   },
-  "missing_fields": ["status", "problem", "budget", "outcome_kpi"],
+  "missing_fields": [
+    "status",
+    "owner_dept",
+    "executor",
+    "problem",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
   "source_url": "https://youth.incheon.go.kr/job/certificate.jsp",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_extraction": "manual_provisional",
   "_validation_errors": []
 }

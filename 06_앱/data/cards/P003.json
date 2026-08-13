@@ -5,32 +5,51 @@
   "owner_dept": "인천광역시 청년정책담당관",
   "executor": "(재)인천테크노파크 청년일자리센터",
   "problem": null,
-  "target": {"age_min": 18, "age_max": 39, "residency": null, "employment_status": "미취업"},
+  "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": null,
+    "employment_status": "미취업",
+    "student_status": "재학생 제외",
+    "income_criteria": null
+  },
   "stage": "구직지원",
-  "occupation": ["전직무"],
+  "occupation": [
+    "전직무"
+  ],
   "intervention": "심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화 등 맞춤형 프로그램 지원",
-  "region": null,
+  "region": "인천",
   "application_period": "2026. 1. 29.(목). ~ 9.30.(수)",
   "budget": null,
-  "output_kpi": "264명 모집",
+  "output_kpi": null,
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
   "source_span": {
-    "name": "청년도전 지원사업 안내",
-    "owner_dept": "주관기관: 인천광역시 청년정책담당관",
-    "executor": "운영기관: (재)인천테크노파크 청년일자리센터",
-    "target": "지원연령: 18세 ~ 39세",
-    "employment_status": "미취업 청년",
-    "stage": "심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화",
-    "intervention": "사업내용: 심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화 등 맞춤형 프로그램 지원",
-    "application_period": "신청기간: 2026. 1. 29.(목). ~ 9.30.(수)",
-    "output_kpi": "지원규모: 264명 모집"
+    "name": "청년도전 지원사업",
+    "owner_dept": "인천광역시 청년정책담당관",
+    "executor": "(재)인천테크노파크 청년일자리센터",
+    "target": "(신청일 이전 6개월 이상 취업·교육·직업훈련 참여이력이 없는) 18세 ~ 34세 미취업 청년, 자립준비청년, 청소년복지시설 등 입·퇴소 청년, 북한 이탈 청년, 가습기 살균제 피해청년",
+    "stage": "구직지원",
+    "occupation": [
+      "전직무"
+    ],
+    "intervention": "심층상담, 유형별 분류, 자신감 회복, 진로탐색, 취업역량 강화 등 맞춤형 프로그램 지원",
+    "region": "인천",
+    "application_period": "2026. 1. 29.(목). ~ 9.30.(수)"
   },
-  "missing_fields": ["status", "problem", "region", "budget", "outcome_kpi"],
+  "missing_fields": [
+    "status",
+    "problem",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
   "source_url": "https://youth.incheon.go.kr/job/challenge.jsp",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_extraction": "manual_provisional",
-  "_validation_errors": []
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음",
+    "source_span[occupation]: 인용문이 원문에 없음"
+  ]
 }

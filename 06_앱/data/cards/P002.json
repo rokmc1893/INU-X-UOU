@@ -5,9 +5,16 @@
   "owner_dept": "청년정책담당관",
   "executor": null,
   "problem": null,
-  "target": {"age_min": null, "age_max": null, "residency": null, "employment_status": null},
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
   "stage": null,
-  "occupation": [],
+  "occupation": null,
   "intervention": null,
   "region": null,
   "application_period": null,
@@ -17,13 +24,25 @@
   "linked_upstream": [],
   "linked_downstream": [],
   "source_span": {
-    "name": "인천광역시 제2차 청년정책 기본계획(2026-2030)",
-    "owner_dept": "담당부서: 청년정책담당관"
+    "name": "인천광역시 제2차 청년정책 기본계획(2026~2030)",
+    "owner_dept": "청년정책담당관"
   },
-  "missing_fields": ["status", "executor", "problem", "stage", "intervention", "region", "application_period", "budget", "output_kpi", "outcome_kpi"],
+  "missing_fields": [
+    "status",
+    "executor",
+    "problem",
+    "target",
+    "stage",
+    "occupation",
+    "intervention",
+    "region",
+    "application_period",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
   "source_url": "https://youth.incheon.go.kr/bbs/bbsMsgDetail.do?bcd=data&msg_seq=22",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_extraction": "manual_provisional",
   "_validation_errors": []
 }

@@ -5,32 +5,48 @@
   "owner_dept": "인천광역시 청년정책담당관",
   "executor": "인천테크노파크 일자리센터",
   "problem": null,
-  "target": {"age_min": 18, "age_max": 39, "residency": null, "employment_status": null},
+  "target": {
+    "age_min": 18,
+    "age_max": 39,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+  },
   "stage": "채용지원",
-  "occupation": ["전직무"],
+  "occupation": [
+    "전직무"
+  ],
   "intervention": "근로환경개선을 위한 시설 개보수 및 물품구입 비용 지원",
   "region": "인천",
   "application_period": null,
   "budget": "기업별 6백만원 ~ 24백만원 이내(청년 신규채용 1인당 3백만원 기준)",
-  "output_kpi": "20개사 내외",
+  "output_kpi": null,
   "outcome_kpi": null,
   "linked_upstream": [],
   "linked_downstream": [],
   "source_span": {
     "name": "청년고용 우수기업 근로환경 개선 사업",
-    "owner_dept": "주관기관: 인천광역시 청년정책담당관",
-    "executor": "운영기관: 인천테크노파크 일자리센터",
+    "owner_dept": "인천광역시 청년정책담당관",
+    "executor": "인천테크노파크 일자리센터",
     "target": "지원연령: 18세 ~ 39세",
-    "stage": "인천 소재 중소기업: 청년신규채용 2인 이상 채용(상시근로자 5인 이상)",
+    "stage": "채용지원",
+    "occupation": "전직무",
     "intervention": "근로환경개선을 위한 시설 개보수 및 물품구입 비용 지원",
-    "region": "인천 소재 중소기업",
-    "budget": "기업별 6백만원 ~ 24백만원 이내(청년 신규채용 1인당 3백만원 기준)",
-    "output_kpi": "지원규모: 20개사 내외"
+    "region": "인천",
+    "budget": "기업별 6백만원 ~ 24백만원 이내(청년 신규채용 1인당 3백만원 기준)"
   },
-  "missing_fields": ["status", "problem", "application_period", "outcome_kpi"],
+  "missing_fields": [
+    "status",
+    "problem",
+    "application_period",
+    "output_kpi",
+    "outcome_kpi"
+  ],
   "source_url": "https://youth.incheon.go.kr/job/working.jsp",
   "retrieved_at": "2026-08-13",
   "data_type": "real",
-  "_extraction": "manual_provisional",
-  "_validation_errors": []
+  "_validation_errors": [
+    "source_span[occupation]: 인용문이 원문에 없음"
+  ]
 }

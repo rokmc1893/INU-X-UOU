@@ -66,8 +66,10 @@ def main():
         if raw:  # 인용 실재율: source_span이 원문에 실재하는지 재검증
             _, body = parse_meta(raw.read_text(encoding="utf-8"))
             nb = _norm(body)
-            c["_span_check"] = {f: (_norm(q) in nb)
-                                for f, q in (c.get("source_span") or {}).items() if q}
+            span = c.get("source_span")
+            span = span if isinstance(span, dict) else {}
+            c["_span_check"] = {f: (_norm(str(q)) in nb)
+                                for f, q in span.items() if q}
         cards[c["policy_id"]] = c
     with open(base / "gold" / "gold_set.csv", encoding="utf-8-sig") as f:
         gold = list(csv.DictReader(f))
