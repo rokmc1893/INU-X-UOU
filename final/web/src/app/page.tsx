@@ -74,12 +74,12 @@ export default function Landing() {
            style={{ animationDelay: ".05s" }}>
           인천광역시 · 6대 전략산업
         </p>
-        <h1 className="rise mt-2 max-w-[25ch] text-[34px] leading-[1.28] tracking-tight sm:text-[40px]"
+        <h1 className="rise mt-2 text-[34px] leading-[1.28] tracking-tight sm:text-[42px] lg:text-[46px]"
             style={{ animationDelay: ".1s" }}>
           맡으신 사업이 <span className="whitespace-nowrap text-pen">필요하다고 말한 것</span>과{" "}
-          <br className="hidden sm:inline" />맞는지 확인합니다
+          맞는지 확인합니다
         </h1>
-        <p className="rise mt-3.5 max-w-[600px] text-[15px] leading-[1.7] text-muted"
+        <p className="rise mt-3.5 max-w-[980px] text-[16px] leading-[1.75] text-muted"
            style={{ animationDelay: ".15s" }}>
           예산 장부와 어긋난 곳, 다른 사업과 겹치는 곳, 현장이 아쉬워하는데 아무도
           안 하고 있는 곳을 <b className="text-ink">근거와 함께</b> 짚어
