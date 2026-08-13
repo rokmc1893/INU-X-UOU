@@ -57,9 +57,25 @@ def _brief(c):
 
 @app.get("/api/businesses")
 def businesses():
-    """맡을 수 있는 사업 목록. 계획 문서와 산업 미상은 뺀다."""
-    cards, *_ = _state()
-    out = [_brief(c) for c in _works(cards) if c.get("strategic_industry")]
+    """맡을 수 있는 사업 목록. 계획 문서와 산업 미상은 뺀다.
+
+    사업마다 **그 산업에서 비어 있는 것**을 함께 보낸다. 고르기 전에 무엇이 걸려 있는지
+    보이면 목록이 그냥 이름 나열이 아니라 고를 이유가 있는 목록이 된다.
+    """
+    cards, edges, findings, postures, b2, cov = _state()
+    gap_by_ind = {}
+    for x in cov:
+        if x["verdict"] != "uncovered":
+            continue
+        for ind in (x["industry"] or "").split("+"):
+            if ind:
+                gap_by_ind.setdefault(ind, set()).add(needs.plain(x["need"]))
+    out = []
+    for c in _works(cards):
+        if not c.get("strategic_industry"):
+            continue
+        ind = c["strategic_industry"].split("+")[0]
+        out.append({**_brief(c), "gaps": sorted(gap_by_ind.get(ind, []))})
     return {"total": len(out),
             "items": sorted(out, key=lambda x: (x["industry"] or "", x["name"] or ""))}
 

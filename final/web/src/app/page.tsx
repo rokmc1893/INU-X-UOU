@@ -11,6 +11,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { API, getBusinesses, getReview, type Business } from "@/lib/api";
+import Live from "@/components/Live";
 
 /* 판정 서버가 실제로 밟는 차례. api/main.py 의 _state() 와 같은 순서다. */
 const STEPS = [
@@ -64,31 +65,38 @@ export default function Landing() {
 
   return (
     <main className="mx-auto grid min-h-screen max-w-[1180px] grid-rows-[auto_1fr] px-6 py-10">
-      <header className="mb-8">
-        <p className="text-[13px] font-semibold tracking-wide text-pen">인천광역시 · 6대 전략산업</p>
-        <h1 className="mt-2 text-[40px] leading-[1.15] tracking-tight sm:text-[48px]">
+      <header className="mb-9">
+        <p className="rise text-[14px] font-semibold tracking-wide text-pen">
+          인천광역시 · 6대 전략산업
+        </p>
+        <h1 className="rise mt-3 text-[52px] leading-[1.12] tracking-tight sm:text-[64px]"
+            style={{ animationDelay: ".06s" }}>
           맡으신 사업이
           <br />
           <span className="text-pen">기업이 필요하다고 말한 것</span>과
           <br />
           맞는지 확인합니다
         </h1>
-        <p className="mt-4 max-w-[640px] text-[15px] leading-relaxed text-muted">
+        <p className="rise mt-5 max-w-[720px] text-[18px] leading-[1.65] text-muted"
+           style={{ animationDelay: ".12s" }}>
           예산 장부와 어긋난 곳, 다른 사업과 겹치는 곳, 기업이 아쉬워하는데 아무도
           안 하고 있는 곳을 <b className="text-ink">근거와 함께</b> 짚어
           결재문서에 붙일 검토서 초안까지 만들어 드립니다.
         </p>
-        <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-muted">
+        <ul className="rise mt-6 flex flex-wrap gap-x-7 gap-y-2 text-[14px] text-muted"
+            style={{ animationDelay: ".18s" }}>
           <li>· 판정은 모두 <b className="text-ink">후보</b>입니다. 확정은 부서 협의로 합니다.</li>
           <li>· 고르는 일에 AI는 관여하지 않습니다.</li>
           <li>· 원문에 없는 값은 채우지 않고 비워 둡니다.</li>
         </ul>
+        <div className="mt-8"><Live /></div>
       </header>
 
-      <section className="rounded-xl border border-rule bg-paper p-6">
+      <section className="rise rounded-xl border border-rule bg-paper p-6"
+               style={{ animationDelay: ".3s" }}>
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <div>
-            <h2 className="text-[19px]">검토를 맡으신 사업을 고르세요</h2>
+            <h2 className="text-[22px]">검토를 맡으실 사업을 고르시오</h2>
             <p className="mt-1 text-[13px] text-muted">
               위원회 안건이나 내부 지시로 배정받은 사업입니다.
             </p>
@@ -120,13 +128,18 @@ export default function Landing() {
                   <li key={b.id}>
                     <button
                       onClick={() => start(b.id)}
-                      className="w-full rounded-lg border border-rule px-3.5 py-2.5 text-left transition hover:border-pen hover:bg-pen-soft"
+                      className="pick w-full rounded-lg border border-rule px-3.5 py-2.5 text-left hover:border-pen hover:bg-pen-soft"
                     >
                       <span className="block text-[14px] font-medium leading-snug">{b.name}</span>
                       <span className="mt-0.5 block text-[12px] text-muted">
                         {b.status ?? "상태 미상"}
                         {b.means ? ` · ${b.means}` : " · 해주는 것이 원문에 안 적힘"}
                       </span>
+                      {b.gaps && b.gaps.length > 0 && (
+                        <span className="mt-1.5 inline-block rounded-[3px] border border-[#eec4bd] bg-gap-soft px-1.5 text-[11px] font-semibold text-gap">
+                          이 산업은 {b.gaps.join("·")}이 비어 있습니다
+                        </span>
+                      )}
                     </button>
                   </li>
                 ))}

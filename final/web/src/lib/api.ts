@@ -10,6 +10,8 @@ export type Business = {
   id: string; name: string; industry: string | null;
   status: string | null; means: string | null; url: string | null;
   uploaded: boolean;
+  /** 그 산업에서 비어 있는 것 — 고르기 전에 무엇이 걸려 있는지 보이게 */
+  gaps?: string[];
 };
 
 /** 빈칸의 뜻. ok = 맞춰 봤고 걸리는 게 없다 / unknown = 아직 모른다 */
