@@ -1,0 +1,62 @@
+{
+  "policy_id": "IC-DIG-002",
+  "name": "인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역",
+  "status": "운영",
+  "owner_dept": "인천시 디지털산업과",
+  "executor": null,
+  "problem": "양자산업 전략 부재",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "연구용역",
+  "region": "인천",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": "시비",
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [
+    "IC-DIG-001"
+  ],
+  "source_span": {
+    "name": "인천시 양자산업 발전전략 수립 및 클러스터 조성 연구용역",
+    "status": "운영",
+    "owner_dept": "인천시 디지털산업과",
+    "problem": "양자산업 전략 부재",
+    "target": "해당없음",
+    "intervention": "연구용역",
+    "region": "인천",
+    "budget": "시비",
+    "linked_downstream": "IC-DIG-001"
+  },
+  "missing_fields": [
+    "executor",
+    "target.age_min",
+    "target.age_max",
+    "target.employment_status",
+    "target.student_status",
+    "target.income_criteria",
+    "stage",
+    "occupation",
+    "intervention_type",
+    "application_period",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://record.icouncil.go.kr/vod/viewer.do?cvUid=3723",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-DIG-002",
+  "evidence_status": "PRIMARY_VERIFIED",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "디지털데이터"
+}

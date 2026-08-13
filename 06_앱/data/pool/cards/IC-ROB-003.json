@@ -1,0 +1,57 @@
+{
+  "policy_id": "IC-ROB-003",
+  "name": "인천로봇랜드 피지컬 AI 거점 육성",
+  "status": "계획",
+  "owner_dept": "인천시(시장 100대 시정과제)",
+  "executor": null,
+  "problem": "기존 로봇랜드의 산업적 성과 미흡",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "서해구 청라",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "피지컬 AI 거점화(수단 미상세)",
+  "region": "서해구 청라",
+  "application_period": "2026~",
+  "intervention_type": null,
+  "budget": null,
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "IC-ROB-001"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "인천로봇랜드 피지컬 AI 거점 육성",
+    "status": "계획",
+    "owner_dept": "인천시(시장 100대 시정과제)",
+    "problem": "기존 로봇랜드의 산업적 성과 미흡",
+    "target": "로봇·AI 기업",
+    "intervention": "피지컬 AI 거점화(수단 미상세)",
+    "region": "서해구 청라",
+    "application_period": "2026~",
+    "linked_upstream": "IC-ROB-001"
+  },
+  "missing_fields": [
+    "executor",
+    "stage",
+    "occupation",
+    "intervention_type",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1327572",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-ROB-003",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "로봇"
+}

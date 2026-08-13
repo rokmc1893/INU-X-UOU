@@ -1,0 +1,60 @@
+{
+  "policy_id": "IC-AIR-004",
+  "name": "항공정비(MRO) 인력양성과정 - 일경험 프로그램",
+  "status": "운영",
+  "owner_dept": "인천시 영종구",
+  "executor": "영종구, 항공우주산학융합원, 제주항공(정비기지 제공)",
+  "problem": "자격 취득만으로는 취업 연계 부족",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "영종구",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "일경험",
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": null,
+  "region": "영종구",
+  "application_period": "2026-06-15 ~ 2026-07-14 모집",
+  "intervention_type": null,
+  "budget": "구비(추정)",
+  "output_kpi": "교육생 20명 선발·개강",
+  "outcome_kpi": "취업 연계",
+  "linked_upstream": [
+    "IC-AIR-003"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "항공정비(MRO) 인력양성과정 - 일경험 프로그램",
+    "status": "운영",
+    "owner_dept": "인천시 영종구",
+    "executor": "영종구, 항공우주산학융합원, 제주항공(정비기지 제공)",
+    "problem": "자격 취득만으로는 취업 연계 부족",
+    "target": "관내 미취업 청년 20명",
+    "stage": "일경험",
+    "occupation": "항공정비인력",
+    "region": "영종구",
+    "application_period": "2026-06-15 ~ 2026-07-14 모집",
+    "budget": "구비(추정)",
+    "output_kpi": "교육생 20명 선발·개강",
+    "outcome_kpi": "취업 연계",
+    "linked_upstream": "IC-AIR-003",
+    "linked_downstream": ""
+  },
+  "missing_fields": [
+    "intervention",
+    "intervention_type"
+  ],
+  "source_url": "https://www.addnewsin.com/news/articleView.html?idxno=60745",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-AIR-004",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "항공"
+}

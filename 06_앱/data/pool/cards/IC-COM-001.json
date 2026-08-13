@@ -1,0 +1,60 @@
+{
+  "policy_id": "IC-COM-001",
+  "name": "인천 전략산업육성 종합계획(6대 전략산업 선정)",
+  "status": "운영",
+  "owner_dept": "인천시 산업정책과(총괄)",
+  "executor": "각 소관과 + 인천테크노파크",
+  "problem": "기존 8대 전략산업의 산업 패러다임 부적합",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": null,
+  "region": "인천",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": "시비",
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "인천 미래 성장동력 8대 전략산업 육성방안(2015)"
+  ],
+  "linked_downstream": [
+    "각 산업별 사업"
+  ],
+  "source_span": {
+    "name": "인천 전략산업육성 종합계획(6대 전략산업 선정)",
+    "status": "운영",
+    "owner_dept": "인천시 산업정책과(총괄)",
+    "executor": "각 소관과 + 인천테크노파크",
+    "problem": "기존 8대 전략산업의 산업 패러다임 부적합",
+    "region": "인천",
+    "budget": "시비",
+    "linked_upstream": "인천 미래 성장동력 8대 전략산업 육성방안(2015)",
+    "linked_downstream": "각 산업별 사업"
+  },
+  "missing_fields": [
+    "target",
+    "stage",
+    "occupation",
+    "intervention",
+    "application_period",
+    "intervention_type",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.incheonin.com/news/articleView.html?idxno=97695",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-COM-001",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "공통"
+}

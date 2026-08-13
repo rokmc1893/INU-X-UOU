@@ -1,0 +1,63 @@
+{
+  "policy_id": "IC-AIR-008",
+  "name": "대한항공 운항훈련센터",
+  "status": "운영",
+  "owner_dept": null,
+  "executor": "대한항공",
+  "problem": "운항승무원 훈련시설 필요",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "교육훈련",
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": "훈련시설 운영",
+  "region": "영종구 운북동",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": "민간",
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "대한항공 운항훈련센터",
+    "status": "운영",
+    "owner_dept": null,
+    "executor": "대한항공",
+    "problem": "운항승무원 훈련시설 필요",
+    "target": "운항승무원",
+    "stage": "교육훈련",
+    "occupation": "운항승무원",
+    "intervention": "훈련시설 운영",
+    "region": "영종구 운북동",
+    "application_period": null,
+    "intervention_type": null,
+    "budget": "민간",
+    "output_kpi": null,
+    "outcome_kpi": null
+  },
+  "missing_fields": [
+    "owner_dept",
+    "intervention_type",
+    "output_kpi",
+    "outcome_kpi",
+    "application_period"
+  ],
+  "source_url": "https://www.khan.co.kr/article/202605201125001",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [
+    "source_span[stage]: 인용문이 원문에 없음"
+  ],
+  "stable_policy_id": "IC-AIR-008",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "항공"
+}

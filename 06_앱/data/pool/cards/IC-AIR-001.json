@@ -1,0 +1,65 @@
+{
+  "policy_id": "IC-AIR-001",
+  "name": "대한항공 영종 항공 MRO 클러스터 조성(민간투자 유치)",
+  "status": "결정",
+  "owner_dept": "인천시 산업입지심의회 / 인천경제자유구역청",
+  "executor": "대한항공(민간)",
+  "problem": "국내 항공정비 해외 의존, 영종 산업기반 부족",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "영종구",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "채용지원",
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": null,
+  "region": "영종구 운북동",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": "출처 간 수치 충돌로 미기재",
+  "output_kpi": "운북지구 MRO 2,000명 이상 전문인력 상주 예정",
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [
+    "IC-AIR-002"
+  ],
+  "source_span": {
+    "name": "대한항공 영종 항공 MRO 클러스터 조성(민간투자 유치)",
+    "status": "결정",
+    "owner_dept": "인천시 산업입지심의회 / 인천경제자유구역청",
+    "executor": "대한항공(민간)",
+    "problem": "국내 항공정비 해외 의존, 영종 산업기반 부족",
+    "target": "지원대상: 해당없음",
+    "stage": "대상 직무: 항공정비인력",
+    "occupation": "대상 직무: 항공정비인력",
+    "intervention": "사업내용: 영종항공 일반산업단지 5만692㎡ 우선분양, 엔진·부품 정비공장 건립",
+    "region": "사업 지역: 영종구 운북동",
+    "application_period": "신청기간: 해당없음",
+    "intervention_type": "대상 산업: 항공정비(MRO)",
+    "budget": "예산: 출처 간 수치 충돌로 미기재",
+    "output_kpi": "성과지표: 운북지구 MRO 2,000명 이상 전문인력 상주 예정",
+    "outcome_kpi": null,
+    "linked_upstream": [],
+    "linked_downstream": "후속 사업: IC-AIR-002"
+  },
+  "missing_fields": [
+    "intervention",
+    "intervention_type",
+    "linked_downstream",
+    "application_period",
+    "outcome_kpi"
+  ],
+  "source_url": "https://biz.heraldcorp.com/article/10741457",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-AIR-001",
+  "evidence_status": "CONFLICTING_FIGURES",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "항공"
+}

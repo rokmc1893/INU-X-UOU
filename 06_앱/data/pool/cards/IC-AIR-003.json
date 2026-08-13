@@ -1,0 +1,58 @@
+{
+  "policy_id": "IC-AIR-003",
+  "name": "청년 항공정비(MRO) 특화교육",
+  "status": "종료",
+  "owner_dept": null,
+  "executor": null,
+  "problem": "공항경제권 청년 일자리 부족",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "영종구",
+    "employment_status": "미취업",
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": "교육훈련",
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": "자격 취득 중심 교육",
+  "region": "영종구",
+  "application_period": "2026 상반기",
+  "intervention_type": null,
+  "budget": null,
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [
+    "IC-AIR-004"
+  ],
+  "source_span": {
+    "name": "청년 항공정비(MRO) 특화교육",
+    "status": "종료",
+    "problem": "공항경제권 청년 일자리 부족",
+    "target": "관내 미취업 청년",
+    "stage": "자격 취득 중심 교육",
+    "occupation": "항공정비인력",
+    "region": "영종구(구 중구)",
+    "application_period": "2026 상반기",
+    "linked_downstream": "IC-AIR-004"
+  },
+  "missing_fields": [
+    "owner_dept",
+    "executor",
+    "intervention_type",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://news.ifm.kr/news/articleView.html?idxno=467022",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-AIR-003",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "항공"
+}

@@ -1,0 +1,59 @@
+{
+  "policy_id": "IC-AIR-002",
+  "name": "대한항공 신엔진정비공장 건립",
+  "status": "운영",
+  "owner_dept": null,
+  "executor": "대한항공",
+  "problem": "엔진 정비능력 확충",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": null,
+  "region": "영종구 운북동",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": "5,800억원",
+  "output_kpi": "엔진 정비대수 88대 → 2030년 502대(보도)",
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "IC-AIR-001"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "대한항공 신엔진정비공장 건립",
+    "status": "운영",
+    "executor": "대한항공",
+    "problem": "엔진 정비능력 확충",
+    "region": "영종구 운북동",
+    "budget": "5,800억원",
+    "output_kpi": "엔진 정비대수 88대 → 2030년 502대(보도)",
+    "linked_upstream": "IC-AIR-001"
+  },
+  "missing_fields": [
+    "owner_dept",
+    "target",
+    "stage",
+    "intervention",
+    "application_period",
+    "intervention_type",
+    "outcome_kpi",
+    "linked_downstream"
+  ],
+  "source_url": "https://www.khan.co.kr/article/202605201125001",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-AIR-002",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "항공"
+}

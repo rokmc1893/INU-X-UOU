@@ -1,0 +1,57 @@
+{
+  "policy_id": "IC-CAR-001",
+  "name": "부품기업 자율주행차 기술개발 지원",
+  "status": "운영",
+  "owner_dept": "인천시 산업정책과",
+  "executor": "인천테크노파크",
+  "problem": "내연기관 부품기업의 미래차 전환 필요",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "자율주행차 기술개발 지원",
+  "region": "인천",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": null,
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "인천 전략산업육성 종합계획"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "부품기업 자율주행차 기술개발 지원",
+    "status": "운영",
+    "owner_dept": "인천시 산업정책과",
+    "executor": "인천테크노파크",
+    "problem": "내연기관 부품기업의 미래차 전환 필요",
+    "target": "인천 자동차부품 기업",
+    "intervention": "자율주행차 기술개발 지원",
+    "region": "인천",
+    "linked_upstream": "인천 전략산업육성 종합계획"
+  },
+  "missing_fields": [
+    "stage",
+    "occupation",
+    "intervention_type",
+    "application_period",
+    "budget",
+    "output_kpi",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.kyeonggi.com/article/20231006580065",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-CAR-001",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "미래차"
+}

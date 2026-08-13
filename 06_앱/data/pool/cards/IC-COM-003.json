@@ -1,0 +1,57 @@
+{
+  "policy_id": "IC-COM-003",
+  "name": "2025년 인천형 라이즈 2차 공모 선정사업",
+  "status": "결정",
+  "owner_dept": "인천시 라이즈위원회",
+  "executor": "선정 9개교",
+  "problem": null,
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": null,
+  "region": "인천",
+  "application_period": "2025-11-18 ~ 2025-12-08",
+  "intervention_type": null,
+  "budget": "총 37억원",
+  "output_kpi": "18건 접수",
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "IC-COM-002"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "2025년 인천형 라이즈 2차 공모 선정사업",
+    "status": "결정",
+    "owner_dept": "인천시 라이즈위원회",
+    "executor": "선정 9개교",
+    "target": "인천 소재 대학",
+    "region": "인천",
+    "application_period": "2025-11-18 ~ 2025-12-08",
+    "budget": "총 37억원",
+    "output_kpi": "18건 접수",
+    "linked_upstream": "IC-COM-002"
+  },
+  "missing_fields": [
+    "problem",
+    "stage",
+    "occupation",
+    "intervention",
+    "intervention_type",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.incheontoday.com/news/articleView.html?idxno=312821",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-COM-003",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "공통"
+}

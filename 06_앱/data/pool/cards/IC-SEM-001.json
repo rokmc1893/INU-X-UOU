@@ -1,0 +1,58 @@
+{
+  "policy_id": "IC-SEM-001",
+  "name": "시스템반도체 기술협력 체계 구축(한국생산기술연구원 협력)",
+  "status": "운영",
+  "owner_dept": "인천시 반도체바이오과",
+  "executor": "한국생산기술연구원, 인천테크노파크",
+  "problem": "후공정(OSAT) 소부장 경쟁력 부족, 대-중소 기술수요 미연결",
+  "target": {
+    "age_min": null,
+    "age_max": null,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "대-중소 상생 기술개발 협력체계",
+  "region": "인천",
+  "application_period": "2026",
+  "intervention_type": null,
+  "budget": "27억원",
+  "output_kpi": null,
+  "outcome_kpi": null,
+  "linked_upstream": [
+    "인천 6대 전략산업"
+  ],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "시스템반도체 기술협력 체계 구축(한국생산기술연구원 협력)",
+    "status": "운영",
+    "owner_dept": "인천시 반도체바이오과",
+    "executor": "한국생산기술연구원, 인천테크노파크",
+    "problem": "후공정(OSAT) 소부장 경쟁력 부족, 대-중소 기술수요 미연결",
+    "target": "대기업 수요기술 개발 중소기업",
+    "intervention": "대-중소 상생 기술개발 협력체계",
+    "region": "인천",
+    "application_period": "2026",
+    "budget": "27억원",
+    "linked_upstream": "인천 6대 전략산업"
+  },
+  "missing_fields": [
+    "occupation",
+    "stage",
+    "intervention_type",
+    "output_kpi",
+    "outcome_kpi",
+    "linked_downstream"
+  ],
+  "source_url": "https://news.nate.com/view/20260311n24470",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-SEM-001",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "반도체"
+}

@@ -1,0 +1,53 @@
+{
+  "policy_id": "IC-ROB-005",
+  "name": "로보컵 2026 인천 개최",
+  "status": "운영",
+  "owner_dept": "인천시",
+  "executor": null,
+  "problem": "로봇산업 저변 및 국제 인지도 부족",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": null,
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": null,
+  "region": "연수구 송도컨벤시아",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": null,
+  "output_kpi": "45개국 약 1만5,000명 방문 예상",
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [],
+  "source_span": {
+    "name": "로보컵 2026 인천 개최",
+    "status": "운영",
+    "owner_dept": "인천시",
+    "problem": "로봇산업 저변 및 국제 인지도 부족",
+    "region": "연수구 송도컨벤시아",
+    "output_kpi": "45개국 약 1만5,000명 방문 예상"
+  },
+  "missing_fields": [
+    "executor",
+    "intervention",
+    "stage",
+    "occupation",
+    "intervention_type",
+    "application_period",
+    "budget",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=679121",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-ROB-005",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "로봇"
+}

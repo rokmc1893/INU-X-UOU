@@ -83,16 +83,44 @@ NEXT_ACTION = {
                   "A3 3단계 반려사유는 '대상·수단·직무 동일'이므로, 이 기재가 부당 반려를 예방한다.",
 }
 
-SCOPES = ["청년일자리 (기본)", "청년일자리 + 바이오"]
+# 분석 범위 — 값은 풀 카드의 strategic_industry와 대조한다 (None이면 청년일자리만)
+SCOPES = {
+    "청년일자리 (기본)": None,
+    "+ 바이오": ("바이오",),
+    "+ 반도체": ("반도체",),
+    "+ 로봇·항공": ("로봇", "항공"),
+    "+ 디지털·AI": ("디지털데이터",),
+    "+ 6대 전략산업 전체": ("바이오", "반도체", "로봇", "항공",
+                       "디지털데이터", "미래차", "공통"),
+}
+
+# A2 결정 달력의 두 트랙 = 공무원이 실제로 들어오는 두 경로 (D-025)
+PURPOSES = {
+    "신규사업 발의": {
+        "stage": "A3 3단계 — 타 부서 협의·유사·중복 검토",
+        "track": "다음 연도 본예산 신규사업",
+        "input": "사업기획서(안)을 넣고 기존 사업과 대조한다",
+        "question": "내가 만들려는 사업이 기존 사업과 중복인가?",
+    },
+    "기존사업 개편": {
+        "stage": "A3 7→8단계 — 성과평가·환류 → 차년도 개편",
+        "track": "기존사업 개편/확대",
+        "input": "개편을 검토할 기존 사업을 고른다",
+        "question": "이 사업을 유지할까, 보완할까, 연결할까, 통합할까?",
+    },
+}
 
 
 @st.cache_resource
 def init(scope: str):
     cards = [json.loads(p.read_text(encoding="utf-8"))
              for p in sorted((BASE / "cards").glob("P*.json"))]
-    if "바이오" in scope:
-        cards += [json.loads(p.read_text(encoding="utf-8"))
-                  for p in sorted((BASE / "pool" / "cards").glob("IC-*.json"))]
+    inds = SCOPES.get(scope)
+    if inds:
+        for p in sorted((BASE / "pool" / "cards").glob("IC-*.json")):
+            c = json.loads(p.read_text(encoding="utf-8"))
+            if any(i in (c.get("strategic_industry") or "") for i in inds):
+                cards.append(c)
     demands = []
     dp = BASE / "demand" / "demand_signals.csv"
     if dp.exists():
@@ -108,7 +136,12 @@ def init(scope: str):
 
 
 st.sidebar.title("정책핏 인천")
-scope = st.sidebar.selectbox("분석 범위 — 산업 선택", SCOPES,
+purpose = st.sidebar.radio(
+    "무슨 검토를 하십니까", list(PURPOSES),
+    help="인천시 결정 달력(A2)에 두 트랙이 별도로 있습니다. "
+         "빈도는 기존사업 개편이 압도적입니다 — 청년정책 69개 사업 중 계속·확대 85.5%.")
+st.sidebar.caption(f"→ {PURPOSES[purpose]['stage']}")
+scope = st.sidebar.selectbox("분석 범위 — 산업 선택", list(SCOPES),
                              help="산업을 추가하면 정책 풀에서 관련 정책을 끌어와 함께 진단합니다")
 cards, demands, edges, store, findings = init(scope)
 by_id = {c["policy_id"]: c for c in cards}
@@ -118,7 +151,7 @@ n_real_d = sum(1 for d in demands if d.get("data_type") == "real")
 st.sidebar.caption(f"그래프 스토어: **{store.name}**")
 with st.sidebar.expander(f"데이터 {len(cards)}건 — 어디서 왔나", expanded=False):
     _raw_n = len(list((BASE / "policies" / "raw").glob("P*.txt")))
-    _pool_n = len(cards) - _raw_n if "바이오" in scope else 0
+    _pool_n = len(cards) - _raw_n
     st.markdown(f"""
 **정책 {len(cards)}건**
 - 인천청년포털 **원문 직접 수집 {_raw_n}건** — 각 카드에 원문 URL·수집일
@@ -150,7 +183,16 @@ def _add_card(text: str, prefix: str, label: str):
     return card
 
 
-with st.sidebar.expander("① 검토할 신규사업(안) 넣기", expanded=True):
+target_pid = None
+if purpose == "기존사업 개편":
+    _opts = [c["policy_id"] for c in cards if c.get("name")]
+    target_pid = st.sidebar.selectbox(
+        "개편을 검토할 사업", _opts, index=_opts.index(ANCHOR) if ANCHOR in _opts else 0,
+        format_func=lambda p: (by_id[p].get("name") or p)[:32],
+        help="A3 7단계 성과평가 → 8단계 차년도 개편의 대상 사업")
+
+with st.sidebar.expander("① 검토할 신규사업(안) 넣기",
+                         expanded=(purpose == "신규사업 발의")):
     st.caption("A3 3단계 — 발의하려는 사업의 개요를 붙여넣으면 기존 사업과 대조합니다. "
                "신규사업은 공고가 없으므로 URL 대신 이 칸을 씁니다.")
     draft_in = st.text_area(
@@ -327,6 +369,40 @@ def _findings_for(pids):
     return out
 
 
+def renewal_options(pid):
+    """A3 8단계의 개편 선택지를 근거와 함께 산출한다.
+
+    결과(result)는 사업 유지·증액/감액·통합·일몰이다. 각 선택지에 **판정 근거가 있는지**를
+    같이 돌려주어, 근거 없는 선택지를 고르지 않게 한다.
+    """
+    c = by_id.get(pid) or {}
+    hits = _findings_for({pid})
+    kinds = [k for k, _, _ in hits]
+    out = []
+    has_outcome = bool(c.get("outcome_kpi"))
+    has_output = bool(c.get("output_kpi"))
+
+    n_break = sum(1 for k in kinds if "인계" in k)
+    if n_break:
+        out.append(("연결", f"인계 공백 {n_break}건 — 앞뒤 사업과 이어지는 절차가 문서상 없다",
+                    "예산 불요. 협조공문으로 즉시 착수 가능", True))
+    n_dup = sum(1 for k in kinds if "중복" in k)
+    if n_dup:
+        out.append(("통합", f"조정 필요 중복 {n_dup}건 — 대상·수단·직무가 같은 사업이 있다",
+                    "A3 3단계 반려사유에 해당. 통폐합은 예산담당관 심사(8~9월)", True))
+    n_comp = sum(1 for k in kinds if "보완" in k)
+    if n_comp:
+        out.append(("유지", f"보완 관계 {n_comp}건 — 겹쳐 보이지만 수단이 달라 중복이 아니다",
+                    "검토서에 사유를 기재해 부당한 통폐합을 막는다", True))
+    if has_output and not has_outcome:
+        out.append(("보완", f"산출 목표는 있으나(`{c.get('output_kpi')}`) **결과 지표가 없다**",
+                    "성과평가서 없이는 증액·감액·일몰을 판단할 수 없다", False))
+    if not has_output and not has_outcome:
+        out.append(("판단 보류", "산출·결과 지표가 모두 원문에 없다",
+                    "7단계 성과평가서(비공개)를 확보해야 개편을 논할 수 있다", False))
+    return out
+
+
 def draft_report():
     drafts = {c["policy_id"] for c in cards if c.get("data_type") == "draft"}
     lines = ["# 유사·중복 사업 자체 검토서 (초안 — 자동 생성, 담당자 확인 필수)",
@@ -373,17 +449,41 @@ def draft_report():
 
 
 if screen.startswith("1"):
-    st.title("이 돈은 성과로 이어지고 있는가?")
-    st.markdown("**유사·중복 검토를 전화 협의 없이 한 화면에서 — 최종 판단은 담당자가 합니다**")
-    st.success("**이 도구가 자동화하는 것** — 신규사업 검토 8단계 중 "
-               "**3단계 '타 부서 협의·유사·중복 검토'**(예산 지침 필수 항목)에서 "
+    _p = PURPOSES[purpose]
+    st.title(_p["question"])
+    st.markdown(f"**{purpose}** · {_p['stage']} · 예산 트랙 「{_p['track']}」")
+    st.success(f"**이 도구가 자동화하는 것** — {_p['stage']}에서 "
                "주무관이 손으로 하던 **기존 사업 대조**. 검토서는 **초안**이며 확정은 부서 협의로 한다.")
+    if purpose == "기존사업 개편" and target_pid:
+        st.divider()
+        _t = by_id[target_pid]
+        st.subheader(f"개편 검토 대상: {_t.get('name') or target_pid}")
+        st.caption(f"{_t.get('owner_dept') or '소관 미확인'} · "
+                   f"수단 {_t.get('intervention_type') or '미상'} · 단계 {_t.get('stage') or '사슬 밖'} · "
+                   f"[원문]({_t.get('source_url')})")
+        _opts = renewal_options(target_pid)
+        if not _opts:
+            st.info("이 사업에 걸린 판정이 없다. 관계상으로는 개편 사유가 나오지 않는다 — "
+                    "성과평가서로 판단해야 한다.")
+        for name, why, how, grounded in _opts:
+            (st.success if grounded else st.warning)(
+                f"**{name}** — {why}\n\n　→ {how}"
+                + ("" if grounded else "\n\n　⚠ **근거 부족**: 이 선택지는 지금 데이터로 결론 낼 수 없다."))
+        st.caption("A3 8단계의 결과는 유지·증액/감액·통합·일몰이다. "
+                   "증액·감액·일몰은 **성과평가서(7단계 입력문서, 비공개)** 없이 판단하지 않는다 — "
+                   "조사자 B의 정책원장에서 성과지표가 채워진 사업은 25%뿐이다(B0 Q5).")
+        st.divider()
     c1, c2, c3, c4, c5 = st.columns(5)
     _gap_occs = sorted({g["occupation"] for g in findings["gaps"]})
     c1.metric("지원 공백 후보", f"{len(_gap_occs)}개 직무",
               help=f"{', '.join(_gap_occs) or '없음'} — 수요신호 {len(findings['gaps'])}건이 "
                    "이 직무를 특정하는 정책 없이 남아 있다. 신규사업 발의 검토 대상.")
     c2.metric("인계 공백 후보", f"{len(findings['handoff_breaks'])}쌍", help="부서 간 협조공문 검토 대상")
+    if len(findings["handoff_breaks"]) > 50:
+        st.warning(f"**인계 공백 {len(findings['handoff_breaks'])}쌍은 그대로 검토서에 넣을 수 없다.** "
+                   "전수 비교(O(N²))에 '전직무'가 모든 직무와 겹치도록 설계된 결과다. "
+                   "실사용에는 우선순위 스코어링과 상위 N건 컷이 필요하며, 아직 구현하지 않았다 — "
+                   "지금은 기준사업이 걸린 쌍부터 보이도록 정렬만 해 두었다.")
     c3.metric("조정 필요 중복 후보", f"{len(findings['overlaps_harmful'])}건",
               help="대상·수단·직무가 같고 상호 인계도 없음 — A3 3단계 반려사유. 검토서 기재 대상")
     c4.metric("의도적 병행", f"{len(findings['overlaps_intentional'])}건",
@@ -403,10 +503,12 @@ if screen.startswith("1"):
             f"분석 범위: **{scope}** — 풀에서 산업별 정책을 끌어와 결합 (운영 단계는 6대 산업 전체)")
     st.divider()
     st.subheader("지금 판정하면 언제 반영되나 (2026-08-13 기준)")
+    _my_track = PURPOSES[purpose]["track"]
     for w in refdata.calendar():
         need = w["inputs"]
         mark = " ✅ 이 도구의 산출물" if "유사중복" in need or "유사·중복" in need else ""
-        st.markdown(f"- **{w['type']}** · 착수 {w['start']} · 마감 {w['deadline']}")
+        mine = "👉 **지금 검토 중인 트랙** — " if _my_track in w["type"] else ""
+        st.markdown(f"- {mine}**{w['type']}** · 착수 {w['start']} · 마감 {w['deadline']}")
         st.caption(f"　필요문서: {need}{mark} · 심사: {w['review']} · 다음 창구: {w['next']} "
                    f"({w['status']})")
     st.caption("출처: 조사자 A의 A2 의사결정 달력 (증거 E021). 연도별 실제 공고일과 대조 필요.")
@@ -528,7 +630,13 @@ elif screen.startswith("3"):
 
 elif screen.startswith("4"):
     st.title("조치 제안서 — 최종 판단은 담당자가")
-    st.caption(f"분석 범위: **{scope}** — 범위를 바꾸면 판정 후보가 달라집니다 (사이드바)")
+    st.caption(f"{purpose} · {PURPOSES[purpose]['stage']} · 분석 범위 **{scope}**")
+    if purpose == "기존사업 개편" and target_pid:
+        st.subheader(f"「{by_id[target_pid].get('name') or target_pid}」 개편 선택지")
+        for name, why, how, grounded in renewal_options(target_pid):
+            st.markdown(f"- **{name}** — {why} → {how}"
+                        + ("" if grounded else "  ⚠ 근거 부족"))
+        st.divider()
     st.markdown("""
 | 구분 | 내용 |
 |---|---|

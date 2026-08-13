@@ -1,0 +1,57 @@
+{
+  "policy_id": "IC-ROB-001",
+  "name": "인천 로봇랜드 조성사업",
+  "status": "운영",
+  "owner_dept": "산업통상자원부/인천시",
+  "executor": "인천도시공사(iH), 인천로봇랜드",
+  "problem": "로봇산업 집적 기반 부재",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": null,
+    "student_status": null,
+    "income_criteria": null
+  },
+  "stage": null,
+  "occupation": null,
+  "intervention": "산업용·서비스·지능형 로봇 통합 클러스터 구축",
+  "region": "서해구 청라(2026-07 개편 전 서구)",
+  "application_period": null,
+  "intervention_type": null,
+  "budget": "국비+시비+민간",
+  "output_kpi": "전체 76만9,281㎡ 중 29만7,000㎡ 도시첨단산업단지 지정(2025-12)",
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [
+    "IC-ROB-002"
+  ],
+  "source_span": {
+    "name": "인천 로봇랜드 조성사업",
+    "status": "운영",
+    "owner_dept": "산업통상자원부/인천시",
+    "executor": "인천도시공사(iH), 인천로봇랜드",
+    "problem": "로봇산업 집적 기반 부재",
+    "target": "로봇 관련 기업·연구기관·대학",
+    "intervention": "산업용·서비스·지능형 로봇 통합 클러스터 구축",
+    "region": "서해구 청라(2026-07 개편 전 서구)",
+    "budget": "국비+시비+민간",
+    "output_kpi": "전체 76만9,281㎡ 중 29만7,000㎡ 도시첨단산업단지 지정(2025-12)",
+    "linked_downstream": "IC-ROB-002"
+  },
+  "missing_fields": [
+    "stage",
+    "occupation",
+    "intervention_type",
+    "application_period",
+    "outcome_kpi"
+  ],
+  "source_url": "https://www.incheonilbo.com/news/articleView.html?idxno=1327572",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [],
+  "stable_policy_id": "IC-ROB-001",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "로봇"
+}

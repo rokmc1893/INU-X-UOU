@@ -1,0 +1,65 @@
+{
+  "policy_id": "IC-COM-002",
+  "name": "인천형 라이즈(i-RISE) 기본계획",
+  "status": "운영",
+  "owner_dept": "인천시(교육부 재원 이관)",
+  "executor": "인천테크노파크(전담기관) + 12개 대학",
+  "problem": "전략산업 인력의 지역 정착 부족(기술인재 서울 유출)",
+  "target": {
+    "age_min": 0,
+    "age_max": 200,
+    "residency": "인천",
+    "employment_status": "미취업",
+    "student_status": "재학생 포함",
+    "income_criteria": null
+  },
+  "stage": "교육훈련",
+  "occupation": [
+    "전직무"
+  ],
+  "intervention": null,
+  "region": "인천 12개 대학",
+  "application_period": "연 2회 공모",
+  "intervention_type": null,
+  "budget": "1년차 총 214억(국비183+시비31)",
+  "output_kpi": "늘봄 1만5,000명 수혜",
+  "outcome_kpi": null,
+  "linked_upstream": [],
+  "linked_downstream": [
+    "IC-COM-003"
+  ],
+  "source_span": {
+    "name": "인천형 라이즈(i-RISE) 기본계획",
+    "status": "운영",
+    "owner_dept": "인천시(교육부 재원 이관)",
+    "executor": "인천테크노파크(전담기관) + 12개 대학",
+    "problem": "전략산업 인력의 지역 정착 부족(기술인재 서울 유출)",
+    "target": "지원대상: 인천 소재 대학 재학생",
+    "stage": "사업내용: 4대 프로젝트 14개 단위과제(전략산업 인재양성, 지산학협력, 평생교육, 지역문제해결)",
+    "occupation": "대상 직무: 전략산업 미래인재",
+    "region": "사업 지역: 인천 12개 대학",
+    "application_period": "신청기간: 연 2회 공모",
+    "intervention_type": null,
+    "budget": "예산: 1년차 총 214억(국비183+시비31)",
+    "output_kpi": "보고된 실적: 늘봄 1만5,000명 수혜(산업별 분리 성과 미확인)",
+    "outcome_kpi": null,
+    "linked_upstream": "선행 사업: 교육부 RISE 체계",
+    "linked_downstream": "후속 사업: IC-COM-003"
+  },
+  "missing_fields": [
+    "intervention",
+    "intervention_type",
+    "outcome_kpi",
+    "linked_upstream"
+  ],
+  "source_url": "https://news.unn.net/news/articleView.html?idxno=590725",
+  "retrieved_at": "2026-08-13",
+  "data_type": "real",
+  "_validation_errors": [
+    "source_span[output_kpi]: 인용문이 원문에 없음"
+  ],
+  "stable_policy_id": "IC-COM-002",
+  "evidence_status": "SECONDARY_PRESS_ONLY",
+  "pool_version": "2026-08-13",
+  "strategic_industry": "공통"
+}
