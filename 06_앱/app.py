@@ -359,7 +359,10 @@ if screen.startswith("1"):
                "**3단계 '타 부서 협의·유사·중복 검토'**(예산 지침 필수 항목)에서 "
                "주무관이 손으로 하던 **기존 사업 대조**. 검토서는 **초안**이며 확정은 부서 협의로 한다.")
     c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("지원 공백 후보", f"{len(findings['gaps'])}건", help="신규사업 발의 검토 대상")
+    _gap_occs = sorted({g["occupation"] for g in findings["gaps"]})
+    c1.metric("지원 공백 후보", f"{len(_gap_occs)}개 직무",
+              help=f"{', '.join(_gap_occs) or '없음'} — 수요신호 {len(findings['gaps'])}건이 "
+                   "이 직무를 특정하는 정책 없이 남아 있다. 신규사업 발의 검토 대상.")
     c2.metric("인계 공백 후보", f"{len(findings['handoff_breaks'])}쌍", help="부서 간 협조공문 검토 대상")
     c3.metric("조정 필요 중복 후보", f"{len(findings['overlaps_harmful'])}건",
               help="대상·수단·직무가 같고 상호 인계도 없음 — A3 3단계 반려사유. 검토서 기재 대상")
