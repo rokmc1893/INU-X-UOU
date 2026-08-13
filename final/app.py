@@ -13,9 +13,9 @@ from pathlib import Path
 import streamlit as st
 
 import fit  # noqa: F401  — 06_앱의 engine을 sys.path에 올린다
-from fit import axes, load, needs
-from scenario import actors, calendar, report, workflow
-from engine import industry
+from fit import axes, empty, load, needs
+from scenario import actors, calendar, intake, report, workflow
+from engine import industry, refdata
 
 BASE = Path(__file__).resolve().parent
 TODAY = "2026-08-14"
@@ -39,6 +39,12 @@ def prepare():
 
 
 cards, edges, findings, POSTURES, B2, COV = prepare()
+UP = st.session_state.setdefault("uploaded", [])
+if UP:
+    # 담당자가 올린 자료를 합쳐 다시 판정한다. 세션 한정이며 원장 파일은 그대로 둔다.
+    cards = cards + UP
+    edges, findings, POSTURES = load.build(cards)
+    COV = needs.coverage(cards, B2)
 by_id = {c["policy_id"]: c for c in cards}
 plans = [c for c in cards if load.is_plan(c)]
 works = [c for c in cards if not load.is_plan(c)]
@@ -60,6 +66,27 @@ def eul(word):
     if 0xAC00 <= last <= 0xD7A3:
         return "을" if (last - 0xAC00) % 28 else "를"
     return "를"
+
+
+
+KIND_ICON = {"없어서 없다": "짝이 없음", "맞아서 없다": "확인함",
+             "아직 안 봤다": "아직 안 봄", "못 읽었다": "원문에 없음"}
+
+
+def void(r):
+    """빈칸 상자 — 왜 비었는지 한 줄, 어떻게 채우는지 한 줄.
+
+    실선(ok) = 맞춰 봤고 걸리는 게 없다 / 점선(unknown) = 아직 모른다.
+    이 구분이 화면 전체의 규칙이다 — 「모름」을 「괜찮음」으로 읽지 않게.
+    """
+    if not r:
+        return
+    st.markdown(
+        f'<div class="void {r["meaning"]}">'
+        f'<span class="k">{esc(KIND_ICON.get(r["kind"], r["kind"]))}</span>'
+        f'<div class="w">{esc(r["why"])}'
+        + (f'<span class="f">→ {esc(r["fix"])}</span>' if r.get("fix") else "")
+        + '</div></div>', unsafe_allow_html=True)
 
 
 # ── 사이드바 ────────────────────────────────────────────────
@@ -162,32 +189,62 @@ if screen.startswith("0"):
         '이것이 「지역 산업·정책 연계 부족」을 숫자로 본 모습입니다.'
         '</div></div>', unsafe_allow_html=True)
 
-    # 실제 사례(A4)가 보여준 시작점 — 담당자는 산업이 아니라 여기서 들어온다
+    # 실제 사례(A4)가 보여준 시작점 셋 — 전부 작동한다
     st.subheader("담당자는 보통 이렇게 시작합니다")
-    _entries = [
-        ("① 사업을 배정받았다",
-         "위원회 안건이나 내부 지시로 「이 사업을 손봐라」가 내려옵니다",
-         "실제 사례: 청년도약기지 — 2023.10 청년정책 조정위원회 안건", True),
-        ("② 공모 공고가 떴다",
-         "중앙부처가 국비 공모를 발표하면 대응 여부를 판단합니다",
-         "실제 사례: K-NIBRT — 2020.04 산자부·복지부 공모 발표", False),
-        ("③ 현장 자료가 올라왔다",
-         "기업·대학이 낸 수요조사서를 받아 사업으로 만들지 봅니다",
-         "A3 1단계 입력문서 「기업/대학/현장 수요조사서」", False),
-    ]
-    _er = ['<table style="width:100%;border-collapse:collapse;font-size:.83rem">']
-    for t, what, ex, ready in _entries:
-        _er.append(
-            '<tr style="border-bottom:1px solid var(--rule)">'
-            f'<td style="padding:.45rem .5rem;width:11rem;font-weight:700">{esc(t)}</td>'
-            f'<td style="padding:.45rem .5rem">{esc(what)}'
-            f'<br><span class="small">{esc(ex)}</span></td>'
-            f'<td style="padding:.45rem .5rem;width:7rem">'
-            f'{badge("ok", "지금 됩니다") if ready else badge("na", "아직 안 됩니다")}</td></tr>')
-    st.markdown("".join(_er) + "</table>", unsafe_allow_html=True)
-    st.markdown('<p class="small">지금은 <b>①만</b> 됩니다. 왼쪽에서 맡으신 사업을 고르면 '
-                '그 사업 기준으로 화면이 맞춰집니다. ②③은 아직 만들지 않았습니다 — '
-                '되는 것처럼 보이게 두지 않았습니다.</p>', unsafe_allow_html=True)
+    _t1, _t2, _t3 = st.tabs(["① 사업을 배정받았다", "② 공모 공고가 떴다", "③ 현장 자료가 올라왔다"])
+    with _t1:
+        st.markdown('<p class="small">위원회 안건이나 성과평가 환류로 「이 사업을 손봐라」가 '
+                    '내려옵니다. <b>왼쪽에서 맡으신 사업을 고르세요.</b><br>'
+                    '<span class="small">실제 사례 — 청년도약기지, 2023.10 청년정책 조정위원회 안건</span>'
+                    '</p>', unsafe_allow_html=True)
+        st.caption(f"6대 산업 사업 {len(works)}건 중 이미 추진 중인 것이 대부분입니다 "
+                   "(E026 · 52건 중 37건)")
+    with _t2:
+        st.markdown('<p class="small">중앙부처가 국비 공모를 발표하면 대응할지 판단합니다. '
+                    '공고 주소나 본문을 넣으면 기존 사업과 대조해 드립니다.<br>'
+                    '<span class="small">실제 사례 — K-NIBRT, 2020.04 산자부·복지부 공모 발표</span>'
+                    '</p>', unsafe_allow_html=True)
+        _u = st.text_input("공고 주소", key="k_url", placeholder="https://...")
+        if st.button("주소에서 가져오기", key="b_url") and _u:
+            try:
+                _card, _note = intake.from_url(_u, seq=len(UP) + 1, industry=None
+                                               if pick == "전체" else pick)
+                UP.append(_card)
+                st.success(f"「{_card['name']}」을(를) 받았습니다. {_note}")
+                st.rerun()
+            except intake.IntakeError as e:
+                st.warning(str(e))
+    with _t3:
+        st.markdown('<p class="small">기업·대학이 낸 수요조사서나 보고서를 넣으면 항목을 정리해 '
+                    '기존 사업과 대조합니다.<br><span class="small">A3 1단계 입력문서 '
+                    '「기업/대학/현장 수요조사서」</span></p>', unsafe_allow_html=True)
+        _f = st.file_uploader("파일 올리기 (PDF)", type=["pdf"], key="k_pdf")
+        if _f is not None and st.button("파일에서 가져오기", key="b_pdf"):
+            try:
+                _card, _note = intake.from_pdf(_f.getvalue(), _f.name, seq=len(UP) + 1,
+                                               industry=None if pick == "전체" else pick)
+                UP.append(_card)
+                st.success(f"「{_card['name']}」을(를) 받았습니다. {_note}")
+                st.rerun()
+            except intake.IntakeError as e:
+                st.warning(str(e))
+        _tx = st.text_area("또는 본문을 붙여넣기", key="k_txt", height=110,
+                           placeholder="비공개 문서는 필요한 대목만 옮겨 적어도 됩니다")
+        if st.button("붙여넣은 글에서 가져오기", key="b_txt") and _tx:
+            try:
+                _card, _note = intake.from_text(_tx, seq=len(UP) + 1,
+                                                industry=None if pick == "전체" else pick)
+                UP.append(_card)
+                st.success(f"「{_card['name']}」을(를) 받았습니다. {_note}")
+                st.rerun()
+            except intake.IntakeError as e:
+                st.warning(str(e))
+
+    if UP:
+        st.markdown('<p class="small">이번에 올리신 자료 '
+                    + ", ".join(f'{esc(c["name"][:24])}<span class="up">직접 올림</span>'
+                                for c in UP)
+                    + ' — 세션에만 있고 조사 원장은 그대로입니다.</p>', unsafe_allow_html=True)
 
     if TARGET:
         _c = actors.consult_for(TARGET)
@@ -297,6 +354,8 @@ elif screen.startswith("1"):
         for x in bx:
             st.markdown(f'- **{name_of(x["pid"])}** — {esc(x.get("note") or "원장과 대조 필요")}')
 
+    if TARGET:
+        void(empty.budget(TARGET, refdata.budget_status_for(TARGET)))
     st.subheader("대조가 끝난 사업")
     if bc:
         r = ['<table style="width:100%;border-collapse:collapse;font-size:.85rem">'
@@ -340,6 +399,10 @@ elif screen.startswith("2"):
     c3.metric("서로 채워 주는 것", f"{len(cp)}건", help="주는 것이 달라 중복이 아닙니다")
     c4.metric("넘기는 절차 없음", f"{len(hb)}쌍")
 
+    _same_ind = [c for c in works if in_scope(c)]
+    if not oh:
+        st.subheader("정리가 필요해 보이는 겹침")
+        void(empty.overlaps(TARGET, _same_ind, oh))
     if oh:
         st.subheader("정리가 필요해 보이는 겹침")
         for f in oh:
@@ -371,7 +434,7 @@ elif screen.startswith("2"):
                 if len(pairs) > 8:
                     st.caption(f"…외 {len(pairs) - 8}쌍")
     else:
-        st.success("이 산업 안에서는 넘기는 절차 없음 후보가 없습니다")
+        void(empty.handoffs(TARGET, _same_ind, hb))
     if hb_cross:
         st.markdown(
             f'<p class="small">산업이 서로 다른 {len(hb_cross)}쌍은 뺐습니다 — '
@@ -418,68 +481,69 @@ elif screen.startswith("3"):
                 '새 자료가 들어오면 구분도 질문도 저절로 바뀝니다.</p>', unsafe_allow_html=True)
 
     st.subheader("나. 산업에 필요한 것을 해주는 사업이 있는가")
-    st.markdown('<p class="small">직무 하나가 아니라 <b>지원 유형 7가지</b>로 맞춥니다 — '
-                '사람·기술·돈·판로·받쳐 줄 기업·공간·행정. 예전에는 사람 축만 봤습니다.</p>',
-                unsafe_allow_html=True)
+    st.markdown('<p class="small">기업이 필요하다고 말한 것을 <b>일곱 가지</b>로 나눠 놓고, '
+                '그걸 해주는 사업이 있는지 하나씩 맞춰 봅니다. '
+                '<b>점선 칸이 비어 있는 곳</b>입니다.</p>', unsafe_allow_html=True)
     scoped = [c for c in COV if pick == "전체" or pick in c["industry"]]
     real = [c for c in scoped if c["verdict"] in ("covered", "uncovered")]
     unc = [c for c in real if c["verdict"] == "uncovered"]
     thin = [c for c in real if c["verdict"] == "covered" and len(c["covers"]) == 1]
 
-    r = ['<table style="width:100%;border-collapse:collapse;font-size:.83rem">'
-         '<tr style="border-bottom:1.5px solid var(--ink)">'
-         '<th style="text-align:left;padding:.4rem .5rem;width:6rem">필요한 것</th>'
-         '<th style="text-align:left;padding:.4rem .5rem;width:4.5rem">산업</th>'
-         '<th style="text-align:left;padding:.4rem .5rem">무슨 자료로 확인했나</th>'
-         '<th style="text-align:left;padding:.4rem .5rem;width:9rem">해주는 사업</th></tr>']
-    for c in sorted(real, key=lambda x: (x["verdict"] != "uncovered", len(x["covers"]))):
-        n = len(c["covers"])
-        mark = (badge("act", "없음") if n == 0
-                else badge("na", "1건뿐") if n == 1 else badge("ok", f"{n}건"))
-        if n and n <= 2:
-            mark += ('<br><span class="small">'
-                     + esc(", ".join(name_of(p)[:18] for p in c["covers"])) + "</span>")
-        r.append('<tr style="border-bottom:1px solid var(--rule)">'
-                 f'<td style="padding:.45rem .5rem;font-weight:700">{esc(needs.plain(c["need"]))}'
-                 f'<br><span class="small">{esc(needs.NEED_LABEL[c["need"]])}</span></td>'
-                 f'<td style="padding:.45rem .5rem">{esc(c["industry"])}</td>'
-                 f'<td style="padding:.45rem .5rem">{esc(c["problem_type"])}'
-                 f'<br><span class="small">{esc(c["value"][:52])} · {esc(c["signal_id"])} '
-                 f'{esc(c["grade"])}등급 {esc(c["trend"])}</span></td>'
-                 f'<td style="padding:.45rem .5rem">{mark}</td></tr>')
-    st.markdown("".join(r) + "</table>", unsafe_allow_html=True)
-
-    if unc:
-        kinds = sorted({needs.plain(c["need"]) for c in unc})
-        st.error(f"**해주는 사업이 없는 것 {len(unc)}건 — 전부 「{', '.join(kinds)}」입니다.** "
-                 + " / ".join(f"{c['industry']} {c['signal_id']}" for c in unc))
-        for c in unc:
-            st.markdown(f'- **{c["industry"]} · {c["problem_type"]}** — {esc(c["value"][:70])}  \n'
-                        f'  <span class="small">이 신호의 한계: {esc(c["limit"][:110])}</span>',
-                        unsafe_allow_html=True)
-    if thin:
-        st.warning(f"해주는 사업이 1건뿐인 수요 {len(thin)}건 — 그 사업이 멈추면 바로 공백이 됩니다: "
-                   + ", ".join(f"{c['industry']} {needs.plain(c['need'])}" for c in thin))
-
-    admin = [c for c in scoped if c["verdict"] == "admin_task"]
-    notneed = [c for c in scoped if c["verdict"] == "not_a_need"]
-    with st.expander(f"여기서 뺀 자료 {len(admin) + len(notneed)}건 — 왜 뺐는지"):
-        st.markdown(f'<p class="small"><b>행정 과제 {len(admin)}건</b> — 집행지연·수요조사 노후화·'
-                    '데이터 공백처럼 <b>사업으로 해결할 수 없는</b> 신호입니다. 빈 곳으로 세면 '
-                    '잘못된 경보가 됩니다.<br>'
-                    f'<b>수요가 아닌 것 {len(notneed)}건</b> — 산업 규모·현원·"수요가 없다"는 '
-                    '역방향 신호입니다. "크다"를 "모자란다"로 바꿔 읽지 않습니다.</p>',
+    if not real:
+        void(empty.needs_table(pick if pick != "전체" else "6대", scoped, real))
+    else:
+        # 필요한 것 일곱 가지를 한눈에 — 표보다 빈 곳이 먼저 보이게
+        by_need = {}
+        for c in real:
+            d = by_need.setdefault(c["need"], {"n": 0, "covered": 0, "biz": set()})
+            d["n"] += 1
+            d["covered"] += (c["verdict"] == "covered")
+            d["biz"].update(c["covers"])
+        rows = []
+        for n in needs.NEEDS:
+            d = by_need.get(n)
+            if not d:
+                continue
+            gap = d["covered"] == 0
+            bar = ('<span class="none"></span>' if gap
+                   else "".join("<i></i>" for _ in range(min(len(d["biz"]), 12))))
+            rows.append(
+                f'<div class="need{" gap" if gap else ""}">'
+                f'<div class="nm">{esc(needs.plain(n))}'
+                f'<span>{esc(needs.NEED_LABEL[n])}</span></div>'
+                f'<div class="bar">{bar}</div>'
+                f'<div class="ct">{d["covered"]}÷{d["n"]}</div></div>')
+        st.markdown("".join(rows), unsafe_allow_html=True)
+        st.markdown('<p class="small">칸 하나가 그 일을 해주는 사업 하나입니다. '
+                    '오른쪽 숫자는 「필요하다고 말한 것 몇 건 중 몇 건이 채워졌나」입니다.</p>',
                     unsafe_allow_html=True)
-        for c in (admin + notneed)[:14]:
-            st.markdown(f'- `{c["signal_id"]}` {c["industry"]} · {esc(c["problem_type"])}')
 
-    um = [c for c in works if in_scope(c) and not needs.needs_covered_by(c)]
-    st.markdown(
-        f'<p class="small"><b>이 축의 한계</b>: 사업 {len([c for c in works if in_scope(c)])}건 중 '
-        f'<b>{len(um)}건</b>은 원문에 <b>주는 것(수단)이 안 적혀 있어</b> 어떤 수요와도 맞출 수 '
-        '없습니다. "해주는 사업이 없다"와 "수단을 못 읽었다"는 다릅니다.</p>',
-        unsafe_allow_html=True)
-
+        with st.expander(f"하나씩 보기 — {len(real)}건"):
+            r = ['<table style="width:100%;border-collapse:collapse;font-size:.83rem">'
+                 '<tr style="border-bottom:1.5px solid var(--ink)">'
+                 '<th style="text-align:left;padding:.4rem .5rem;width:6rem">필요한 것</th>'
+                 '<th style="text-align:left;padding:.4rem .5rem;width:4.5rem">산업</th>'
+                 '<th style="text-align:left;padding:.4rem .5rem">무슨 자료로 확인했나</th>'
+                 '<th style="text-align:left;padding:.4rem .5rem;width:9rem">해주는 사업</th></tr>']
+            for c in sorted(real, key=lambda x: (x["verdict"] != "uncovered", len(x["covers"]))):
+                k = len(c["covers"])
+                mine = TARGET and TARGET["policy_id"] in c["covers"]
+                mark = (badge("act", "없음") if k == 0
+                        else badge("na", "1건뿐") if k == 1 else badge("ok", f"{k}건"))
+                if k and k <= 2:
+                    mark += ('<br><span class="small">'
+                             + esc(", ".join(name_of(q)[:18] for q in c["covers"])) + "</span>")
+                if mine:
+                    mark += '<br><span class="up">내가 맡은 사업</span>'
+                r.append('<tr style="border-bottom:1px solid var(--rule)">'
+                         f'<td style="padding:.45rem .5rem;font-weight:700">'
+                         f'{esc(needs.plain(c["need"]))}</td>'
+                         f'<td style="padding:.45rem .5rem">{esc(c["industry"])}</td>'
+                         f'<td style="padding:.45rem .5rem">{esc(c["problem_type"])}'
+                         f'<br><span class="small">{esc(c["value"][:52])} · '
+                         f'{esc(c["signal_id"])} {esc(c["grade"])}등급</span></td>'
+                         f'<td style="padding:.45rem .5rem">{mark}</td></tr>')
+            st.markdown("".join(r) + "</table>", unsafe_allow_html=True)
 
 # ═══ 화면 4 — 조치 제안 ═══════════════════════════════════
 else:

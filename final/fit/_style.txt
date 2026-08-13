@@ -85,4 +85,34 @@ h3{ font-size:1.0rem; font-weight:700; color:var(--ink); margin:1.2rem 0 .4rem; 
 [data-testid="stTable"] table, .stDataFrame{ font-size:.85rem; }
 hr{ border-color:var(--rule); }
 .small{ font-size:.78rem; color:var(--muted); }
+
+/* 빈칸 — 이 도구의 서명 요소.
+   실선 = 맞춰 봤고 걸리는 게 없다 / 점선 = 아직 모른다.
+   공문서에서 해당 없는 칸에 도장을 찍듯, 왜 비었는지를 칸 안에 적는다. */
+.void{ margin:.5rem 0 .9rem; padding:.75rem .95rem; background:#fff; }
+.void .k{ display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.02em;
+          padding:.05rem .5rem; border:1px solid; border-radius:1px; margin-bottom:.4rem; }
+.void .w{ font-size:.9rem; color:var(--ink); line-height:1.55; }
+.void .f{ display:block; margin-top:.35rem; font-size:.8rem; color:var(--muted); }
+.void.ok{ border:1px solid var(--harbor); }
+.void.ok .k{ color:var(--harbor); border-color:var(--harbor); background:#0E5A8A0C; }
+.void.unknown{ border:1.5px dashed var(--rule); background:#FCFBF8; }
+.void.unknown .k{ color:#7A6410; border-color:#7A6410; background:#7A64100C; }
+
+/* 필요한 것 막대 — 표보다 빈 곳이 먼저 보이게 */
+.need{ display:grid; grid-template-columns:7rem 1fr 4.5rem; align-items:center;
+       gap:.55rem; padding:.4rem 0; border-bottom:1px solid var(--rule); }
+.need .nm{ font-weight:700; font-size:.86rem; }
+.need .nm span{ display:block; font-weight:400; font-size:.74rem; color:var(--muted); }
+.need .bar{ display:flex; gap:3px; align-items:center; min-height:1.15rem; }
+.need .bar i{ display:block; width:1.15rem; height:1.15rem; background:var(--harbor);
+              border-radius:1px; font-style:normal; }
+.need .bar .none{ width:100%; height:1.15rem; border:1.5px dashed var(--seal);
+                  border-radius:1px; }
+.need .ct{ text-align:right; font-size:.8rem; color:var(--muted); font-family:Consolas,monospace; }
+.need.gap .nm{ color:var(--seal); }
+
+/* 직접 올린 자료 배지 */
+.up{ display:inline-block; padding:0 .42rem; font-size:.7rem; font-weight:600;
+     color:#7A6410; border:1px dashed #7A6410; border-radius:1px; margin-left:.3rem; }
 </style>
