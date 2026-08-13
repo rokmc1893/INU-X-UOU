@@ -139,3 +139,24 @@ def test_budget_findings_flags_department_mismatch():
     c["owner_dept"] = "청년정책담당관"
     r = budget_findings([c], lambda _: {"status": "EXACT", "dept": "반도체바이오과", "budget_won": 1})
     assert r["dept_mismatch"][0]["official"] == "반도체바이오과"
+
+
+def test_단계가_비면_인계공백으로_보지_않는다():
+    """null은 '다른 단계'가 아니라 '단계를 모른다'다.
+
+    실제로 화면에 "교육훈련 다음 None(으)로 넘기는 절차가 없습니다"가 나갔다.
+    """
+    from engine.detect import run_rules, build_edges
+    a = {"policy_id": "A", "stage": "교육훈련", "occupation": ["전직무"], "target": {}}
+    b = {"policy_id": "B", "stage": None, "occupation": ["전직무"], "target": {}}
+    res = run_rules([a, b], [], build_edges([a, b], [], None))
+    assert res["handoff_breaks"] == [], "단계 미상인 사업이 인계 공백으로 잡혔다"
+
+
+def test_양쪽_단계가_있으면_그대로_잡는다():
+    from engine.detect import run_rules, build_edges
+    a = {"policy_id": "A", "stage": "교육훈련", "occupation": ["전직무"], "target": {}}
+    b = {"policy_id": "B", "stage": "매칭", "occupation": ["전직무"], "target": {}}
+    res = run_rules([a, b], [], build_edges([a, b], [], None))
+    assert len(res["handoff_breaks"]) == 1
+    assert "None" not in res["handoff_breaks"][0]["reason"]

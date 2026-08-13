@@ -166,7 +166,12 @@ def run_rules(cards, demands, edges, linkages=None, posture_of=None):
            "overlaps_intentional": [], "complements": []}
     for a, b in combinations(cards, 2):  # 인계 단절: 동일 target·occupation ∧ HANDOFF 없음
         pa, pb = a["policy_id"], b["policy_id"]
-        if (_occ_overlap(a, b) and _target_overlaps(a, b)
+        # 단계가 **양쪽 다 적혀 있고** 서로 다를 때만 인계 공백으로 본다.
+        # 한쪽이 비어 있는 것은 '다른 단계'가 아니라 '단계를 모른다'다 — 이걸 다름으로 읽으면
+        # 화면에 "교육훈련 다음 None(으)로 넘기는 절차가 없습니다" 같은 말이 나가고,
+        # 없는 공백을 있다고 주장하게 된다. `_target_differs_explicitly`와 같은 원칙이다.
+        if (a.get("stage") and b.get("stage")
+                and _occ_overlap(a, b) and _target_overlaps(a, b)
                 and a.get("stage") != b.get("stage")
                 and (pa, pb) not in handoff and (pb, pa) not in handoff):
             # 사슬 순서(이른 단계 → 늦은 단계)로 정렬해 표기

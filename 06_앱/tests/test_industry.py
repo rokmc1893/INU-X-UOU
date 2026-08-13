@@ -11,7 +11,7 @@ def _row(ind, trend, grade, sid="D-999"):
 def test_실측수요가_있으면_대응형():
     p = industry.posture("바이오", [_row("바이오", "SUSTAINED", "B")])
     assert p["posture"] == industry.RESPONSIVE
-    assert "덮는가" in p["question"]
+    assert "해주는가" in p["question"]
 
 
 def test_단발이거나_언론근거뿐이면_유도형():
@@ -20,14 +20,14 @@ def test_단발이거나_언론근거뿐이면_유도형():
                          ("FORECAST", "B")]:
         p = industry.posture("로봇", [_row("로봇", trend, grade)])
         assert p["posture"] == industry.INDUCING, f"{trend}/{grade}이 대응형으로 샜다"
-        assert "만들 근거" in p["question"]
+        assert "왜 지금 하는가" in p["question"]
 
 
 def test_신호가_아예_없으면_판단보류():
     """'수요 없음'과 '조사 없음'은 다르다 — 자료 없음을 수요 없음으로 치환하지 않는다."""
     p = industry.posture("미래차", [])
     assert p["posture"] == industry.UNDECIDED
-    assert "조사" in p["question"]
+    assert "조사한 자료가 아직 없다" in p["question"]
 
 
 def test_복합산업_신호가_양쪽에_잡힌다():

@@ -94,7 +94,11 @@ st.sidebar.title("정책핏 인천")
 st.sidebar.caption("확정본 · 조사자 C의 성과축 순서")
 SCREENS = ["0 무엇을 보는가", "1 예산이 제대로 붙어 있나", "2 사업끼리 겹치거나 끊기지 않았나",
            "3 필요한 걸 해주고 있나", "4 조치 제안"]
-screen = st.sidebar.radio("화면", SCREENS, label_visibility="collapsed")
+_wscr = (st.query_params.get("화면") or "").strip()
+screen = st.sidebar.radio(
+    "화면", SCREENS, label_visibility="collapsed",
+    index=next((i for i, x in enumerate(SCREENS) if x.startswith(_wscr)), 0)
+    if _wscr else 0)
 st.sidebar.divider()
 
 # 입구는 「배정받은 사업」이다. 실제 사례(A4)에서 담당자는 산업을 고르는 것이 아니라
@@ -102,12 +106,21 @@ st.sidebar.divider()
 # 단위라 담당자에게 산업은 이미 정해져 있다 — 그래서 산업은 입구가 아니라 아래 필터다.
 _assigned = sorted([c for c in works if c.get("strategic_industry")],
                    key=lambda c: (c.get("strategic_industry") or "", c["name"]))
+# 주소로 바로 열 수 있게 한다 — ?사업=IC-BIO-002&화면=3
+# 시연 때 링크 하나로 그 사례를 여는 용도이고, 화면을 손으로 눌러 여는 것과 결과가 같다.
+_qp = st.query_params
+_NONE = "(고르지 않음 — 전체 훑어보기)"
+_opts = [_NONE] + _assigned
+_want = (_qp.get("사업") or "").strip()
+_idx = next((i for i, c in enumerate(_opts)
+             if not isinstance(c, str) and c["policy_id"] == _want), 0)
 TARGET = st.sidebar.selectbox(
-    "검토를 맡은 사업", ["(고르지 않음 — 전체 훑어보기)"] + _assigned,
+    "검토를 맡은 사업", _opts, index=_idx,
     format_func=lambda c: c if isinstance(c, str)
     else f"[{c.get('strategic_industry')}] {c['name'][:34]}",
     help="위원회 안건이나 내부 지시로 배정받은 사업을 고르세요. "
-         "실제 사례에서 담당자는 여기서 시작합니다.")
+         "실제 사례에서 담당자는 여기서 시작합니다. "
+         "주소에 ?사업=사업번호 를 붙이면 바로 열립니다.")
 if isinstance(TARGET, str):
     TARGET = None
 _inds = ["전체"] + industry.INDUSTRIES
@@ -622,8 +635,8 @@ else:
                      f"{len(dm)}건의 사업이 공식 예산 원장과 다른 과로 적혀 있습니다. "
                      "공문을 잘못 보내면 회신이 오지 않습니다.", "화면 1"))
     if unc:
-        kinds = ", ".join(sorted({c["need"] for c in unc}))
-        todo.append((f"「{kinds}」을(를) 챙길 사업을 검토한다",
+        kinds = ", ".join(sorted({needs.plain(c["need"]) for c in unc}))
+        todo.append((f"「{kinds}」{eul(kinds)} 챙길 사업을 검토한다",
                      f"기업이 필요하다고 말한 {len(unc)}건에 대응하는 사업이 없습니다. "
                      "먼저 수요조사서가 필요하고, 본예산은 마감됐으니 1차 추경이나 공모가 빠릅니다.",
                      "화면 3"))

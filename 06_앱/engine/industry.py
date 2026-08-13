@@ -65,9 +65,9 @@ def _is_demand_type(row):
 RESPONSIVE, INDUCING, UNDECIDED = "대응형", "유도형", "판단보류"
 
 POSTURE_QUESTION = {
-    RESPONSIVE: "산업이 이미 필요로 하는 것을 이 사업이 덮는가",
-    INDUCING: "아직 없는 수요를 만들 근거가 이 사업에 있는가",
-    UNDECIDED: "이 산업의 수요를 조사한 자료가 아직 없다",
+    RESPONSIVE: "이미 필요하다고 나온 것을 이 사업이 해주는가",
+    INDUCING: "아직 필요하다는 자료가 없는데 왜 지금 하는가",
+    UNDECIDED: "이 산업을 조사한 자료가 아직 없다",
 }
 POSTURE_LABEL = {
     RESPONSIVE: "대응형 — 현재 산업, 정책이 맞춰준다",
