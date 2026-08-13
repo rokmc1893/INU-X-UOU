@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/* 정책핏 인천 — 결재 검토 도구
+ *
+ * 화면 전체를 관통하는 규칙 하나:
+ *   실선 = 맞춰 보고 확인했다   ·   점선 = 아직 모른다
+ * 「모름」이 「괜찮음」으로 읽히지 않게 하려는 것이고, 이 도구가 하는 일의 핵심이다.
+ *
+ * 색은 뜻을 나른다. 파랑은 확인, 붉은빛은 비어 있음, 회색 점선은 모름.
+ * 장식으로 쓰는 색은 없다.
+ */
+
+@theme {
+  --color-paper: #ffffff;
+  --color-shell: #f4f5f7;
+  --color-ink: #16191d;
+  --color-muted: #6b7280;
+  --color-faint: #9aa0a6;
+  --color-rule: #e3e5e9;
+
+  --color-pen: #1f5fd0;      /* 확인함 — 검토자가 파란 볼펜으로 표시하듯 */
+  --color-pen-soft: #eef3fd;
+  --color-gap: #c0392b;      /* 비어 있음 — 조치가 필요하다 */
+  --color-gap-soft: #fdf0ee;
+  --color-hold: #8a6d1f;     /* 모름 — 판단을 보류한다 */
+  --color-hold-soft: #fbf6e9;
+
+  --font-display: "Gowun Batang", "Nanum Myeongjo", serif;
+  --font-body: "Pretendard", -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+html {
+  background: var(--color-shell);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-feature-settings: "tnum";
+  -webkit-font-smoothing: antialiased;
+}
+
+body { margin: 0; line-height: 1.6; }
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
+
+a { color: inherit; }
+
+/* 근거 링크 — 화면의 모든 수치는 한 번 눌러 원문으로 갈 수 있어야 한다 */
+.src {
+  display: inline-flex; align-items: center; gap: 2px;
+  margin-left: 6px; padding: 0 6px;
+  font-size: 11px; font-weight: 600; white-space: nowrap;
+  color: var(--color-pen); border: 1px solid #c4d4f2; border-radius: 3px;
+  text-decoration: none;
+}
+.src:hover { background: var(--color-pen-soft); }
+.src-none {
+  display: inline-block; margin-left: 6px; padding: 0 6px;
+  font-size: 11px; color: var(--color-faint);
+  border: 1px dashed var(--color-rule); border-radius: 3px;
+}
+
+/* 진행 막대 — 채워진 칸과 빈 칸을 같은 자리에서 견준다 */
+.slot { width: 15px; height: 15px; border-radius: 2px; background: var(--color-pen); }
+.slot-empty {
+  flex: 1; height: 15px; border-radius: 2px;
+  border: 1.5px dashed var(--color-gap); background: var(--color-gap-soft);
+}
+
+@media print {
+  .no-print { display: none !important; }
+}
