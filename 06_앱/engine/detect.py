@@ -40,6 +40,23 @@ def _means_differ(a, b):
     return ia is not None and ib is not None and ia != ib
 
 
+def _same_industry(a, b):
+    """두 사업이 같은 전략산업에 속하는가.
+
+    인계 공백은 O(N²)라 62건에서 273쌍이 나오는데, 그중 210쌍(77%)이 **산업이 서로 다른**
+    쌍이었다 — 청년도약기지와 대한항공 MRO 클러스터 사이에 '인계 절차가 없다'고 말하는 것은
+    행정적으로 의미가 없다. 지우지는 않고 표시만 해서 화면이 같은 산업 안의 쌍을 먼저 보인다.
+    '공통'(전략산업 총괄 계획)과 산업 미상은 어느 쪽과도 짝이 될 수 있다고 본다.
+    """
+    ia = (a.get("strategic_industry") or "").strip()
+    ib = (b.get("strategic_industry") or "").strip()
+    if not ia or not ib or "공통" in (ia, ib):
+        return True
+    # '바이오+디지털데이터'처럼 복합값이 있어 부분 일치로 본다 (B_README: 배타적 분류 아님)
+    sa, sb = set(ia.split("+")), set(ib.split("+"))
+    return bool(sa & sb)
+
+
 def _occ_overlap(a, b):
     sa, sb = set(a.get("occupation") or []), set(b.get("occupation") or [])
     if not sa or not sb:
@@ -159,6 +176,7 @@ def run_rules(cards, demands, edges, linkages=None, posture_of=None):
             confirmed = frozenset((pa, pb)) in confirmed_absent
             res["handoff_breaks"].append({
                 "items": [first["policy_id"], second["policy_id"]],
+                "same_industry": _same_industry(a, b),
                 "evidence": "조사 확인(B3)" if confirmed else "원문 미언급",
                 "reason": f"{first.get('stage')} 다음 {second.get('stage')}(으)로 넘기는 절차가 문서에 없습니다"
                           + (" (조사자가 직접 찾아봤지만 없었음)" if confirmed else "")})
@@ -183,16 +201,18 @@ def run_rules(cards, demands, edges, linkages=None, posture_of=None):
                 meaning = "이 직무를 콕 집어 다루는 사업이 없습니다" + note
             res["gaps"].append({"signal_id": d["signal_id"], "occupation": d["occupation"],
                                 "posture": p, "reason": meaning})
+    by_id = {c["policy_id"]: c for c in cards}
+    KEY = {"OVERLAP_HARMFUL": "overlaps_harmful",
+           "OVERLAP_INTENTIONAL": "overlaps_intentional",
+           "OVERLAP_COMPLEMENTARY": "complements"}
     for e in edges:
-        if e["type"] == "OVERLAP_HARMFUL":
-            res["overlaps_harmful"].append({"items": [e["src"], e["dst"]],
-                                            "reason": e["props"]["reason"]})
-        elif e["type"] == "OVERLAP_INTENTIONAL":
-            res["overlaps_intentional"].append({"items": [e["src"], e["dst"]],
-                                                "reason": e["props"]["reason"]})
-        elif e["type"] == "OVERLAP_COMPLEMENTARY":
-            res["complements"].append({"items": [e["src"], e["dst"]],
-                                       "reason": e["props"]["reason"]})
+        key = KEY.get(e["type"])
+        if not key:
+            continue
+        a, b = by_id.get(e["src"]), by_id.get(e["dst"])
+        res[key].append({"items": [e["src"], e["dst"]],
+                         "same_industry": _same_industry(a, b) if a and b else True,
+                         "reason": e["props"]["reason"]})
     return res
 
 

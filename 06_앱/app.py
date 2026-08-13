@@ -65,6 +65,7 @@ h3{ font-size:1.0rem; font-weight:700; color:var(--ink); margin:1.2rem 0 .4rem; 
     border:1px solid; border-radius:1px; white-space:nowrap; }
 .v.act{ color:var(--seal); border-color:var(--seal); background:#B4402E0C; }   /* 조치 필요 */
 .v.ok{ color:var(--harbor); border-color:var(--harbor); background:#0E5A8A0C; } /* 조치 불요 */
+.v.warn{ color:#7A6410; border-color:#7A6410; background:#7A64100C; }          /* 일부만 판정 */
 .v.na{ color:var(--muted); border-color:var(--rule); background:#fff; }         /* 근거 부족 */
 
 /* 근거등급 칩 */
@@ -115,6 +116,7 @@ hr{ border-color:var(--rule); }
 # 소관 부서 연락처 — A1 actor registry가 단일 출처 (data/pool/A1_actor_registry.csv)
 from engine import refdata
 from engine import industry
+from engine import outcomes
 # 2026-08 조직개편으로 원장과 카드의 과 명칭이 다른 경우의 별칭
 DEPT_ALIAS = {"AI혁신과": "AI블록체인과"}
 
@@ -145,15 +147,17 @@ NEXT_ACTION = {
 
 # 분석 범위 — 값은 풀 카드의 strategic_industry와 대조한다 (None이면 청년일자리만)
 SCOPES = {
-    "청년일자리 (기본)": None,
+    # 기본을 6대 전략산업 전체로 둔다. 청년일자리만 보면 문제 정의(산업·정책 연계 부족)의
+    # 한 축(C1 5순위 '인재유출·미스매치')만 보게 된다 — D-001이 정한 타겟과 어긋난다.
+    "6대 전략산업 전체 (기본)": ("바이오", "반도체", "로봇", "항공",
+                          "디지털데이터", "미래차", "공통"),
+    "청년일자리만": None,
     "+ 바이오": ("바이오",),
     "+ 반도체": ("반도체",),
     "+ 로봇": ("로봇",),
     "+ 항공": ("항공",),
     "+ 미래차": ("미래차",),
-    "+ 디지털·AI": ("디지털데이터",),
-    "+ 6대 전략산업 전체": ("바이오", "반도체", "로봇", "항공",
-                       "디지털데이터", "미래차", "공통"),
+    "+ 디지털데이터": ("디지털데이터",),
 }
 
 # A2 결정 달력의 두 트랙 = 공무원이 실제로 들어오는 두 경로 (D-025)
@@ -722,6 +726,38 @@ if screen.startswith("1"):
         '<p class="small">풀려는 문제는 <b>산업이 필요로 하는 것과 사업이 어긋나는 것</b>입니다. '
         '그래서 둘을 함께 봅니다 — 산업 수요를 덮는 사업이 있는가, 그 사업들이 서로 이어지는가.</p>',
         unsafe_allow_html=True)
+
+    # 산업·정책이 끊겼을 때 생기는 문제 7가지 (조사자 C의 C1 성과축). 우리가 어디까지
+    # 판정하는지 정직하게 표시한다 — 못 하는 축을 감추면 "일자리 한 축만 본다"가 가려진다.
+    _cov = outcomes.coverage_summary()
+    st.subheader("산업과 정책이 어긋나면 생기는 일 — 7가지 중 어디까지 봅니까")
+    _ax = ['<table style="width:100%;border-collapse:collapse;font-size:.82rem">'
+           '<tr style="border-bottom:1.5px solid var(--ink)">'
+           '<th style="text-align:left;padding:.4rem .5rem;width:1.5rem"></th>'
+           '<th style="text-align:left;padding:.4rem .5rem">생기는 문제</th>'
+           '<th style="text-align:left;padding:.4rem .5rem;width:5rem">이 도구는</th>'
+           '<th style="text-align:left;padding:.4rem .5rem">무엇으로 / 왜 못 하는지</th></tr>']
+    for _a in outcomes.axes():
+        _n = outcomes.counts_for(_a, findings)
+        _cl = {"full": "ok", "partial": "warn", "none": "act"}[_a["covered"]]
+        _what = (f'{_a["module"]} <b>{_n}건</b><br><span class="small">한계: {_a["gap"]}</span>'
+                 if _a["module"] else f'<span class="small">{_a["gap"]}</span>')
+        _ax.append(
+            '<tr style="border-bottom:1px solid var(--rule)">'
+            f'<td style="padding:.45rem .5rem;color:var(--muted)">{_a["rank"]}</td>'
+            f'<td style="padding:.45rem .5rem;font-weight:700">{_esc(_a["outcome"])}'
+            f'<br><span class="small">조사자 C 우선순위 {_esc(_a["c_status"])}</span></td>'
+            f'<td style="padding:.45rem .5rem"><span class="v {_cl}">'
+            f'{outcomes.COVER_LABEL[_a["covered"]]}</span></td>'
+            f'<td style="padding:.45rem .5rem">{_what}</td></tr>')
+    st.markdown("".join(_ax) + "</table>", unsafe_allow_html=True)
+    st.markdown(
+        f'<p class="small">7가지 중 <b>{_cov["partial"]}가지를 일부만</b> 판정하고 '
+        f'<b>{_cov["none"]}가지는 판정하지 못합니다.</b> 못 하는 축은 감추지 않고 이유를 적었습니다 — '
+        '자료가 없는 것이지 문제가 없는 것이 아닙니다. '
+        '축 목록과 순위는 우리가 정한 것이 아니라 조사자 C의 '
+        '<code>C1_outcome_feasibility_matrix.csv</code>를 그대로 읽은 것입니다.</p>',
+        unsafe_allow_html=True)
     a = by_id.get(ANCHOR, {})
     st.markdown(
         f'<p class="small">기준사업 <b>인천 청년도약기지(취업아카데미)</b> '
@@ -778,8 +814,20 @@ elif screen.startswith("2"):
                         + '</p>', unsafe_allow_html=True)
     st.divider()
     st.subheader("인계 공백 후보 — 구간별 (사업 간 연계 끊김)")
+    # 인계 공백은 O(N²)라 62건에서 273쌍이 나오는데 그중 210쌍이 산업이 서로 다른 쌍이다.
+    # 청년도약기지와 대한항공 MRO 사이에 '인계 절차가 없다'는 말은 행정적으로 쓸 데가 없다.
+    # 지우지 않고 접어서, 같은 산업 안의 쌍을 먼저 보인다.
+    _hb_same = [f for f in findings["handoff_breaks"] if f.get("same_industry", True)]
+    _hb_cross = [f for f in findings["handoff_breaks"] if not f.get("same_industry", True)]
+    if _hb_cross:
+        st.markdown(
+            f'<p class="small">전체 {len(findings["handoff_breaks"])}쌍 중 '
+            f'<b>같은 산업 안의 {len(_hb_same)}쌍</b>만 먼저 보입니다. '
+            f'산업이 서로 다른 {len(_hb_cross)}쌍은 아래에 접어 뒀습니다 — 버린 것이 아니라, '
+            '다른 산업 사업끼리 인계 절차가 없다는 지적은 실제 협의로 이어지지 않기 때문입니다.</p>',
+            unsafe_allow_html=True)
     groups = {}
-    for f in findings["handoff_breaks"]:
+    for f in _hb_same:
         groups.setdefault(f["reason"], []).append(f["items"])
     anchor_first = sorted(groups.items(),
                           key=lambda kv: (not any(ANCHOR in pair for pair in kv[1]), kv[0]))
@@ -792,6 +840,17 @@ elif screen.startswith("2"):
                 st.markdown(f"- {'**' + names + '**' if ANCHOR in pair else names}")
                 st.markdown(consult_block(pair))
             st.info(f"→ 다음 행동: {NEXT_ACTION['handoff_break']}")
+    if _hb_cross:
+        with st.expander(f"산업이 서로 다른 쌍 {len(_hb_cross)}쌍 — 참고용"):
+            _cg = {}
+            for f in _hb_cross:
+                _cg.setdefault(f["reason"], []).append(f["items"])
+            for reason, pairs in sorted(_cg.items()):
+                st.markdown(f"**{reason}** · {len(pairs)}쌍")
+                for pair in pairs[:5]:
+                    st.markdown(f"- {' ↔ '.join(name_of(p) for p in pair)}")
+                if len(pairs) > 5:
+                    st.caption(f"…외 {len(pairs)-5}쌍")
     st.caption("연락처는 2026-08-13 기준 공개 대표번호이며 발송 전 재확인 필요")
     st.divider()
     if st.button("기준사업 원문 다시 추출 (gpt-4o 실시간 호출)"):
@@ -843,6 +902,21 @@ elif screen.startswith("3"):
             f'<td style="padding:.45rem .5rem;font-size:.78rem;color:var(--muted)">'
             f'{_esc(_p["why"])}</td></tr>')
     st.markdown("".join(_prow) + "</table>", unsafe_allow_html=True)
+    with st.expander("이 6개 산업 목록은 어디서 왔습니까 — 근거 등급 확인"):
+        st.markdown(
+            '<p class="small">'
+            '<b>확인된 것</b>: 「인천 전략산업육성 종합계획」(2023 수립, 산업정책과 총괄)이 '
+            '2015년 <b>8대</b> 전략산업을 <b>6대</b>로 재편했다고 적혀 있습니다 '
+            '(정책 원장 <code>IC-COM-001</code>).<br>'
+            '<b>확인 못 한 것</b>: 그 종합계획의 <b>원문·고시문을 확보하지 못했습니다.</b> '
+            '근거는 언론기사 1건이며 등급은 <code>SECONDARY_PRESS_ONLY</code>입니다. '
+            '민선8기 시정운영계획·산업발전 기본계획·지역산업진흥계획은 조사 원장에 없습니다.<br>'
+            '<b>주의</b>: 조사자 A는 <b>다른 6대</b>를 쓰고 있었습니다 — 바이오·반도체·미래모빌리티·'
+            '로봇항공·물류항만·스마트시티AI. 이쪽은 <b>부서명 기준</b>(로봇항공과·항만공항정책과 등)이라 '
+            '협의 대상을 찾을 때는 A의 구분이 더 맞을 수 있습니다. 이 앱은 조사자 B·C가 쓴 구분을 '
+            '따릅니다.<br>'
+            '<b>배타적 분류가 아닙니다</b>: 양자는 바이오와 디지털데이터에 걸쳐 있고, 반도체·바이오는 '
+            '같은 과 소관이라 예산이 섞여 있습니다.</p>', unsafe_allow_html=True)
     _resp = [i for i in _sel if POSTURES.get(i, {}).get("posture") == industry.RESPONSIVE]
     st.markdown(
         '<p class="small">태세는 사람이 정한 것이 아니라 <b>수요신호가 정한 것</b>입니다. '
