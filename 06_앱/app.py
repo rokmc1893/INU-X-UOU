@@ -192,6 +192,16 @@ def init(scope: str):
     store.load(cards, demands)
     store.add_edges(edges)
     findings = detect.run_rules(cards, demands, edges, links)
+    # 조사자 C의 예산 원장 대조 — B가 UNKNOWN이라 한 예산을 C가 확정한 것이 있다
+    findings.update(detect.budget_findings(cards, refdata.budget_status_for))
+    for c in cards:
+        st = refdata.budget_status_for(c)
+        if st:
+            c["budget_status"] = st["status"]
+            if st.get("budget_won") and not c.get("budget"):
+                c["budget"] = f"{st['budget_won']:,}원 (공식 원장, C9)"
+            if st.get("dept") and not c.get("owner_dept"):
+                c["owner_dept"] = st["dept"]
     return cards, demands, edges, store, findings
 
 
@@ -851,6 +861,48 @@ elif screen.startswith("4"):
 | **새로 만들 필요 낮은 것** | 구직지원 신규 사업 — 의도적 병행으로 이미 커버 |
 | **추가 검토** | 수요신호 실데이터(고용24) 확보 후 공백 재판정 |
 """)
+    _bc, _bu = findings.get("budget_confirmed", []), findings.get("budget_unverified", [])
+    _bx, _dm = findings.get("budget_conflicts", []), findings.get("dept_mismatch", [])
+    if _bc or _bu or _bx or _dm:
+        st.subheader("예산 원장 대조")
+        st.markdown(
+            f'<p class="small">조사자 C가 인천시 공식 예산 원장과 대조한 결과다. '
+            f'<b>확인 {len(_bc)}건</b> · 미확인 {len(_bu)}건 · 재검토 {len(_bx)}건 · '
+            f'소관 불일치 {len(_dm)}건. '
+            f'<b>미확인은 "예산이 없다"가 아니라 "공개 원장에서 찾지 못했다"는 뜻이다.</b></p>',
+            unsafe_allow_html=True)
+        _won = [b for b in _bc if b.get("budget_won")]
+        if _won:
+            rows = ['<table style="width:100%;border-collapse:collapse;font-size:.85rem">'
+                    '<tr style="border-bottom:1.5px solid var(--ink)">'
+                    '<th style="text-align:left;padding:.4rem .5rem">사업</th>'
+                    '<th style="text-align:right;padding:.4rem .5rem">공식 예산</th>'
+                    '<th style="text-align:left;padding:.4rem .5rem">원장 소관</th>'
+                    '<th style="text-align:left;padding:.4rem .5rem">조사자 B가 적은 값</th></tr>']
+            for b in sorted(_won, key=lambda x: -x["budget_won"])[:10]:
+                rows.append(
+                    '<tr style="border-bottom:1px solid var(--rule)">'
+                    f'<td style="padding:.4rem .5rem">{_esc(name_of(b["pid"]))}</td>'
+                    f'<td style="padding:.4rem .5rem;text-align:right;font-family:Consolas,monospace">'
+                    f'{b["budget_won"]:,}</td>'
+                    f'<td style="padding:.4rem .5rem;font-size:.8rem">{_esc(b.get("dept") or "—")}</td>'
+                    f'<td style="padding:.4rem .5rem;font-size:.8rem;color:var(--muted)">'
+                    f'{_esc((b.get("b_said") or "—")[:22])}</td></tr>')
+            st.markdown("".join(rows) + "</table>", unsafe_allow_html=True)
+            st.markdown('<p class="small">조사자 B의 원장에서 UNKNOWN이던 예산을 C가 공식 원장에서 '
+                        '확정했다. 두 조사가 서로를 보완한 결과다.</p>', unsafe_allow_html=True)
+        if _dm:
+            st.markdown('<p class="small"><b>소관 불일치</b> — 카드의 소관과 예산 원장의 소관이 다르다. '
+                        '협의 대상이 달라지므로 확인이 필요하다:<br>'
+                        + "<br>".join(f'　{_esc(name_of(m["pid"]))}: 카드 {_esc(m["card"])} '
+                                      f'↔ 원장 <b>{_esc(m["official"])}</b>' for m in _dm[:5])
+                        + '</p>', unsafe_allow_html=True)
+        if _bx:
+            st.markdown('<p class="small"><b>재검토 필요</b> — '
+                        + ", ".join(_esc(name_of(b["pid"])) for b in _bx)
+                        + ' (같은 원장 라인에 두 정책이 잡히는 등 확인이 필요한 건)</p>',
+                        unsafe_allow_html=True)
+        st.divider()
     st.download_button("유사·중복 검토서 초안 내려받기 (.md)", draft_report(),
                        file_name="유사중복_자체검토서_초안_20260813.md")
     st.divider()

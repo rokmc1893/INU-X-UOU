@@ -115,4 +115,27 @@ def test_no_openai_import():
 def test_cypher_covers_every_judgment():
     """화면에 노출하는 Cypher가 판정 5종을 빠짐없이 덮는다 — 심사위원이 열어 볼 수 있다."""
     assert set(CYPHER) == {"handoff_breaks", "gaps", "overlaps_harmful",
-                           "overlaps_intentional", "complements", "chains"}
+                           "overlaps_intentional", "complements", "chains", "budget"}
+
+
+def test_budget_findings_splits_confirmed_and_unverified():
+    """예산 원장 대조 — 못 찾은 것은 '예산 없음'이 아니라 '확인 못 함'이다."""
+    from engine.detect import budget_findings
+    cs = [card("P1", "교육훈련", ["전직무"]), card("P2", "매칭", ["전직무"]),
+          card("P3", "구직지원", ["전직무"])]
+    table = {"P1": {"status": "EXACT", "dept": "인천", "budget_won": 100},
+             "P2": {"status": "NOT_PUBLICLY_VERIFIABLE", "dept": None, "budget_won": None},
+             "P3": {"status": "NEEDS_REVIEW", "dept": None, "budget_won": None}}
+    r = budget_findings(cs, lambda c: table.get(c["policy_id"]))
+    assert [x["pid"] for x in r["budget_confirmed"]] == ["P1"]
+    assert [x["pid"] for x in r["budget_unverified"]] == ["P2"]
+    assert [x["pid"] for x in r["budget_conflicts"]] == ["P3"]
+
+
+def test_budget_findings_flags_department_mismatch():
+    """카드의 소관과 예산 원장의 소관이 다르면 협의 대상이 달라진다."""
+    from engine.detect import budget_findings
+    c = card("P1", "교육훈련", ["전직무"])
+    c["owner_dept"] = "청년정책담당관"
+    r = budget_findings([c], lambda _: {"status": "EXACT", "dept": "반도체바이오과", "budget_won": 1})
+    assert r["dept_mismatch"][0]["official"] == "반도체바이오과"

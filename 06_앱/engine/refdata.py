@@ -112,6 +112,68 @@ def demand_pool():
     return signals, context
 
 
+def _norm_name(s):
+    """정책명 대조용 정규화 — 괄호·공백·중점을 지운다 (C의 '표기 변형 매칭' 문제)."""
+    import re
+    return re.sub(r"[\s()（）·,\-—]", "", str(s or "")).lower()
+
+
+@lru_cache(maxsize=1)
+def budget_official():
+    """C9 → {stable_policy_id: 공식 예산·부서}. 조사자 B가 UNKNOWN이라 한 것을 C가 원장에서 확정했다."""
+    out = {}
+    for r in _rows("C9_b1_budget_verification.csv"):
+        pid = (r.get("stable_policy_id") or "").strip()
+        if not pid:
+            continue
+        won = (r.get("official_budget_won") or "").strip()
+        out[pid] = {
+            "budget_won": int(won) if won.isdigit() else None,
+            "dept": (r.get("official_dept") or "").strip() or None,
+            "status": (r.get("verification_status") or "").strip(),
+            "b_said": (r.get("B_reported_budget") or "").strip(),
+            "source_line": (r.get("official_source_line") or "").strip(),
+            "note": (r.get("note") or "").strip(),
+        }
+    return out
+
+
+@lru_cache(maxsize=1)
+def budget_join():
+    """C0 → 정책명 기준 예산 원장 매칭 상태.
+
+    `final_status`가 판정의 근거다 — EXACT/FUZZY는 예산 원장에서 확인된 것,
+    NOT_PUBLICLY_VERIFIABLE은 **찾지 못한 것**이지 '예산이 없다'가 아니다.
+    """
+    out = {}
+    for r in _rows("C0_policy_budget_join_final.csv"):
+        nm = (r.get("시행계획_과제명") or "").strip()
+        if not nm:
+            continue
+        out[_norm_name(nm)] = {
+            "name": nm,
+            "budget_item": (r.get("예산_세부사업명") or "").strip() or None,
+            "dept": (r.get("담당부서") or "").strip() or None,
+            "status": (r.get("final_status") or "").strip(),
+        }
+    return out
+
+
+def budget_status_for(card):
+    """카드 → 예산 원장 매칭 상태. stable_policy_id(C9) 우선, 없으면 정책명(C0)."""
+    pid = card.get("stable_policy_id") or card.get("policy_id")
+    off = budget_official().get(pid)
+    if off:
+        return {"source": "C9", "status": off["status"], "budget_won": off["budget_won"],
+                "dept": off["dept"], "detail": off["note"] or off["source_line"],
+                "b_said": off["b_said"]}
+    hit = budget_join().get(_norm_name(card.get("name")))
+    if hit:
+        return {"source": "C0", "status": hit["status"], "budget_won": None,
+                "dept": hit["dept"], "detail": hit["budget_item"], "b_said": None}
+    return None
+
+
 @lru_cache(maxsize=1)
 def linkages():
     """B3 22쌍 → 조사자가 확인한 사업 간 연계.

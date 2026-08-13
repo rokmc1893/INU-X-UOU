@@ -106,6 +106,35 @@ def build_edges(cards, demands, linkages=None):
     return edges
 
 
+def budget_findings(cards, status_of):
+    """예산정합성 판정 — 조사자 C의 1순위 모듈.
+
+    status_of(card) → {"status": ..., "budget_won": ..., "dept": ..., ...} 또는 None.
+    이름·ID로 예산 원장과 대조한 결과이며, **못 찾은 것은 '예산이 없다'가 아니라 '확인 못 함'**이다.
+    """
+    confirmed, unverified, conflicts, dept_mismatch = [], [], [], []
+    for c in cards:
+        st = status_of(c)
+        if st is None:
+            continue
+        s = st.get("status") or ""
+        if s in ("EXACT", "RESOLVED", "MATCH_국가직접", "MATCH_부서개편"):
+            confirmed.append({"pid": c["policy_id"], **st})
+        elif s in ("FUZZY", "PARTIALLY_RESOLVED"):
+            confirmed.append({"pid": c["policy_id"], **st, "loose": True})
+        elif s.startswith("NOT_PUBLICLY_VERIFIABLE") or s == "CONFIRMED_ABSENT":
+            unverified.append({"pid": c["policy_id"], **st})
+        elif s == "NEEDS_REVIEW":
+            conflicts.append({"pid": c["policy_id"], **st})
+        # 소관 부서가 원장과 다르면 협의 대상이 달라진다
+        off = (st.get("dept") or "").strip()
+        mine = (c.get("owner_dept") or "").strip()
+        if off and mine and off not in mine and mine not in off:
+            dept_mismatch.append({"pid": c["policy_id"], "card": mine, "official": off})
+    return {"budget_confirmed": confirmed, "budget_unverified": unverified,
+            "budget_conflicts": conflicts, "dept_mismatch": dept_mismatch}
+
+
 def run_rules(cards, demands, edges, linkages=None):
     handoff = {(e["src"], e["dst"]) for e in edges if e["type"] == "HANDOFF"}
     # B3에서 '찾아봤는데 인계가 없다'로 확인된 쌍 — 같은 인계 공백이라도 근거 등급이 다르다
@@ -171,6 +200,10 @@ CYPHER = {
         "WHERE a.policy_id <> b.policy_id\n"
         "RETURN [n IN nodes(p) | n.policy_id] AS 사슬\n"
         "// 쌍 비교로는 나오지 않는 다단계 경로 — 파이썬으로는 순회를 직접 써야 한다"),
+    "budget": (
+        "MATCH (p:Policy) WHERE p.budget_status IS NOT NULL\n"
+        "RETURN p.budget_status AS 상태, count(*) AS 건수, collect(p.name)[0..3] AS 예시\n"
+        "// 예산 원장 대조 — 조사자 C의 C0/C9 조인 결과를 노드 속성으로 적재"),
     "complements": (
         "MATCH (a:Policy)-[e:OVERLAP_COMPLEMENTARY]->(b:Policy)\n"
         "RETURN a.policy_id, b.policy_id, e.reason  // 수단이 달라 중복이 아닌 보완 관계"),
