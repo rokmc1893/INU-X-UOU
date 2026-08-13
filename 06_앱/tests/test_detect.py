@@ -36,7 +36,16 @@ def test_covers_edge():
     cards = [card("P1", "교육훈련", ["바이오생산"])]
     demands = [demand("D1", "바이오생산")]
     edges = build_edges(cards, demands)
-    assert any(e["type"] == "COVERS" and e["dst"] == "D1" for e in edges)
+    assert any(e["type"] == "COVERS" and e["dst"] == "D1"
+               and e["props"]["specificity"] == "specific" for e in edges)
+
+def test_generic_cover_is_still_gap():
+    cards = [card("P1", "구직지원", ["전직무"])]  # 전직무 일반 지원만 존재
+    demands = [demand("D1", "바이오품질")]
+    edges = build_edges(cards, demands)
+    assert any(e["type"] == "COVERS" and e["props"]["specificity"] == "generic" for e in edges)
+    res = run_rules(cards, demands, edges)
+    assert res["gaps"] and "일반 지원만" in res["gaps"][0]["reason"]
 
 def test_harmful_overlap_same_everything():
     cards = [card("P1", "구직지원", ["일반사무"]),
@@ -52,6 +61,13 @@ def test_intentional_overlap_region_differs():
     res = run_rules(cards, [], edges)
     assert any(set(f["items"]) == {"P1", "P2"} for f in res["overlaps_intentional"])
     assert not res["overlaps_harmful"]
+
+def test_handoff_break_wildcard_occupation():
+    cards = [card("P1", "교육훈련", ["SW·AI"]),
+             card("P2", "매칭", ["전직무"])]  # 전직무는 모든 직무와 겹친다
+    edges = build_edges(cards, [])
+    res = run_rules(cards, [], edges)
+    assert any(set(f["items"]) == {"P1", "P2"} for f in res["handoff_breaks"])
 
 def test_no_openai_import():
     import engine.detect as d, inspect

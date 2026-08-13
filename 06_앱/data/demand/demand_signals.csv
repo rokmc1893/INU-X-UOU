@@ -1,0 +1,5 @@
+signal_id,occupation,geography,period,value,source_url,data_type
+D001,바이오생산,인천 송도,2026,구인수요 표본(가상),,virtual
+D002,바이오품질,인천 송도,2026,구인수요 표본(가상),,virtual
+D003,SW·AI,인천,2026,구인수요 표본(가상),,virtual
+D004,일반사무,인천,2026,구인수요 표본(가상),,virtual

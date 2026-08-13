@@ -17,7 +17,12 @@ def _target_equal(a, b):
 
 
 def _occ_overlap(a, b):
-    return set(a.get("occupation") or []) & set(b.get("occupation") or [])
+    sa, sb = set(a.get("occupation") or []), set(b.get("occupation") or [])
+    if not sa or not sb:
+        return False
+    if "전직무" in sa or "전직무" in sb:  # 전직무 = 모든 직무와 겹침
+        return True
+    return bool(sa & sb)
 
 
 def build_edges(cards, demands):
@@ -36,12 +41,15 @@ def build_edges(cards, demands):
             if ref in by_name:
                 edges.append({"src": by_name[ref], "dst": c["policy_id"],
                               "type": "HANDOFF", "props": {}})
-    for c in cards:  # COVERS
+    for c in cards:  # COVERS — 직무 특정(specific) vs 전직무 일반(generic) 구분
         occs = set(c.get("occupation") or [])
         for d in demands:
-            if d["occupation"] in occs or "전직무" in occs:
+            if d["occupation"] in occs:
                 edges.append({"src": c["policy_id"], "dst": d["signal_id"],
-                              "type": "COVERS", "props": {}})
+                              "type": "COVERS", "props": {"specificity": "specific"}})
+            elif "전직무" in occs:
+                edges.append({"src": c["policy_id"], "dst": d["signal_id"],
+                              "type": "COVERS", "props": {"specificity": "generic"}})
     handoff = {(e["src"], e["dst"]) for e in edges if e["type"] == "HANDOFF"}
     for a, b in combinations(cards, 2):  # OVERLAP 2종
         if not (_occ_overlap(a, b) and a.get("stage") == b.get("stage")
@@ -70,11 +78,15 @@ def run_rules(cards, demands, edges):
             res["handoff_breaks"].append({
                 "items": [pa, pb],
                 "reason": f"{a.get('stage')}→{b.get('stage')} 구간에 명시된 인계 없음"})
-    covered = {e["dst"] for e in edges if e["type"] == "COVERS"}
-    for d in demands:  # 공백 후보
-        if d["signal_id"] not in covered:
+    covered_specific = {e["dst"] for e in edges if e["type"] == "COVERS"
+                        and e["props"].get("specificity") == "specific"}
+    covered_generic = {e["dst"] for e in edges if e["type"] == "COVERS"
+                       and e["props"].get("specificity") == "generic"}
+    for d in demands:  # 공백 후보: 직무를 특정하여 다루는 정책이 없음
+        if d["signal_id"] not in covered_specific:
+            note = " (전직무 일반 지원만 존재)" if d["signal_id"] in covered_generic else ""
             res["gaps"].append({"signal_id": d["signal_id"], "occupation": d["occupation"],
-                                "reason": "이 수요신호를 커버하는 정책 없음"})
+                                "reason": "이 직무를 특정하는 정책 없음" + note})
     for e in edges:
         if e["type"] == "OVERLAP_HARMFUL":
             res["overlaps_harmful"].append({"items": [e["src"], e["dst"]],
@@ -93,8 +105,8 @@ CYPHER = {
         "  AND NOT (a)-[:HANDOFF]-(b)\n"
         "RETURN a.policy_id, b.policy_id  // 동일 대상·직무 겹침은 앱 계층에서 target JSON 비교"),
     "gaps": (
-        "MATCH (d:Demand) WHERE NOT ( (:Policy)-[:COVERS]->(d) )\n"
-        "RETURN d.signal_id, d.occupation"),
+        "MATCH (d:Demand) WHERE NOT ( (:Policy)-[c:COVERS {specificity: 'specific'}]->(d) )\n"
+        "RETURN d.signal_id, d.occupation  // 전직무 일반 지원(generic)만으로는 커버로 보지 않음"),
     "overlaps_harmful": (
         "MATCH (a:Policy)-[e:OVERLAP_HARMFUL]->(b:Policy)\n"
         "RETURN a.policy_id, b.policy_id, e.reason"),
