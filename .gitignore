@@ -1,0 +1,27 @@
+# === 절대 커밋 금지 — 공개 저장소다 ===
+.env
+.env.*
+!.env.example
+*.key
+*secret*
+*credential*
+api_key*
+openai*.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS / 편집기
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# 로컬 캐시·산출물
+.claude/
+*.log
