@@ -71,10 +71,10 @@ export default function Landing() {
         </p>
         <h1 className="rise mt-3 text-[52px] leading-[1.12] tracking-tight sm:text-[64px]"
             style={{ animationDelay: ".06s" }}>
-          맡으신 사업이
-          <br />
-          <span className="text-pen">기업이 필요하다고 말한 것</span>과
-          <br />
+          맡으신 사업이{" "}
+          <br className="hidden lg:inline" />
+          <span className="text-pen">기업이 필요하다고 말한 것</span>과{" "}
+          <br className="hidden lg:inline" />
           맞는지 확인합니다
         </h1>
         <p className="rise mt-5 max-w-[720px] text-[18px] leading-[1.65] text-muted"
