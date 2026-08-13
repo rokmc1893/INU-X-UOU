@@ -1,0 +1,111 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  /* 해결 방식 슬라이드 — 앞 슬라이드의 형식을 그대로 쓴다.
+     회색 챕터줄 → 파란 눈썹 → 굵은 제목 → 본문.
+
+     이 장의 주장은 하나다: **뽑는 일과 판정하는 일을 나눴다.**
+     그래서 화면 한가운데를 세 칸이 차지하고, 칸마다 아래쪽에 색을 깐 띠가 붙는다.
+     그 띠가 「무엇을 하지 않는가」다 — 이 도구의 정체성이 거기 있으므로 눈에 띄어야 한다. */
+  :root {
+    --ink:#14161A; --label:#9AA0A8; --rule:#E6E8EC; --muted:#5B616B;
+    --deep:#262F8F; --i:#3F51E0; --mid:#6C79E8; --soft:#A6AFF0; --wash:#EEF0FD;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1600px; height:900px; background:#fff; overflow:hidden;
+    font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;
+    color:var(--ink); word-break:keep-all;
+    padding:56px 76px 48px;
+    display:flex; flex-direction:column;
+  }
+  .chapter { font-size:19px; font-weight:700; color:var(--label); letter-spacing:-.01em; }
+  .hr { height:1px; background:var(--rule); margin:16px 0 40px; }
+  .eyebrow { font-size:26px; font-weight:800; color:var(--deep); letter-spacing:-.02em; }
+  h1 { font-size:64px; font-weight:900; letter-spacing:-.035em; margin-top:12px; line-height:1.1; }
+
+  .stages { display:grid; grid-template-columns:1fr 46px 1fr 46px 1fr; margin-top:48px; flex:1; }
+  .arrow { align-self:center; text-align:center; font-size:30px; color:var(--soft); font-weight:800; }
+
+  .card { border:1.5px solid var(--rule); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; }
+  .card .top { padding:30px 28px 26px; flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .num { font-size:15px; font-weight:800; letter-spacing:.08em; }
+  .who { font-size:34px; font-weight:900; letter-spacing:-.03em; margin-top:8px; line-height:1.15; }
+  .who small { display:block; font-size:18px; font-weight:700; margin-top:7px; letter-spacing:-.01em; }
+  .does { font-size:19px; line-height:1.55; color:var(--muted); margin-top:16px; letter-spacing:-.01em; }
+
+  /* 색을 깐 띠 = 「무엇을 하지 않는가」. 이 슬라이드에서 유일하게 튀는 자리다. */
+  .guard { padding:18px 28px 20px; font-size:19px; font-weight:700; line-height:1.45; letter-spacing:-.015em; }
+
+  .c1 .num{color:var(--mid)} .c1 .who{color:var(--deep)} .c1 .who small{color:var(--mid)}
+  .c1 .guard{background:var(--wash); color:var(--deep);}
+  .c2 .num{color:var(--i)} .c2 .who{color:var(--deep)} .c2 .who small{color:var(--i)}
+  .c2 .guard{background:var(--i); color:#fff;}
+  .c3 .num{color:var(--deep)} .c3 .who{color:var(--deep)} .c3 .who small{color:var(--deep)}
+  .c3 .guard{background:var(--deep); color:#fff;}
+
+  .foot { padding-top:38px; display:flex; align-items:flex-end; justify-content:space-between; gap:48px; }
+  .axes .cap { font-size:16px; font-weight:800; color:var(--label); letter-spacing:.01em; }
+  .chips { display:flex; flex-wrap:wrap; gap:9px; margin-top:12px; }
+  .chip { border:1.5px solid var(--soft); color:var(--deep); border-radius:999px;
+          padding:7px 16px; font-size:18px; font-weight:700; letter-spacing:-.01em; }
+  .thesis { text-align:right; flex-shrink:0; }
+  .thesis .a { font-size:21px; color:var(--label); font-weight:700; letter-spacing:-.01em; }
+  .thesis .b { font-size:31px; font-weight:900; color:var(--deep); letter-spacing:-.03em; margin-top:8px; line-height:1.3; }
+  .thesis .b em { font-style:normal; box-shadow:inset 0 -13px 0 var(--wash); }
+</style>
+
+<div class="chapter">Chapter 2. 해결 방식</div>
+<div class="hr"></div>
+
+<div class="eyebrow">정책핏이 일하는 순서</div>
+<h1>뽑는 일과 판정하는 일을 나눕니다</h1>
+
+<div class="stages">
+  <div class="card c1">
+    <div class="top">
+      <div class="num">01 &nbsp;뽑기</div>
+      <div class="who">LLM<small>원문을 읽어 항목으로</small></div>
+      <div class="does">형식이 제각각인 공고문을<br><b>대상 · 주는 것 · 직무 · 예산 · 담당 부서</b>가<br>담긴 공통 카드로 바꿉니다.</div>
+    </div>
+    <div class="guard">원문 인용문이 없으면 버립니다<br>없는 값은 「모름」으로 남깁니다</div>
+  </div>
+
+  <div class="arrow">→</div>
+
+  <div class="card c2">
+    <div class="top">
+      <div class="num">02 &nbsp;판정</div>
+      <div class="who">파이썬 규칙<small>고르는 일에 AI는 없습니다</small></div>
+      <div class="does">카드끼리 관계를 그래프로 이어<br><b>겹치는 곳</b>과 <b>넘기는 절차가 끊긴 곳</b>을<br>가려 냅니다.</div>
+    </div>
+    <div class="guard">빈칸을 「다름」으로 읽지 않습니다<br>자료가 없으면 「판정할 수 없음」</div>
+  </div>
+
+  <div class="arrow">→</div>
+
+  <div class="card c3">
+    <div class="top">
+      <div class="num">03 &nbsp;결정</div>
+      <div class="who">사람<small>담당 공무원이 정합니다</small></div>
+      <div class="does">무엇을 고치고 무엇을 남길지,<br>끊긴 곳을 이을지 말지<br>담당자가 판단합니다.</div>
+    </div>
+    <div class="guard">모든 판정은 후보입니다<br>확정은 부서 협의로 합니다</div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="axes">
+    <div class="cap">기업의 필요와 사업이 주는 것을 맞춰 보는 일곱 축</div>
+    <div class="chips">
+      <span class="chip">일할 사람</span><span class="chip">기술 개발</span><span class="chip">기업 자금</span>
+      <span class="chip">팔 곳</span><span class="chip">거래할 기업</span><span class="chip">공간·장비</span>
+      <span class="chip">행정 절차</span>
+    </div>
+  </div>
+  <div class="thesis">
+    <div class="a">정책 하나를 찾아주는 도구가 아니라,</div>
+    <div class="b"><em>정책들 사이의 관계를</em><br>판정하는 도구입니다</div>
+  </div>
+</div>
