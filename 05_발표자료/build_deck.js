@@ -65,11 +65,12 @@ s.addShape("roundRect", { x: 5.2, y: 1.4, w: 4.3, h: 2.5, rectRadius: 0.06,
                           fill: { color: PAPER }, line: { color: CUT, width: 1.5 } });
 s.addText("확인된 사실", { x: 5.5, y: 1.6, w: 3.7, h: 0.4, fontSize: 15, bold: true, color: CUT, fontFace: F, margin: 0 });
 s.addText([
-  { text: "주소 기준으로는 순유입 경향", options: { fontSize: 16, bold: true, breakLine: true } },
-  { text: "살면서, 관외로 출근한다", options: { fontSize: 16, bold: true, breakLine: true } },
-  { text: "임금·직무·경력전망이 선택을 좌우 — 소프트웨어가 직접 바꿀 수 없는 것들", options: { fontSize: 12.5, color: GRAY } },
-], { x: 5.5, y: 2.1, w: 3.7, h: 1.6, color: INK, fontFace: F, margin: 0 });
-s.addText("근거: 국내인구이동통계·지역 통근 조사 — 증거원장 E005·E006 (수치는 원장 확정본만 인용)", {
+  { text: "2025 인천 순유입률 1.1% — 전국 1위", options: { fontSize: 15, bold: true, breakLine: true } },
+  { text: "모든 연령대 순유입은 인천이 유일 (주소 기준)", options: { fontSize: 12, color: GRAY, breakLine: true } },
+  { text: "청년 32.8%는 직장이 관외에", options: { fontSize: 15, bold: true, breakLine: true } },
+  { text: "역외취업 사유 1위: \"원하는 직무의 일자리 부재\" 33.6%", options: { fontSize: 12, color: GRAY } },
+], { x: 5.5, y: 2.05, w: 3.7, h: 1.75, color: INK, fontFace: F, margin: 0 });
+s.addText("출처: 통계청 2025 국내인구이동통계(A급, E005) · 인천연구원 MZ-X세대 일자리 전략 연구, 청년 2,000명 실태조사(A급, E006)", {
   x: 0.5, y: 4.15, w: 9.0, h: 0.3, fontSize: 10.5, color: GRAY, fontFace: F, margin: 0 });
 s.addText("그래서 우리는 \"바꿀 수 없는 것\" 대신 \"바꿀 수 있는 것\"을 찾았습니다 →", {
   x: 0.5, y: 4.7, w: 9.0, h: 0.4, fontSize: 15, bold: true, color: INK, fontFace: F, margin: 0 });
