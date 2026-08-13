@@ -29,3 +29,6 @@ Thumbs.db
 # 로컬 캐시·산출물
 .claude/
 *.log
+
+# 병합 시 만든 백업
+*.csv.bak
