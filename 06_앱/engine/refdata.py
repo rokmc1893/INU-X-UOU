@@ -112,6 +112,47 @@ def demand_pool():
     return signals, context
 
 
+@lru_cache(maxsize=1)
+def industry_signals():
+    """직무는 특정 못 했지만 **산업은 특정된** 신호.
+
+    직무 통제 어휘가 바이오·SW 5종뿐이라 로봇·항공·미래차 신호가 전부 컨텍스트로 밀려나
+    화면에서 사라졌다. 조사자가 조사하지 않은 것이 아니라 **우리 필터가 버린 것**이다.
+
+    직무 단위로는 못 쓰지만 산업 단위로는 쓸 수 있다. 여기서 되살려 산업 태세 판정과
+    화면 표시에 쓴다. 직무 신호와 섞지 않도록 별도 목록으로 둔다.
+    """
+    from .industry import INDUSTRY_KEYWORDS
+    out = []
+    for r in _rows("B2_demand_signal.csv"):
+        if _map_occupation(r):
+            continue  # 직무 신호로 이미 잡혔다
+        inds = [p.strip() for p in (r.get("strategic_industry") or "").split("+")]
+        inds = [i for i in inds if i in INDUSTRY_KEYWORDS]
+        if not inds:
+            continue  # '공통' 또는 산업 미상 → 광역 컨텍스트로 남긴다
+        out.append({
+            "signal_id": (r.get("signal_id") or "").strip(),
+            "industries": inds,
+            "problem_type": (r.get("problem_type") or "").strip(),
+            "occupation_raw": (r.get("occupation_or_function") or "").strip(),
+            "geography": (r.get("geography") or "").strip(),
+            "period": (r.get("period") or "").strip(),
+            "value": f"{r.get('value','')} {r.get('unit','')}".strip(),
+            "evidence_grade": (r.get("evidence_grade") or "").strip(),
+            "proxy_limit": (r.get("proxy_limit") or "").strip(),
+            "trend": (r.get("sustained_or_spike") or "").strip(),
+            "source_url": (r.get("source_url") or "").strip(),
+        })
+    return out
+
+
+@lru_cache(maxsize=1)
+def b2_rows():
+    """산업 태세 판정용 B2 원본 — industry.posture()에 그대로 넘긴다."""
+    return _rows("B2_demand_signal.csv")
+
+
 def _norm_name(s):
     """정책명 대조용 정규화 — 괄호·공백·중점을 지운다 (C의 '표기 변형 매칭' 문제)."""
     import re

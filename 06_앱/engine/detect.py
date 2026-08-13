@@ -135,7 +135,12 @@ def budget_findings(cards, status_of):
             "budget_conflicts": conflicts, "dept_mismatch": dept_mismatch}
 
 
-def run_rules(cards, demands, edges, linkages=None):
+def run_rules(cards, demands, edges, linkages=None, posture_of=None):
+    """posture_of(demand) → '대응형'|'유도형'|'판단보류'|None.
+
+    수요신호가 속한 산업의 태세를 돌려주는 함수. 넘기지 않으면 태세 구분 없이 종전대로
+    판정한다(기존 호출부 호환).
+    """
     handoff = {(e["src"], e["dst"]) for e in edges if e["type"] == "HANDOFF"}
     # B3에서 '찾아봤는데 인계가 없다'로 확인된 쌍 — 같은 인계 공백이라도 근거 등급이 다르다
     confirmed_absent = {frozenset((lk["a"], lk["b"])) for lk in (linkages or [])
@@ -164,8 +169,20 @@ def run_rules(cards, demands, edges, linkages=None):
     for d in demands:  # 공백 후보: 직무를 특정하여 다루는 정책이 없음
         if d["signal_id"] not in covered_specific:
             note = " (모든 직무 대상 일반 지원만 있습니다)" if d["signal_id"] in covered_generic else ""
+            # 같은 '공백'이라도 산업 태세에 따라 뜻이 정반대다 (engine/industry.py 참고).
+            # 대응형: 이미 있는 수요를 못 덮었다 = 대응 실패. 유도형: 수요 자체가 아직
+            # 확인되지 않은 단계 = 공백이 정상일 수 있다. 둘을 같은 말로 쓰면 미래 산업
+            # 정책이 전부 '근거 없음'으로 깎인다.
+            p = posture_of(d) if posture_of else None
+            if p == "유도형":
+                meaning = ("아직 수요가 확인되지 않은 산업입니다 — 사업이 없는 것 자체는 "
+                           "흠이 아니고, 대신 만들 근거를 물어야 합니다")
+            elif p == "대응형":
+                meaning = "이미 확인된 수요인데 이 직무를 콕 집어 다루는 사업이 없습니다" + note
+            else:
+                meaning = "이 직무를 콕 집어 다루는 사업이 없습니다" + note
             res["gaps"].append({"signal_id": d["signal_id"], "occupation": d["occupation"],
-                                "reason": "이 직무를 콕 집어 다루는 정책이 없습니다" + note})
+                                "posture": p, "reason": meaning})
     for e in edges:
         if e["type"] == "OVERLAP_HARMFUL":
             res["overlaps_harmful"].append({"items": [e["src"], e["dst"]],

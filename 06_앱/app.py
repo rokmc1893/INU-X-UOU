@@ -114,6 +114,7 @@ hr{ border-color:var(--rule); }
 
 # 소관 부서 연락처 — A1 actor registry가 단일 출처 (data/pool/A1_actor_registry.csv)
 from engine import refdata
+from engine import industry
 # 2026-08 조직개편으로 원장과 카드의 과 명칭이 다른 경우의 별칭
 DEPT_ALIAS = {"AI혁신과": "AI블록체인과"}
 
@@ -172,6 +173,22 @@ PURPOSES = {
 }
 
 
+# ── 산업 태세 ── 원칙: 현재 산업은 정책이 맞춰주고, 미래 산업은 정책이 유도한다.
+# 태세는 우리가 정하지 않고 조사자 B의 수요신호가 정한다 (engine/industry.py).
+_B2 = refdata.b2_rows()
+POSTURES = industry.postures(_B2)
+_IND_OF = {r["signal_id"]: (r.get("strategic_industry") or "") for r in _B2}
+
+
+def posture_of_signal(b2_ref):
+    """수요신호 하나가 속한 산업의 태세. 복합산업이면 먼저 걸리는 쪽을 쓴다."""
+    for part in (_IND_OF.get(b2_ref) or "").split("+"):
+        p = POSTURES.get(part.strip())
+        if p:
+            return p["posture"]
+    return None
+
+
 @st.cache_resource
 def init(scope: str):
     cards = [json.loads(p.read_text(encoding="utf-8"))
@@ -192,7 +209,8 @@ def init(scope: str):
     store = get_store()
     store.load(cards, demands)
     store.add_edges(edges)
-    findings = detect.run_rules(cards, demands, edges, links)
+    findings = detect.run_rules(cards, demands, edges, links,
+                                posture_of=lambda d: posture_of_signal(d.get("b2_ref")))
     # 조사자 C의 예산 원장 대조 — B가 UNKNOWN이라 한 예산을 C가 확정한 것이 있다
     findings.update(detect.budget_findings(cards, refdata.budget_status_for))
     for c in cards:
@@ -302,7 +320,8 @@ if extra:
     by_id = {c["policy_id"]: c for c in cards}
     links = refdata.linkages()
     edges = detect.build_edges(cards, demands, links)
-    findings = detect.run_rules(cards, demands, edges, links)
+    findings = detect.run_rules(cards, demands, edges, links,
+                                posture_of=lambda d: posture_of_signal(d.get("b2_ref")))
     # 그래프에도 반영한다 — 카드 구성이 바뀐 경우에만 재적재(매 rerun마다 쓰지 않는다)
     sig = (scope, tuple(c["policy_id"] for c in cards))
     if st.session_state.get("graph_sig") != sig:
@@ -793,7 +812,45 @@ elif screen.startswith("3"):
     st.markdown('<p class="small">먼저 <b>산업이 필요로 하는 것을 사업이 덮고 있는지</b> 보고, '
                 '그 다음 <b>사업끼리 겹치는 것이 낭비인지</b>를 가립니다.</p>', unsafe_allow_html=True)
 
-    st.subheader("가. 산업 수요를 덮는 사업이 있는가")
+    st.markdown(
+        '<div style="border:1px solid var(--ink);padding:.7rem .9rem;margin:.2rem 0 1rem">'
+        f'<b>{industry.PRINCIPLE}</b><br>'
+        '<span class="small">그래서 산업마다 물어야 할 질문이 다릅니다. '
+        '이미 수요가 있는 산업엔 “그 수요를 덮었는가”를, 아직 수요가 없는 산업엔 '
+        '“수요를 만들 근거가 있는가”를 묻습니다.</span></div>',
+        unsafe_allow_html=True)
+
+    st.subheader("가. 이 산업에 무엇을 물어야 하는가")
+    _sel = SCOPES.get(scope) or tuple(industry.INDUSTRIES)
+    _prow = ['<table style="width:100%;border-collapse:collapse;font-size:.85rem">'
+             '<tr style="border-bottom:1.5px solid var(--ink)">'
+             '<th style="text-align:left;padding:.4rem .5rem;width:5.5rem">산업</th>'
+             '<th style="text-align:left;padding:.4rem .5rem;width:5rem">태세</th>'
+             '<th style="text-align:left;padding:.4rem .5rem">물어야 할 질문</th>'
+             '<th style="text-align:left;padding:.4rem .5rem">그렇게 본 이유</th></tr>']
+    for _ind in industry.INDUSTRIES:
+        if _ind not in _sel:
+            continue
+        _p = POSTURES[_ind]
+        _cls = "ok" if _p["posture"] == industry.RESPONSIVE else "act"
+        _prow.append(
+            '<tr style="border-bottom:1px solid var(--rule)">'
+            f'<td style="padding:.45rem .5rem;font-weight:700">{_esc(_ind)}</td>'
+            f'<td style="padding:.45rem .5rem"><span class="v {_cls}">{_p["posture"]}</span></td>'
+            f'<td style="padding:.45rem .5rem">{_esc(_p["question"])}</td>'
+            f'<td style="padding:.45rem .5rem;font-size:.78rem;color:var(--muted)">'
+            f'{_esc(_p["why"])}</td></tr>')
+    st.markdown("".join(_prow) + "</table>", unsafe_allow_html=True)
+    _resp = [i for i in _sel if POSTURES.get(i, {}).get("posture") == industry.RESPONSIVE]
+    st.markdown(
+        '<p class="small">태세는 사람이 정한 것이 아니라 <b>수요신호가 정한 것</b>입니다. '
+        '여러 시점에서 반복 확인된 공공자료 신호가 있으면 대응형, 단발이거나 언론 서술뿐이면 '
+        '유도형입니다. 새 조사 자료가 들어오면 태세도 질문도 저절로 바뀝니다.'
+        + (f' 지금 실측 수요가 확인된 산업은 <b>{", ".join(_resp)}</b>뿐입니다.'
+           if _resp else ' 지금 실측 수요가 확인된 산업은 없습니다.')
+        + '</p>', unsafe_allow_html=True)
+
+    st.subheader("나. 산업 수요를 덮는 사업이 있는가")
     _cov = {}
     for e_ in edges:
         if e_["type"] == "COVERS":
@@ -829,11 +886,30 @@ elif screen.startswith("3"):
     if _uncov:
         st.markdown(f'<p class="small"><b>{", ".join(_uncov)}</b> — 이 직무를 콕 집어 다루는 사업이 '
                     f'없습니다. {NEXT_ACTION["gap"]}</p>', unsafe_allow_html=True)
-    st.markdown('<p class="small">6대 산업 중 수요 신호를 확보한 것은 바이오·SW/AI뿐입니다. '
-                '로봇·항공·미래차는 조사자 원장에 직무를 특정한 수요가 없어 여기 나오지 않습니다.</p>',
-                unsafe_allow_html=True)
+    _isig = [s_ for s_ in refdata.industry_signals()
+             if any(i in _sel for i in s_["industries"])]
+    with st.expander(f"직무는 못 가렸지만 산업은 가려진 신호 {len(_isig)}건 — "
+                     "로봇·항공·미래차는 여기 있습니다"):
+        st.markdown('<p class="small">위 표는 <b>직무</b>까지 특정된 신호만 씁니다. '
+                    '아래는 산업까지만 가려진 신호로, 직무별 대조에는 못 쓰지만 그 산업이 '
+                    '어떤 상태인지 말해 줍니다.</p>', unsafe_allow_html=True)
+        _ir = ['<table style="width:100%;border-collapse:collapse;font-size:.82rem">'
+               '<tr style="border-bottom:1.5px solid var(--ink)">'
+               '<th style="text-align:left;padding:.35rem .5rem;width:5rem">산업</th>'
+               '<th style="text-align:left;padding:.35rem .5rem">무엇이 확인됐는가</th>'
+               '<th style="text-align:left;padding:.35rem .5rem;width:11rem">이 신호의 한계</th></tr>']
+        for s_ in _isig:
+            _ir.append(
+                '<tr style="border-bottom:1px solid var(--rule)">'
+                f'<td style="padding:.4rem .5rem;font-weight:700">{_esc("/".join(s_["industries"]))}</td>'
+                f'<td style="padding:.4rem .5rem">{_esc(s_["problem_type"])}'
+                f'<br><span class="small">{_esc(s_["value"][:46])} · {_esc(s_["signal_id"])} '
+                f'{_esc(s_["evidence_grade"])}급 {_esc(s_["trend"])}</span></td>'
+                f'<td style="padding:.4rem .5rem;font-size:.76rem;color:var(--muted)">'
+                f'{_esc(s_["proxy_limit"][:70])}</td></tr>')
+        st.markdown("".join(_ir) + "</table>", unsafe_allow_html=True)
 
-    st.subheader("나. 사업끼리 겹치는 것이 낭비인가")
+    st.subheader("다. 사업끼리 겹치는 것이 낭비인가")
     gap_occs = {g["occupation"]: g["reason"] for g in findings["gaps"]}
     hb_ids = {p for f in findings["handoff_breaks"] for p in f["items"]}
     oh_ids = {p for f in findings["overlaps_harmful"] for p in f["items"]}
@@ -910,6 +986,39 @@ elif screen.startswith("4"):
     st.title("조치 제안")
     st.markdown(f'<p class="small">판정을 행동으로 옮긴다. 최종 판단은 담당자가 한다. · 분석 범위 {scope}</p>',
                 unsafe_allow_html=True)
+    # 유도형 산업 사업에는 수요 근거 대신 **다른 근거 3종**을 묻는다.
+    # "미래 산업이라 수요가 없다"가 무근거 사업의 면죄부가 되면 안 되기 때문이다 —
+    # 실제로 시의회가 양자바이오 사업에 기업 수요 설명을 요구했다(D-110).
+    _plans = [c for c in cards if is_plan(c)]
+    _induce = []
+    for c in cards:
+        if is_plan(c):
+            continue
+        _ind = industry.industry_of((c.get("name") or "") + str(c.get("summary") or ""))
+        if _ind and POSTURES.get(_ind, {}).get("posture") == industry.INDUCING:
+            _induce.append((c, _ind, industry.inducement_evidence(c, _plans)))
+    if _induce:
+        st.subheader("수요가 아직 없는 산업의 사업 — 무엇으로 정당화할 것인가")
+        st.markdown(
+            f'<p class="small">아래 {len(_induce)}건은 <b>유도형 산업</b>의 사업입니다. '
+            '수요 실측치가 없다는 것 자체는 흠이 아닙니다. 대신 아래 세 가지를 답할 수 있어야 '
+            '“수요도 없는데 왜 하느냐”는 질문을 넘길 수 있습니다.</p>', unsafe_allow_html=True)
+        for c, _ind, ev in _induce[:8]:
+            _ok = sum(1 for e in ev if e["ok"])
+            with st.expander(f"[{_ind}] {c.get('name') or c['policy_id']} — "
+                             f"근거 {_ok}/3 확보", expanded=(_ok == 0)):
+                for e in ev:
+                    _m = "확보" if e["ok"] else "없음"
+                    _cl = "ok" if e["ok"] else "act"
+                    st.markdown(
+                        f'<div style="padding:.3rem 0;border-bottom:1px solid var(--rule)">'
+                        f'<span class="v {_cl}">{_m}</span> <b>{e["test"]}</b> — '
+                        f'<span class="small">{_esc(e["detail"])}</span></div>',
+                        unsafe_allow_html=True)
+        st.markdown('<p class="small">“선점논거”는 어느 원장에도 없습니다. 지어내지 않고 '
+                    '없다고 표시합니다 — 담당자가 직접 확인할 항목입니다.</p>',
+                    unsafe_allow_html=True)
+        st.divider()
     if purpose == "기존사업 개편" and target_pid:
         st.subheader(f"「{by_id[target_pid].get('name') or target_pid}」 개편 선택지")
         for name, why, how, grounded in renewal_options(target_pid):
