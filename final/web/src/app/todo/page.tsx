@@ -74,7 +74,9 @@ export default function Home() {
                       <b className="text-[15px]">{it.title}</b>
                       {it.count ? (
                         <Tag tone={it.action ? "gap" : "flat"}>
-                          {it.unit} {it.count}건
+                          {/* 「사업 1건」·「자료 2건」은 세는 것 + 건이지만, 쌍은 그 자체가
+                              세는 단위다. 같은 틀에 넣으면 「쌍 8건」이 된다. */}
+                          {it.unit === "쌍" ? `${it.count}쌍` : `${it.unit} ${it.count}건`}
                         </Tag>
                       ) : null}
                     </p>

@@ -83,6 +83,20 @@ export function buildChecklist(r: Review): Item[] {
     });
   }
 
+  // 연계 끊김은 관계도에만 있고 할 일에는 없었다. 화면이 짚어 놓고 「그래서 뭘 하라는
+  // 건가」에 답을 안 한 셈이다. 이어 줄 절차를 만들지는 담당자가 정할 일이므로
+  // 「만들지 **판단한다**」로 둔다 — 우리가 이으라고 정하지 않는다.
+  if (r.handoffs.items.length) {
+    out.push({
+      key: "handoff", section: "overlap", action: true,
+      count: r.handoffs.items.length, unit: "쌍",
+      title: "이어 줄 절차를 만들지 판단한다",
+      now: `${r.handoffs.items.length}쌍은 앞 사업을 마친 사람이 뒤 사업으로 넘어가는 `
+        + `절차가 두 사업 문서 어디에도 없습니다.`,
+      then: "이어 줄 곳을 개편안에 넣거나, 넣지 않는 이유를 검토서에 적을 수 있습니다.",
+    });
+  }
+
   if (gaps.length) {
     out.push({
       key: "gap", section: "gap", action: true, count: gaps.length, unit: "자료",
