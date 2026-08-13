@@ -1,0 +1,15 @@
+services:
+  neo4j:
+    image: neo4j:5
+    container_name: policyfit-neo4j
+    ports:
+      - "7474:7474"   # 브라우저 UI
+      - "7687:7687"   # bolt (앱 연결)
+    environment:
+      # .env의 NEO4J_PASSWORD를 그대로 사용 — compose가 같은 폴더의 .env를 자동으로 읽는다
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD}
+    volumes:
+      - neo4j_data:/data
+
+volumes:
+  neo4j_data:

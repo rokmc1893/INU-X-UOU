@@ -1,0 +1,69 @@
+{
+  "field_accuracy": 1.0,
+  "abstention_accuracy": 1.0,
+  "span_grounded_rate": 1.0,
+  "overlap_correct_rate": 1.0,
+  "n_cases": 15,
+  "details": [
+    {
+      "case_id": "G01",
+      "ok": true
+    },
+    {
+      "case_id": "G02",
+      "ok": true
+    },
+    {
+      "case_id": "G03",
+      "ok": true
+    },
+    {
+      "case_id": "G04",
+      "ok": true
+    },
+    {
+      "case_id": "G05",
+      "ok": true
+    },
+    {
+      "case_id": "G06",
+      "ok": true
+    },
+    {
+      "case_id": "G07",
+      "ok": true
+    },
+    {
+      "case_id": "G08",
+      "ok": true
+    },
+    {
+      "case_id": "G09",
+      "ok": true
+    },
+    {
+      "case_id": "G10",
+      "ok": true
+    },
+    {
+      "case_id": "G11",
+      "ok": true
+    },
+    {
+      "case_id": "G12",
+      "ok": true
+    },
+    {
+      "case_id": "G13",
+      "ok": true
+    },
+    {
+      "case_id": "G14",
+      "ok": true
+    },
+    {
+      "case_id": "G15",
+      "ok": true
+    }
+  ]
+}

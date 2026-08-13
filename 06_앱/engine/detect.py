@@ -1,6 +1,8 @@
 """규칙 4종 — 판정에 LLM 불개입. 이 파일에 openai 관련 코드를 넣지 않는다 (스펙 §4)."""
 from itertools import combinations
 
+STAGE_ORDER = ["교육훈련", "일경험", "구직지원", "매칭", "채용지원", "정착"]
+
 
 def _target_overlaps(a, b):
     ta, tb = a.get("target") or {}, b.get("target") or {}
@@ -75,9 +77,13 @@ def run_rules(cards, demands, edges):
         if (_occ_overlap(a, b) and _target_overlaps(a, b)
                 and a.get("stage") != b.get("stage")
                 and (pa, pb) not in handoff and (pb, pa) not in handoff):
+            # 사슬 순서(이른 단계 → 늦은 단계)로 정렬해 표기
+            def _idx(c):
+                return STAGE_ORDER.index(c.get("stage")) if c.get("stage") in STAGE_ORDER else 99
+            first, second = (a, b) if _idx(a) <= _idx(b) else (b, a)
             res["handoff_breaks"].append({
-                "items": [pa, pb],
-                "reason": f"{a.get('stage')}→{b.get('stage')} 구간에 명시된 인계 없음"})
+                "items": [first["policy_id"], second["policy_id"]],
+                "reason": f"{first.get('stage')}→{second.get('stage')} 구간에 명시된 인계 없음"})
     covered_specific = {e["dst"] for e in edges if e["type"] == "COVERS"
                         and e["props"].get("specificity") == "specific"}
     covered_generic = {e["dst"] for e in edges if e["type"] == "COVERS"
