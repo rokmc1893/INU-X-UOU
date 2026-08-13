@@ -684,6 +684,23 @@ if screen.startswith("1"):
     c5.metric("보완 관계", f"{len(findings.get('complements', []))}건",
               help="같은 단계지만 주는 것이 달라 중복이 아닙니다.")
     st.divider()
+    st.markdown(
+        '<table style="width:100%;border-collapse:collapse;font-size:.82rem;margin:.2rem 0 1rem">'
+        '<tr style="border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">'
+        '<td style="padding:.4rem .6rem;width:5rem;font-weight:700;color:var(--harbor)">산업</td>'
+        '<td style="padding:.4rem .6rem">바이오·반도체·로봇·디지털·미래차·항공 — '
+        '<b>사람과 기술이 필요하다고 신호가 나오는 쪽</b></td></tr>'
+        '<tr style="border-bottom:1px solid var(--rule)">'
+        '<td style="padding:.4rem .6rem;font-weight:700;color:var(--harbor)">정책</td>'
+        '<td style="padding:.4rem .6rem">기본계획·종합계획·전략 — <b>방향을 정하는 상위 문서.</b> '
+        '예산이 직접 붙지 않아 중복 검토 대상이 아니다</td></tr>'
+        '<tr style="border-bottom:1px solid var(--ink)">'
+        '<td style="padding:.4rem .6rem;font-weight:700;color:var(--seal)">사업</td>'
+        '<td style="padding:.4rem .6rem"><b>예산이 붙는 실행 단위 — 이 도구가 검토하는 대상.</b> '
+        '청년도약기지, K-NIBRT 교육과정 같은 것들</td></tr></table>'
+        '<p class="small">풀려는 문제는 <b>산업이 필요로 하는 것과 사업이 어긋나는 것</b>입니다. '
+        '그래서 둘을 함께 봅니다 — 산업 수요를 덮는 사업이 있는가, 그 사업들이 서로 이어지는가.</p>',
+        unsafe_allow_html=True)
     a = by_id.get(ANCHOR, {})
     st.markdown(
         f'<p class="small">기준사업 <b>인천 청년도약기지(취업아카데미)</b> '
@@ -773,7 +790,50 @@ elif screen.startswith("2"):
 
 elif screen.startswith("3"):
     st.title("유사·중복 검토표")
-    st.markdown('<p class="small">직무별로 어떤 사업이 있고, 겹치는 것이 낭비인지 아닌지를 가릅니다.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="small">먼저 <b>산업이 필요로 하는 것을 사업이 덮고 있는지</b> 보고, '
+                '그 다음 <b>사업끼리 겹치는 것이 낭비인지</b>를 가립니다.</p>', unsafe_allow_html=True)
+
+    st.subheader("가. 산업 수요를 덮는 사업이 있는가")
+    _cov = {}
+    for e_ in edges:
+        if e_["type"] == "COVERS":
+            _cov.setdefault(e_["dst"], []).append((e_["src"], e_["props"].get("specificity")))
+    _rows = ['<table style="width:100%;border-collapse:collapse;font-size:.85rem">'
+             '<tr style="border-bottom:1.5px solid var(--ink)">'
+             '<th style="text-align:left;padding:.4rem .5rem">산업이 필요로 하는 것</th>'
+             '<th style="text-align:left;padding:.4rem .5rem;width:6rem">직무</th>'
+             '<th style="text-align:left;padding:.4rem .5rem;width:9rem">덮는 사업</th>'
+             '<th style="text-align:left;padding:.4rem .5rem">근거</th></tr>']
+    for d_ in demands:
+        sid = d_["signal_id"]
+        spec = [p_ for p_, k in _cov.get(sid, []) if k == "specific"]
+        gen = [p_ for p_, k in _cov.get(sid, []) if k == "generic"]
+        if spec:
+            mark = f'<span class="v ok">{len(spec)}건이 직접 다룸</span>'
+        elif gen:
+            mark = f'<span class="v act">없음</span><br><span class="small">모든 직무 대상 {len(gen)}건뿐</span>'
+        else:
+            mark = '<span class="v act">없음</span>'
+        real = d_.get("data_type") == "real"
+        _rows.append(
+            '<tr style="border-bottom:1px solid var(--rule)">'
+            f'<td style="padding:.45rem .5rem">{_esc(d_.get("value", "")[:40])}'
+            f'{"" if real else chip(d_)}</td>'
+            f'<td style="padding:.45rem .5rem;font-weight:700">{_esc(d_["occupation"])}</td>'
+            f'<td style="padding:.45rem .5rem">{mark}</td>'
+            f'<td style="padding:.45rem .5rem;font-size:.78rem;color:var(--muted)">'
+            f'{_esc((d_.get("b2_ref") or "") + " " + (d_.get("evidence_grade") or ""))}'
+            f'{" · " + _esc(d_.get("proxy_limit", "")[:38]) if d_.get("proxy_limit") else ""}</td></tr>')
+    st.markdown("".join(_rows) + "</table>", unsafe_allow_html=True)
+    _uncov = sorted({g["occupation"] for g in findings["gaps"]})
+    if _uncov:
+        st.markdown(f'<p class="small"><b>{", ".join(_uncov)}</b> — 이 직무를 콕 집어 다루는 사업이 '
+                    f'없습니다. {NEXT_ACTION["gap"]}</p>', unsafe_allow_html=True)
+    st.markdown('<p class="small">6대 산업 중 수요 신호를 확보한 것은 바이오·SW/AI뿐입니다. '
+                '로봇·항공·미래차는 조사자 원장에 직무를 특정한 수요가 없어 여기 나오지 않습니다.</p>',
+                unsafe_allow_html=True)
+
+    st.subheader("나. 사업끼리 겹치는 것이 낭비인가")
     gap_occs = {g["occupation"]: g["reason"] for g in findings["gaps"]}
     hb_ids = {p for f in findings["handoff_breaks"] for p in f["items"]}
     oh_ids = {p for f in findings["overlaps_harmful"] for p in f["items"]}
